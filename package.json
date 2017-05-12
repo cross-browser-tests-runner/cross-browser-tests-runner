@@ -1,0 +1,61 @@
+{
+  "name": "cross-browser-tests-runner",
+  "version": "1.0.0",
+  "description": "Helps running JavaScript unit tests on multiple cross-browser testing platforms viz. BrowserStack, SauceLabs, CrossBrowserTesting, TestingBot etc. and is designed to be extensible to more. It provides integrations with muliple runners like Karma, Testem, Yeti etc. for all of these. It supports all unit tests frameworks viz. Jasmine, Jasmine 2, Mocha, QUnit as supported by the runners.",
+  "main": "index.js",
+  "scripts": {
+    "unit-tests": "UNIT_TESTS=1 LOG_LEVEL=1 ./node_modules/.bin/mocha tests/unit",
+    "coverage-html": "UNIT_TESTS=1 LOG_LEVEL=DEBUG ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 tests/unit",
+    "coverage-lcovonly": "UNIT_TESTS=1 LOG_LEVEL=DEBUG ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit",
+    "codecov": "./node_modules/.bin/codecov",
+    "coveralls": "cat coverage/lcov.info | ./node_modules/.bin/coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reeteshranjan/cross-browser-tests-runner.git"
+  },
+  "keywords": [
+    "Cross-browser",
+    "Testing",
+    "BrowserStack",
+    "SauceLabs",
+    "CrossBrowserTesting",
+    "TestingBot",
+    "Karma",
+    "Testem",
+    "Yeti",
+    "Intern",
+    "Jasmine",
+    "Mocha",
+    "QUnit"
+  ],
+  "author": "Reetesh Ranjan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reeteshranjan/cross-browser-tests-runner/issues"
+  },
+  "homepage": "https://github.com/reeteshranjan/cross-browser-tests-runner#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-spies": "^0.7.1",
+    "codecov": "^2.2.0",
+    "coveralls": "^2.13.1",
+    "eslint": "^3.19.0",
+    "finalhandler": "^1.0.2",
+    "fs-extra": "^3.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.3.0",
+    "nock": "^9.0.13",
+    "serve-static": "^1.12.2",
+    "sinon": "^2.2.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "p-retry": "^1.0.0",
+    "ps-node": "^0.1.6",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "sleep": "^5.1.1",
+    "uuid": "^3.0.1"
+  }
+}

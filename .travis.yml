@@ -1,0 +1,23 @@
+language:
+  - objective-c
+
+env:
+  - NODE_VERSION="6.10.2"
+
+install:
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm install $NODE_VERSION
+  - nvm use $NODE_VERSION
+  - node --version
+  - npm install
+
+script:
+  - node ./tests/unit/utils/server.js &
+  - node ./tests/unit/utils/wait.js &
+  - ./node_modules/.bin/eslint lib/ && npm run coverage-lcovonly && npm run codecov && npm run coveralls
+
+cache:
+  directories:
+    - node_modules

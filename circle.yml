@@ -1,0 +1,18 @@
+machine:
+  node:
+    version: 6.10.2
+
+general:
+  branches:
+    only:
+      - master
+
+test:
+  post:
+    - node ./tests/unit/utils/server.js:
+        background: true
+    - node ./tests/unit/utils/wait.js:
+        background: true
+    - sleep 2
+    - ./node_modules/.bin/eslint lib/
+    - npm run coverage-lcovonly && npm run codecov
