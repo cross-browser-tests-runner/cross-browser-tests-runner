@@ -1,0 +1,9 @@
+BrowserStack:
+  JS:
+    Windows:
+      7:
+        Chrome:
+          - 43.0-51.0
+          - 43.0
+          - 10.0-15.0
+          - "23.0"

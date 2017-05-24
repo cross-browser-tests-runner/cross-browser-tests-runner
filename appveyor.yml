@@ -1,9 +1,24 @@
 environment:
-  nodejs_version: "6.10.2"
   BROWSERSTACK_ACCESS_KEY:
     secure: EUWXxCOGMLebMQHSCTkdat1kCjm2IyRvmneOdF4r2To=
   BROWSERSTACK_USERNAME:
     secure: Jk/DEZv3lFCKevI5j+b/0Q==
+  matrix:
+  - nodejs_version: "7"
+    cbtr_test: "eslint-unit-tests-codecov-win"
+  - nodejs_version: "6"
+    cbtr_test: "eslint-unit-tests-codecov-win"
+  - nodejs_version: "7"
+    cbtr_test: "integration-tests-win"
+  - nodejs_version: "6"
+    cbtr_test: "integration-tests-win"
+  - nodejs_version: "7"
+    cbtr_test: "functional-tests-win"
+  - nodejs_version: "6"
+    cbtr_test: "functional-tests-win"
+
+matrix:
+  fast_finish: true
 
 branches:
   only:
@@ -21,12 +36,13 @@ init:
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
+  - copy /y .\etc\lib\codecov.js .\node_modules\codecov\lib
 
 test_script:
-  - .\node_modules\.bin\eslint lib\
   - ps: $wait = Start-Process node .\tests\unit\utils\wait.js
-  - .\node_modules\.bin\istanbul cover .\node_modules\mocha\bin\_mocha  -- --reporter lcovonly --ui bdd -R spec -t 5000 tests\unit
-  - .\node_modules\.bin\codecov
+  - ps: $staticsrv = Start-Process node .\tests\unit\utils\static-srv.js
+  - ps: $server = Start-Process node .\server.js
+  - npm run %cbtr_test%
 
 build: off
 

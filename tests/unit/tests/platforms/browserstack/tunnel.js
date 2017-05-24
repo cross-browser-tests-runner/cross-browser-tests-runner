@@ -1,16 +1,42 @@
+'use strict';
+
 var
+  chai = require('chai'),
+  chaiAsPromised = require('chai-as-promised'),
   fs = require('fs'),
   nock = require('nock'),
-  expect = require('chai').expect,
   sleep = require('sleep'),
   Tunnel = require('./../../../../../lib/platforms/browserstack/tunnel').Tunnel,
   Manager = require('./../../../../../lib/platforms/browserstack/manager').Manager,
   BinaryVars = require('./../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
   utils = require('./utils')
 
+chai.use(chaiAsPromised)
+
+var
+  expect = chai.expect,
+  should = chai.should()
+
 describe('check', function() {
 
   var tunnel
+  this.timeout(0)
+
+  it('should throw error for unexpected user input', function() {
+    tunnel = new Tunnel()
+    function tester() {
+      tunnel.check({ abc : 1 })
+    }
+    expect(tester).to.throw(Error)
+  })
+
+  it('should convert camelCase arg to hyphen separated lowercase', function() {
+    tunnel = new Tunnel()
+    var args = tunnel.check({ localIdentifier : 'my-id'})
+    expect(args.indexOf('--local-identifier')).to.not.equal(-1)
+    expect(args.indexOf('localIdentifier')).to.equal(-1)
+    expect(args.indexOf('--localIdentifier')).to.equal(-1)
+  })
 
   it('should convert object arg to hyphen separated lowercase', function() {
     tunnel = new Tunnel()
@@ -22,84 +48,141 @@ describe('check', function() {
     expect(args.indexOf('--port')).to.equal(-1)
   })
 
+  it('should convert non-string values to strings', function() {
+    tunnel = new Tunnel()
+    var args = tunnel.check({ proxy : { host : '127.0.0.1', port : 2301 }, verbose: 3 })
+    expect(args.indexOf('2301')).to.not.equal(-1)
+    expect(args.indexOf('3')).to.not.equal(-1)
+  })
+
+  it('should throw error if access key is neither in input nor env', function() {
+    var env_key = process.env.BROWSERSTACK_ACCESS_KEY
+    var log_level = process.env.LOG_LEVEL
+    function tester() {
+      delete process.env.BROWSERSTACK_ACCESS_KEY
+      if(log_level) delete process.env.LOG_LEVEL
+      tunnel = new Tunnel()
+      tunnel.check()
+    }
+    expect(tester).to.throw(Error)
+    process.env.BROWSERSTACK_ACCESS_KEY = env_key
+    if(log_level) process.env.LOG_LEVEL = log_level
+  })
+
   it('must always include "--key" argument', function() {
     tunnel = new Tunnel()
     var args = tunnel.check({ })
     expect(args.indexOf('--key')).to.not.equal(-1)
   })
 
+  it('must have either "--force" or "--local-identifier" argument', function() {
+    tunnel = new Tunnel()
+    var args = tunnel.check({ })
+    expect(args.indexOf('--force')).to.not.equal(-1)
+    expect(args.indexOf('--local-identifier')).to.equal(-1)
+    args = tunnel.check({ localIdentifier : 'my-id' })
+    expect(args.indexOf('--force')).to.equal(-1)
+    expect(args.indexOf('--local-identifier')).to.not.equal(-1)
+  })
+
+  it('should retain "verbose" input argument', function() {
+    tunnel = new Tunnel()
+    var args = tunnel.check({ verbose : 3})
+    var idx = args.indexOf('--verbose')
+    expect(idx).to.not.equal(-1)
+    expect(args.indexOf('3')).to.equal(idx + 1)
+  })
+
+  it('should use verbose=1 if logger is created with INFO level', function() {
+    var saveLevel = process.env.LOG_LEVEL || undefined
+    process.env.LOG_LEVEL = 'INFO'
+    tunnel = new Tunnel()
+    var args = tunnel.check({ })
+    expect(args.indexOf('--verbose')).to.not.equal(-1)
+    expect(args.indexOf('1')).to.not.equal(-1)
+    delete process.env.LOG_LEVEL
+    if (saveLevel) process.env.LOG_LEVEL = saveLevel
+  })
+
+  it('should use verbose=2 if logger is created with DEBUG level', function() {
+    var saveLevel = process.env.LOG_LEVEL || undefined
+    process.env.LOG_LEVEL = 'DEBUG'
+    tunnel = new Tunnel()
+    var args = tunnel.check({ })
+    expect(args.indexOf('--verbose')).to.not.equal(-1)
+    expect(args.indexOf('2')).to.not.equal(-1)
+    delete process.env.LOG_LEVEL
+    if (saveLevel) process.env.LOG_LEVEL = saveLevel
+  })
+
+  it('should not have verbose if logger is created with ERROR level', function() {
+    var saveLevel = process.env.LOG_LEVEL || undefined
+    process.env.LOG_LEVEL = 'ERROR'
+    tunnel = new Tunnel()
+    var args = tunnel.check({ })
+    expect(args.indexOf('--verbose')).to.equal(-1)
+    delete process.env.LOG_LEVEL
+    if (saveLevel) process.env.LOG_LEVEL = saveLevel
+  })
+
 })
 
-describe('remove', function() {
+describe('exists', function() {
 
-  if(!BinaryVars.isWindows) {
-    // @TODO temporarily disabled on Windows
-    it('should remove the local binary', function(done) {
-      this.timeout(10000)
-      var timer = setTimeout(done, 9000)
+  var tunnel = new Tunnel()
+  this.timeout(0)
+
+  it('should return a boolean response', function() {
+    expect(tunnel.exists()).to.be.a('boolean')
+  })
+})
+
+if(!BinaryVars.isWindows) {
+
+  describe('remove', function() {
+
+    it('should remove the local tunnel', function() {
       var tunnel = new Tunnel()
-      tunnel.remove()
-      .then(() => {
-        fs.stat(BinaryVars.path, function(err, stat) {
-          clearTimeout(timer)
-          expect(err).to.be.defined
-          expect(err.code).to.equal('ENOENT')
-          done()
-        })
+      return tunnel.remove()
+      .then(function() {
+        return fs.statAsync(BinaryVars.path)
       })
       .catch(err => {
-        clearTimeout(timer)
-        console.error('UNEXPECTED ERROR >>', err)
+        if(err && (!err.code || 'ENOENT' !== err.code)) {
+          utils.log.error(err)
+        }
+        expect(err).to.be.defined
+        expect(err.code).to.be.defined
+        expect(err.code).to.equal('ENOENT')
+        expect(err.syscall).to.be.defined
+        expect(err.syscall).to.be.oneOf(['stat', 'unlink'])
+      })
+      .catch(err => {
+        utils.log.error(err)
         throw err
       })
+      .should.be.fulfilled
     })
-  }
-})
+  })
+
+}
 
 describe('fetch', function() {
 
   var tunnel = null
+  this.timeout(0)
 
-  function done() {
-  }
-
-  it('should be able to download the tunnel binary', function(done) {
-    this.timeout(1010000)
-    timer = setTimeout(function(){done()}, 1005000)
+  it('should be able to download the tunnel', function() {
     tunnel = new Tunnel()
-    tunnel.fetch()
-    .then(() => {
-      clearTimeout(timer)
+    return tunnel.fetch()
+    .then(function() {
       expect(fs.existsSync(BinaryVars.path)).to.be.true
-      done()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
-  })
-
-  var statBefore = null
-
-  it('should not attempt downloading if the binary exists', function(done) {
-    this.timeout(50000)
-    var timer = setTimeout(function(){done()}, 45000)
-    statBefore = fs.statSync(BinaryVars.path)
-    tunnel = new Tunnel()
-    tunnel.fetch()
-    .then(() => {
-      clearTimeout(timer)
-      var statAfter = fs.statSync(BinaryVars.path)
-      expect(statBefore).to.not.be.null
-      expect(statBefore.ctime).to.deep.equal(statAfter.ctime)
-      done()
-    })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    .should.be.fulfilled
   })
 
 })
@@ -107,17 +190,13 @@ describe('fetch', function() {
 describe('start', function() {
 
   var tunnel = null
+  this.timeout(0)
 
-  function done() {
-  }
-
-  it('should be able to start multiple tunnels with local identifiers', function(done) {
-    this.timeout(60000)
-    timer = setTimeout(done, 59000)
+  it('should be able to start multiple tunnels with local identifiers', function() {
     var tunnel1 = new Tunnel({ localIdentifier: 'test-local-id-1'})
     var tunnel2 = new Tunnel({ localIdentifier: 'test-local-id-2'})
     var tunnel3 = new Tunnel({ localIdentifier: 'test-local-id-3'})
-    tunnel1.start()
+    return tunnel1.start()
     .then(() => {
       return tunnel2.start()
     })
@@ -137,33 +216,26 @@ describe('start', function() {
       expect(tunnel3.process.pid).to.be.defined
       expect(tunnel3.process.tunnelId).to.be.defined
       expect(tunnel3.process.tunnelId).to.equal('test-local-id-3')
-      utils.stopProc(tunnel1.process.pid)
-      utils.stopProc(tunnel2.process.pid)
-      utils.stopProc(tunnel3.process.pid)
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
+      return utils.ensureZeroTunnels()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
+    .should.be.fulfilled
   })
 
-  it('should fail if starting one without local identifier after one with local identifier exists', function(done) {
-    this.timeout(40000)
-    timer = setTimeout(done, 39000)
+  it('should fail if starting one without local identifier after one with local identifier exists', function() {
     var tunnel1 = new Tunnel({ localIdentifier : 'test-local-id'})
     var tunnel2 = new Tunnel({ })
-    tunnel1.start()
+    return tunnel1.start()
     .then(() => {
       return tunnel2.start()
     })
     .catch(error => {
+      if(error && (!error.message || !error.message.match(/Tunnel: attempt to start a tunnel without a local identifier is not allowed when a tunnel process with a local identifier exists/))) {
+        utils.log.error(error)
+      }
       expect(error.message).to.contain('Tunnel: attempt to start a tunnel without a local identifier is not allowed when a tunnel process with a local identifier exists')
       expect(tunnel1).to.not.be.null
       expect(tunnel1.process.pid).to.be.defined
@@ -172,28 +244,20 @@ describe('start', function() {
       expect(tunnel2).to.not.be.null
       expect(tunnel2.process.pid).to.not.be.defined
       expect(tunnel2.process.tunnelId).to.not.be.defined
-      utils.stopProc(tunnel1.process.pid)
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
+      return utils.ensureZeroTunnels()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
+    .should.be.fulfilled
   })
 
-  it('should stop tunnel without local identifier before starting one with local identifier', function(done) {
-    this.timeout(40000)
-    timer = setTimeout(done, 39000)
+  it('should stop tunnel without local identifier before starting one with local identifier', function() {
     var tunnel1 = new Tunnel()
     var tunnel2 = new Tunnel({ localIdentifier : 'test-local-id'})
     var savePid
-    tunnel1.start()
+    return tunnel1.start()
     .then(() => {
       expect(tunnel1).to.not.be.null
       expect(tunnel1.process.pid).to.be.defined
@@ -206,65 +270,50 @@ describe('start', function() {
       expect(tunnel2.process.pid).to.be.defined
       expect(tunnel2.process.tunnelId).to.be.defined
       expect(tunnel2.process.tunnelId).to.equal('test-local-id')
-      utils.stopProc(tunnel2.process.pid)
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
+      return utils.ensureZeroTunnels()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
+    .should.be.fulfilled
   })
 
-  it('should abort when stopping tunnel without local identifier before starting one with local identifier is not successful', function(done) {
-    this.timeout(40000)
-    timer = setTimeout(done, 39000)
+  it('should stop tunnel without local identifier before starting more than one with local identifiers', function() {
     var tunnel1 = new Tunnel()
-    var tunnel2 = new Tunnel({ localIdentifier : 'test-local-id'})
-    tunnel1.start()
+    var tunnel2 = new Tunnel({ localIdentifier : 'test-id-1'})
+    var tunnel3 = new Tunnel({ localIdentifier : 'test-id-2'})
+    var savePid
+    return tunnel1.start()
     .then(() => {
       expect(tunnel1).to.not.be.null
       expect(tunnel1.process.pid).to.be.defined
       expect(tunnel1.process.tunnelId).to.not.be.defined
-      process.env.UNIT_TESTS_CAUSE_TROUBLE_1=true
-      return tunnel2.start()
+      savePid = parseInt(tunnel1.process.pid.toString())
+      var promises = [ tunnel2.start(), tunnel3.start() ]
+      return Promise.all(promises)
     })
-    .catch(err => {
-      delete process.env.UNIT_TESTS_CAUSE_TROUBLE_1
-      expect(err.message).to.contain('processes without id remain after more than 5 seconds')
+    .then(() => {
       expect(tunnel2).to.not.be.null
-      expect(tunnel2.process.pid).to.not.be.defined
-      return Manager.running()
-    })
-    .then(procs => {
-      delete process.env.UNIT_TESTS_CAUSE_TROUBLE_1
-      procs.forEach(p => {
-        utils.stopProc(p.pid)
-      })
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
+      expect(tunnel2.process.pid).to.be.defined
+      expect(tunnel2.process.tunnelId).to.be.defined
+      expect(tunnel2.process.tunnelId).to.equal('test-id-1')
+      expect(tunnel3).to.not.be.null
+      expect(tunnel3.process.pid).to.be.defined
+      expect(tunnel3.process.tunnelId).to.be.defined
+      expect(tunnel3.process.tunnelId).to.equal('test-id-2')
+      return utils.ensureZeroTunnels()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
+    .should.be.fulfilled
   })
 
-  it('should fail when starting an already started tunnel', function(done) {
-    this.timeout(40000)
-    timer = setTimeout(function(){done()}, 39000)
+  it('should fail when starting an already started tunnel', function() {
     tunnel = new Tunnel()
-    tunnel.start()
+    return tunnel.start()
     .then(() => {
       expect(tunnel).to.not.be.null
       expect(tunnel.process.pid).to.be.defined
@@ -272,166 +321,62 @@ describe('start', function() {
       return tunnel.start()
     })
     .catch(error => {
+      if(error && (!error.message || !error.message.match(/Tunnel: already started with pid/))) {
+        utils.log.error(error)
+      }
       expect(error.message).to.contain('Tunnel: already started with pid ' + tunnel.process.pid)
-      utils.stopProc(tunnel.process.pid)
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
+      return utils.ensureZeroTunnels()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
+    .should.be.fulfilled
   })
 
 })
 
 describe('stop', function() {
 
-  var tunnel = null, timer = null
+  var tunnel = null
+  this.timeout(0)
 
-  function done() {
-  }
-
-  it('should be able to stop running process', function(done) {
-    this.timeout(30000)
-    timer = setTimeout(done, 29000)
+  it('should be able to stop running process', function() {
     tunnel = new Tunnel()
-    tunnel.start()
+    return tunnel.start()
     .then(() => {
       return tunnel.stop()
     })
     .then(() => {
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
+      return utils.ensureZeroTunnels()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
-  })
-
-  it('should be able to stop running process with local identifier', function(done) {
-    this.timeout(30000)
-    timer = setTimeout(done, 29000)
-    tunnel = new Tunnel({ localIdentifier : 'my-test-id'})
-    tunnel.start()
-    .then(() => {
-      return tunnel.stop()
-    })
-    .then(() => {
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
-    })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
-  })
-
-  it('should throw error in case the process was already stopped', function(done) {
-    this.timeout(30000)
-    timer = setTimeout(done, 29000)
-    tunnel = new Tunnel()
-    tunnel.start()
-    .then(() => {
-      return tunnel.stop()
-    })
-    .then(() => {
-      return tunnel.stop()
-    })
-    .catch(error => {
-      expect(error.message).to.contain('already stopped')
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
-    })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    .should.be.fulfilled
   })
 
 })
 
 describe('status', function() {
 
-  var tunnel = null, timer = null
+  var tunnel = null
+  this.timeout(0)
 
-  function done() {
-  }
-
-  it('should fail when the tunnel has not been started ever', function() {
-    this.timeout(10000)
+  it('should return "running" when tunnel is running', function() {
     tunnel = new Tunnel()
-    function tester() {
-      tunnel.status()
-    }
-    expect(tester).to.throw(Error)
-  })
-
-  it('should return "running" when tunnel is running', function(done) {
-    this.timeout(30000)
-    timer = setTimeout(done, 29000)
-    tunnel = new Tunnel()
-    tunnel.start()
+    return tunnel.start()
     .then(() => {
-      expect(tunnel.status()).to.equal('running')
-      utils.stopProc(tunnel.process.pid)
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
+      var status = tunnel.status()
+      expect(status).to.equal('running')
+      return utils.ensureZeroTunnels()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
-  })
-
-  it('should return "stopped" when tunnel has been stopped', function(done) {
-    this.timeout(30000)
-    timer = setTimeout(done, 29000)
-    tunnel = new Tunnel()
-    tunnel.start()
-    .then(() => {
-      return tunnel.stop()
-    })
-    .then(() => {
-      expect(tunnel.status()).to.equal('stopped')
-      return utils.awaitZeroTunnels()
-    })
-    .then(num => {
-      clearTimeout(timer)
-      expect(num).to.equal(0)
-      done()
-    })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    .should.be.fulfilled
   })
 
 })

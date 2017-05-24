@@ -1,3 +1,5 @@
+'use strict';
+
 var
   ps = require('ps-node')
 

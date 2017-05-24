@@ -5,7 +5,7 @@ engines:
     config:
       languages:
         javascript:
-          mass_threshold: 45
+          mass_threshold: 100
   eslint:
     enabled: true
     checks:
@@ -23,4 +23,5 @@ ratings:
   - "**.py"
   - "**.rb"
 exclude_paths:
-- tests/
+  - tests/
+  - etc/

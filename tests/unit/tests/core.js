@@ -1,7 +1,13 @@
+require('./core/errors')
+
 require('./core/log')
 
 describe('interfaces', function() {
   require('./core/interfaces')
+})
+
+describe('settings', function() {
+  require('./core/settings')
 })
 
 describe('Request', function() {

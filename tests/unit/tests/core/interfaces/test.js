@@ -1,3 +1,5 @@
+'use strict';
+
 var
   expect = require('chai').expect,
   Test = require('./../../../../../lib/core/interfaces/test').Test

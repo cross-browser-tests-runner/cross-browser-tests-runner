@@ -1,3 +1,5 @@
+'use strict';
+
 var
   expect = require('chai').expect,
   options = require('./../../../../../../lib/platforms/browserstack/tunnel/options'),

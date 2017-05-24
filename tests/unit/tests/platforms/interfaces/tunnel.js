@@ -1,3 +1,5 @@
+'use strict';
+
 var
   expect = require('chai').expect,
   Tunnel = require('./../../../../../lib/platforms/interfaces/tunnel').Tunnel
@@ -26,6 +28,13 @@ describe('status', function() {
 describe('check', function() {
   it('should throw an error', function() {
     var tester = function() { (new Tunnel()).check() }
+    expect(tester).to.throw(Error)
+  })
+})
+
+describe('exists', function() {
+  it('should throw an error', function() {
+    var tester = function() { (new Tunnel()).exists() }
     expect(tester).to.throw(Error)
   })
 })

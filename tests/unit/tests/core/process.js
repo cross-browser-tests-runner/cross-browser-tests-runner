@@ -1,158 +1,113 @@
+'use strict';
+
 var
   path = require('path'),
-  expect = require('chai').expect,
   sleep = require('sleep'),
   ps = require('ps-node'),
+  chai = require('chai'),
+  chaiAsPromised = require('chai-as-promised'),
   Process = require('./../../../../lib/core/process').Process,
   utils = require('./utils')
 
+chai.use(chaiAsPromised)
+
+var
+  expect = chai.expect,
+  should = chai.should()
+
+function procExit(code, signal) {
+  expect(code).to.equal(0)
+  expect(signal).to.not.be.defined
+}
+
 describe('create', function() {
 
-  var proc, timer
+  var proc
+  this.timeout(0)
 
-  function done() {
-  }
-
-  it('should throw an error for non-existent exe', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should throw an error for non-existent exe', function() {
     proc = new Process()
-    proc
-    .create('abc', [ ])
+    return proc.create('abc', [ ])
     .catch(error => {
-      clearTimeout(timer)
       expect(error.code).to.be.defined
       expect(error.code).to.equal('ENOENT')
       expect(error.syscall).to.be.defined
       expect(error.syscall).to.equal('spawn abc')
-      expect(error.message).to.be.defined
-      expect(error.message).to.contain('spawn abc ENOENT')
-      done()
     })
-    .catch(err => {
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    .should.be.fulfilled
   })
 
   it('should throw an error for no executable permissions', function() {
     proc = new Process()
     var exe = path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'sample.js')
-    proc
-    .create(exe, [ ])
+    return proc.create(exe, [ ])
     .catch(error => {
-      clearTimeout(timer)
       expect(error.code).to.be.defined
-      expect(error.code).to.equal('EACCES')
+      expect(error.code).to.be.oneOf(['EACCES', 'UNKNOWN'])
       expect(error.syscall).to.be.defined
       expect(error.syscall).to.equal('spawn')
-      expect(error.message).to.be.defined
-      expect(error.message).to.contain('spawn EACCES')
-      done()
     })
-    .catch(err => {
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    .should.be.fulfilled
   })
 
-  it('should create a process with a valid executable', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should create a process with a valid executable', function() {
     var args = [ path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'sample.js') ]
     proc = new Process()
-    proc.create('node', args, {
+    return proc.create('node', args, {
       onstdout: stdout => {
         expect(stdout).to.contain('sample process')
       }
     })
     .then((code, signal) => {
-      clearTimeout(timer)
-      expect(code).to.equal(0)
-      expect(signal).to.not.be.defined
-      done()
+      expect(proc.pid).to.be.defined
+      procExit(code, signal)
     })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
-    expect(proc.pid).to.be.defined
+    .should.be.fulfilled
   })
 
-  it('should work without onstdout handler for valid executable', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should work without onstdout handler for valid executable', function() {
     var args = [ path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'sample.js') ]
     proc = new Process()
-    proc.create('node', args)
+    return proc.create('node', args)
     .then((code, signal) => {
-      clearTimeout(timer)
-      expect(code).to.equal(0)
-      expect(signal).to.not.be.defined
-      done()
+      expect(proc.pid).to.be.defined
+      procExit(code, signal)
     })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
-    expect(proc.pid).to.be.defined
+    .should.be.fulfilled
   })
 
-  it('should create a process and receive data on stderr', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should create a process and receive data on stderr', function() {
     var args = [ path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'sample-stderr.js') ]
     proc = new Process()
-    proc.create('node', args, {
+    return proc.create('node', args, {
       onstderr: stderr => {
         expect(stderr).to.contain('sample process stderr')
       }
     })
     .then((code, signal) => {
-      clearTimeout(timer)
-      expect(code).to.equal(0)
-      expect(signal).to.not.be.defined
-      done()
+      expect(proc.pid).to.be.defined
+      procExit(code, signal)
     })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
-    expect(proc.pid).to.be.defined
+    .should.be.fulfilled
   })
 
-  it('should work without specifying onstderr handler', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should work without specifying onstderr handler', function() {
     var args = [ path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'sample-stderr.js') ]
     proc = new Process()
-    proc
-    .create('node', args)
+    return proc.create('node', args)
     .then((code, signal) => {
-      clearTimeout(timer)
-      expect(code).to.equal(0)
-      expect(signal).to.not.be.defined
-      done()
+      expect(proc.pid).to.be.defined
+      procExit(code, signal)
     })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
-    expect(proc.pid).to.be.defined
+    .should.be.fulfilled
   })
 
 })
 
 describe('status', function() {
 
-  var proc, timer
-
-  function done() {
-  }
+  var proc
+  this.timeout(0)
 
   it('should fail when no pid is associated', function() {
     proc = new Process()
@@ -162,105 +117,63 @@ describe('status', function() {
     expect(tester).to.throw(Error)
   })
 
-  it('should say running for a running process', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
-    utils.procsByCmd('node')
+  it('should say running for a running process', function() {
+    return utils.procsByCmd('node')
     .then(list => {
-      clearTimeout(timer)
       expect(list.length).to.be.at.least(1)
       proc = new Process(list[0].pid)
       expect(proc.status()).to.equal('running')
-      done()
     })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    .should.be.fulfilled
   })
 
-  it('should say stopped for a process that runs and stops', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should say stopped for a process that runs and stops', function() {
     proc = new Process()
     var args = [ path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'sample.js') ]
-    proc.create('node', args, {
+    return proc.create('node', args, {
       onstdout: stdout => {
         expect(stdout).to.contain('sample process')
       }
     })
     .then((code, signal) => {
-      clearTimeout(timer)
-      expect(code).to.equal(0)
-      expect(signal).to.not.be.defined
+      expect(proc.pid).to.be.defined
       expect(proc.status()).to.equal('stopped')
-      done()
+      procExit(code, signal)
     })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
-    expect(proc.pid).to.be.defined
+    .should.be.fulfilled
   })
 
 })
 
 describe('stop', function() {
 
-  var proc, timer
+  var proc
+  this.timeout(0)
 
-  function done() {
-  }
-
-  it('should fail when no pid is associated', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should fail when no pid is associated', function() {
     proc = new Process()
-    proc.stop()
-    .catch(error => {
-      clearTimeout(timer)
-      expect(error.message).to.contain('Process: no pid associated to stop')
-      done()
-    })
-    .catch(err => {
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    return proc.stop()
+    .should.be.rejectedWith('Process: no pid associated to stop')
   })
 
-  it('should fail for a stopped process', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should fail for a stopped process', function() {
     var args = [ path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'sample.js') ]
     proc = new Process()
-    proc.create('node', args, {
+    return proc.create('node', args, {
       onstdout: stdout => {
         expect(stdout).to.contain('sample process')
       }
     })
     .then((code, signal) => {
-      expect(code).to.equal(0)
-      expect(signal).to.not.be.defined
+      expect(proc.pid).to.be.defined
+      procExit(code, signal)
       return proc.stop()
     })
-    .catch(error => {
-      clearTimeout(timer)
-      expect(error.message).to.contain('Process: already stopped')
-      done()
-    })
-    .catch(err => {
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
-    expect(proc.pid).to.be.defined
+    .should.be.rejectedWith('Process: already stopped')
   })
 
-  it('should fail to stop an externally created process', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
-    utils.procsByCmd('node')
+  it('should fail to stop an externally created process', function() {
+    return utils.procsByCmd('node')
     .then(list => {
       for(var i = 0; i < list.length; ++i) {
         var p = list[i]
@@ -270,36 +183,19 @@ describe('stop', function() {
           return proc.stop()
         }
       }
-      return true
+      throw new Error('Process: cannot kill external process')
     })
-    .catch(error => {
-      clearTimeout(timer)
-      expect(error.message).to.contain('Process: cannot kill external process')
-      done()
-    })
-    .catch(err => {
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    .should.be.rejectedWith('Process: cannot kill external process')
   })
 
-  it('should stop a process spawned', function(done) {
-    this.timeout(10000)
-    timer = setTimeout(done, 9000)
+  it('should stop a process spawned', function() {
     proc = new Process()
     var args = [ path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'wait.js') ]
     proc.create('node', args)
     .then((code, signal) => {
-      clearTimeout(timer)
-      done()
+      expect(proc.pid).to.be.defined
     })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
-    expect(proc.pid).to.be.defined
-    proc.stop()
+    return proc.stop().should.be.fulfilled
   })
 
 })

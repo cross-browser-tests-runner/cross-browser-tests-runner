@@ -1,3 +1,5 @@
+'use strict';
+
 var
   Log = require('./../../../../lib/core/log').Log,
   chai = require('chai'),

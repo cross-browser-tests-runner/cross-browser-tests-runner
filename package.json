@@ -1,33 +1,27 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "1.0.0",
-  "description": "Helps running JavaScript unit tests on multiple cross-browser testing platforms viz. BrowserStack, SauceLabs, CrossBrowserTesting, TestingBot etc. and is designed to be extensible to more. It provides integrations with muliple runners like Karma, Testem, Yeti etc. for all of these. It supports all unit tests frameworks viz. Jasmine, Jasmine 2, Mocha, QUnit as supported by the runners.",
-  "main": "index.js",
-  "scripts": {
-    "unit-tests": "UNIT_TESTS=1 LOG_LEVEL=1 ./node_modules/.bin/mocha tests/unit",
-    "coverage-html": "UNIT_TESTS=1 LOG_LEVEL=DEBUG ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 tests/unit",
-    "coverage-lcovonly": "UNIT_TESTS=1 LOG_LEVEL=DEBUG ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit",
-    "codecov": "./node_modules/.bin/codecov",
-    "coveralls": "cat coverage/lcov.info | ./node_modules/.bin/coveralls"
-  },
+  "version": "0.1.0",
+  "description": "Helps running JavaScript unit tests on multiple cross-browser testing platforms viz. BrowserStack, SauceLabs, CrossBrowserTesting, TestingBot etc. and is designed to be extensible to more platforms. It provides integrations with muliple runners like Karma, Testem, Yeti, Interns etc. for all of these. It supports all unit tests frameworks viz. Jasmine, Jasmine 2, Mocha, QUnit, Buster as supported by the runners as well through its own native runner.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reeteshranjan/cross-browser-tests-runner.git"
   },
   "keywords": [
-    "Cross-browser",
-    "Testing",
-    "BrowserStack",
-    "SauceLabs",
-    "CrossBrowserTesting",
-    "TestingBot",
-    "Karma",
-    "Testem",
-    "Yeti",
-    "Intern",
-    "Jasmine",
-    "Mocha",
-    "QUnit"
+    "cross-browser testing",
+    "javascript testing",
+    "JS testing",
+    "browserstack",
+    "saucelabs",
+    "crossbrowsertesting.com",
+    "testingbot",
+    "karma",
+    "testem",
+    "yeti",
+    "intern",
+    "jasmine",
+    "mocha",
+    "qunit",
+    "buster"
   ],
   "author": "Reetesh Ranjan",
   "license": "MIT",
@@ -35,8 +29,43 @@
     "url": "https://github.com/reeteshranjan/cross-browser-tests-runner/issues"
   },
   "homepage": "https://github.com/reeteshranjan/cross-browser-tests-runner#readme",
+  "files": [
+    "lib",
+    "bin",
+    "conf"
+  ],
+  "bin": {
+    "cbtr-browserstack-update": "./bin/utils/conf/browsers/browserstack.js",
+    "cbtr-init": "./bin/utils/settings/cbtr.js",
+    "cbtr-testem-browserstack-init": "./bin/utils/settings/testem/browserstack.js",
+    "cbtr-testem-browserstack-open": "./bin/hooks/testem/browserstack/open.js",
+    "cbtr-testem-browserstack-close": "./bin/hooks/testem/browserstack/close.js",
+    "cbtr-testem-browserstack-browser": "./bin/hooks/testem/browserstack/browser.js"
+  },
+  "scripts": {
+    "eslint": "./node_modules/.bin/eslint bin/ lib/",
+    "unit-tests": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit",
+    "unit-tests-win": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit",
+    "cov-html": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 tests/unit",
+    "no-cov": "UNIT_TESTS=1 LOG_LEVEL=DEBUG ./node_modules/.bin/mocha tests/unit",
+    "integration-tests": "LOG_LEVEL=WARN ./node_modules/.bin/mocha tests/integration",
+    "integration-tests-win": "./node_modules/.bin/mocha tests/integration",
+    "functional-tests": "LOG_LEVEL=WARN ./node_modules/.bin/mocha tests/functional",
+    "functional-tests-win": "./node_modules/.bin/mocha tests/functional",
+    "codecov-upload": "./node_modules/.bin/codecov",
+    "coveralls-upload": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "eslint-unit-tests-cov": "npm run eslint && npm run unit-tests && npm run codecov-upload && npm run coveralls-upload",
+    "eslint-unit-tests-codecov": "npm run eslint && npm run unit-tests && npm run codecov-upload",
+    "eslint-unit-tests-codecov-win": "npm run eslint && npm run unit-tests-win && npm run codecov-upload"
+  },
+  "engines": {
+    "node": ">=4",
+    "npm": ">=2.15.11"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "chai-http": "^3.0.0",
     "chai-spies": "^0.7.1",
     "codecov": "^2.2.0",
     "coveralls": "^2.13.1",
@@ -47,10 +76,15 @@
     "mocha": "^3.3.0",
     "nock": "^9.0.13",
     "serve-static": "^1.12.2",
-    "sinon": "^2.2.0"
+    "sinon": "^2.2.0",
+    "testem": "^1.16.2"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "js-yaml": "^3.8.4",
+    "minimist": "^1.2.0",
     "p-retry": "^1.0.0",
     "ps-node": "^0.1.6",
     "request": "^2.81.0",

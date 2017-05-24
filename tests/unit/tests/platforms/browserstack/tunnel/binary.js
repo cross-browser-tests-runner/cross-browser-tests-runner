@@ -1,10 +1,20 @@
+'use strict';
+
 var
+  chai = require('chai'),
+  chaiAsPromised = require('chai-as-promised'),
   fs = require('fs'),
   nock = require('nock'),
-  expect = require('chai').expect,
   binary = require('./../../../../../../lib/platforms/browserstack/tunnel/binary'),
   Binary = binary.Binary,
-  BinaryVars = binary.BinaryVars
+  BinaryVars = binary.BinaryVars,
+  utils = require('./../utils')
+
+chai.use(chaiAsPromised)
+
+var
+  expect = chai.expect,
+  should = chai.should()
 
 describe('exists', function() {
 
@@ -17,97 +27,82 @@ describe('exists', function() {
 
 describe('remove', function() {
 
-  it('should remove the local binary', function(done) {
-    this.timeout(10000)
-    var timer = setTimeout(done, 9000)
+  this.timeout(0)
+
+  it('should remove the local binary', function() {
     var binary = new Binary()
-    binary.remove()
+    return binary.remove()
     .then(function() {
       return fs.statAsync(BinaryVars.path)
     })
     .catch(err => {
-      clearTimeout(timer)
+      if(err && (!err.code || 'ENOENT' !== err.code)) {
+        utils.log.error(err)
+      }
       expect(err).to.be.defined
       expect(err.code).to.be.defined
       expect(err.code).to.equal('ENOENT')
       expect(err.syscall).to.be.defined
       expect(err.syscall).to.be.oneOf(['stat', 'unlink'])
-      done()
     })
     .catch(err => {
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
+    .should.be.fulfilled
   })
 })
 
 describe('fetch', function() {
 
   var binary = null
+  this.timeout(0)
 
-  function done() {
-  }
-
-  it('should do retries and fail in case of request failing', function(done) {
-    this.timeout(50000)
-    var timer = setTimeout(function(){
-      console.error('ERROR: did not expect timer in "request fail" case to execute')
-      done()
-    }, 45000)
+  it('should do retries and fail in case of request failing', function() {
     var url = BinaryVars.url.replace(/^.*amazonaws\.com/, '')
     nock('https://s3.amazonaws.com').get(url).times(5).replyWithError('simulating request failure')
     binary = new Binary()
-    binary.fetch()
+    return binary.fetch()
     .catch(err => {
-      clearTimeout(timer)
+      if(err && (!err.message || !err.message.match(/aborting download as max retries of downloading have failed/))) {
+        utils.log.error(err)
+      }
       expect(err.message).to.contain('aborting download as max retries of downloading have failed')
       expect(fs.existsSync(BinaryVars.path)).to.be.false
       nock.cleanAll()
-      done()
     })
     .catch(err => {
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
+    .should.be.fulfilled
   })
 
-  it('should be able to download the binary', function(done) {
-    this.timeout(1010000)
-    timer = setTimeout(function(){done()}, 1005000)
+  it('should be able to download the binary', function() {
     binary = new Binary()
-    binary.fetch()
+    return binary.fetch()
     .then(function() {
-      clearTimeout(timer)
       expect(fs.existsSync(BinaryVars.path)).to.be.true
-      done()
     })
-    .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
-      throw err
-    })
+    .should.be.fulfilled
   })
 
   var statBefore = null
 
-  it('should not attempt downloading if the binary exists', function(done) {
-    this.timeout(50000)
-    var timer = setTimeout(function(){done()}, 45000)
+  it('should not attempt downloading if the binary exists', function() {
     statBefore = fs.statSync(BinaryVars.path)
     binary = new Binary()
-    binary.fetch()
+    return binary.fetch()
     .then(function() {
-      clearTimeout(timer)
       var statAfter = fs.statSync(BinaryVars.path)
       expect(statBefore).to.not.be.null
       expect(statBefore.ctime).to.deep.equal(statAfter.ctime)
-      done()
     })
     .catch(err => {
-      clearTimeout(timer)
-      console.error('UNEXPECTED ERROR >>', err)
+      utils.log.error(err)
       throw err
     })
+    .should.be.fulfilled
   })
 
 })

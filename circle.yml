@@ -1,18 +1,30 @@
-machine:
-  node:
-    version: 6.10.2
-
-general:
-  branches:
-    only:
-      - master
+dependencies:
+  pre:
+    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm install $NODE_VERSION:
+        parallel: true
+    - rm -fr ./node_modules:
+        parallel: true
+  override:
+    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; npm install:
+        parallel: true
 
 test:
-  post:
-    - node ./tests/unit/utils/server.js:
+  pre:
+    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; node ./tests/unit/utils/static-srv.js:
         background: true
-    - node ./tests/unit/utils/wait.js:
+        parallel: true
+    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; node ./tests/unit/utils/wait.js:
         background: true
-    - sleep 2
-    - ./node_modules/.bin/eslint lib/
-    - npm run coverage-lcovonly && npm run codecov
+        parallel: true
+    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; node ./server.js:
+        background: true
+        parallel: true
+    - sleep 2:
+        parallel: true
+  override:
+    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; npm run eslint-unit-tests-codecov:
+        parallel: true
+    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; npm run integration-tests:
+        parallel: true
+    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; npm run functional-tests:
+        parallel: true

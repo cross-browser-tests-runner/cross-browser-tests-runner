@@ -1,6 +1,15 @@
+'use strict';
+
 var
   expect = require('chai').expect,
   Platform = require('./../../../../../lib/platforms/interfaces/platform').Platform
+
+describe('open', function() {
+  it('should throw an error', function() {
+    var tester = function() { (new Platform()).open() }
+    expect(tester).to.throw(Error)
+  })
+})
 
 describe('run', function() {
   it('should throw an error', function() {
@@ -30,23 +39,30 @@ describe('status', function() {
   })
 })
 
+describe('close', function() {
+  it('should throw an error', function() {
+    var tester = function() { (new Platform()).close() }
+    expect(tester).to.throw(Error)
+  })
+})
+
 describe('browserKeys', function() {
   it('should throw an error', function() {
-    var tester = function() { (new Platform()).browserKeys() }
+    var tester = function() { Platform.browserKeys() }
     expect(tester).to.throw(Error)
   })
 })
 
 describe('capabilitiesKeys', function() {
   it('should throw an error', function() {
-    var tester = function() { (new Platform()).capabilitiesKeys() }
+    var tester = function() { Platform.capabilitiesKeys() }
     expect(tester).to.throw(Error)
   })
 })
 
 describe('required', function() {
   it('should throw an error', function() {
-    var tester = function() { (new Platform()).required }
+    var tester = function() { return Platform.required }
     expect(tester).to.throw(Error)
   })
 })

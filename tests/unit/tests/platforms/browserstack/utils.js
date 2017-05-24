@@ -1,32 +1,30 @@
+'use strict';
+
 var
   ps = require('ps-node'),
+  expect = require('chai').expect,
   path = require('path'),
   retry = require('p-retry'),
+  sleep = require('sleep'),
   Log = require('./../../../../../lib/core/log').Log,
+  Request = require('./../../../../../lib/core/request').Request,
   BinaryVars = require('./../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars
 
 let log = new Log(process.env.LOG_LEVEL || 'ERROR', 'UnitTests')
 
-function procsByCmd(cmd) {
-  return new Promise(resolve => {
-    ps.lookup({
-      command: cmd
-    },
-    (err, list) => {
-      if(err) throw new Error(err)
-      resolve(list)
-    })
-  })
-}
-
-function stopProc(pid, alreadyKilled) {
-  if(!alreadyKilled) {
+function stopProc(pid) {
+  try {
     process.kill(pid)
   }
-  while(true) {
+  catch(e) {
+    // ignore what would be typically ESRCH here
+  }
+  var counter = 10
+  while(counter--) {
     try {
       process.kill(pid, 0)
-      sleep.sleep(1)
+      log.debug('waiting as process %d is still responding...', pid)
+      sleep.msleep(800)
     }
     catch(e) {
       break
@@ -37,56 +35,136 @@ function stopProc(pid, alreadyKilled) {
 
 function tunnels() {
   return new Promise(resolve => {
-    var found = [ ]
     ps.lookup({
       command: path.basename(BinaryVars.path)
     },
-    function(err, list) {
+    function(err, procs) {
       if(err) throw new Error(err)
-      list = list || [ ]
-      list.forEach(proc => {
-        var idx = proc.arguments.indexOf('--local-identifier')
-        found.push({
-          pid : proc.pid,
-          tunnelId: (-1 !== idx ? proc.arguments[idx+1] : undefined)
-        })
-      })
-      resolve(found)
+      resolve(procs || [ ])
     })
+  })
+}
+
+function killRunningTunnels() {
+  return tunnels()
+  .then(procs => {
+    procs.forEach(proc => {
+      stopProc(proc.pid)
+    })
+    log.debug('killed %d found tunnel processes', procs.length)
+    return true
   })
 }
 
 function awaitZeroTunnels() {
-  const max = 15, minTimeout = 500, factor = 1
-  let num = 0
+  const max = 5, minTimeout = 500, factor = 2
   const check = (retries) => {
     return tunnels()
     .then(procs => {
-      num = procs.length
-      log.debug('number of remaining tunnel processes', num)
+      log.debug('number of remaining tunnel processes', procs.length)
       if(!procs.length) {
-        throw new retry.AbortError('no more tunnels')
+        return 0
       }
       if(retries !== max) {
-        throw new Error('not exhausted retries')
+        throw new Error('not exhausted retries of waiting for zero tunnels')
       }
-      return num
+      return procs.length
     })
   }
   return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
-  .then(result => {
-    if(result) throw new Error('remaining ' + result)
-    return result
-  })
-  .catch(err => {
-    if(!err.message.match(/no more tunnels/)) {
-      throw err
+}
+
+function ensureZeroTunnels() {
+  const max = 5, minTimeout = 500, factor = 2
+  const check = (retries) => { 
+    return killRunningTunnels()
+    .then(awaitZeroTunnels)
+    .then(tunnels)
+    .then(procs => {
+      if(!procs.length) {
+        return true
+      }
+      if(retries !== max) {
+        throw new Error('not exhausted retries of ensuring zero tunnels')
+      }
+      throw new Error('could not kill all tunnels')
+    })
+  }
+  return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
+}
+
+function killWorker(worker) {
+  var req = new Request()
+  return req.request(
+    worker.endpoint,
+    'DELETE',
+    {
+      json: true,
+      resolveWithFullResponse: true,
+      auth: {
+        user: process.env.BROWSERSTACK_USERNAME,
+        pass: process.env.BROWSERSTACK_ACCESS_KEY
+      }
     }
-    return num
+  )
+  .then(response => {
+    log.debug('worker %s terminate response %d', worker.id, response.statusCode)
+    return true
+  })
+  .catch(error => {
+    log.debug('worker %s terminate error %d %s', worker.id, error.statusCode, error.response.body)
+    throw error
   })
 }
 
-exports.procsByCmd = procsByCmd
-exports.stopProc = stopProc
-exports.tunnels = tunnels
-exports.awaitZeroTunnels = awaitZeroTunnels
+function workerStatus(worker) {
+  var req = new Request()
+  return req.request(
+    worker.endpoint,
+    'GET',
+    {
+      json: true,
+      resolveWithFullResponse: true,
+      auth: {
+        user: process.env.BROWSERSTACK_USERNAME,
+        pass: process.env.BROWSERSTACK_ACCESS_KEY
+      }
+    }
+  )
+  .then(response => {
+    var status = (response.body && response.body.status || 'terminated')
+    log.debug('worker %s status %s', worker.id, status)
+    return status
+  })
+}
+
+function safeKillWorker(worker) {
+  sleep.msleep(400)
+  var max = 10, minTimeout = 500, factor = 1
+  const check = (retries) => {
+    log.debug('sending termination request for %s...', worker.id)
+    return killWorker(worker)
+    .then(() => {
+      log.debug('ensuring termination of %s, checking status...', worker.id)
+      return workerStatus(worker)
+    })
+    .catch(error => {
+      return workerStatus(worker)
+    })
+    .then(status => {
+      log.debug('status reported %s', status)
+      if('terminated' === status) {
+        return true
+      }
+      if(retries < max) {
+        throw new Error('not done yet')
+      }
+      return true
+    })
+  }
+  return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
+}
+
+exports.ensureZeroTunnels = ensureZeroTunnels
+exports.safeKillWorker = safeKillWorker
+exports.log = log

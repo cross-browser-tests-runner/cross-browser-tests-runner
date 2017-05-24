@@ -1,0 +1,7 @@
+BrowserStack:
+  JS:
+    Windows Mobile:
+      8.1:
+        IE Mobile:
+          - "Nokia Lumia"
+          - "iPhone 4"

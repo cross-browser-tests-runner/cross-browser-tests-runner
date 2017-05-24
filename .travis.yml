@@ -2,7 +2,18 @@ language:
   - objective-c
 
 env:
-  - NODE_VERSION="6.10.2"
+  - NODE_VERSION="7",CBTR_TEST="eslint-unit-tests-cov"
+  - NODE_VERSION="6",CBTR_TEST="eslint-unit-tests-cov"
+  - NODE_VERSION="5",CBTR_TEST="eslint-unit-tests-cov"
+  - NODE_VERSION="4",CBTR_TEST="eslint-unit-tests-cov"
+  - NODE_VERSION="7",CBTR_TEST="integration-tests"
+  - NODE_VERSION="6",CBTR_TEST="integration-tests"
+  - NODE_VERSION="5",CBTR_TEST="integration-tests"
+  - NODE_VERSION="4",CBTR_TEST="integration-tests"
+  - NODE_VERSION="7",CBTR_TEST="functional-tests"
+  - NODE_VERSION="6",CBTR_TEST="functional-tests"
+  - NODE_VERSION="5",CBTR_TEST="functional-tests"
+  - NODE_VERSION="4",CBTR_TEST="functional-tests"
 
 install:
   - rm -rf ~/.nvm
@@ -14,9 +25,10 @@ install:
   - npm install
 
 script:
-  - node ./tests/unit/utils/server.js &
-  - node ./tests/unit/utils/wait.js &
-  - ./node_modules/.bin/eslint lib/ && npm run coverage-lcovonly && npm run codecov && npm run coveralls
+  - if [ "eslint-unit-tests-cov" == $CBTR_TEST ]; then node ./tests/unit/utils/static-srv.js & ; fi
+  - if [ "eslint-unit-tests-cov" == $CBTR_TEST ]; then node ./tests/unit/utils/wait.js & ; fi
+  - if [ "eslint-unit-tests-cov" != $CBTR_TEST ]; then node ./server.js & ; fi
+  - npm run $CBTR_TEST
 
 cache:
   directories:
