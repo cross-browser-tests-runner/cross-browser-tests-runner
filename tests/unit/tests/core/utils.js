@@ -1,7 +1,10 @@
 'use strict';
 
 var
-  ps = require('ps-node')
+  ps = require('ps-node'),
+  Log = require('./../../../../lib/core/log').Log
+
+let log = new Log(process.env.LOG_LEVEL || 'ERROR', 'UnitTests')
 
 function procsByCmd(cmd) {
   return new Promise(resolve => {
@@ -16,3 +19,4 @@ function procsByCmd(cmd) {
 }
 
 exports.procsByCmd = procsByCmd
+exports.log = log

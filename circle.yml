@@ -1,30 +1,28 @@
 dependencies:
-  pre:
-    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm install $NODE_VERSION:
-        parallel: true
-    - rm -fr ./node_modules:
-        parallel: true
   override:
-    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; npm install:
+    - npm cache clean:
+        parallel: true
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; nvm install $NODE_VERSION; rm -fr ./node_modules; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm cache clean; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm rebuild:
+        parallel: true
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm install:
         parallel: true
 
 test:
-  pre:
-    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; node ./tests/unit/utils/static-srv.js:
+  override:
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./tests/unit/utils/static-srv.js:
         background: true
         parallel: true
-    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; node ./tests/unit/utils/wait.js:
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./tests/unit/utils/wait.js:
         background: true
         parallel: true
-    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; node ./server.js:
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./server.js:
         background: true
         parallel: true
     - sleep 2:
         parallel: true
-  override:
-    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; npm run eslint-unit-tests-codecov:
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run eslint-unit-tests-codecov:
         parallel: true
-    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; npm run integration-tests:
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run integration-tests:
         parallel: true
-    - case $CIRCLE_NODE_INDEX in 0) NODE_VERSION=4 ;; 1) NODE_VERSION=5 ;; 2) NODE_VERSION=6 ;; 3) NODE_VERSION=7 ;; esac; nvm use $NODE_VERSION; npm run functional-tests:
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run functional-tests:
         parallel: true

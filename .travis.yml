@@ -25,9 +25,9 @@ install:
   - npm install
 
 script:
-  - if [ "eslint-unit-tests-cov" == $CBTR_TEST ]; then node ./tests/unit/utils/static-srv.js & ; fi
-  - if [ "eslint-unit-tests-cov" == $CBTR_TEST ]; then node ./tests/unit/utils/wait.js & ; fi
-  - if [ "eslint-unit-tests-cov" != $CBTR_TEST ]; then node ./server.js & ; fi
+  - if [ "eslint-unit-tests-cov" == $CBTR_TEST ]; then node ./tests/unit/utils/static-srv.js & fi
+  - if [ "eslint-unit-tests-cov" == $CBTR_TEST ]; then node ./tests/unit/utils/wait.js & fi
+  - if [ "eslint-unit-tests-cov" != $CBTR_TEST ]; then node ./server.js & fi
   - npm run $CBTR_TEST
 
 cache:

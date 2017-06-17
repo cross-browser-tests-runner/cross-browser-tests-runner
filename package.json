@@ -1,7 +1,7 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.1.0",
-  "description": "Helps running JavaScript unit tests on multiple cross-browser testing platforms viz. BrowserStack, SauceLabs, CrossBrowserTesting, TestingBot etc. and is designed to be extensible to more platforms. It provides integrations with muliple runners like Karma, Testem, Yeti, Interns etc. for all of these. It supports all unit tests frameworks viz. Jasmine, Jasmine 2, Mocha, QUnit, Buster as supported by the runners as well through its own native runner.",
+  "version": "0.1.1",
+  "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reeteshranjan/cross-browser-tests-runner.git"
@@ -9,6 +9,7 @@
   "keywords": [
     "cross-browser testing",
     "javascript testing",
+    "javascript unit testing",
     "JS testing",
     "browserstack",
     "saucelabs",
@@ -32,9 +33,11 @@
   "files": [
     "lib",
     "bin",
-    "conf"
+    "conf",
+    "samples"
   ],
   "bin": {
+    "cbtr-quick-start": "./bin/utils/quick-start.js",
     "cbtr-browserstack-update": "./bin/utils/conf/browsers/browserstack.js",
     "cbtr-init": "./bin/utils/settings/cbtr.js",
     "cbtr-testem-browserstack-init": "./bin/utils/settings/testem/browserstack.js",

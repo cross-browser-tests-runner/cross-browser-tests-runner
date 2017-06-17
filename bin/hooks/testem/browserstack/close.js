@@ -2,15 +2,19 @@
 
 'use strict'
 
-let
-  args = require('minimist')(process.argv.slice(2), {
-    alias: { config: 'c'}
-  }),
-  request = require('request-promise'),
-  /* eslint-disable global-require */
-  log = new (require('./../../../../lib/core/log').Log)(process.env.LOG_LEVEL || 'ERROR', 'Hooks.Testem.BrowserStack.Close')
-  /* eslint-enable global-require */
+const
+  allowedOptions = [ '--config', '--help' ]
 
+let
+  utils = require('./../../../utils'),
+  args = utils.configHelpArgs(allowedOptions, help)
+
+utils.handleHelp(args, help)
+
+let
+  request = require('request-promise'),
+  Log = require('./../../../../lib/core/log').Log,
+  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Hooks.Testem.BrowserStack.Close')
 
 const
   settings = require('./../../../server/settings')(args.config)
@@ -23,3 +27,7 @@ request
   .catch(err => {
     log.error('failed to end browserstack-testem runs - %s', err)
   })
+
+function help() {
+  utils.configHelpAppHelp()
+}

@@ -2,8 +2,32 @@
 
 'use strict'
 
+const
+  allowedOptions = [ 'input', 'output', 'help' ]
+
 let
   path = require('path'),
+  utils = require('./../../../utils'),
+  args = utils.ioHelpArgs(allowedOptions, help)
+
+function help() {
+  console.log(
+    '\n' +
+    path.basename(process.argv[1]) +
+    ' [--help|-h] [--input|-i <cbtr-settings-file>] [--output|-o <testem-settings-file>]\n\n' +
+    'Defaults:\n' +
+    ' input             cbtr.json in project root\n' +
+    ' output            testem.json in project root\n\n' +
+    'Options:\n' +
+    ' help              print this help\n' +
+    ' input             cross-browser-tests-runner settings file\n' +
+    ' output            testem settings file'
+  )
+}
+
+utils.handleHelp(args, help)
+
+let
   uuid = require('uuid/v4'),
   Bluebird = require('bluebird'),
   uuidv4 = require('uuid/v4'),
@@ -11,7 +35,6 @@ let
   readline = Bluebird.promisifyAll(require('readline').createInterface({input:process.stdin, output:process.stdout})),
   Log = require('./../../../../lib/core/log').Log,
   log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Utils.Settings.Testem.BrowserStack'),
-  args = require('minimist')(process.argv.slice(2), {alias: {input: 'i', output: 'o'}}),
   aliases = require('./../../../../conf/browserstack-conf.json').Aliases,
   inputFile = args.input || path.resolve(process.cwd(), "cbtr.json"),
   outputFile = args.output || path.resolve(process.cwd(), "testem.json"),
@@ -30,17 +53,12 @@ aliases['Operating Systems'] = swap(aliases['Operating Systems'])
 aliases['Browsers'] = swap(aliases['Browsers'])
 
 if(fs.existsSync(outputFile)) {
-  /* eslint-disable global-require */
-  output = require(outputFile)
-  /* eslint-enable global-require */
+  output = JSON.parse(fs.readFileSync(outputFile, 'utf8'))
   log.debug('existing testem config %s', JSON.stringify(output))
 }
 
-if(!input.browsers || !input.browsers.BrowserStack) {
-  console.error("\x1b[31m", 'No browsers defined for BrowserStack platform in', inputFile, "\x1b[0m")
-  /* eslint-disable no-process-exit */
-  process.exit(1)
-  /* eslint-enable no-process-exit */
+if(!input.browsers || !input.browsers.BrowserStack || !input.browsers.BrowserStack.JS) {
+  throw new Error('No browsers defined for JS testing using BrowserStack in ' + inputFile)
 }
 
 input = input.browsers.BrowserStack
@@ -84,7 +102,7 @@ function main() {
   input.JS.forEach(launcher => {
     let name =
       [launcher.os, launcher.osVersion, launcher.browser, launcher.browserVersion || launcher.device ]
-      .join('_').replace(/ /g, '_').replace(/[()]/g, '')
+      .join('_').replace(/[ \.]/g, '_').replace(/[()]/g, '')
     output.launchers[name] = {
       exe: "node",
       args: [

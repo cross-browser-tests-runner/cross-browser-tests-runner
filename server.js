@@ -1,10 +1,26 @@
+#!/usr/bin/env node
+
 'use strict'
+
+const
+  allowedOptions = ['--config', '--help']
+
+let
+  utils = require('./bin/utils'),
+  args = utils.configHelpArgs(allowedOptions, help)
+
+function help() {
+  utils.configHelpAppHelp()
+}
+
+utils.handleHelp(args, help)
 
 let
   path = require('path'),
-  args = require('minimist')(process.argv.slice(2), {alias: {config: ['c']}}),
+  Log = require('./lib/core/log').Log,
   Process = require('./lib/core/process').Process,
-  procArgs = [ path.resolve(process.cwd(), 'bin/server/server.js') ]
+  procArgs = [ path.resolve(__dirname, 'bin/server/server.js') ],
+  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server')
 
 if (args.config) {
   procArgs.push('--config', args.config)
@@ -14,15 +30,15 @@ let proc = new Process()
 
 proc.create('node', procArgs, {
   onstdout: stdout => {
-    console.log(stdout)
+    log.debug(stdout)
   },
   onstderr: stderr => {
-    console.log(stderr)
+    log.error(stderr)
   }
 })
 .then(() => {
-  console.log('server process exited')
+  log.debug('server process exited')
 })
 .catch(err => {
-  console.log('error with server process %s', err)
+  log.error('error with server process %s', err)
 })

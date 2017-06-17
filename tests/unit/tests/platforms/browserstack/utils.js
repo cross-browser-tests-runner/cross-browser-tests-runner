@@ -6,11 +6,9 @@ var
   path = require('path'),
   retry = require('p-retry'),
   sleep = require('sleep'),
-  Log = require('./../../../../../lib/core/log').Log,
   Request = require('./../../../../../lib/core/request').Request,
-  BinaryVars = require('./../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars
-
-let log = new Log(process.env.LOG_LEVEL || 'ERROR', 'UnitTests')
+  BinaryVars = require('./../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
+  coreUtils = require('./../../core/utils')
 
 function stopProc(pid) {
   try {
@@ -23,14 +21,14 @@ function stopProc(pid) {
   while(counter--) {
     try {
       process.kill(pid, 0)
-      log.debug('waiting as process %d is still responding...', pid)
+      coreUtils.log.debug('waiting as process %d is still responding...', pid)
       sleep.msleep(800)
     }
     catch(e) {
       break
     }
   }
-  log.debug('Stopped process %d', pid)
+  coreUtils.log.debug('Stopped process %d', pid)
 }
 
 function tunnels() {
@@ -51,7 +49,7 @@ function killRunningTunnels() {
     procs.forEach(proc => {
       stopProc(proc.pid)
     })
-    log.debug('killed %d found tunnel processes', procs.length)
+    coreUtils.log.debug('killed %d found tunnel processes', procs.length)
     return true
   })
 }
@@ -61,7 +59,7 @@ function awaitZeroTunnels() {
   const check = (retries) => {
     return tunnels()
     .then(procs => {
-      log.debug('number of remaining tunnel processes', procs.length)
+      coreUtils.log.debug('number of remaining tunnel processes', procs.length)
       if(!procs.length) {
         return 0
       }
@@ -108,11 +106,11 @@ function killWorker(worker) {
     }
   )
   .then(response => {
-    log.debug('worker %s terminate response %d', worker.id, response.statusCode)
+    coreUtils.log.debug('worker %s terminate response %d', worker.id, response.statusCode)
     return true
   })
   .catch(error => {
-    log.debug('worker %s terminate error %d %s', worker.id, error.statusCode, error.response.body)
+    coreUtils.log.debug('worker %s terminate error %d %s', worker.id, error.statusCode, error.response.body)
     throw error
   })
 }
@@ -133,7 +131,7 @@ function workerStatus(worker) {
   )
   .then(response => {
     var status = (response.body && response.body.status || 'terminated')
-    log.debug('worker %s status %s', worker.id, status)
+    coreUtils.log.debug('worker %s status %s', worker.id, status)
     return status
   })
 }
@@ -142,17 +140,17 @@ function safeKillWorker(worker) {
   sleep.msleep(400)
   var max = 10, minTimeout = 500, factor = 1
   const check = (retries) => {
-    log.debug('sending termination request for %s...', worker.id)
+    coreUtils.log.debug('sending termination request for %s...', worker.id)
     return killWorker(worker)
     .then(() => {
-      log.debug('ensuring termination of %s, checking status...', worker.id)
+      coreUtils.log.debug('ensuring termination of %s, checking status...', worker.id)
       return workerStatus(worker)
     })
     .catch(error => {
       return workerStatus(worker)
     })
     .then(status => {
-      log.debug('status reported %s', status)
+      coreUtils.log.debug('status reported %s', status)
       if('terminated' === status) {
         return true
       }
@@ -167,4 +165,4 @@ function safeKillWorker(worker) {
 
 exports.ensureZeroTunnels = ensureZeroTunnels
 exports.safeKillWorker = safeKillWorker
-exports.log = log
+exports.log = coreUtils.log

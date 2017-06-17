@@ -1,6 +1,6 @@
 {
   "parallel": 4,
-  "browser_start_timeout" : 300,
+  "browser_start_timeout" : 90,
   "framework": "jasmine",
   "on_start": {
     "command": "node ./bin/hooks/testem/browserstack/open.js --local",
@@ -17,6 +17,7 @@
         "--osVersion", "10",
         "--browser", "chrome",
         "--browserVersion", "51.0",
+        "--timeout", "90",
         "--screenshots", "--video"
       ],
       "protocol": "browser"
@@ -29,6 +30,7 @@
         "--osVersion", "8.1",
         "--browser", "firefox",
         "--browserVersion", "43.0",
+        "--timeout", "90",
         "--screenshots", "--video"
       ],
       "protocol": "browser"
@@ -41,6 +43,7 @@
         "--osVersion", "El Capitan",
         "--browser", "safari",
         "--browserVersion", "9.1",
+        "--timeout", "90",
         "--screenshots", "--video"
       ],
       "protocol": "browser"
@@ -53,6 +56,7 @@
         "--osVersion", "8.1",
         "--browser", "ie",
         "--browserVersion", "11.0",
+        "--timeout", "90",
         "--screenshots", "--video"
       ],
       "protocol": "browser"

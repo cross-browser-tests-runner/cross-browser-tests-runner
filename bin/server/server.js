@@ -1,14 +1,27 @@
+#!/usr/bin/env node
+
 'use strict'
 
+const
+  allowedOptions = ['--config', '--help']
+
 let
-  args = require('minimist')(process.argv.slice(2), {alias: {config: ['c']}}),
+  utils = require('./../utils'),
+  args = utils.configHelpArgs(allowedOptions, help)
+
+function help() {
+  utils.configHelpAppHelp()
+}
+
+utils.handleHelp(args, help)
+
+let
   bodyParser = require('body-parser'),
   express = require('express'),
   cbtr = express(),
   runsRouter = require('./runs'),
-  /* eslint-disable global-require */
-  log = new (require('./../../lib/core/log').Log)(process.env.LOG_LEVEL || 'ERROR', 'Server')
-  /* eslint-enable global-require */
+  Log = require('./../../lib/core/log').Log,
+  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server')
 
 const
   settings = require('./settings')(args.config)
@@ -18,7 +31,7 @@ cbtr.use(bodyParser.urlencoded({ extended: true }))
 
 cbtr.use('/runs', runsRouter)
 
-cbtr.use(function(req, res, next) {
+cbtr.use(function(req, res) {
   log.warn('non-existent path %s', req.url)
   res.sendStatus(404)
 })

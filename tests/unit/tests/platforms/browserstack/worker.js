@@ -314,10 +314,6 @@ describe('screenshot', function() {
         throw err
       }
     })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
-    })
     .should.be.fulfilled
   })
 
@@ -346,10 +342,6 @@ describe('screenshot', function() {
         utils.log.error(err)
         throw err
       }
-    })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
     })
     .should.be.fulfilled
   })

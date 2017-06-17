@@ -6,7 +6,8 @@ var
   fs = Bluebird.promisifyAll(require('fs')),
   path = require('path'),
   chai = require('chai'),
-  chaiAsPromised = require('chai-as-promised')
+  chaiAsPromised = require('chai-as-promised'),
+  utils = require('./../core/utils')
 
 chai.use(chaiAsPromised)
 

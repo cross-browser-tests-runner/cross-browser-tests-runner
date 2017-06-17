@@ -1,9 +1,8 @@
 'use strict'
 
 let
-  /* eslint-disable global-require */
-  log = new (require('./../../lib/core/log').Log)(process.env.LOG_LEVEL || 'ERROR', 'Server.utils')
-  /* eslint-enable global-require */
+  Log = require('./../../lib/core/log').Log,
+  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.utils')
 
 function error(err, res) {
   log.error('error processing request', err)

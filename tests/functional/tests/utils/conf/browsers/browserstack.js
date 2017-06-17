@@ -4,7 +4,8 @@ var
   fs = Bluebird.promisifyAll(require('fs')),
   chai = require('chai'),
   chaiAsPromised = require('chai-as-promised'),
-  Process = require('./../../../../../../lib/core/process').Process
+  Process = require('./../../../../../../lib/core/process').Process,
+  utils = require('./../../../testutils')
 
 chai.use(chaiAsPromised)
 
@@ -22,16 +23,15 @@ describe('browserstack.js', function() {
       lastMtime, currMtime
     return fs.statAsync(configFile)
     .then(stats => {
-      console.log(stats)
       lastMtime = stats.mtime.getTime()
       return proc.create('node', [
         path.resolve(process.cwd(), 'bin/utils/conf/browsers/browserstack.js')
         ], {
         onstdout: function(stdout) {
-          console.log(stdout)
+          utils.log.debug(stdout)
         },
         onstderr: function(stderr) {
-          console.log(stderr)
+          utils.log.error(stderr)
         }
       })
     })
@@ -39,12 +39,11 @@ describe('browserstack.js', function() {
       return fs.statAsync(configFile)
     })
     .then(stats => {
-      console.log(stats)
       currMtime = stats.mtime.getTime()
       expect(currMtime).to.be.above(lastMtime)
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled

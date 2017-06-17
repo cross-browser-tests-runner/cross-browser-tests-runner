@@ -2,14 +2,37 @@
 
 'use strict'
 
+const
+  allowedOptions = [ 'input', 'output', 'help' ]
+
 let
   path = require('path'),
+  utils = require('./../../utils'),
+  args = utils.ioHelpArgs(allowedOptions, help)
+
+function help() {
+  console.log(
+    '\n' +
+    path.basename(process.argv[1]) +
+    ' [--help|-h] [--input|-i <browsers-yaml-file>] [--output|-o <cbtr-settings-file>]\n\n' +
+    'Defaults:\n' +
+    ' input             .cbtr-browsers.yml in project root\n' +
+    ' output            cbtr.json in project root\n\n' +
+    'Options:\n' +
+    ' help              print this help\n' +
+    ' input             input data of browsers to use in a compact format\n' +
+    ' output            cross-browser-tests-runner settings file'
+  )
+}
+
+utils.handleHelp(args, help)
+
+let
   yaml = require('js-yaml'),
   Bluebird = require('bluebird'),
   fs = Bluebird.promisifyAll(require('fs')),
   Log = require('./../../../lib/core/log').Log,
   log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Utils.Settings.Cbtr'),
-  args = require('minimist')(process.argv.slice(2), {alias: {input: 'i', output: 'o'}}),
   serverDefaults = require('./../../server/defaults'),
   config = require('./../../../conf/cbtr-conf.json'),
   browsersFile = args.input || path.resolve(process.cwd(), ".cbtr-browsers.yml"),
@@ -43,9 +66,9 @@ function parse(obj) {
       checkPlatformTest(platform, test)
       switch(platform) {
         case 'BrowserStack':
-          /* eslint-disable global-require */
-          platformConfig = require('./../../../conf/browserstack-conf.json')
-          /* eslint-enable global-require */
+          platformConfig = JSON.parse(
+            fs.readFileSync(
+              path.resolve(__dirname, './../../../conf/browserstack-conf.json'), 'utf8'))
           break
         default:
           break
@@ -145,17 +168,17 @@ function checkPlatformTestOsVersionBrowser(platform, test, os, osVersion, browse
 }
 
 function checkPlatformTestOsVersionBrowserVersions(platform, test, os, osVersion, browser, versions) {
-  versions.forEach(version => {
-    if(-1 === platformConfig[test][os][osVersion][browser].indexOf(version)) {
-      throw new Error('Unsupported version "' + version + '" for browser "' + browser + '" on "' + os + ' ' + osVersion + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + platformConfig[test][os][osVersion][browser].join(', '))
-    }
-  })
+  commonCheckBrowserVersionsDevices(platform, test, os, osVersion, browser, versions, 'version')
 }
 
 function checkPlatformTestOsVersionBrowserDevices(platform, test, os, osVersion, browser, devices) {
-  devices.forEach(device => {
-    if(-1 === platformConfig[test][os][osVersion][browser].indexOf(device)) {
-      throw new Error('Unsupported device "' + device + '" for browser "' + browser + '" on "' + os + ' ' + osVersion + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + platformConfig[test][os][osVersion][browser].join(', '))
+  commonCheckBrowserVersionsDevices(platform, test, os, osVersion, browser, devices, 'device')
+}
+
+function commonCheckBrowserVersionsDevices(platform, test, os, osVersion, browser, which, what) {
+  which.forEach(checked => {
+    if(-1 === platformConfig[test][os][osVersion][browser].indexOf(checked)) {
+      throw new Error('Unsupported ' + what + ' "' + checked + '" for browser "' + browser + '" on "' + os + ' ' + osVersion + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + platformConfig[test][os][osVersion][browser].join(', '))
     }
   })
 }

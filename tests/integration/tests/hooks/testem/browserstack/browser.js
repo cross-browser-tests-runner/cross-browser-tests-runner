@@ -2,7 +2,8 @@ var
   path = require('path'),
   chai = require('chai'),
   chaiAsPromised = require('chai-as-promised'),
-  Process = require('./../../../../../../lib/core/process').Process
+  Process = require('./../../../../../../lib/core/process').Process,
+  utils = require('./../../../utils')
 
 chai.use(chaiAsPromised)
 
@@ -14,14 +15,48 @@ describe('browser.js', function() {
 
   this.timeout(0)
 
+  it('should fail for unsupported argument', function() {
+    var proc = new Process()
+    return proc
+    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), '--unknown' ], {
+      onstderr: function(stderr) {
+        expect(stderr).to.contain('Unknown option: --unknown')
+      }
+    })
+    .catch(err => {
+      utils.log.error(err)
+      throw err
+    })
+    .should.be.fulfilled
+  })
+
+  it('should print help', function() {
+    var proc = new Process()
+    return proc
+    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), '--help' ], {
+      onstdout: function(stdout) {
+        expect(stdout).to.contain("browser.js [--help|-h] [--config <config-file>] [--os <os>] [--osVersion <os-version>] [--browser <browser>] [--browserVersion <browser-version>] [--device <device> ] [--orientation <orientation>] [--size <size>] [--local] [--localIdentifier <identifier>] [--video] [--screenshots] [--timeout <timeout-in-sec>] [--project <project>] [--test <test>] [--build <build>]")
+      }
+    })
+    .catch(err => {
+      utils.log.error(err)
+      throw err
+    })
+    .should.be.fulfilled
+  })
+
   it('should fail without any arguments', function() {
     var proc = new Process()
     return proc
     .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js') ], {
       onstderr: function(stderr) {
         expect(stderr).to.contain('failed to create test - StatusCodeError: 400')
-        expect(stderr).to.contain('required option os missing in')
+        expect(stderr).to.contain('required option os missing')
       }
+    })
+    .catch(err => {
+      utils.log.error(err)
+      throw err
     })
     .should.be.fulfilled
   })
@@ -34,6 +69,10 @@ describe('browser.js', function() {
         expect(stderr).to.contain('failed to create test - StatusCodeError: 400')
         expect(stderr).to.contain('{"error":"422 - {\\\"message\\\":\\\"Validation Failed\\\",\\\"errors\\\":[{\\\"field\\\":\\\"url\\\",\\\"code\\\":\\\"can\'t be blank\\\"},{\\\"field\\\":\\\"os_version\\\",\\\"code\\\":\\\"invalid\\\"}]}"}')
       }
+    })
+    .catch(err => {
+      utils.log.error(err)
+      throw err
     })
     .should.be.fulfilled
   })
@@ -49,6 +88,10 @@ describe('browser.js', function() {
         }
       }
     })
+    .catch(err => {
+      utils.log.error(err)
+      throw err
+    })
     .should.be.fulfilled
   })
 
@@ -62,6 +105,10 @@ describe('browser.js', function() {
           proc.stop()
         }
       }
+    })
+    .catch(err => {
+      utils.log.error(err)
+      throw err
     })
     .should.be.fulfilled
   })

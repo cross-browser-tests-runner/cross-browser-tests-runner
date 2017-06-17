@@ -4,7 +4,8 @@ var
   settings = require('./../../../../bin/server/settings')(),
   chai = require('chai'),
   chaiHttp = require('chai-http'),
-  chaiAsPromised = require('chai-as-promised')
+  chaiAsPromised = require('chai-as-promised'),
+  utils = require('./../utils')
 
 chai.use(chaiAsPromised)
 chai.use(chaiHttp)
@@ -26,6 +27,11 @@ describe('main', function() {
       .send('{ "abc" : ')
       .catch(err => {
         expect(err.status).to.equal(400)
+        return true
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -35,6 +41,11 @@ describe('main', function() {
       .get('/some-url')
       .catch(err => {
         expect(err.status).to.equal(404)
+        return true
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })

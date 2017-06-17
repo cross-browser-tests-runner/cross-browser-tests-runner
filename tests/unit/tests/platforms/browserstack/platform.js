@@ -889,6 +889,15 @@ describe('status', function() {
       runId = run.id
       return platform.runs[runId].tunnel.stop()
     })
+    .catch(err => {
+      if(err.message && err.message.match(/Process: already stopped/)) {
+        utils.log.warn('did not expect tunnel to be stopped already')
+        return true
+      }
+      else {
+        throw err
+      }
+    })
     .then(() => {
       return platform.status(runId)
     })
@@ -1021,6 +1030,15 @@ describe('close', function() {
       checkRun(run)
       return platform.close()
     })
+    .catch(err => {
+      if(err.message && err.message.match(/Process: already stopped/)) {
+        utils.log.warn('did not expect tunnel to be stopped already')
+        return true
+      }
+      else {
+        throw err
+      }
+    })
     .then(() => {
       return utils.ensureZeroTunnels()
     })
@@ -1048,6 +1066,15 @@ describe('close', function() {
     .then(run => {
       checkRun(run)
       return platform.close(true)
+    })
+    .catch(err => {
+      if(err.message && err.message.match(/Process: already stopped/)) {
+        utils.log.warn('did not expect tunnel to be stopped already')
+        return true
+      }
+      else {
+        throw err
+      }
     })
     .then(() => {
       return utils.ensureZeroTunnels()
@@ -1081,7 +1108,7 @@ describe('close', function() {
       return platform.close()
     })
     .catch(err => {
-      if(err && err.message && err.message.match(/Process: already stopped/)) {
+      if(err.message && err.message.match(/Process: already stopped/)) {
         utils.log.warn('did not expect tunnels to be stopped already')
         return true
       }

@@ -7,9 +7,14 @@ var
 describe('in', function() {
 
   it('should return true if relevant env vars are set', function() {
-    process.env.CIRCLE_BUILD_URL = 1
-    expect(Circle.in).to.be.true
-    delete process.env.CIRCLE_BUILD_URL
+    if(!process.env.CIRCLE_BUILD_URL) {
+      process.env.CIRCLE_BUILD_URL = 1
+      expect(Circle.in).to.be.true
+      delete process.env.CIRCLE_BUILD_URL
+    }
+    else {
+      expect(Circle.in).to.be.true
+    }
   })
 
 })
@@ -17,11 +22,16 @@ describe('in', function() {
 describe('project', function() {
 
   it('should return a string if relevant env vars are set', function() {
-    process.env.CIRCLE_PROJECT_USERNAME = 'a'
-    process.env.CIRCLE_PROJECT_REPONAME = 'b'
-    expect(Circle.project).to.equal('a/b')
-    delete process.env.CIRCLE_PROJECT_USERNAME
-    delete process.env.CIRCLE_PROJECT_REPONAME
+    if(!process.env.CIRCLE_PROJECT_USERNAME) {
+      process.env.CIRCLE_PROJECT_USERNAME = 'a'
+      process.env.CIRCLE_PROJECT_REPONAME = 'b'
+      expect(Circle.project).to.equal('a/b')
+      delete process.env.CIRCLE_PROJECT_USERNAME
+      delete process.env.CIRCLE_PROJECT_REPONAME
+    }
+    else {
+      expect(Circle.project).to.not.be.empty
+    }
   })
 
 })
@@ -29,11 +39,16 @@ describe('project', function() {
 describe('session', function() {
 
   it('should return a string if relevant env vars are set', function() {
-    process.env.CIRCLE_BUILD_NUM = 4
-    process.env.CIRCLE_NODE_INDEX = 1
-    expect(Circle.session).to.equal('CircleCI 4.1')
-    delete process.env.CIRCLE_BUILD_NUM
-    delete process.env.CIRCLE_NODE_INDEX
+    if(!process.env.CIRCLE_BUILD_NUM) {
+      process.env.CIRCLE_BUILD_NUM = 4
+      process.env.CIRCLE_NODE_INDEX = 1
+      expect(Circle.session).to.equal('CircleCI 4.1')
+      delete process.env.CIRCLE_BUILD_NUM
+      delete process.env.CIRCLE_NODE_INDEX
+    }
+    else {
+      expect(Circle.session).to.not.be.empty
+    }
   })
 
 })
@@ -41,9 +56,14 @@ describe('session', function() {
 describe('commit', function() {
 
   it('should return a string if relevant env vars are set', function() {
-    process.env.CIRCLE_SHA1 = 'hex'
-    expect(Circle.commit).to.equal('hex')
-    delete process.env.CIRCLE_SHA1
+    if(!process.env.CIRCLE_SHA1) {
+      process.env.CIRCLE_SHA1 = 'hex'
+      expect(Circle.commit).to.equal('hex')
+      delete process.env.CIRCLE_SHA1
+    }
+    else {
+      expect(Circle.commit).to.not.be.empty
+    }
   })
 
 })

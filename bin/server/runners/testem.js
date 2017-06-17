@@ -1,11 +1,9 @@
 'use strict'
 
 let
-  Bluebird = require('bluebird'),
   router = require('express').Router(),
-  /* eslint-disable global-require */
-  log = new (require('./../../../lib/core/log').Log)(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Testem'),
-  /* eslint-enable global-require */
+  Log = require('./../../../lib/core/log').Log,
+  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Testem'),
   Factory = require('./../../../lib/platforms/factory').Factory,
   srvUtils = require('./../utils'),
   platforms = { },
@@ -21,7 +19,7 @@ function setup(req) {
 }
 
 router.route('/:platform')
-.put(function(req, res, next) {
+.put(function(req, res) {
   setup(req)
   platforms[platform].object
   .open(req.body.capabilities)
@@ -33,7 +31,7 @@ router.route('/:platform')
     srvUtils.error(err, res)
   })
 })
-.post(function(req, res, next) {
+.post(function(req, res) {
   setup(req)
   platforms[platform].object
   .run(req.body.url, req.body.browser, req.body.capabilities)
@@ -46,7 +44,7 @@ router.route('/:platform')
     srvUtils.error(err, res)
   })
 })
-.delete(function(req, res, next) {
+.delete(function(req, res) {
   setup(req)
   log.debug('take screenshots? %s', req.body.screenshot)
   platforms[platform].object.close(req.body.screenshot)
@@ -61,7 +59,7 @@ router.route('/:platform')
 })
 
 router.route('/:platform/:run')
-.delete(function(req, res, next) {
+.delete(function(req, res) {
   setup(req)
   let run = req.params.run
   log.debug('take screenshots? %s', req.body.screenshot)
@@ -79,7 +77,7 @@ router.route('/:platform/:run')
   })
 })
 
-router.use(function(req, res, next) {
+router.use(function(req, res) {
   log.warn('cannot process %s %s', req.method, req.url)
   res.sendStatus(404)
 })

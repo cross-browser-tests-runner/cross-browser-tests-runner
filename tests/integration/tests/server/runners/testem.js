@@ -2,7 +2,8 @@ global.Promise = global.Promise || require('bluebird')
 
 var
   settings = require('./../../../../../bin/server/settings')(),
-  utils = require('./../../../../unit/tests/platforms/browserstack/utils'),
+  bsUtils = require('./../../../../unit/tests/platforms/browserstack/utils'),
+  utils = require('./../../utils'),
   chai = require('chai'),
   chaiHttp = require('chai-http'),
   chaiAsPromised = require('chai-as-promised')
@@ -25,6 +26,11 @@ describe('GET /', function() {
       .get('/runs/testem')
       .catch(err => {
         expect(err.status).to.equal(404)
+        return true
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -39,6 +45,11 @@ describe('GET /:platform', function() {
       .get('/runs/testem/browserstack')
       .catch(err => {
         expect(err.status).to.equal(404)
+        return true
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -56,6 +67,11 @@ describe('PUT /:platform', function() {
         expect(err.response.body).to.be.defined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('unsupported platform abc')
+        return true
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -63,6 +79,10 @@ describe('PUT /:platform', function() {
   it('should silently complete without any parameters', function() {
     return request(host)
       .put('/runs/testem/browserstack')
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
       .should.be.fulfilled
   })
 
@@ -75,6 +95,11 @@ describe('PUT /:platform', function() {
         expect(err.response.body).to.be.defined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('option os is not allowed')
+        return true
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -86,6 +111,10 @@ describe('PUT /:platform', function() {
       .then(res => {
         expect(res.body).to.be.defined
         expect(res.statusCode).to.equal(200)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -103,7 +132,11 @@ describe('PUT /:platform', function() {
       .then(res => {
         expect(res.body).to.be.defined
         expect(res.statusCode).to.equal(200)
-        return utils.ensureZeroTunnels()
+        return bsUtils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -122,6 +155,10 @@ describe('POST /:platform', function() {
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('unsupported platform abc')
       })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
       .should.be.fulfilled
   })
 
@@ -132,7 +169,11 @@ describe('POST /:platform', function() {
         expect(err.status).to.equal(400)
         expect(err.response.body).to.be.defined
         expect(err.response.body).to.have.keys('error')
-        expect(err.response.body.error).to.contain('required option os missing in')
+        expect(err.response.body.error).to.contain('required option os missing')
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -147,6 +188,10 @@ describe('POST /:platform', function() {
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('"errors":[{"field":"os_version","code":"invalid"}]')
       })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
       .should.be.fulfilled
   })
 
@@ -158,6 +203,10 @@ describe('POST /:platform', function() {
         expect(res.body).to.be.defined
         expect(res.body).to.have.keys('id')
         expect(res.statusCode).to.equal(200)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -174,6 +223,10 @@ describe('DELETE /:platform', function() {
       .then(res => {
         expect(res.statusCode).to.equal(200)
       })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
       .should.be.fulfilled
   })
 })
@@ -188,6 +241,10 @@ describe('GET /:platform/:run', function() {
       .catch(err => {
         expect(err.status).to.equal(404)
       })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
       .should.be.fulfilled
   })
 })
@@ -201,6 +258,10 @@ describe('POST /:platform/:run', function() {
       .post('/runs/testem/browserstack/some-id')
       .catch(err => {
         expect(err.status).to.equal(404)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -219,6 +280,10 @@ describe('DELETE /:platform/:run', function() {
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('unsupported platform abc')
       })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
       .should.be.fulfilled
   })
 
@@ -230,6 +295,10 @@ describe('DELETE /:platform/:run', function() {
         expect(err.response.body).to.be.defined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('stop: no such run some-id found')
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })
@@ -248,6 +317,10 @@ describe('DELETE /:platform/:run', function() {
       })
       .then(res => {
         expect(res.statusCode).to.equal(200)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
       })
       .should.be.fulfilled
   })

@@ -4,7 +4,8 @@ var
   fs = Bluebird.promisifyAll(require('fs')),
   chai = require('chai'),
   chaiAsPromised = require('chai-as-promised'),
-  Process = require('./../../../../../lib/core/process').Process
+  Process = require('./../../../../../lib/core/process').Process,
+  utils = require('./../../testutils')
 
 chai.use(chaiAsPromised)
 
@@ -16,6 +17,36 @@ describe('generic', function() {
 
   this.timeout(0)
 
+  it('should fail for unsupported argument', function() {
+    var proc = new Process()
+    return proc
+    .create('node', [ path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'), '--unknown' ], {
+      onstderr: function(stderr) {
+        expect(stderr).to.contain('Unknown option: --unknown')
+      }
+    })
+    .catch(err => {
+      utils.log.error(err)
+      throw err
+    })
+    .should.be.fulfilled
+  })
+
+  it('should print help', function() {
+    var proc = new Process()
+    return proc
+    .create('node', [ path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'), '--help' ], {
+      onstdout: function(stdout) {
+        expect(stdout).to.contain("cbtr.js [--help|-h] [--input|-i <browsers-yaml-file>] [--output|-o <cbtr-settings-file>]")
+      }
+    })
+    .catch(err => {
+      utils.log.error(err)
+      throw err
+    })
+    .should.be.fulfilled
+  })
+
   it('should fail for bad platform in input yaml file', function() {
     var proc = new Process(),
       inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/bad-platform.yml')
@@ -24,15 +55,15 @@ describe('generic', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unknown cross-browser testing platform "SomePlatform", valid options are: BrowserStack')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -46,15 +77,15 @@ describe('generic', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unknown OS "SomeOs", valid options are: Windows, Mac OSX, Android, iOS, Windows Mobile, Opera OS, Ubuntu')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -68,15 +99,15 @@ describe('generic', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unknown OS version "SomeVersion" for os "Windows", valid options are: XP, Vista, 7, 8, 8.1, 10')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -90,15 +121,15 @@ describe('generic', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unknown browser "SomeBrowser", valid options are: Chrome, Firefox, Internet Explorer, Opera, Safari, Edge, Yandex, IE Mobile, Mobile Safari, Android Browser, Opera Mobile Browser')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -117,15 +148,15 @@ describe('BrowserStack', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unsupported test type "SomeTest" for "BrowserStack" platform, valid options are: JS, Selenium')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -139,15 +170,15 @@ describe('BrowserStack', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unsupported OS "Ubuntu" for test type "JS" for "BrowserStack" platform, valid options are: Windows, Mac OSX, Opera OS, Windows Mobile, Android, iOS')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -161,15 +192,15 @@ describe('BrowserStack', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unsupported version "Vista" for os "Windows" for test type "JS" for "BrowserStack" platform, valid options are: 7, 8, 10, XP, 8.1')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -183,15 +214,15 @@ describe('BrowserStack', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unsupported browser "Mobile Safari" on "Windows 7" for test type "JS" for "BrowserStack" platform, valid options are: Opera, Safari, Chrome, Internet Explorer, Firefox, Yandex')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -205,15 +236,15 @@ describe('BrowserStack', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unsupported version "10.0" for browser "Chrome" on "Windows 7" for test type "JS" for "BrowserStack" platform, valid options are:')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -227,15 +258,15 @@ describe('BrowserStack', function() {
       '--input', inputFile
     ], {
       onstdout: function(stdout) {
-        console.log(stdout)
+        utils.log.debug(stdout)
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
         expect(stderr).to.contain('Unsupported device "Nokia Lumia" for browser "IE Mobile" on "Windows Mobile 8.1" for test type "JS" for "BrowserStack" platform, valid options are: Nokia Lumia 930, Nokia Lumia 925, Nokia Lumia 630, Nokia Lumia 520')
       }
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -252,7 +283,7 @@ describe('BrowserStack', function() {
         expect(stdout).to.contain('Created cross-browser-tests-runner settings file -')
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
       }
     })
     .then(() => {
@@ -261,7 +292,7 @@ describe('BrowserStack', function() {
       return fs.unlinkAsync(outputFile)
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled
@@ -278,7 +309,7 @@ describe('BrowserStack', function() {
         expect(stdout).to.contain('Created cross-browser-tests-runner settings file -')
       },
       onstderr: function(stderr) {
-        console.log(stderr)
+        utils.log.error(stderr)
       }
     })
     .then(() => {
@@ -287,7 +318,7 @@ describe('BrowserStack', function() {
       return fs.unlinkAsync(outputFile)
     })
     .catch(err => {
-      console.error(err)
+      utils.log.error(err)
       throw err
     })
     .should.be.fulfilled

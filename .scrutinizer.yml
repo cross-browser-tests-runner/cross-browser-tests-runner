@@ -2,3 +2,5 @@ filter:
   excluded_paths:
     - tests/
     - etc/
+    - conf/
+    - samples/
