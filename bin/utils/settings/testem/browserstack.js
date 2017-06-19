@@ -38,7 +38,7 @@ let
   aliases = require('./../../../../conf/browserstack-conf.json').Aliases,
   inputFile = args.input || path.resolve(process.cwd(), "cbtr.json"),
   outputFile = args.output || path.resolve(process.cwd(), "testem.json"),
-  input = require(inputFile),
+  input = JSON.parse(fs.readFileSync(inputFile, 'utf8')),
   output = { }
 
 const swap = obj => {

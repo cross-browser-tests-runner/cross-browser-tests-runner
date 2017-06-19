@@ -63,7 +63,7 @@ describe('BrowserStack', function() {
     })
     .then(() => {
       var outputFile = path.resolve(process.cwd(), 'cbtr.json')
-      expect(fs.existsSync(outputFile)).to.equal.true
+      expect(fs.existsSync(outputFile)).to.be.true
       var proc2 = new Process()
       return proc2.create('node', [
         path.resolve(process.cwd(), 'bin/utils/settings/testem/browserstack.js')
@@ -83,7 +83,7 @@ describe('BrowserStack', function() {
     })
     .then(() => {
       var outputFile = path.resolve(process.cwd(), 'testem.json')
-      expect(fs.existsSync(outputFile)).to.equal.true
+      expect(fs.existsSync(outputFile)).to.be.true
       return fs.unlinkAsync(outputFile)
     })
     .then(() => {

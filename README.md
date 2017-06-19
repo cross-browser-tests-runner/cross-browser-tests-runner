@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner.svg?branch=master)](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner) [![CircleCI](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/tree/master.svg?style=shield)](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/tree/master) [![Build status](https://ci.appveyor.com/api/projects/status/c6is6otj3afjnybj?svg=true)](https://ci.appveyor.com/project/reeteshranjan/cross-browser-tests-runner) [![codecov](https://codecov.io/gh/cross-browser-tests-runner/cross-browser-tests-runner/branch/master/graph/badge.svg)](https://codecov.io/gh/cross-browser-tests-runner/cross-browser-tests-runner) [![Coverage Status](https://coveralls.io/repos/github/cross-browser-tests-runner/cross-browser-tests-runner/badge.svg?branch=master)](https://coveralls.io/github/cross-browser-tests-runner/cross-browser-tests-runner?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cross-browser-tests-runner/cross-browser-tests-runner/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cross-browser-tests-runner/cross-browser-tests-runner/?branch=master) [![Code Climate](https://codeclimate.com/github/cross-browser-tests-runner/cross-browser-tests-runner.svg)](https://codeclimate.com/github/cross-browser-tests-runner/cross-browser-tests-runner)
+**Due to a bug in package.json, the server.js file does not exist in v0.1.1 and tests would not work. Please use v0.1.2+ that fixes the issue**
+
+[![Build Status](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner.svg?branch=master)](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner) [![CircleCI](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/tree/master.svg?style=shield)](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/tree/master) [![Build status](https://ci.appveyor.com/api/projects/status/c6is6otj3afjnybj?svg=true)](https://ci.appveyor.com/project/reeteshranjan/cross-browser-tests-runner) [![codecov](https://codecov.io/gh/cross-browser-tests-runner/cross-browser-tests-runner/branch/master/graph/badge.svg)](https://codecov.io/gh/cross-browser-tests-runner/cross-browser-tests-runner) [![Coverage Status](https://coveralls.io/repos/github/cross-browser-tests-runner/cross-browser-tests-runner/badge.svg?branch=master)](https://coveralls.io/github/cross-browser-tests-runner/cross-browser-tests-runner?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cross-browser-tests-runner/cross-browser-tests-runner/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cross-browser-tests-runner/cross-browser-tests-runner/?branch=master) [![Code Climate](https://codeclimate.com/github/cross-browser-tests-runner/cross-browser-tests-runner.svg)](https://codeclimate.com/github/cross-browser-tests-runner/cross-browser-tests-runner) [![bitHound Code](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/code.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner) [![bitHound Dependencies](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/dependencies.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/master/dependencies/npm) [![bitHound Dev Dependencies](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/devDependencies.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/master/dependencies/npm) [![npm](https://img.shields.io/npm/v/cross-browser-tests-runner.svg)](https://www.npmjs.com/package/cross-browser-tests-runner)
 # cross-browser-tests-runner
 Helps you perform cross-browser javascript testing using multiple cross-browser testing platforms, runners and frameworks seamlessly.
 ## How does it help?
@@ -13,7 +15,7 @@ Helps you perform cross-browser javascript testing using multiple cross-browser 
 ## Support Status
 Cross-browser Testing Platform | Testem ^1.16.2 | Yeti | Karma | Intern
 -|-|-|-|-
-BrowserStack | [v0.1.1+](#v011) | | |
+BrowserStack | [v0.1.2+](#v012) | | |
 SauceLabs | | | |
 TestingBot | | | |
 crossbrowserstesting.com | | | |
@@ -256,6 +258,8 @@ Version | Windows | OSX | Linux
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.1.2
+- Fixed missing server.js and other issues in [Issue 3](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/3)
 ### v0.1.1
 - Interfaces and factories: cross-browser testing platforms behavior, continuous integration platforms behavior
 - Reusable set of core classes

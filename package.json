@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -34,7 +34,8 @@
     "lib",
     "bin",
     "conf",
-    "samples"
+    "samples",
+    "server.js"
   ],
   "bin": {
     "cbtr-quick-start": "./bin/utils/quick-start.js",
@@ -66,13 +67,13 @@
     "npm": ">=2.15.11"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
+    "chai": "^4.0.2",
+    "chai-as-promised": "^7.0.0",
     "chai-http": "^3.0.0",
     "chai-spies": "^0.7.1",
     "codecov": "^2.2.0",
     "coveralls": "^2.13.1",
-    "eslint": "^3.19.0",
+    "eslint": "^4.0.0",
     "finalhandler": "^1.0.2",
     "fs-extra": "^3.0.1",
     "istanbul": "^0.4.5",

@@ -103,7 +103,7 @@ describe('quick-start.js', function() {
     })
     .then(() => {
       var outputFile = path.resolve(process.cwd(), 'testem.json')
-      expect(fs.existsSync(outputFile)).to.equal.true
+      expect(fs.existsSync(outputFile)).to.be.true
       return fs.unlinkAsync(outputFile)
     })
     .then(() => {

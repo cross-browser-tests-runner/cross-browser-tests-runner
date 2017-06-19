@@ -88,6 +88,9 @@ function parse(obj) {
             checkPlatformTestOsVersionBrowser(platform, test, os, osVersion, browser)
             if('desktop' === config['Operating Systems'][os].type) {
               let browserVersions = browsers[browser], parsed = [ ]
+              if('object' !== typeof(browserVersions)) {
+                browserVersions = [ browsers[browser] ]
+              }
               browserVersions.forEach(browserVersion => {
                 let ret = parseBrowserVersion(browserVersion)
                 if('string' === typeof(ret)) {
@@ -104,6 +107,9 @@ function parse(obj) {
               })
             } else { // mobile
               let devices = browsers[browser]
+              if('object' !== typeof(devices)) {
+                devices = [ browsers[browser] ]
+              }
               checkPlatformTestOsVersionBrowserDevices(platform, test, os, osVersion, browser, devices)
               devices.forEach(device => {
                 results[platform][test].push({

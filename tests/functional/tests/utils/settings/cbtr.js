@@ -288,7 +288,7 @@ describe('BrowserStack', function() {
     })
     .then(() => {
       var outputFile = path.resolve(process.cwd(), 'cbtr.json')
-      expect(fs.existsSync(outputFile)).to.equal.true
+      expect(fs.existsSync(outputFile)).to.be.true
       return fs.unlinkAsync(outputFile)
     })
     .catch(err => {
@@ -314,7 +314,7 @@ describe('BrowserStack', function() {
     })
     .then(() => {
       var outputFile = path.resolve(process.cwd(), 'cbtr.json')
-      expect(fs.existsSync(outputFile)).to.equal.true
+      expect(fs.existsSync(outputFile)).to.be.true
       return fs.unlinkAsync(outputFile)
     })
     .catch(err => {
