@@ -1,3 +1,8 @@
+general:
+  branches:
+    only:
+      - master
+
 dependencies:
   override:
     - npm cache clean:

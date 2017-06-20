@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -80,7 +80,6 @@
     "mocha": "^3.3.0",
     "nock": "^9.0.13",
     "serve-static": "^1.12.2",
-    "sinon": "^2.2.0",
     "testem": "^1.16.2"
   },
   "dependencies": {

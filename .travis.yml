@@ -15,6 +15,10 @@ env:
   - NODE_VERSION="5",CBTR_TEST="functional-tests"
   - NODE_VERSION="4",CBTR_TEST="functional-tests"
 
+branches:
+  only:
+  - master
+
 install:
   - rm -rf ~/.nvm
   - git clone https://github.com/creationix/nvm.git ~/.nvm

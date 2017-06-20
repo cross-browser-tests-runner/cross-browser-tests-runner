@@ -15,7 +15,7 @@ Helps you perform cross-browser javascript testing using multiple cross-browser 
 ## Support Status
 Cross-browser Testing Platform | Testem ^1.16.2 | Yeti | Karma | Intern
 -|-|-|-|-
-BrowserStack | [v0.1.2+](#v012) | | |
+BrowserStack | [v0.1.3+](#v013) | | |
 SauceLabs | | | |
 TestingBot | | | |
 crossbrowserstesting.com | | | |
@@ -258,6 +258,8 @@ Version | Windows | OSX | Linux
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.1.3
+- The OSX specific BrowserStackLocal got added to npm package. Removed it. Things otherwise would have worked only on OSX.
 ### v0.1.2
 - Fixed missing server.js and other issues in [Issue 3](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/3)
 ### v0.1.1
