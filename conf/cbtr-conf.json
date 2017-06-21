@@ -1,35 +1,91 @@
 {
   "Platforms": {
-    "BrowserStack": [ "JS", "Selenium" ]
+    "BrowserStack": [
+      "JS",
+      "Selenium"
+    ]
   },
   "Operating Systems": {
     "Windows": {
       "type": "desktop",
-      "versions": ["XP", "Vista", "7", "8", "8.1", "10"]
+      "versions": [
+        "XP",
+        "Vista",
+        "7",
+        "8",
+        "8.1",
+        "10"
+      ]
     },
     "Mac OSX": {
       "type": "desktop",
-      "versions": ["Snow Leopard", "Lion", "Mountain Lion", "Mavericks", "Yosemite", "El Capitan", "Sierra"]
+      "versions": [
+        "Snow Leopard",
+        "Lion",
+        "Mountain Lion",
+        "Mavericks",
+        "Yosemite",
+        "El Capitan",
+        "Sierra"
+      ]
     },
     "Android": {
       "type": "mobile",
-      "versions": ["1.5", "2.2", "2.3", "4.0", "4.1", "4.2", "4.3", "4.4", "5.0"]
+      "versions": [
+        "1.5",
+        "2.2",
+        "2.3",
+        "4.0",
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4",
+        "5.0",
+        "1.6"
+      ]
     },
     "iOS": {
       "type": "mobile",
-      "versions": ["3.0", "3.2", "4.0", "4.3.2", "5.0", "5.1", "6.0", "7.0", "8.3", "9.1", "9.3", "10.3"]
+      "versions": [
+        "3.0",
+        "3.2",
+        "4.3.2",
+        "5.0",
+        "5.1",
+        "6.0",
+        "7.0",
+        "8.3",
+        "9.1",
+        "9.3",
+        "10.3",
+        "4.0"
+      ]
     },
     "Windows Mobile": {
       "type": "mobile",
-      "versions": ["8.1"]
+      "versions": [
+        "8.1"
+      ]
     },
     "Opera OS": {
       "type": "mobile",
-      "versions": ["1024x600", "1280x800", "240x320", "320x480", "360x640", "480x800", "540x960"]
+      "versions": [
+        "1024x600",
+        "1280x800",
+        "240x320",
+        "320x480",
+        "360x640",
+        "480x800",
+        "480x854",
+        "540x960"
+      ]
     },
     "Ubuntu": {
       "type": "desktop",
-      "versions": [ "12.10", "14.10" ]
+      "versions": [
+        "12.10",
+        "14.10"
+      ]
     }
   },
   "Browsers": [

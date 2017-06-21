@@ -12,7 +12,7 @@ Helps you perform cross-browser javascript testing using multiple cross-browser 
     - Unit test runners do not natively extend to/intergate with cross-browser testing platforms
     - Several fragmented works of integrating different runners with different platforms exist, one separate tool per integration
 - Management
-    - Tests that need multiple browsers need to be managed manually when support for browsers changes in a platform, and it's often that each cross-browser testing platform updates their browser cloud 
+    - Tests that need multiple browsers need to be managed manually when support for browsers changes in a platform, and it's often that each cross-browser testing platform updates their browser cloud
     - With extremely verbose syntax for launchers/browsers used by unit test runners, significant manual effort may be needed to manage the set of test browsers that involves getting the updated browsers list through APIs or support pages and manually changing test runner configuration
 ### Solutions provided
 - Utilities to update a platform's supported browsers set
@@ -103,7 +103,7 @@ BrowserStack:
       "6.0":
         Mobile Safari:
           - "iPad 3rd (6.0)"
-          - "iPhone 4S (6.0)"          
+          - "iPhone 4S (6.0)"
 ```
 ##### Level 1 - Platform
 Currently supported values: `BrowserStack`.
@@ -274,8 +274,13 @@ Version | Platform | Runner | Windows | OSX | Linux
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.1.5
+- The utilty `cbtr-browserstack-update` also updates `conf/cbtr-conf.json` to avoid gaps between main config and browserstack config which was causing errors while generating Testem runner config for BrowserStack
+- Format-only updates to `conf/cbtr-conf.json` post the above change
+- Fixed a bug in `cbtr-testem-browserstack-init` around not being able to generate mobile devices in runner config
 ### v0.1.4
-- The utility cbtr-testem-browserstack-init now allows specifying BrowserStack browser timeout capability
+- The utility `cbtr-testem-browserstack-init` now allows specifying BrowserStack browser timeout capability
+- Fixed few missing valid OS and OS versions in `conf/cbtr-conf.json`
 ### v0.1.3
 - The OSX specific BrowserStackLocal got added to npm package. Removed it. Things otherwise would have worked only on OSX.
 ### v0.1.2

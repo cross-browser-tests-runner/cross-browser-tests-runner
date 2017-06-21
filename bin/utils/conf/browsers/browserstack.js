@@ -14,8 +14,11 @@ let
   Request = require('./../../../../lib/core/request').Request,
   log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Utils.Conf.BrowserStack'),
   configFile = path.resolve(__dirname, './../../../../conf/browserstack-conf.json'),
+  mainConfigFile = path.resolve(__dirname, './../../../../conf/cbtr-conf.json'),
   config = require(configFile),
-  request = new Request()
+  mainConfig = require(mainConfigFile),
+  request = new Request(),
+  mainConfigUpdated = false
 
 request.request(
   host + api,
@@ -36,6 +39,10 @@ request.request(
       os = config.Aliases['Operating Systems'][osAlias] || osAlias,
       osConfig = config.JS[os] = { }
     Object.keys(browsers[osAlias]).forEach(osVersion => {
+      if(-1 === mainConfig['Operating Systems'][os].versions.indexOf(osVersion)) {
+        mainConfig['Operating Systems'][os].versions.push(osVersion)
+        mainConfigUpdated = true
+      }
       let osVersionConfig = osConfig[osVersion] = { }
       browsers[osAlias][osVersion].forEach(browser => {
         let
@@ -52,6 +59,14 @@ request.request(
   })
   log.debug('parsed %s', JSON.stringify(config, null, 2))
   return fs.writeFileAsync(configFile, JSON.stringify(config, null, 2))
+})
+.then(() => {
+  if(mainConfigUpdated) {
+    return fs.writeFileAsync(mainConfigFile, JSON.stringify(mainConfig, null, 2))
+  }
+  else {
+    return true
+  }
 })
 .then(() => {
   console.log('updated browserstack configuration')

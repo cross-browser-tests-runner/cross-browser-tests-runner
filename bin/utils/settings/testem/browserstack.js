@@ -123,7 +123,7 @@ function main() {
       ],
       protocol: "browser"
     };
-    ['browserVersion', 'devide'].forEach(attr => {
+    ['browserVersion', 'device'].forEach(attr => {
       if(launcher[attr]) {
         output.launchers[name].args.push("--" + attr, launcher[attr])
       }
