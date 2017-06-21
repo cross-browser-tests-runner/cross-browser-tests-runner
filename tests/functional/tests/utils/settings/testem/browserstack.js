@@ -78,6 +78,9 @@ describe('BrowserStack', function() {
           else if(stdout.match(/Do you need to take video of your test/)) {
             proc2.proc.stdin.write('y\n')
           }
+          else if(stdout.match(/Please provide a timeout value/)) {
+            proc2.proc.stdin.write('60\n')
+          }
         }
       })
     })

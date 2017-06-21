@@ -1,17 +1,25 @@
-**Due to a bug in package.json, the server.js file does not exist in v0.1.1 and tests would not work. Please use v0.1.2+ that fixes the issue**
+**v0.1.1, v0.1.2 npm versions have been deprecated due to being unstable**
 
 [![Build Status](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner.svg?branch=master)](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner) [![CircleCI](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/tree/master.svg?style=shield)](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/tree/master) [![Build status](https://ci.appveyor.com/api/projects/status/c6is6otj3afjnybj?svg=true)](https://ci.appveyor.com/project/reeteshranjan/cross-browser-tests-runner) [![codecov](https://codecov.io/gh/cross-browser-tests-runner/cross-browser-tests-runner/branch/master/graph/badge.svg)](https://codecov.io/gh/cross-browser-tests-runner/cross-browser-tests-runner) [![Coverage Status](https://coveralls.io/repos/github/cross-browser-tests-runner/cross-browser-tests-runner/badge.svg?branch=master)](https://coveralls.io/github/cross-browser-tests-runner/cross-browser-tests-runner?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cross-browser-tests-runner/cross-browser-tests-runner/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cross-browser-tests-runner/cross-browser-tests-runner/?branch=master) [![Code Climate](https://codeclimate.com/github/cross-browser-tests-runner/cross-browser-tests-runner.svg)](https://codeclimate.com/github/cross-browser-tests-runner/cross-browser-tests-runner) [![bitHound Code](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/code.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner) [![bitHound Dependencies](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/dependencies.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/master/dependencies/npm) [![bitHound Dev Dependencies](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/devDependencies.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/master/dependencies/npm) [![npm](https://img.shields.io/npm/v/cross-browser-tests-runner.svg)](https://www.npmjs.com/package/cross-browser-tests-runner)
 # cross-browser-tests-runner
 Helps you perform cross-browser javascript testing using multiple cross-browser testing platforms, runners and frameworks seamlessly.
 ## How does it help?
-### Uniform Interface, Minimum Configuration
-- Each cross-browser testing platform comes with their own design of how they specify browser, os etc. and other capabilities
-- Each test runner comes with their own ways to specify launchers and configuration syntax
-- Here you specify test browsers in a smart and compact format and use utilities to generate the settings for different platforms and runners
-### Integration & Abstraction of Platforms & Runners
-- BrowserStack local testing using tunnels gets involved in terms of things like how tunnels with and without ID co-exist together, errors thrown in various stress/boundary conditions by tunnels and test workers etc. All the knowledge acquired around platform internals through thorough testing is abstracted into a robust design underneath an easy-to-use interface.
-- Several pieces of fragmented work for integrating cross-browser platforms with different runners exist (and some integrations do not exist yet). This tool aims to be a single-stop solution to cut the effort needed to learn and use multiple tools.
-- As more platforms and runners are integrated, this tool would help save the effort spent on above.
+### Issues with cross-browser testing
+- Diversity & Lack of Standardization
+    - Each cross-browser testing platform provides different APIs/interface, different browser/capabilities specification syntax, and different local testing tunneling solutions
+    - Each unit test runner has its own configuration syntax and aspects
+- Cross-browser testing platform integration with unit test runners
+    - Unit test runners do not natively extend to/intergate with cross-browser testing platforms
+    - Several fragmented works of integrating different runners with different platforms exist, one separate tool per integration
+- Management
+    - Tests that need multiple browsers need to be managed manually when support for browsers changes in a platform, and it's often that each cross-browser testing platform updates their browser cloud 
+    - With extremely verbose syntax for launchers/browsers used by unit test runners, significant manual effort may be needed to manage the set of test browsers that involves getting the updated browsers list through APIs or support pages and manually changing test runner configuration
+### Solutions provided
+- Utilities to update a platform's supported browsers set
+- A smart and compact format to describe the test browsers
+- Utilities to generate test runner configuration using input written in the above format verified against updated set of supported browsers
+- Easy-to-use and well-tested cross-browser platform-test runner integrations supported across Windows, Linux and OSX.
+    - BrowserStack local testing and testing APIs have involved details e.g. how do tunnels with and without ID co-exist, what errors test worker APIs throw in different conditions and the actual behavior is not well-documented. The implementation is based on experience/knowledge acquired through exhaustive testing around such internal aspects.
 ## Support Status
 Cross-browser Testing Platform | Testem ^1.16.2 | Yeti | Karma | Intern
 -|-|-|-|-
@@ -226,10 +234,20 @@ Options:
  input             cross-browser-tests-runner settings file
  output            testem settings file
 ```
+The utility would ask you the following questions:
+
+- Are you using multiple tunnels with different identifiers? (y/n) [If unsure, choose "n"]
+    - BrowserStack supports multiple tunnels with different identifiers as well as a single tunnel without any id. If your tests need multiple tunnels, choose 'y', or else 'n'. The tool would generate tunnel IDs in case you chose 'y'.
+- Do you need to take screenshots of your tests once completed? (y/n)
+- Do you need to take video of your test? (y/n)
+    - Some browsers may not support taking a video, and this behavior is pretty dynamic. So you need to experiment and figure out for yourself.
+- Please provide a timeout value [60]
+    - Minimum timeout on BrowserStack has to be 60 seconds.
+
 ## Server
 The cross-browser-tests-runner server helps creating and managing tests and their state. It can be started with: `cd ./node_modules/cross-browser-tests-runner && npm start` or `node ./node_modules/cross-browser-tests-runner/server.js`. It would keep running in foreground, and you can use PM2 to run it in background, or add '&' on Linux/OSX to move it to background.
 ```
-server.js [--help|-h] [--config|-c <config-file>]
+./node_modules/cross-browser-tests-runner/server.js [--help|-h] [--config|-c <config-file>]
 
 Defaults:
  config            cbtr.json in project root, or CBTR_SETTINGS env var
@@ -243,21 +261,21 @@ Add `LOG_LEVEL=DEBUG` to any of the utilities/commands on Linux/OSX, or export `
 ```
 LOG_LEVEL=DEBUG ./node_modules/.bin/cbtr-init
 ```
-Supported logging levels: `DEBUG`, `INFO`, `WARN`, and `ERROR`, with `DEBUG` producing most verbose logging.
+Supported logging levels: DEBUG, INFO, WARN, and ERROR, with DEBUG producing most verbose logging.
 
 Default logging level: `ERROR`
 ## Releases
 ### Support Matrix
 Version | Platform | Runner | Windows | OSX | Linux
 -|-|-|-|-|-
-0.1.1 | BrowserStack | Testem | node 6, 7<br>[Issue 1](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1) | node 4, 6, 7<br>[Issue 2](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/2) | node 4-7
-### Builds
-Version | Windows | OSX | Linux
--|-|-|-
-0.1.1 | [CI Build](https://ci.appveyor.com/project/reeteshranjan/cross-browser-tests-runner/build/1.0.42) | [CI Build](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner/builds/244626494) | [CI Build](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/154)
+0.1.3 | BrowserStack | Testem | node 6, 7<br>[Issue 1](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1) | node 4, 6, 7<br>[Issue 2](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/2) | node 4-7
+### Deprecated
+- v0.1.1-v0.1.2
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.1.4
+- The utility cbtr-testem-browserstack-init now allows specifying BrowserStack browser timeout capability
 ### v0.1.3
 - The OSX specific BrowserStackLocal got added to npm package. Removed it. Things otherwise would have worked only on OSX.
 ### v0.1.2

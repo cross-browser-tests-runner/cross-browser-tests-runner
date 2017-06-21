@@ -66,7 +66,8 @@ input = input.browsers.BrowserStack
 let answers = {
   multiple: false,
   screenshots: false,
-  video: false
+  video: false,
+  timeout: 60
 }
 
 readline.questionAsync('Are you using multiple tunnels with different identifiers? (y/n) [If unsure, choose "n"] ')
@@ -80,6 +81,13 @@ readline.questionAsync('Are you using multiple tunnels with different identifier
 })
 .catch(answer => {
   answers.video = answer.message.replace(/Error: /, '') === 'y' ? true : false
+  return readline.questionAsync('Please provide a timeout value [60] ')
+})
+.catch(answer => {
+  let timeout = parseInt(answer.message.replace(/Error: /, ''), 10)
+  if(!isNaN(timeout) && timeout >= 60) {
+    answers.timeout = timeout
+  }
   readline.close()
   main()
 })
@@ -110,7 +118,8 @@ function main() {
         "--local",
         "--os", aliases['Operating Systems'][launcher.os] || launcher.os,
         "--osVersion", launcher.osVersion,
-        "--browser", aliases['Browsers'][launcher.browser] || launcher.browser
+        "--browser", aliases['Browsers'][launcher.browser] || launcher.browser,
+        "--timeout", answers.timeout
       ],
       protocol: "browser"
     };

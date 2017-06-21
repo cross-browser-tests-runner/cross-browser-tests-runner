@@ -94,6 +94,9 @@ proc.create('node', [path.resolve(__dirname, 'conf/browsers/' + args.platform + 
       else if(out.match(/Do you need to take video of your test/)) {
         proc.proc.stdin.write('y\n')
       }
+      else if(out.match(/Please provide a timeout value/)) {
+        proc.proc.stdin.write('60\n')
+      }
     }
   })
 })
