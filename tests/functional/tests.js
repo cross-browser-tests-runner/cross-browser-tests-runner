@@ -3,4 +3,5 @@ describe('Functional Tests', function() {
   if(!process.version.match(/^v5/) || !process.platform.match(/darwin/)) {
     require('./tests/testem')
   }
+  require('./tests/native')
 })

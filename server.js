@@ -3,14 +3,14 @@
 'use strict'
 
 const
-  allowedOptions = ['--config', '--help']
+  allowedOptions = ['--config', '--native-runner', '--help']
 
 let
   utils = require('./bin/utils'),
-  args = utils.configHelpArgs(allowedOptions, help)
+  args = utils.serverArgs(allowedOptions, help)
 
 function help() {
-  utils.configHelpAppHelp()
+  utils.serverHelp()
 }
 
 utils.handleHelp(args, help)
@@ -22,18 +22,21 @@ let
   procArgs = [ path.resolve(__dirname, 'bin/server/server.js') ],
   log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server')
 
-if (args.config) {
+if(args.config) {
   procArgs.push('--config', args.config)
+}
+if(args['native-runner']) {
+  procArgs.push('--native-runner')
 }
 
 let proc = new Process()
 
 proc.create('node', procArgs, {
   onstdout: stdout => {
-    log.debug(stdout)
+    console.log(stdout.trim())
   },
   onstderr: stderr => {
-    log.error(stderr)
+    console.error(stderr.trim())
   }
 })
 .then(() => {

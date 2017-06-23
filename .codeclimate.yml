@@ -27,3 +27,4 @@ exclude_paths:
   - etc/
   - conf/
   - samples/
+  - bin/server/runners/native/patch/json2.js

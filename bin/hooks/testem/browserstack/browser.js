@@ -66,7 +66,7 @@ Object.keys(args).forEach(opt => {
 let run
 
 request
-  .post('http://' + settings.host + ':' + settings.port + '/runs/testem/browserstack',
+  .post('http://' + settings.server.host + ':' + settings.server.port + '/runs/testem/browserstack',
     { body: data, json: true })
   .then(response => {
     run = response.id
@@ -90,7 +90,7 @@ function setupExit() {
 
 function stopRunExit() {
   request
-    .delete('http://' + settings.host + ':' + settings.port + '/runs/testem/browserstack/' + run,
+    .delete('http://' + settings.server.host + ':' + settings.server.port + '/runs/testem/browserstack/' + run,
       { body: { screenshot: args.screenshots }, json: true })
     .then(res => {
       log.info('stopped run %s, exiting...', run)

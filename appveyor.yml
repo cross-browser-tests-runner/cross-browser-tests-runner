@@ -42,6 +42,7 @@ test_script:
   - ps: $wait = Start-Process node .\tests\unit\utils\wait.js
   - ps: $staticsrv = Start-Process node .\tests\unit\utils\static-srv.js
   - ps: $server = Start-Process node .\server.js
+  - ps: $server = Start-Process node -ArgumentList ".\server.js --native-runner --config tests\integration\conf\native\cbtr.json"
   - npm run %cbtr_test%
 
 build: off

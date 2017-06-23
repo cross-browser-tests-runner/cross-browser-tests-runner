@@ -23,6 +23,9 @@ test:
     - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./server.js:
         background: true
         parallel: true
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./server.js --native-runner --config tests/integration/conf/native/cbtr.json:
+        background: true
+        parallel: true
     - sleep 2:
         parallel: true
     - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run eslint-unit-tests-codecov:

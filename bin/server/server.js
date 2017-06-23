@@ -3,14 +3,15 @@
 'use strict'
 
 const
-  allowedOptions = ['--config', '--help']
+  allowedOptions = ['--config', '--native-runner', '--help']
 
 let
   utils = require('./../utils'),
-  args = utils.configHelpArgs(allowedOptions, help)
+  args = utils.serverArgs(allowedOptions, help),
+  srvUtils = require('./utils')
 
 function help() {
-  utils.configHelpAppHelp()
+  utils.serverHelp()
 }
 
 utils.handleHelp(args, help)
@@ -19,7 +20,6 @@ let
   bodyParser = require('body-parser'),
   express = require('express'),
   cbtr = express(),
-  runsRouter = require('./runs'),
   Log = require('./../../lib/core/log').Log,
   log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server')
 
@@ -29,18 +29,19 @@ const
 cbtr.use(bodyParser.json())
 cbtr.use(bodyParser.urlencoded({ extended: true }))
 
-cbtr.use('/runs', runsRouter)
+if(!args['native-runner']) {
+  /* eslint-disable global-require */
+  cbtr.use('/runs', require('./runs'))
+  /* eslint-enable global-require */
+}
+else {
+  /* eslint-disable global-require */
+  cbtr.use('/', require('./runners/native'))
+  /* eslint-enable global-require */
+}
 
-cbtr.use(function(req, res) {
-  log.warn('non-existent path %s', req.url)
-  res.sendStatus(404)
-})
+srvUtils.defaults(cbtr)
 
-cbtr.use(function(err, req, res, next) {
-  log.error('error processing request', err)
-  res.status(400).json({ error : err.message })
-})
+log.debug('listening on %s:%s', settings.server.host, settings.server.port)
 
-log.debug('listening on %s:%s', settings.host, settings.port)
-
-cbtr.listen(settings.port, settings.host)
+cbtr.listen(settings.server.port, settings.server.host)

@@ -15,7 +15,7 @@ var
   expect = chai.expect,
   should = chai.should(),
   request = chai.request,
-  host = 'http://' + settings.host + ':' + settings.port
+  host = 'http://' + settings.server.host + ':' + settings.server.port
 
 describe('GET /', function() {
 

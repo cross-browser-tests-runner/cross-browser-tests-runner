@@ -38,6 +38,19 @@ exports.configHelpArgs = (allowedOptions, help) => {
   /* eslint-enable global-require */
 }
 
+exports.serverArgs = (allowedOptions, help) => {
+  /* eslint-disable global-require */
+  return (require('minimist')(process.argv.slice(2), {
+    string: ['config'],
+    boolean: ['help', 'native-runner'],
+    alias: {config: 'c', help: 'h', 'native-runner': 'n'},
+    unknown: opt => {
+      return onUnknownOpt(-1 !== allowedOptions.indexOf(opt), opt, help)
+    }
+  }))
+  /* eslint-enable global-require */
+}
+
 exports.ioHelpArgs = (allowedOptions, help) => {
   /* eslint-disable global-require */
   return (require('minimist')(process.argv.slice(2), {
@@ -61,5 +74,20 @@ exports.configHelpAppHelp = () => {
     'Options:\n' +
     ' help              print this help\n' +
     ' config            cross-browser-tests-runner settings file'
+  )
+}
+
+exports.serverHelp = () => {
+  console.log(
+    '\n' +
+    path.basename(process.argv[1]) +
+    ' [--help|-h] [--config|-c <config-file>] [--native-runner|-n]\n\n' +
+    'Defaults:\n' +
+    ' config            cbtr.json in project root, or CBTR_SETTINGS env var\n' +
+    ' native-runner     false\n\n' +
+    'Options:\n' +
+    ' help              print this help\n' +
+    ' config            cross-browser-tests-runner settings file\n' +
+    ' native-runner     if the server should work as native test runner'
   )
 }

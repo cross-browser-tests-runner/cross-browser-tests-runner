@@ -4,3 +4,4 @@ filter:
     - etc/
     - conf/
     - samples/
+    - bin/server/runners/native/patch/json2.js

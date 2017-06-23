@@ -28,7 +28,7 @@ describe('BrowserStack', function() {
     ], {
       onstdout: function(stdout) {
         out += stdout
-        console.log(stdout)
+        console.log('stdout: ', stdout.trim())
       },
       onstderr: function(stderr) {
         utils.log.error(stderr)

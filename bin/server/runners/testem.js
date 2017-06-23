@@ -77,13 +77,6 @@ router.route('/:platform/:run')
   })
 })
 
-router.use(function(req, res) {
-  log.warn('cannot process %s %s', req.method, req.url)
-  res.sendStatus(404)
-})
-
-router.use(function(err, req, res, next) {
-  srvUtils.error(err, res)
-})
+srvUtils.defaults(router)
 
 module.exports = router

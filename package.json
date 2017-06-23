@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -48,14 +48,14 @@
   },
   "scripts": {
     "eslint": "./node_modules/.bin/eslint bin/ lib/",
-    "unit-tests": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit",
-    "unit-tests-win": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit",
-    "cov-html": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 tests/unit",
-    "no-cov": "UNIT_TESTS=1 LOG_LEVEL=DEBUG ./node_modules/.bin/mocha tests/unit",
-    "integration-tests": "LOG_LEVEL=WARN ./node_modules/.bin/mocha tests/integration",
-    "integration-tests-win": "./node_modules/.bin/mocha tests/integration",
-    "functional-tests": "LOG_LEVEL=WARN ./node_modules/.bin/mocha tests/functional",
-    "functional-tests-win": "./node_modules/.bin/mocha tests/functional",
+    "unit-tests": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit/tests.js",
+    "unit-tests-win": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit/tests.js",
+    "cov-html": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 tests/unit/tests.js",
+    "no-cov": "UNIT_TESTS=1 LOG_LEVEL=DEBUG ./node_modules/.bin/mocha tests/unit/tests.js",
+    "integration-tests": "LOG_LEVEL=WARN ./node_modules/.bin/mocha tests/integration/tests.js",
+    "integration-tests-win": "./node_modules/.bin/mocha tests/integration/tests.js",
+    "functional-tests": "LOG_LEVEL=WARN ./node_modules/.bin/mocha tests/functional/tests.js",
+    "functional-tests-win": "./node_modules/.bin/mocha tests/functional/tests.js",
     "codecov-upload": "./node_modules/.bin/codecov",
     "coveralls-upload": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
     "eslint-unit-tests-cov": "npm run eslint && npm run unit-tests && npm run codecov-upload && npm run coveralls-upload",
@@ -73,19 +73,19 @@
     "chai-spies": "^0.7.1",
     "codecov": "^2.2.0",
     "coveralls": "^2.13.1",
-    "eslint": "^4.0.0",
+    "eslint": "^4.1.0",
     "finalhandler": "^1.0.2",
     "fs-extra": "^3.0.1",
-    "istanbul": "^0.4.5",
     "mocha": "^3.3.0",
     "nock": "^9.0.13",
     "serve-static": "^1.12.2",
-    "testem": "^1.16.2"
+    "testem": "^1.17.0"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "istanbul": "^0.4.5",
     "js-yaml": "^3.8.4",
     "minimist": "^1.2.0",
     "p-retry": "^1.0.0",
@@ -93,6 +93,7 @@
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "sleep": "^5.1.1",
+    "useragent": "^2.1.13",
     "uuid": "^3.0.1"
   }
 }

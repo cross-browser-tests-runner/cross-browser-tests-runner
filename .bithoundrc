@@ -12,6 +12,7 @@
     "**/**-min-**",
     "**/**-min.**",
     "**/**.min.**",
+    "**/json2.js",
     "**/**jquery.?(ui|effects)-*.*.?(*).?(cs|j)s",
     "**/**jquery-*.*.?(*).?(cs|j)s",
     "**/prototype?(*).js",
