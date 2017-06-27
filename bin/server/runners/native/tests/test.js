@@ -5,6 +5,7 @@ let
   Log = require('./../../../../../lib/core/log').Log,
   log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Native.Tests.Test'),
   coreUtils = require('./../../../../../lib/core/utils'),
+  CiFactory = require('./../../../../../lib/ci/factory'),
   aliases = {
     /* eslint-disable global-require */
     BrowserStack: require('./../../../../../conf/browserstack-conf.json').Aliases
@@ -28,6 +29,7 @@ class Test {
       browser.os = aliases[name]['Operating Systems'][browser.os]
     }
     this.browser = browser
+    ci(capabilities)
     this.capabilities = capabilities
     log.debug('created', this)
   }
@@ -38,7 +40,7 @@ class Test {
     .then(result => {
       this.run = result.id
       this.status = 'started'
-      this.checker = setInterval(() => { this.monitor() }, 10000)
+      this.checker = setInterval(() => { this.monitor() }, 60000)
       log.debug('started test', this)
       return this
     })
@@ -90,6 +92,21 @@ class Test {
 
   static testParam(req) {
     return req.query.cbtr_test
+  }
+}
+
+function ci(capabilities) {
+  try {
+    let Ci = CiFactory.get()
+    capabilities.project = Ci.project
+    capabilities.test = Ci.session
+    capabilities.build = Ci.commit
+  }
+  catch(err) {
+    log.debug('ignore failure of CI env detection %s', err)
+    capabilities.project = 'anonymous/anonymous'
+    capabilities.test = uuidv4()
+    capabilities.build = 'unknown build'
   }
 }
 

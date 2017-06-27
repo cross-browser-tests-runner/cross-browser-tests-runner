@@ -44,7 +44,7 @@ fs.readFileAsync(browsersFile)
   log.debug('yml file contents %s', data)
   let obj = yaml.safeLoad(data, 'utf8')
   log.debug('read %s', JSON.stringify(obj, null, 2))
-  let results = { "browsers": parse(obj), "server" : serverDefaults }
+  let results = Object.assign({"browsers": parse(obj)}, serverDefaults)
   log.debug('parsed results %s', JSON.stringify(results, null, 2))
   return fs.writeFileAsync(outputFile, JSON.stringify(results, null, 2))
 })

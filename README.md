@@ -314,6 +314,10 @@ Version | Platform | Runner | Windows | OSX | Linux
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.2.1
+- CI detection and usage for specifying test, project and build capabilities for native runner
+- Fixed break in cbtr-init due to change in default settings structure
+- BrowserStack rate limit exceeds easily with monitoring test status every 10 seconds. Moved to 60 seconds.
 ### v0.2.0
 - Implementation of Native Runner supporting BrowserStack platform and Jasmine 1.x
 ### v0.1.5
