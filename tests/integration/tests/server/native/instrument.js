@@ -44,7 +44,7 @@ describe('GET', function() {
     return request(host)
       .get('/cross-browser-tests-runner.js')
       .then(res => {
-        expect(res.text).to.be.defined
+        expect(res.text).to.not.be.undefined
         expect(res.text).to.contain('CrossBrowserTestsRunner')
         expect(res.statusCode).to.equal(200)
       })

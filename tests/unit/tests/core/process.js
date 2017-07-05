@@ -17,7 +17,7 @@ var
 
 function procExit(code, signal) {
   expect(code).to.equal(0)
-  expect(signal).to.not.be.defined
+  expect(signal).to.be.undefined
 }
 
 describe('create', function() {
@@ -29,9 +29,9 @@ describe('create', function() {
     proc = new Process()
     return proc.create('abc', [ ])
     .catch(error => {
-      expect(error.code).to.be.defined
+      expect(error.code).to.not.be.undefined
       expect(error.code).to.equal('ENOENT')
-      expect(error.syscall).to.be.defined
+      expect(error.syscall).to.not.be.undefined
       expect(error.syscall).to.equal('spawn abc')
     })
     .should.be.fulfilled
@@ -42,9 +42,9 @@ describe('create', function() {
     var exe = path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'sample.js')
     return proc.create(exe, [ ])
     .catch(error => {
-      expect(error.code).to.be.defined
+      expect(error.code).to.not.be.undefined
       expect(error.code).to.be.oneOf(['EACCES', 'UNKNOWN'])
-      expect(error.syscall).to.be.defined
+      expect(error.syscall).to.not.be.undefined
       expect(error.syscall).to.equal('spawn')
     })
     .should.be.fulfilled
@@ -59,7 +59,7 @@ describe('create', function() {
       }
     })
     .then((code, signal) => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
       procExit(code, signal)
     })
     .should.be.fulfilled
@@ -70,7 +70,7 @@ describe('create', function() {
     proc = new Process()
     return proc.create('node', args)
     .then((code, signal) => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
       procExit(code, signal)
     })
     .should.be.fulfilled
@@ -85,7 +85,7 @@ describe('create', function() {
       }
     })
     .then((code, signal) => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
       procExit(code, signal)
     })
     .should.be.fulfilled
@@ -96,7 +96,7 @@ describe('create', function() {
     proc = new Process()
     return proc.create('node', args)
     .then((code, signal) => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
       procExit(code, signal)
     })
     .should.be.fulfilled
@@ -136,7 +136,7 @@ describe('status', function() {
       }
     })
     .then((code, signal) => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
       expect(proc.status()).to.equal('stopped')
       procExit(code, signal)
     })
@@ -165,7 +165,7 @@ describe('stop', function() {
       }
     })
     .then((code, signal) => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
       procExit(code, signal)
       return proc.stop()
     })
@@ -179,7 +179,7 @@ describe('stop', function() {
         var p = list[i]
         if(p.arguments.toString().match(/wait.js/)) {
           proc = new Process(p)
-          expect(proc.pid).to.be.defined
+          expect(proc.pid).to.not.be.undefined
           return proc.stop()
         }
       }
@@ -193,7 +193,7 @@ describe('stop', function() {
     var args = [ path.resolve(process.cwd(), 'tests', 'unit', 'utils', 'wait.js') ]
     proc.create('node', args)
     .then((code, signal) => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
     })
     return proc.stop().should.be.fulfilled
   })

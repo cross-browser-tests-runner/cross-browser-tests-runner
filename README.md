@@ -314,6 +314,10 @@ Version | Platform | Runner | Windows | OSX | Linux
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.2.2
+- BrowserStack tunnel processes die at times, leaving tests in a mess. A monitor was added to ensure tunnel process availability. For Native Runner, the POST calls to send tests results/coverage data now use an exponential backoff in case the calls fail which mostly would be caused because of dead tunnels.
+- Unhandled exception in implementation of finding a process using ps-node fixed
+- Updated browserstack browsers configuration
 ### v0.2.1
 - CI detection and usage for specifying test, project and build capabilities for native runner
 - Fixed break in cbtr-init due to change in default settings structure

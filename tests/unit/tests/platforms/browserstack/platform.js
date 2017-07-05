@@ -2,6 +2,8 @@
 
 var
   chai = require('chai'),
+  spies = require('chai-spies'),
+  sleep = require('sleep'),
   chaiAsPromised = require('chai-as-promised'),
   platform = require('./../../../../../lib/platforms/browserstack/platform'),
   Platform = platform.Platform,
@@ -11,6 +13,7 @@ var
   Manager = require('./../../../../../lib/platforms/browserstack/manager').Manager,
   utils = require('./utils')
 
+chai.use(spies)
 chai.use(chaiAsPromised)
 
 var
@@ -18,8 +21,8 @@ var
   should = chai.should()
 
 function checkRun(run) {
-  expect(run).to.be.defined
-  expect(run.id).to.be.defined
+  expect(run).to.not.be.undefined
+  expect(run.id).to.not.be.undefined
   expect(run.id).to.be.a('string')
 }
 
@@ -28,7 +31,7 @@ describe('browserKeys', function() {
   it('should return all standard keys', function() {
     var keys = Platform.browserKeys(PlatformKeys.browser)
     PlatformKeys.browser.forEach(function(key) {
-      expect(keys[key]).to.be.defined
+      expect(keys[key]).to.not.be.undefined
     })
   })
 
@@ -39,7 +42,7 @@ describe('capabilitiesKeys', function() {
   it('should return all standard keys', function() {
     var keys = Platform.capabilitiesKeys(PlatformKeys.capabilities)
     PlatformKeys.capabilities.forEach(function(key) {
-      expect(keys[key]).to.be.defined
+      expect(keys[key]).to.not.be.undefined
     })
   })
 
@@ -49,9 +52,9 @@ describe('required', function() {
 
   it('should return well formed set of required keys', function() {
     var required = Platform.required
-    expect(required.browser).to.be.defined
+    expect(required.browser).to.not.be.undefined
     expect(required.browser).to.be.an('Array')
-    expect(required.capabilities).to.be.defined
+    expect(required.capabilities).to.not.be.undefined
     expect(required.capabilities).to.be.an('Array')
   })
 
@@ -88,6 +91,7 @@ describe('open', function() {
       local: true
     }])
     .then(() => {
+      platform.stopMonitoring = true
       return Manager.withoutId()
     })
     .then(procs => {
@@ -103,6 +107,49 @@ describe('open', function() {
     .should.be.fulfilled
   })
 
+  it('should create tunnel and monitor', function() {
+    var spy = chai.spy.on(platform, 'monitor')
+    platform.stopMonitoring = false
+    platform.tunnels = [ ]
+    return platform.open([{
+      local: true
+    }])
+    .then(() => {
+      return Manager.withoutId()
+    })
+    .then(procs => {
+      if(1 !== procs.length) {
+        utils.log.warn('expected 1 tunnel to be running')
+      }
+      return new Promise(resolve => {
+        setTimeout(() => {resolve(true)}, PlatformVars.monitorInterval + 500)
+      })
+    })
+    .then(() => {
+      spy.should.have.been.called.min(1)
+      return platform.tunnels[0].stop()
+    })
+    .then(() => {
+      return new Promise(resolve => {
+        setTimeout(() => {resolve(true)}, PlatformVars.monitorInterval + 4000)
+      })
+    })
+    .then(() => {
+      spy.should.have.been.called.min(2)
+      platform.stopMonitoring = true
+      return utils.ensureZeroTunnels()
+    })
+    .catch(err => {
+      if(err && err.message && err.message.match(/Process: already stopped/)) {
+        utils.log.warn('did not expect tunnels to be stopped already')
+        return true
+      }
+      utils.log.error(err)
+      throw err
+    })
+    .should.be.fulfilled
+  })
+
   it('should create tunnels with id', function() {
     return platform.open([{
       local: true,
@@ -112,6 +159,7 @@ describe('open', function() {
       localIdentifier: 'my-id-2'
     }])
     .then(() => {
+      platform.stopMonitoring = true
       return Manager.withId()
     })
     .then(procs => {
@@ -132,6 +180,7 @@ describe('open', function() {
 describe('run', function() {
 
   var platform = new Platform()
+  platform.stopMonitoring = true
   this.timeout(0)
 
   it('should fail if no input is provided', function() {
@@ -329,6 +378,7 @@ describe('run', function() {
 describe('runMultiple', function() {
 
   var platform = new Platform()
+  platform.stopMonitoring = true
   this.timeout(0)
 
   it('should fail if no input is provided', function() {
@@ -562,6 +612,7 @@ describe('runMultiple', function() {
 describe('stop', function() {
 
   var platform = new Platform()
+  platform.stopMonitoring = true
   this.timeout(0)
 
   it('should fail for an invalid run id', function() {
@@ -714,6 +765,7 @@ describe('stop', function() {
 describe('status', function() {
 
   var platform = new Platform()
+  platform.stopMonitoring = true
   this.timeout(0)
 
   it('should fail for an invalid run id', function() {
@@ -738,10 +790,10 @@ describe('status', function() {
       return platform.status(runId)
     })
     .then(results => {
-      expect(results).to.be.defined
-      expect(results.status).to.be.defined
+      expect(results).to.not.be.undefined
+      expect(results.status).to.not.be.undefined
       expect(results.status).to.equal('running')
-      expect(results.workers).to.be.defined
+      expect(results.workers).to.not.be.undefined
       expect(results.workers).to.have.lengthOf(1)
       expect(results.workers[0]).to.be.oneOf(['running', 'queue'])
       expect(results.tunnel).to.equal('none')
@@ -772,10 +824,10 @@ describe('status', function() {
       return platform.status(runId)
     })
     .then(results => {
-      expect(results).to.be.defined
-      expect(results.status).to.be.defined
+      expect(results).to.not.be.undefined
+      expect(results.status).to.not.be.undefined
       expect(results.status).to.equal('stopped')
-      expect(results.workers).to.be.defined
+      expect(results.workers).to.not.be.undefined
       expect(results.workers).to.have.lengthOf(1)
       if('terminated' !== results.workers[0]) {
         utils.log.warn('expected worker status to be terminated')
@@ -805,15 +857,15 @@ describe('status', function() {
       return platform.status(runId)
     })
     .then(results => {
-      expect(results).to.be.defined
-      expect(results.status).to.be.defined
+      expect(results).to.not.be.undefined
+      expect(results.status).to.not.be.undefined
       if('running' !== results.status) {
         utils.log.warn('expected status to be running, not %s', results.status)
       }
-      expect(results.workers).to.be.defined
+      expect(results.workers).to.not.be.undefined
       expect(results.workers).to.have.lengthOf(1)
       expect(results.workers[0]).to.be.oneOf(['running', 'queue'])
-      expect(results.tunnel).to.be.defined
+      expect(results.tunnel).to.not.be.undefined
       if('running' !== results.tunnel) {
         utils.log.warn('expected tunnel to keep running')
       }
@@ -851,17 +903,17 @@ describe('status', function() {
       return platform.status(runId)
     })
     .then(results => {
-      expect(results).to.be.defined
-      expect(results.status).to.be.defined
+      expect(results).to.not.be.undefined
+      expect(results.status).to.not.be.undefined
       if('stopped' !== results.status) {
         utils.log.warn('expected test status to be stopped, not %s', results.status)
       }
-      expect(results.workers).to.be.defined
+      expect(results.workers).to.not.be.undefined
       expect(results.workers).to.have.lengthOf(1)
       if('terminated' !== results.workers[0]) {
         utils.log.warn('expected worker status to be terminated')
       }
-      expect(results.tunnel).to.be.defined
+      expect(results.tunnel).to.not.be.undefined
       if('running' !== results.tunnel) {
         utils.log.warn('expected tunnel to be running')
       }
@@ -902,12 +954,12 @@ describe('status', function() {
       return platform.status(runId)
     })
     .then(results => {
-      expect(results).to.be.defined
-      expect(results.status).to.be.defined
+      expect(results).to.not.be.undefined
+      expect(results.status).to.not.be.undefined
       expect(results.status).to.equal('messy')
-      expect(results.workers).to.be.defined
+      expect(results.workers).to.not.be.undefined
       expect(results.workers).to.have.lengthOf(1)
-      expect(results.tunnel).to.be.defined
+      expect(results.tunnel).to.not.be.undefined
       expect(results.tunnel).to.equal('stopped')
       return platform.stop(runId)
     })

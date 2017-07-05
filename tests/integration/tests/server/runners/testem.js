@@ -55,6 +55,25 @@ describe('GET /:platform', function() {
   })
 })
 
+describe('DELETE /:platform', function() {
+
+  this.timeout(0)
+
+  it('should succeed with 200', function() {
+    return request(host)
+      .delete('/runs/testem/browserstack')
+      .send({ screenshot: true })
+      .then(res => {
+        expect(res.statusCode).to.equal(200)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
+  })
+})
+
 describe('PUT /:platform', function() {
 
   this.timeout(0)
@@ -64,7 +83,7 @@ describe('PUT /:platform', function() {
       .put('/runs/testem/abc')
       .catch(err => {
         expect(err.status).to.equal(400)
-        expect(err.response.body).to.be.defined
+        expect(err.response.body).to.not.be.undefined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('unsupported platform abc')
         return true
@@ -92,7 +111,7 @@ describe('PUT /:platform', function() {
       .send({capabilities:[{os:"Windows"}]})
       .catch(err => {
         expect(err.status).to.equal(400)
-        expect(err.response.body).to.be.defined
+        expect(err.response.body).to.not.be.undefined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('option os is not allowed')
         return true
@@ -109,8 +128,14 @@ describe('PUT /:platform', function() {
       .put('/runs/testem/browserstack')
       .send({capabilities:[{local: true}]})
       .then(res => {
-        expect(res.body).to.be.defined
+        expect(res.body).to.not.be.undefined
         expect(res.statusCode).to.equal(200)
+        return request(host)
+          .delete('/runs/testem/browserstack')
+      })
+      .then(res => {
+        expect(res.statusCode).to.equal(200)
+        return true
       })
       .catch(err => {
         utils.log.error(err)
@@ -130,9 +155,14 @@ describe('PUT /:platform', function() {
         localIdentifier: "my-id-2"
       }]})
       .then(res => {
-        expect(res.body).to.be.defined
+        expect(res.body).to.not.be.undefined
         expect(res.statusCode).to.equal(200)
-        return bsUtils.ensureZeroTunnels()
+        return request(host)
+          .delete('/runs/testem/browserstack')
+      })
+      .then(res => {
+        expect(res.statusCode).to.equal(200)
+        return true
       })
       .catch(err => {
         utils.log.error(err)
@@ -151,7 +181,7 @@ describe('POST /:platform', function() {
       .post('/runs/testem/abc')
       .catch(err => {
         expect(err.status).to.equal(400)
-        expect(err.response.body).to.be.defined
+        expect(err.response.body).to.not.be.undefined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('unsupported platform abc')
       })
@@ -167,7 +197,7 @@ describe('POST /:platform', function() {
       .post('/runs/testem/browserstack')
       .catch(err => {
         expect(err.status).to.equal(400)
-        expect(err.response.body).to.be.defined
+        expect(err.response.body).to.not.be.undefined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('required option os missing')
       })
@@ -184,7 +214,7 @@ describe('POST /:platform', function() {
       .send({"browser":{"os":"Windows","osVersion":"None","browser":"firefox","browserVersion":"43.0"},"url":"http://piaxis.tech"})
       .catch(err => {
         expect(err.status).to.equal(400)
-        expect(err.response.body).to.be.defined
+        expect(err.response.body).to.not.be.undefined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('"errors":[{"field":"os_version","code":"invalid"}]')
       })
@@ -200,27 +230,8 @@ describe('POST /:platform', function() {
       .post('/runs/testem/browserstack')
       .send({"browser":{"os":"Windows","osVersion":"10","browser":"firefox","browserVersion":"43.0"},"url":"http://piaxis.tech"})
       .then(res => {
-        expect(res.body).to.be.defined
+        expect(res.body).to.not.be.undefined
         expect(res.body).to.have.keys('id')
-        expect(res.statusCode).to.equal(200)
-      })
-      .catch(err => {
-        utils.log.error(err)
-        throw err
-      })
-      .should.be.fulfilled
-  })
-})
-
-describe('DELETE /:platform', function() {
-
-  this.timeout(0)
-
-  it('should succeed with 200', function() {
-    return request(host)
-      .delete('/runs/testem/browserstack')
-      .send({ screenshot: true })
-      .then(res => {
         expect(res.statusCode).to.equal(200)
       })
       .catch(err => {
@@ -276,7 +287,7 @@ describe('DELETE /:platform/:run', function() {
       .delete('/runs/testem/abc/some-id')
       .catch(err => {
         expect(err.status).to.equal(400)
-        expect(err.response.body).to.be.defined
+        expect(err.response.body).to.not.be.undefined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('unsupported platform abc')
       })
@@ -292,7 +303,7 @@ describe('DELETE /:platform/:run', function() {
       .delete('/runs/testem/browserstack/some-id')
       .catch(err => {
         expect(err.status).to.equal(400)
-        expect(err.response.body).to.be.defined
+        expect(err.response.body).to.not.be.undefined
         expect(err.response.body).to.have.keys('error')
         expect(err.response.body.error).to.contain('stop: no such run some-id found')
       })
@@ -308,7 +319,7 @@ describe('DELETE /:platform/:run', function() {
       .post('/runs/testem/browserstack')
       .send({"browser":{"os":"Windows","osVersion":"10","browser":"firefox","browserVersion":"43.0"},"url":"http://piaxis.tech"})
       .then(res => {
-        expect(res.body).to.be.defined
+        expect(res.body).to.not.be.undefined
         expect(res.body).to.have.keys('id')
         expect(res.statusCode).to.equal(200)
         return request(host)

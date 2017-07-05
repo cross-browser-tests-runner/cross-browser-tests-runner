@@ -27,8 +27,8 @@ describe('request', function() {
     return req.request('https://www.piaxis.tech/api/v1/runs/', 'GET', { })
     .catch(err => {
       nock.cleanAll()
-      expect(err).to.be.defined
-      expect(err.message).to.be.defined
+      expect(err).to.not.be.undefined
+      expect(err.message).to.not.be.undefined
       expect(err.message).to.contain('simulated request error')
     })
     .should.be.fulfilled
@@ -42,8 +42,8 @@ describe('request', function() {
     return req.request('http://opensource.piaxis.tech/builds', 'GET', { timeout: 2000 })
     .catch(err => {
       nock.cleanAll()
-      expect(err).to.be.defined
-      expect(err.message).to.be.defined
+      expect(err).to.not.be.undefined
+      expect(err.message).to.not.be.undefined
       expect(err.message).to.equal('Error: ESOCKETTIMEDOUT')
     })
     .should.be.fulfilled
@@ -56,12 +56,12 @@ describe('request', function() {
       { }
     )
     .catch(err => {
-      expect(err).to.be.defined
-      expect(err.statusCode).to.be.defined
+      expect(err).to.not.be.undefined
+      expect(err.statusCode).to.not.be.undefined
       expect(err.statusCode).to.equal(401)
-      expect(err.response.statusMessage).to.be.defined
+      expect(err.response.statusMessage).to.not.be.undefined
       expect(err.response.statusMessage).to.equal('Access Denied')
-      expect(err.error).to.be.defined
+      expect(err.error).to.not.be.undefined
       expect(err.error).to.contain('You do not have permission to view this directory or page.')
     })
     .should.be.fulfilled
@@ -74,14 +74,14 @@ describe('request', function() {
       { auth: { user : 'abc', pass: '123' } }
     )
     .catch(err => {
-      expect(err).to.be.defined
-      expect(err.statusCode).to.be.defined
+      expect(err).to.not.be.undefined
+      expect(err.statusCode).to.not.be.undefined
       expect(err.statusCode).to.equal(401)
-      expect(err.response.statusMessage).to.be.defined
+      expect(err.response.statusMessage).to.not.be.undefined
       expect(err.response.statusMessage).to.equal('Access Denied')
-      expect(err.error).to.be.defined
+      expect(err.error).to.not.be.undefined
       expect(err.error).to.contain('You do not have permission to view this directory or page.')
-      expect(err.response.request.headers.authorization).to.be.defined
+      expect(err.response.request.headers.authorization).to.not.be.undefined
       expect(err.response.request.headers.authorization).to.contain('Basic ')
     })
     .should.be.fulfilled
@@ -90,12 +90,12 @@ describe('request', function() {
   it('should call onsuccess handler once the response is completely received', function() {
     return req.request('http://www.piaxis.tech/', 'GET', { resolveWithFullResponse : true })
     .then(response => {
-      expect(response).to.be.defined
-      expect(response.statusCode).to.be.defined
+      expect(response).to.not.be.undefined
+      expect(response.statusCode).to.not.be.undefined
       expect(response.statusCode).to.equal(200)
-      expect(response.statusMessage).to.be.defined
+      expect(response.statusMessage).to.not.be.undefined
       expect(response.statusMessage).to.equal('OK')
-      expect(response.body).to.be.defined
+      expect(response.body).to.not.be.undefined
       expect(response.body).to.not.be.empty
     })
     .should.be.fulfilled
@@ -116,10 +116,10 @@ describe('request', function() {
       }
     )
     .catch(err => {
-      expect(err).to.be.defined
-      expect(err.statusCode).to.be.defined
+      expect(err).to.not.be.undefined
+      expect(err.statusCode).to.not.be.undefined
       expect(err.statusCode).to.equal(400)
-      expect(err.response.statusMessage).to.be.defined
+      expect(err.response.statusMessage).to.not.be.undefined
       expect(err.response.statusMessage).to.equal('Bad Request')
     })
     .should.be.fulfilled

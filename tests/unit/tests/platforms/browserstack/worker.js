@@ -103,7 +103,7 @@ describe('create', function() {
       browser_version : '45.0',
     })
     .then(() => {
-      expect(worker.id).to.be.defined
+      expect(worker.id).to.not.be.undefined
       return utils.safeKillWorker(worker)
     })
     .catch(err => {
@@ -123,7 +123,7 @@ describe('create', function() {
       'browserstack.local' : true
     })
     .then(() => {
-      expect(worker.id).to.be.defined
+      expect(worker.id).to.not.be.undefined
       return utils.safeKillWorker(worker)
     })
     .catch(err => {
@@ -148,7 +148,7 @@ describe('create', function() {
       name: 'my-js-test'
     })
     .then(() => {
-      expect(worker.id).to.be.defined
+      expect(worker.id).to.not.be.undefined
       return utils.safeKillWorker(worker)
     })
     .catch(err => {

@@ -14,6 +14,7 @@ const COLORS = {
   FAIL: "\x1b[31m",
   OK: "\x1b[32m",
   WARN: "\x1b[33m",
+  DESC: "\x1b[90m",
   RESET: "\x1b[0m"
 }
 
@@ -27,7 +28,7 @@ router.route('/run')
   }
   let agent = useragent.parse(req.headers['user-agent'])
   console.log(
-    req.body.passed === req.body.total ? COLORS.OK + '✓ ' : COLORS.FAIL + '× ',
+    req.body.passed === req.body.total ? COLORS.OK + '✓' + COLORS.RESET + COLORS.DESC : COLORS.FAIL + '×',
     agentStr(agent),
     COLORS.RESET)
   let indent = '  '
@@ -42,7 +43,7 @@ router.route('/coverage')
 .post(function(req, res) {
   log.debug('serving %s method %s', req.url, req.method)
   log.debug('coverage data: %s', JSON.stringify(req.body, null, 2))
-  var coverageDir = path.resolve(process.cwd(), 'coverage')
+  const coverageDir = path.resolve(process.cwd(), 'coverage')
   log.debug('checking existence of %s', coverageDir)
   fs.statAsync(coverageDir)
   .then(stats => {
@@ -61,7 +62,7 @@ router.route('/coverage')
     return fs.mkdirAsync(coverageDir)
   })
   .then(() => {
-    let covFile = path.resolve(coverageDir, 'coverage-' + Math.random() + '.json')
+    const covFile = path.resolve(coverageDir, 'coverage-' + Math.random() + '.json')
     log.debug('writing coverage data into %s', covFile)
     return fs.writeFileAsync(covFile, JSON.stringify(req.body))
   })
@@ -96,7 +97,11 @@ function logSpec(spec, indent) {
 }
 
 function specStatus(spec) {
-  return spec.passed ? COLORS.OK + '✓ ' : !spec.skipped ? COLORS.FAIL + '× ' : '- '
+  return spec.passed
+    ? COLORS.OK + '✓' + COLORS.RESET + COLORS.DESC
+    : !spec.skipped
+      ? COLORS.FAIL + '×'
+      : '-' + COLORS.DESC
 }
 
 function logFailures(spec, indent) {

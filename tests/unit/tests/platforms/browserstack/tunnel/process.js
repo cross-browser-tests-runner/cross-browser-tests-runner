@@ -86,7 +86,7 @@ describe('create', function() {
     proc = new Process()
     return proc.create(BinaryVars.path, [ ])
     .then(() => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
       return utils.ensureZeroTunnels()
     })
     .catch(err => {
@@ -100,7 +100,7 @@ describe('create', function() {
     proc = new Process()
     return proc.create(BinaryVars.path, [ '--daemon', '--local-identifier' ])
     .then(() => {
-      expect(proc.pid).to.be.defined
+      expect(proc.pid).to.not.be.undefined
       return utils.ensureZeroTunnels()
     })
     .catch(err => {
@@ -115,8 +115,8 @@ describe('create', function() {
     return proc.create(BinaryVars.path, [ '--local-identifier', 'test-local-id'])
     .then(() => {
       expect(proc).to.not.be.null
-      expect(proc.pid).to.be.defined
-      expect(proc.tunnelId).to.be.defined
+      expect(proc.pid).to.not.be.undefined
+      expect(proc.tunnelId).to.not.be.undefined
       expect(proc.tunnelId).to.equal('test-local-id')
       return utils.ensureZeroTunnels()
     })
@@ -155,7 +155,7 @@ describe('stop', function() {
         }
         expect(error.message).to.contain('spawn EACCES')
         expect(proc).to.not.be.null
-        expect(proc.pid).to.be.defined
+        expect(proc.pid).to.not.be.undefined
         fs.chmodSync(BinaryVars.path, '0755')
         return utils.ensureZeroTunnels()
       })

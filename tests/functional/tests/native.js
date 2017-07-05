@@ -34,16 +34,16 @@ describe('Native Runner', function() {
       }
     })
     .then(() => {
-      if(!out.match(/✓  Chrome 40.0 - Windows 7/)) {
+      if(!out.match(/✓.*Chrome 40.0 - Windows 7/)) {
         utils.log.warn('Chrome 40.0 Windows 7 tests did not run or pass')
       }
-      if(!out.match(/✓  Mobile Safari 6.0 - iOS 6.0 - iPad/)) {
+      if(!out.match(/✓.*Mobile Safari 6.0 - iOS 6.0 - iPad/)) {
         utils.log.warn('iOS 6.0 iPad 3rd tests did not run or pass')
       }
-      if(!out.match(/✓  should return the sum of two numbers/)) {
+      if(!out.match(/✓.*should return the sum of two numbers/)) {
         utils.log.warn('no sum tests were run')
       }
-      if(!out.match(/✓  should return the product of two numbers/)) {
+      if(!out.match(/✓.*should return the product of two numbers/)) {
         utils.log.warn('no product tests were run')
       }
     })

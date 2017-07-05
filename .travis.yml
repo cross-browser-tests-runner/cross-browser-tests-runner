@@ -34,7 +34,3 @@ script:
   - if [ "eslint-unit-tests-cov" != $CBTR_TEST ]; then node ./server.js & fi
   - if [ "eslint-unit-tests-cov" != $CBTR_TEST ]; then node ./server.js --native-runner --config tests/integration/conf/native/cbtr.json & fi
   - npm run $CBTR_TEST
-
-cache:
-  directories:
-    - node_modules

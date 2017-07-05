@@ -39,10 +39,10 @@ describe('remove', function() {
       if(err && (!err.code || 'ENOENT' !== err.code)) {
         utils.log.error(err)
       }
-      expect(err).to.be.defined
-      expect(err.code).to.be.defined
+      expect(err).to.not.be.undefined
+      expect(err.code).to.not.be.undefined
       expect(err.code).to.equal('ENOENT')
-      expect(err.syscall).to.be.defined
+      expect(err.syscall).to.not.be.undefined
       expect(err.syscall).to.be.oneOf(['stat', 'unlink'])
     })
     .catch(err => {

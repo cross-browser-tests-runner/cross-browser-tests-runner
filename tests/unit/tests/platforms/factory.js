@@ -22,7 +22,7 @@ describe('get', function() {
 
   it('should return BrowserStack platform object', function() {
     var platform = Factory.get('browserstack')
-    expect(platform).to.be.defined
+    expect(platform).to.not.be.undefined
     expect(platform).to.not.be.null
     expect(platform.constructor.name).to.equal('Platform')
   })

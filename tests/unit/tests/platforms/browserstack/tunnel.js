@@ -151,10 +151,10 @@ if(!BinaryVars.isWindows) {
         if(err && (!err.code || 'ENOENT' !== err.code)) {
           utils.log.error(err)
         }
-        expect(err).to.be.defined
-        expect(err.code).to.be.defined
+        expect(err).to.not.be.undefined
+        expect(err.code).to.not.be.undefined
         expect(err.code).to.equal('ENOENT')
-        expect(err.syscall).to.be.defined
+        expect(err.syscall).to.not.be.undefined
         expect(err.syscall).to.be.oneOf(['stat', 'unlink'])
       })
       .catch(err => {
@@ -205,16 +205,16 @@ describe('start', function() {
     })
     .then(() => {
       expect(tunnel1).to.not.be.null
-      expect(tunnel1.process.pid).to.be.defined
-      expect(tunnel1.process.tunnelId).to.be.defined
+      expect(tunnel1.process.pid).to.not.be.undefined
+      expect(tunnel1.process.tunnelId).to.not.be.undefined
       expect(tunnel1.process.tunnelId).to.equal('test-local-id-1')
       expect(tunnel2).to.not.be.null
-      expect(tunnel2.process.pid).to.be.defined
-      expect(tunnel2.process.tunnelId).to.be.defined
+      expect(tunnel2.process.pid).to.not.be.undefined
+      expect(tunnel2.process.tunnelId).to.not.be.undefined
       expect(tunnel2.process.tunnelId).to.equal('test-local-id-2')
       expect(tunnel3).to.not.be.null
-      expect(tunnel3.process.pid).to.be.defined
-      expect(tunnel3.process.tunnelId).to.be.defined
+      expect(tunnel3.process.pid).to.not.be.undefined
+      expect(tunnel3.process.tunnelId).to.not.be.undefined
       expect(tunnel3.process.tunnelId).to.equal('test-local-id-3')
       return utils.ensureZeroTunnels()
     })
@@ -238,12 +238,12 @@ describe('start', function() {
       }
       expect(error.message).to.contain('Tunnel: attempt to start a tunnel without a local identifier is not allowed when a tunnel process with a local identifier exists')
       expect(tunnel1).to.not.be.null
-      expect(tunnel1.process.pid).to.be.defined
-      expect(tunnel1.process.tunnelId).to.be.defined
+      expect(tunnel1.process.pid).to.not.be.undefined
+      expect(tunnel1.process.tunnelId).to.not.be.undefined
       expect(tunnel1.process.tunnelId).to.equal('test-local-id')
       expect(tunnel2).to.not.be.null
-      expect(tunnel2.process.pid).to.not.be.defined
-      expect(tunnel2.process.tunnelId).to.not.be.defined
+      expect(tunnel2.process.pid).to.be.undefined
+      expect(tunnel2.process.tunnelId).to.be.undefined
       return utils.ensureZeroTunnels()
     })
     .catch(err => {
@@ -260,15 +260,15 @@ describe('start', function() {
     return tunnel1.start()
     .then(() => {
       expect(tunnel1).to.not.be.null
-      expect(tunnel1.process.pid).to.be.defined
-      expect(tunnel1.process.tunnelId).to.not.be.defined
+      expect(tunnel1.process.pid).to.not.be.undefined
+      expect(tunnel1.process.tunnelId).to.be.undefined
       savePid = parseInt(tunnel1.process.pid.toString())
       return tunnel2.start()
     })
     .then(() => {
       expect(tunnel2).to.not.be.null
-      expect(tunnel2.process.pid).to.be.defined
-      expect(tunnel2.process.tunnelId).to.be.defined
+      expect(tunnel2.process.pid).to.not.be.undefined
+      expect(tunnel2.process.tunnelId).to.not.be.undefined
       expect(tunnel2.process.tunnelId).to.equal('test-local-id')
       return utils.ensureZeroTunnels()
     })
@@ -287,20 +287,20 @@ describe('start', function() {
     return tunnel1.start()
     .then(() => {
       expect(tunnel1).to.not.be.null
-      expect(tunnel1.process.pid).to.be.defined
-      expect(tunnel1.process.tunnelId).to.not.be.defined
+      expect(tunnel1.process.pid).to.not.be.undefined
+      expect(tunnel1.process.tunnelId).to.be.undefined
       savePid = parseInt(tunnel1.process.pid.toString())
       var promises = [ tunnel2.start(), tunnel3.start() ]
       return Promise.all(promises)
     })
     .then(() => {
       expect(tunnel2).to.not.be.null
-      expect(tunnel2.process.pid).to.be.defined
-      expect(tunnel2.process.tunnelId).to.be.defined
+      expect(tunnel2.process.pid).to.not.be.undefined
+      expect(tunnel2.process.tunnelId).to.not.be.undefined
       expect(tunnel2.process.tunnelId).to.equal('test-id-1')
       expect(tunnel3).to.not.be.null
-      expect(tunnel3.process.pid).to.be.defined
-      expect(tunnel3.process.tunnelId).to.be.defined
+      expect(tunnel3.process.pid).to.not.be.undefined
+      expect(tunnel3.process.tunnelId).to.not.be.undefined
       expect(tunnel3.process.tunnelId).to.equal('test-id-2')
       return utils.ensureZeroTunnels()
     })
@@ -316,8 +316,8 @@ describe('start', function() {
     return tunnel.start()
     .then(() => {
       expect(tunnel).to.not.be.null
-      expect(tunnel.process.pid).to.be.defined
-      expect(tunnel.process.tunnelId).to.not.be.defined
+      expect(tunnel.process.pid).to.not.be.undefined
+      expect(tunnel.process.tunnelId).to.be.undefined
       return tunnel.start()
     })
     .catch(error => {

@@ -40,7 +40,7 @@ class Test {
     .then(result => {
       this.run = result.id
       this.status = 'started'
-      this.checker = setInterval(() => { this.monitor() }, 60000)
+      this.checker = setInterval(() => { this.monitor() }, 40000)
       log.debug('started test', this)
       return this
     })
