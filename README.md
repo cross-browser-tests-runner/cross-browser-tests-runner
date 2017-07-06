@@ -295,6 +295,8 @@ The following sample test html shows the structure needed.
 </body>
 </html>
 ```
+### Code Coverage
+If your JavaScript source is instrumented using a tool like Istanbul, the coverage data collected on the browser is automatically sent and stored into `coverage/` in your project's root. Each test run would create a new file with name of the format `coverage-<random>.json`. You can use Istanbul or any other compatible tool to generate lcov or other format reports, or upload these files to `codecov` or `coveralls` to see detailed reports.
 ## Debugging
 Add `LOG_LEVEL=DEBUG` to any of the utilities/commands on Linux/OSX, or export `LOG_LEVEL` as an environment variable. For example:
 ```
@@ -314,6 +316,8 @@ Version | Platform | Runner | Windows | OSX | Linux
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.2.3
+- Updated information on code coverage capability of Native Runner
 ### v0.2.2
 - BrowserStack tunnel processes die at times, leaving tests in a mess. A monitor was added to ensure tunnel process availability. For Native Runner, the POST calls to send tests results/coverage data now use an exponential backoff in case the calls fail which mostly would be caused because of dead tunnels.
 - Unhandled exception in implementation of finding a process using ps-node fixed
