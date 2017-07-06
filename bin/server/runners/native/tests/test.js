@@ -17,7 +17,7 @@ aliases.BrowserStack['Operating Systems'] = coreUtils.swapKV(aliases.BrowserStac
 
 class Test {
 
-  constructor(name, host, testFile, run, browser, capabilities) {
+  constructor(name, host, testFile, run, browser, capabilities, retries) {
     this.id = uuidv4()
     this.status = 'pending'
     this.on = name
@@ -31,6 +31,7 @@ class Test {
     this.browser = browser
     ci(capabilities)
     this.capabilities = capabilities
+    this.retries = retries
     log.debug('created', this)
   }
 
@@ -38,9 +39,9 @@ class Test {
     this.platform = platform
     return this.platform.run(this.url, this.browser, this.capabilities)
     .then(result => {
-      this.run = result.id
+      this.runId = result.id
       this.status = 'started'
-      this.checker = setInterval(() => { this.monitor() }, 40000)
+      this.checker = setInterval(() => { this.monitor() }, 30000)
       log.debug('started test', this)
       return this
     })
@@ -53,24 +54,20 @@ class Test {
       log.debug('test %s has stopped, monitoring stopped hence', this.id)
       return
     }
-    this.platform.status(this.run)
+    this.platform.status(this.runId)
     .then(results => {
-      if('stopped' === results.status) {
-        if(!this.gotStoppedOnce) {
-          this.gotStoppedOnce = true
-          return
-        }
-        log.debug('test %s has stopped on the platform, but no test reports were sent, marking as stopped locally', this.id)
-        clearInterval(this.checker)
-        this.checker = null
-        this.status = 'stopped'
-        console.log(coreUtils.COLORS.FAIL + 'browser %s %s %s %s for url %s did not respond with results', this.browser.browser, this.browser.browserVersion || this.browser.device, this.browser.os, this.browser.osVersion, this.url, coreUtils.COLORS.RESET, '\n')
+      if('stopped' === results.status && !this._checkFirstStop()) {
+        return this._onNoReports()
       }
+      return Promise.resolve(true)
+    })
+    .then(() => {
+      log.debug('completed monitoring iteration for %s', this.id)
     })
   }
 
   stop(takeScreenshot) {
-    return this.platform.stop(this.run, takeScreenshot)
+    return this.platform.stop(this.runId, takeScreenshot)
     .then(() => {
       this.status = 'stopped'
       return true
@@ -92,6 +89,32 @@ class Test {
 
   static testParam(req) {
     return req.query.cbtr_test
+  }
+
+  _checkFirstStop() {
+    if(!this.gotStoppedOnce) {
+      this.gotStoppedOnce = true
+      clearInterval(this.checker)
+      this.checker = setInterval(() => { this.monitor() }, 5000)
+      return true
+    }
+    return false
+  }
+
+  _onNoReports() {
+    log.debug('test %s has stopped on the platform, but no test reports were sent', this.id)
+    clearInterval(this.checker)
+    this.checker = null
+    console.log(coreUtils.COLORS.FAIL + 'browser %s %s %s %s for url %s did not respond with results', this.browser.browser, this.browser.browserVersion || this.browser.device, this.browser.os, this.browser.osVersion, this.url, coreUtils.COLORS.RESET, '\n')
+    if(this.retries) {
+      log.debug('test %s has %d retries left, retrying..', this.id, this.retries)
+      --this.retries
+      return this.run(this.platform)
+    }
+    else {
+      this.status = 'stopped'
+      return Promise.resolve(true)
+    }
   }
 }
 

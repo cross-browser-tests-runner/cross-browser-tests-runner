@@ -3,6 +3,7 @@
 const
   defaults = {
     framework: 'jasmine',
+    retries: 0,
     capabilities: {
       BrowserStack: {
         JS: {

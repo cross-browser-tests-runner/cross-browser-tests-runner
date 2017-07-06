@@ -126,7 +126,7 @@ function createTests(settings, names, run) {
     const capabilities = settings.capabilities[name].JS
     settings.browsers[name].JS.forEach(browser => {
       testFiles.forEach(testFile => {
-        let test = new Test(name, host, testFile, run, browser, capabilities)
+        let test = new Test(name, host, testFile, run, browser, capabilities, settings.retries)
         tests[test.id] = test
       })
     })

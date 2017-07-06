@@ -154,6 +154,7 @@ See `./node_modules/cross-browser-tests-runner/samples/.cbtr-browsers*.yml`
 ```
 {
   "framework": "jasmine",
+  "retries": 1,
   "test_file": [
     "samples/native/tests/html/jasmine/tests.html",
     "samples/native/tests/html/jasmine/tests-cov.html"
@@ -177,6 +178,16 @@ See `./node_modules/cross-browser-tests-runner/samples/.cbtr-browsers*.yml`
       ]
     }
   },
+  "capabilities": {
+    "BrowserStack": {
+      "JS": {
+        "local": true,
+        "localIdentifier": "tunnel-1",
+        "screenshots": true,
+        "timeout": 120
+      }
+    }
+  },
   "server": {
     "port": 7982,
     "host": "127.0.0.1"
@@ -186,11 +197,15 @@ See `./node_modules/cross-browser-tests-runner/samples/.cbtr-browsers*.yml`
 ##### framework
 Needed only if using native runner. Allowed values: `jasmine`, `jasmine2`, `mocha`, `qunit`, and `buster`. Default is `jasmine`.
 > Currently only `jasmine` is supported.
+##### retries
+Number of retries to try for a failed test. Default is 0.
 ##### test_file
 Needed only if using native runner. A string of array of strings - one per test html file. See [Test HTML](#test-html) to understand what structure is required.
-##### browsers setting
+##### browsers
 This section is typically generated using [cbtr-init](#cbtr-init).
-##### server setting
+##### capabilities
+This section has a default which includes values shown in above sample except the `localIdentifier` value.
+##### server
 This section provides the settings for cross-browser-tests-runner server. At this point, no changes should be required unless the default port `7982` is in use by some other process.
 #### Multiple Files
 Multiple files with cross-browser-tests-runner settings can be created and with any file name. See [cbtr-init](#cbtr-init) to know how to create such files not in project root or not named `cbtr.json`. See [cbtr-testem-browserstack-init](#cbtr-testem-browserstack-init), [server](#server) to know how to use such files not in project root or not named `cbtr.json` as input.
@@ -316,6 +331,8 @@ Version | Platform | Runner | Windows | OSX | Linux
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.2.4
+- Ability to retry a failed test using Native Runner
 ### v0.2.3
 - Updated information on code coverage capability of Native Runner
 ### v0.2.2

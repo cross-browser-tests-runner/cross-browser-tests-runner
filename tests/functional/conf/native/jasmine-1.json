@@ -1,9 +1,16 @@
 {
   "framework": "jasmine",
   "test_file": "tests/functional/code/tests/jasmine/html/tests.html",
+  "retries": 1,
   "browsers": {
     "BrowserStack": {
       "JS": [
+        {
+          "os": "Windows",
+          "osVersion": "XP",
+          "browser": "Firefox",
+          "browserVersion": "3.0"
+        },
         {
           "os": "Windows",
           "osVersion": "7",
