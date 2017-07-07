@@ -26,8 +26,8 @@ let
 const
   settings = require('./settings')(args.config)
 
-cbtr.use(bodyParser.json())
-cbtr.use(bodyParser.urlencoded({ extended: true }))
+cbtr.use(bodyParser.json({limit: settings.limit}))
+cbtr.use(bodyParser.urlencoded({limit: settings.limit, extended: true }))
 
 if(!args['native-runner']) {
   /* eslint-disable global-require */

@@ -4,6 +4,7 @@ const
   defaults = {
     framework: 'jasmine',
     retries: 0,
+    limit: '4mb',
     capabilities: {
       BrowserStack: {
         JS: {

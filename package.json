@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -74,7 +74,7 @@
     "chai-spies": "^0.7.1",
     "codecov": "^2.2.0",
     "coveralls": "^2.13.1",
-    "eslint": "^4.1.1",
+    "eslint": "^4.2.0",
     "finalhandler": "^1.0.3",
     "fs-extra": "^3.0.1",
     "istanbul": "^0.4.5",
@@ -87,7 +87,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "js-yaml": "^3.8.4",
+    "js-yaml": "^3.9.0",
     "minimist": "^1.2.0",
     "p-retry": "^1.0.0",
     "ps-node": "^0.1.6",
