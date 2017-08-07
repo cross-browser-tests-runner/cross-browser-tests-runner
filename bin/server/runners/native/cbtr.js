@@ -95,10 +95,17 @@ function logSuite(suite, indent) {
 function toLog(suite) {
   var res = !args['errors-only']
   if(args['errors-only']) {
-    suite.specs.every(spec => {
+    suite.suites.forEach(child => {
+      if(toLog(child)) {
+        res = true
+      }
+    })
+    if(res) {
+      return res
+    }
+    suite.specs.forEach(spec => {
       if(!spec.passed && !spec.skipped) {
         res = true
-        return false
       }
     })
   }
@@ -106,6 +113,9 @@ function toLog(suite) {
 }
 
 function logSpec(spec, indent) {
+  if(args['errors-only'] && (spec.passed || spec.skipped)) {
+    return
+  }
   console.log(
     indent,
     specStatus(spec),

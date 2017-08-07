@@ -402,8 +402,11 @@ Version | Platform | Runner | Windows | OSX | Linux
 ## Caveats & Limitations
 Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
 ## Change Log
+### v0.2.7
+- Bugs in implementation of `--errors-only`
 ### v0.2.6
 - A switch `--errors-only` added which when provided makes native runner output only details of failed test specs. This helps keeping the log to a minimum and still useful level in case of builds with huge number of browsers.
+- Functional tests were running unstably, which was found to become stable by using a local identifier. Added to testem and native runner functional test confs.
 ### v0.2.5
 - Accept large test reports. Default of 100KB in express was too less for some cases. Now, upto 4MB by default is expected. The limit can be changed through `cbtr.json` setting `limit`.
 ### v0.2.4
