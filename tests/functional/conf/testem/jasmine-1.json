@@ -3,7 +3,7 @@
   "browser_start_timeout" : 90,
   "framework": "jasmine",
   "on_start": {
-    "command": "node ./bin/hooks/testem/browserstack/open.js --local",
+    "command": "node ./bin/hooks/testem/browserstack/open.js --local --localIdentifier cbtr-testem-test",
     "wait_for_text": "opened testem/browserstack",
     "wait_for_text_timeout": 60000
   },
@@ -18,7 +18,8 @@
         "--browser", "chrome",
         "--browserVersion", "51.0",
         "--timeout", "90",
-        "--screenshots", "--video"
+        "--screenshots", "--video",
+        "--local", "--localIdentifier", "cbtr-testem-test"
       ],
       "protocol": "browser"
     },
@@ -31,7 +32,8 @@
         "--browser", "firefox",
         "--browserVersion", "43.0",
         "--timeout", "90",
-        "--screenshots", "--video"
+        "--screenshots", "--video",
+        "--local", "--localIdentifier", "cbtr-testem-test"
       ],
       "protocol": "browser"
     },
@@ -44,7 +46,8 @@
         "--browser", "safari",
         "--browserVersion", "9.1",
         "--timeout", "90",
-        "--screenshots", "--video"
+        "--screenshots", "--video",
+        "--local", "--localIdentifier", "cbtr-testem-test"
       ],
       "protocol": "browser"
     },
@@ -57,7 +60,8 @@
         "--browser", "ie",
         "--browserVersion", "11.0",
         "--timeout", "90",
-        "--screenshots", "--video"
+        "--screenshots", "--video",
+        "--local", "--localIdentifier", "cbtr-testem-test"
       ],
       "protocol": "browser"
     }

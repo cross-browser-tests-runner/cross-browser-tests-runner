@@ -7,12 +7,6 @@
       "JS": [
         {
           "os": "Windows",
-          "osVersion": "XP",
-          "browser": "Firefox",
-          "browserVersion": "3.0"
-        },
-        {
-          "os": "Windows",
           "osVersion": "7",
           "browser": "Chrome",
           "browserVersion": "40.0"

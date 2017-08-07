@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -68,33 +68,32 @@
     "npm": ">=2.15.11"
   },
   "devDependencies": {
-    "chai": "^4.0.2",
+    "chai": "^4.1.1",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^3.0.0",
     "chai-spies": "^0.7.1",
-    "codecov": "^2.2.0",
+    "codecov": "^2.3.0",
     "coveralls": "^2.13.1",
-    "eslint": "^4.2.0",
-    "finalhandler": "^1.0.3",
-    "fs-extra": "^3.0.1",
+    "eslint": "^4.4.0",
+    "finalhandler": "^1.0.4",
     "istanbul": "^0.4.5",
-    "mocha": "^3.4.2",
-    "nock": "^9.0.13",
-    "serve-static": "^1.12.3",
-    "testem": "^1.18.0"
+    "mocha": "^3.5.0",
+    "nock": "^9.0.14",
+    "serve-static": "^1.12.4",
+    "testem": "^1.18.1"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "js-yaml": "^3.9.0",
+    "express": "^4.15.4",
+    "js-yaml": "^3.9.1",
     "minimist": "^1.2.0",
     "p-retry": "^1.0.0",
     "ps-node": "^0.1.6",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "sleep": "^5.1.1",
-    "useragent": "^2.2.0",
+    "useragent": "^2.2.1",
     "uuid": "^3.1.0"
   }
 }

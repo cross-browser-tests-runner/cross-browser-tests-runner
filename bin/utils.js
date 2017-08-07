@@ -42,8 +42,8 @@ exports.serverArgs = (allowedOptions, help) => {
   /* eslint-disable global-require */
   return (require('minimist')(process.argv.slice(2), {
     string: ['config'],
-    boolean: ['help', 'native-runner'],
-    alias: {config: 'c', help: 'h', 'native-runner': 'n'},
+    boolean: ['help', 'native-runner', 'errors-only'],
+    alias: {config: 'c', help: 'h', 'native-runner': 'n', 'errors-only': 'e' },
     unknown: opt => {
       return onUnknownOpt(-1 !== allowedOptions.indexOf(opt), opt, help)
     }

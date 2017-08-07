@@ -8,7 +8,12 @@ let
   useragent = require('useragent'),
   Log = require('./../../../../lib/core/log').Log,
   log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Native.Cbtr'),
-  srvUtils = require('./../../utils')
+  srvUtils = require('./../../utils'),
+  args = require('minimist')(process.argv.slice(2), {
+    string: ['config'],
+    boolean: ['errors-only', 'native-runner'],
+    alias: {config: 'c', 'errors-only': 'e', 'native-runner': 'n'}
+  })
 
 const COLORS = {
   FAIL: "\x1b[31m",
@@ -75,6 +80,9 @@ router.route('/coverage')
 srvUtils.defaults(router)
 
 function logSuite(suite, indent) {
+  if(!toLog(suite)) {
+    return
+  }
   console.log(indent, suite.description)
   suite.suites.forEach(child => {
     logSuite(child, indent + '  ')
@@ -82,6 +90,19 @@ function logSuite(suite, indent) {
   suite.specs.forEach(spec => {
     logSpec(spec, indent + '  ')
   })
+}
+
+function toLog(suite) {
+  var res = !args['errors-only']
+  if(args['errors-only']) {
+    suite.specs.every(spec => {
+      if(!spec.passed && !spec.skipped) {
+        res = true
+        return false
+      }
+    })
+  }
+  return res
 }
 
 function logSpec(spec, indent) {

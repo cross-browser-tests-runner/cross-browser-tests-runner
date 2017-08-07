@@ -3,7 +3,7 @@
 'use strict'
 
 const
-  allowedOptions = ['--config', '--native-runner', '--help']
+  allowedOptions = ['--config', '--native-runner', '--errors-only', '--help']
 
 let
   utils = require('./../utils'),
