@@ -1,180 +1,181 @@
 [![Build Status](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner.svg?branch=master)](https://travis-ci.org/cross-browser-tests-runner/cross-browser-tests-runner) [![CircleCI](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/tree/master.svg?style=shield)](https://circleci.com/gh/cross-browser-tests-runner/cross-browser-tests-runner/tree/master) [![Build status](https://ci.appveyor.com/api/projects/status/c6is6otj3afjnybj?svg=true)](https://ci.appveyor.com/project/reeteshranjan/cross-browser-tests-runner) [![codecov](https://codecov.io/gh/cross-browser-tests-runner/cross-browser-tests-runner/branch/master/graph/badge.svg)](https://codecov.io/gh/cross-browser-tests-runner/cross-browser-tests-runner) [![Coverage Status](https://coveralls.io/repos/github/cross-browser-tests-runner/cross-browser-tests-runner/badge.svg?branch=master)](https://coveralls.io/github/cross-browser-tests-runner/cross-browser-tests-runner?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/cross-browser-tests-runner/cross-browser-tests-runner/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/cross-browser-tests-runner/cross-browser-tests-runner/?branch=master) [![Code Climate](https://codeclimate.com/github/cross-browser-tests-runner/cross-browser-tests-runner.svg)](https://codeclimate.com/github/cross-browser-tests-runner/cross-browser-tests-runner) [![bitHound Code](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/code.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner) [![bitHound Dependencies](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/dependencies.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/master/dependencies/npm) [![bitHound Dev Dependencies](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/badges/devDependencies.svg)](https://www.bithound.io/github/cross-browser-tests-runner/cross-browser-tests-runner/master/dependencies/npm) [![npm](https://img.shields.io/npm/v/cross-browser-tests-runner.svg)](https://www.npmjs.com/package/cross-browser-tests-runner)
-# cross-browser-tests-runner
-Helps you perform cross-browser javascript testing using multiple cross-browser testing platforms, runners and frameworks seamlessly.
-  * [What does it do?](#what-does-it-do)
-  * [Support Status](#support-status)
-     * [Integrations](#integrations)
-     * [Native Runner](#native-runner)
-     * [Operating Systems](#operating-systems)
-  * [Installation](#installation)
-  * [Quick Start](#quick-start)
-     * [BrowserStack](#browserstack)
-     * [Native Runner](#native-runner-1)
-        * [BrowserStack](#browserstack-1)
-     * [Testem](#testem)
-        * [BrowserStack](#browserstack-2)
-  * [Getting Started - Step by Step](#getting-started---step-by-step)
-     * [1. Environment Variables](#1-environment-variables)
-        * [BrowserStack](#browserstack-3)
-     * [2. Update Supported Browsers](#2-update-supported-browsers)
-        * [BrowserStack](#browserstack-4)
-     * [3. Select Browsers](#3-select-browsers)
-        * [BrowserStack](#browserstack-5)
-     * [4. Create Common Config](#4-create-common-config)
-     * [5. Create Runner Config](#5-create-runner-config)
-        * [Native Runner](#native-runner-2)
-        * [Testem](#testem-1)
-           * [BrowserStack](#browserstack-6)
-     * [6. Run Server](#6-run-server)
-        * [Native Runner](#native-runner-3)
-        * [Other Runners](#other-runners)
-     * [7. Run Tests](#7-run-tests)
-        * [Testem](#testem-2)
-  * [Configuration Files](#configuration-files)
-     * [.cbtr-browsers.yml](#cbtr-browsersyml)
-        * [Format](#format)
-        * [Multiple Files](#multiple-files)
-        * [Samples](#samples)
-     * [cbtr.json](#cbtrjson)
-        * [Format](#format-1)
-        * [Multiple Files](#multiple-files-1)
-        * [Samples](#samples-1)
-  * [Utilities](#utilities)
-     * [cbtr-init](#cbtr-init)
-     * [Testem](#testem-3)
-        * [BrowserStack](#browserstack-8)
-           * [cbtr-testem-browserstack-init](#cbtr-testem-browserstack-init)
-  * [Server](#server-1)
-     * [Native Runner mode](#native-runner-mode)
-     * [Other Runners mode](#other-runners-mode)
-     * [Usage](#usage)
-  * [Native Runner](#native-runner-4)
-     * [Test HTML](#test-html)
-        * [Jasmine 1.x](#jasmine-1x)
-     * [Code Coverage](#code-coverage)
-  * [Failover](#failover)
-  * [Debugging](#debugging)
-  * [Releases](#releases)
-     * [Support Matrix](#support-matrix)
-     * [Deprecated](#deprecated)
-  * [Caveats &amp; Limitations](#caveats--limitations)
-  * [Change Log](#change-log)
 
-## What does it do?
-- One tool, multiple cross-browser platforms (e.g. BrowserStack, SauceLabs, TestingBot, CrossBrowserTesting etc.) and test runners (e.g. Testem, Intern, Karma, Yeti etc.) integrations. See [Support Status](#support-status).
-- Well tested runner-platform integrations. Exhaustive testing performed to understand documented and undocumented aspects of cross-browser platforms and test runners so your tests run smoothly using the integrations provided.
-- A common browsers and capabilities syntax to describe your tests, which is converted into platform specific syntax using utilities. Save time understanding each platform's syntax.
-- From tests written in common format, generate your test runner's configuration using utilities. Save time manually managing test runner configurations, which is typically significant if you use a large set of test browsers.
-- A native test runner included that came out of limitations faced with existing runners. If you experienced what led to building it, here is the solution you need.
-## Support Status
-### Integrations
-Cross-browser Testing Platform | Native Runner | Testem ^1.16.2 | Yeti | Karma | Intern
--|-|-|-|-|-
-BrowserStack | [v0.2.0+](#v020) | [v0.1.3+](#v013) | | |
-SauceLabs | | | | |
-TestingBot | | | | |
-crossbrowserstesting.com | | | | |
-### Native Runner
-Unit Testing Framework | Version
--|-
-Jasmine 1.x | [v0.2.0+](#v020)
-Jasmine 2.x |
-Mocha |
-QUnit |
-Buster |
-### Operating Systems
-Runner | Windows | Linux | Mac OSX
--|-|-|-
-Native Runner | [v0.2.0+](#v020) | [v0.2.0+](#v020) | [v0.2.0+](#v020)
-Testem | [v0.1.3+](#v013) | [v0.1.3+](#v013) | [v0.1.3+](#v013)
-Yeti | | |
-Karma | | |
-Intern | | |
+# cross-browser-tests-runner
+One tool to do cross-browser testing across multiple cross-browser testing platforms, runners and frameworks.
+
 ## Installation
-```
-npm install cross-browser-tests-runner
+```bash
+$ npm install cross-browser-tests-runner
 ```
 ## Quick Start
-### BrowserStack
-```
+### BrowserStack with Native Runner
+> This would run 4 tests (2 tests x 2 browsers) in your BrowserStack account.
+```bash
 $ export BROWSERSTACK_USERNAME=<your-browserstack-username>
 $ export BROWSERSTACK_ACCESS_KEY=<your-browserstack-access-key>
-```
-### Native Runner
-#### BrowserStack
-In your project root directory
-```
 $ cp -r ./node_modules/cross-browser-tests-runner/samples/ samples/
-$ node ./node_modules/cross-browser-tests-runner/server.js --native-runner --config ./node_modules/cross-browser-tests-runner/samples/cbtr-browserstack.json
+$ ./node_modules/.bin/cbtr-server --native-runner --config ./samples/cbtr-browserstack.json
 ```
-> This would run 4 tests (2 tests x 2 browsers) in your BrowserStack account.
-### Testem
-Create `testem.json` in your project's root directory with `src_files` (or `test_page`) and `framework` (if required) settings.
-#### BrowserStack
-```
+### BrowserStack with Testem
+> You need to have a `testem.json` with `src_files` or `test_page` setting.
+```bash
+$ export BROWSERSTACK_USERNAME=<your-browserstack-username>
+$ export BROWSERSTACK_ACCESS_KEY=<your-browserstack-access-key>
 $ ./node_modules/.bin/cbtr-quick-start -p browserstack -r testem
-$ node ./node_modules/cross-browser-tests-runner/server.js
-```
-In another terminal:
-```
+$ ./node_modules/.bin/cbtr-server &
 $ testem ci
 ```
+## Status
+### Platform-Runner Integrations
+Cross-browser Testing Platform|Native Runner|Testem ^1.16.2|*Yeti*|*Karma*|*Intern*
+-|-|-|-|-|-
+BrowserStack|v0.2.0+|v0.1.3+|||
+*SauceLabs*|||||
+*TestingBot*|||||
+*crossbrowserstesting.com*|||||
+### JS Unit Test Frameworks supported by Native Runner
+Unit Testing Framework|Package Version
+-|-
+Jasmine 1.x|v0.2.0+
+*Jasmine 2.x*|
+*Mocha*|
+*QUnit*|
+*Buster*|
+### Operating Systems and Node Versions
+Cross-browser Testing Platform|Native Runner|Testem ^1.16.2|*Yeti*|*Karma*|*Intern*
+-|-|-|-|-|-
+BrowserStack|**Windows**: nodejs 6, 7 [(1)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1)<br>**Mac**: nodejs 4, 6, 7 [(2)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/2)<br>**Linux**: nodejs 4-7|**Windows**: nodejs 6, 7 [(1)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1)<br>**Mac**: nodejs 4-7<br>**Linux**: nodejs 4-7|||
+*SauceLabs*|||||
+*TestingBot*|||||
+*crossbrowserstesting.com*|||||
+
 ## Getting Started - Step by Step
-### 1. Environment Variables
-#### BrowserStack
-```
+### Common Steps
+#### Testing with BrowserStack
+Export BrowserStack access key and user name environment variables
+```bash
 $ export BROWSERSTACK_USERNAME=<your-browserstack-username>
 $ export BROWSERSTACK_ACCESS_KEY=<your-browserstack-access-key>
 ```
-### 2. Update Supported Browsers
-#### BrowserStack
-```
+(Optional) Update the BrowserStack's supported browsers configuration using [cbtr-browserstack-update](#cbtr-browserstack-update).
+```bash
 $ ./node_modules/.bin/cbtr-browserstack-update
 ```
-This updates `./node_modules/cross-browser-tests-runner/conf/browserstack-conf.json` and `./node_modules/cross-browser-tests-runner/conf/cbtr-conf.json`.
-### 3. Select Browsers
-#### BrowserStack
+Enter the browsers for your test into [.cbtr-browsers.yml](#cbtr-browsersyml). Use the sample file `./node_modules/cross-browser-tests-runner/samples/.cbtr-browsers-browserstack.yml` to quickly complete this 'getting started' session.
+
+Generate the cross-browser-tests-runner configuration file [cbtr.json](#cbtrjson) using [cbtr-init](#cbtr-init).
+```bash
+$ ./node_modules/.bin/cbtr-init [--input .cbtr-browsers.yml] [--output cbtr.json]
 ```
-$ cp ./node_modules/cross-browser-tests-runner/samples/.cbtr-browsers-browserstack.yml` .cbtr-browsers.yml`
+### Test with BrowserStack using Native Runner
+Complete the steps in [BrowserStack Common Steps](#testing-with-browserstack).
+
+Add `framework` and `test_file` settings in [cbtr.json](#cbtrjson). Then run the server.
+```bash
+$ ./node_modules/.bin/cbtr-server --native-runner
 ```
-The above is a sample to help you understand the process. Eventually, you'll write your own. See [.cbtr-browsers.yml](#cbtr-browsersyml).
-### 4. Create Common Config
+This would run all your tests and exit once completed.
+### Test with BrowserStack using Testem
+Complete the steps in [BrowserStack Common Steps](#testing-with-browserstack).
+
+Generate the Testem configuration file `testem.json` using [cbtr-testem-browserstack-init](#cbtr-testem-browserstack-init). It would overwrite `launchers` and `launch_in_ci` settings if present already.
+```bash
+$ ./node_modules/.bin/cbtr-testem-browserstack-init [--input cbtr.json] [--output testem.json]
 ```
-$ ./node_modules/.bin/cbtr-init
+Run the cross-browser-tests-runner [server](#server).
+```bash
+$ ./node_modules/.bin/cbtr-server &
 ```
-This would create `cbtr.json` in your project's root directory, based on the information in `.cbtr-browsers.yml`. It serves as configuration for native runner, as well as the common intermediate format using which individual test runner's configuration is generated. See [cbtr.json](#cbtrjson), [cbtr-init](#cbtr-init).
-### 5. Create Runner Config
-#### Native Runner
-Add `framework` and `test_file` settings in `cbtr.json`. See [cbtr.json](#cbtrjson) for details.
-#### Testem
-##### BrowserStack
-```
-$ ./node_modules/.bin/cbtr-testem-browserstack-init
-```
-This would create or update existing `testem.json` in your project's root directory.
-> It overwrites `launchers` and `launch_in_ci` settings. Any other settings specified in existing `testem.json` would be untouched.
-See [cbtr-testem-browserstack-init](#cbtr-testem-browserstack-init) for more details.
-### 6. Run Server
-#### Native Runner
-```
-$ node ./node_modules/cross-browser-tests-runner/server.js --native-runner
-```
-This would run all your tests and exit once they complete.
-#### Other Runners
-```
-$ node ./node_modules/cross-browser-tests-runner/server.js
-```
-More: [server](#server).
-### 7. Run Tests
-> Only if you are using other test runners, and not the native one.
-#### Testem
-```
+Run testem in CI mode.
+```bash
 $ testem ci
 ```
-## Configuration Files
+## Debugging
+Add `LOG_LEVEL=DEBUG` to any of the utilities/commands on Linux/OSX, or export `LOG_LEVEL` as an environment variable. For example:
+```bash
+$ LOG_LEVEL=DEBUG ./node_modules/.bin/cbtr-init
+```
+Supported logging levels: DEBUG, INFO, WARN, and ERROR, with DEBUG producing most verbose logging.
+
+Default logging level: `ERROR`
+## Server
+The cross-browser-tests-runner server helps creating and managing tests and their state.
+### As Native Runner
+```bash
+$ ./node_modules/.bin/cbtr-server --native-runner [--config path/to/cbtr.json]
+```
+It would exit after completing all tests in case input [cbtr.json](#cbtrjson) has browsers specified. Otherwise, it would keep running, listening on the specified/default port in the config, and this mode can be used to debug/test using a local browser.
+### For Other Runners
+```bash
+$ ./node_modules/.bin/cbtr-server
+```
+It would keep running in foreground, waiting for tests to be run by the test runner used e.g. Testem.
+### Usage
+```bash
+$ ./node_modules/.bin/cbtr-server [--help|-h] [--config|-c <config-file>] [--native-runner|-n] [--errors-only|e]
+
+Defaults:
+ config            cbtr.json in project root, or CBTR_SETTINGS env var
+ native-runner     false
+ errors-only       false
+
+Options:
+ help              print this help
+ config            cross-browser-tests-runner settings file
+ native-runner     if the server should work as native test runner
+ errors-only       (native runner only) output only failed test cases
+```
+## Native Runner
+The native test runner included provides easy [Code Coverage](#code-coverage) and [Failover](#failover) mechanism to counter different issues observed while building this tool.
+### Test HTML Format
+A test HTML file used in testing with native runner needs to be in a specified format.
+#### For Jasmine 1.x
+Use the following sample and replace the annotated lines in the sample with your source and test javascript files.
+```html
+<!doctype html>
+<html>
+<head>
+  <title>Cross Browser Tests Runner</title>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine-html.js"></script>
+  <script src="/cross-browser-tests-runner.js"></script>
+  <script>
+    (function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.addReporter(new jasmine.HtmlReporter);
+      window.onload = function() {
+        jasmineEnv.execute();
+      }
+    })()
+  </script>
+  <!-- start of app and test code -->
+  <script src="../../js/src/app.js"></script>
+  <script src="../../js/tests/jasmine/test.js"></script>
+  <!-- end of app and test code -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.css">
+</head>
+<body>
+  <div id="jasmine_content"></div>
+</body>
+</html>
+```
+### Code Coverage
+If your JavaScript source is instrumented using a tool like Istanbul, the coverage data collected on the browser is automatically sent and stored into `coverage/` in your project's root, when using native runner. You can use Istanbul or any other compatible tool to generate lcov or other format reports, and upload to services like https://codecov.io, https://coveralls.io and others.
+## Failover
+### Platform tools instability
+BrowserStack tunnels have been seen to die because of undocumented and unresolved issues. This messes up local testing as sometimes the tests cannot be loaded, or results cannot be sent back.
+
+The BrowserStack platform code in cross-browser-tests-runner includes monitoring of tunnel processes and restarts any that die.
+### Test results reporting retries
+Test results and code coverage data sending fails if tunnels die. As seen in above section, a mechanism of restarting tunnels is in place. This is exploited by a retry with exponential backoff mechanism used for reporting test results that maximises the possibility of reporting to reach the server.
+
+Such behavior is possible with our own code that is "instrumented" in your tests runtime when using [native runner](#native-runner). It's not possible to have such behavior when using testem or other tools because they have their own instrumented code.
+### Test retries
+Sometimes, tests fail even with above mechanisms in place. In the case of [native nunner](#native-runner), a test retry mechanism has been put in place. The number of retries can be controlled through [cbtr.json](#cbtrjson). This has been seen to improve on test failures as well.
+## Configuration
 ### .cbtr-browsers.yml
 #### Format
-```
+```yml
 BrowserStack:
   JS:
     Windows:
@@ -188,29 +189,31 @@ BrowserStack:
           - "iPad 3rd (6.0)"
           - "iPhone 4S (6.0)"
 ```
-##### Level 1 - Platform
+##### Level 1: Platform
 Currently supported values: `BrowserStack`.
-##### Level 2 - Testing Category
+##### Level 2: Testing Category
 Javascript Unit Testing and Selenium Web Driver based testing would be supported by this tool. Currently supported value: `JS`. This matters as platforms like BrowserStack provide different browsers for JS testing and Selenium testing.
-##### Level 3 - Operating System
+##### Level 3: Operating System
 Supported values can be found in `./node_modules/cross-browser-tests-runner/conf/cbtr-conf.json`
-##### Level 4 - Operating System Version
+##### Level 4: Operating System Version
 Supported values can be found in `./node_modules/cross-browser-tests-runner/conf/cbtr-conf.json`.
 > Please use double quotes around numeric values.
-##### Level 5 - Browser Name
+##### Level 5: Browser Name
 Supported values can be found in `./node_modules/cross-browser-tests-runner/conf/cbtr-conf.json`.
-##### Level 6 - Browser Version/Device
+##### Level 6: Browser Version/Device
 A compact range format of browser versions can be used as shown in the above sample.
 > Please use double quotes around numeric values.
 ###### BrowserStack
-For desktop operating systems: browser version needs to be specified. For mobile operting systems: device needs to be specified. Supported values can be found in `./node_modules/cross-browser-tests-runner/conf/browserstack-conf.json`.
+- For desktop operating systems: browser version needs to be specified.
+- For mobile operting systems: device needs to be specified.
+- Supported values can be found in `./node_modules/cross-browser-tests-runner/conf/browserstack-conf.json`.
 #### Multiple Files
-Multiple files with browsers can be created and with any file name. See [cbtr-init](#cbtr-init) to know how to use such a file not in project's root directory or not named `.cbtr-browsers.yml`.
+You can keep more than one file containing browsers configuration, if that suits your testing. See [cbtr-init](#cbtr-init).
 #### Samples
-See `./node_modules/cross-browser-tests-runner/samples/.cbtr-browsers*.yml`
+`./node_modules/cross-browser-tests-runner/samples/.cbtr-browsers*.yml`
 ### cbtr.json
 #### Format
-```
+```json
 {
   "framework": "jasmine",
   "retries": 1,
@@ -255,28 +258,27 @@ See `./node_modules/cross-browser-tests-runner/samples/.cbtr-browsers*.yml`
 }
 ```
 ##### framework
-Needed only if using native runner. Allowed values: `jasmine`, `jasmine2`, `mocha`, `qunit`, and `buster`. Default is `jasmine`.
-> Currently only `jasmine` is supported.
+Needed only if using native runner. Currently allowed values: `jasmine`.
 ##### retries
-Number of retries to try for a failed test. Default is 0.
+Needed only if using native runner. Number of retries to try for a failed test. Default is 0. See [Failover](#failover).
 ##### limit
 Size limit of data (test reports) to accept. Default is "4mb".
 ##### test_file
-Needed only if using native runner. A string of array of strings - one per test html file. See [Test HTML](#test-html) to understand what structure is required.
+Needed only if using native runner. A string of array of strings - one per test html file. See [Test HTML Format](#test-html-format) to understand the required structure of the HTML test files.
 ##### browsers
 This section is typically generated using [cbtr-init](#cbtr-init).
 ##### capabilities
-This section has a default which includes values shown in above sample except the `localIdentifier` value.
+This section has a default which includes values shown in above sample (except the `localIdentifier` value).
 ##### server
 This section provides the settings for cross-browser-tests-runner server. At this point, no changes should be required unless the default port `7982` is in use by some other process.
 #### Multiple Files
-Multiple files with cross-browser-tests-runner settings can be created and with any file name. See [cbtr-init](#cbtr-init) to know how to create such files not in project root or not named `cbtr.json`. See [cbtr-testem-browserstack-init](#cbtr-testem-browserstack-init), [server](#server) to know how to use such files not in project root or not named `cbtr.json` as input.
+You can keep more than one file containing cross-browser-tests-runner server ettings, if that suits your testing. See [cbtr-init](#cbtr-init). See [cbtr-testem-browserstack-init](#cbtr-testem-browserstack-init), [server](#server) to know how to use such files not in project root or not named `cbtr.json` as input.
 #### Samples
-See `./node_modules/cross-browser-tests-runner/samples/cbtr*.json`
+`./node_modules/cross-browser-tests-runner/samples/cbtr*.json`
 ## Utilities
 ### cbtr-init
-```
-./node_modules/.bin/cbtr-init [--help|-h] [--input|-i <browsers-yaml-file>] [--output|-o <cbtr-settings-file>]
+```bash
+$ ./node_modules/.bin/cbtr-init [--help|-h] [--input|-i <browsers-yaml-file>] [--output|-o <cbtr-settings-file>]
 
 Defaults:
  input             .cbtr-browsers.yml in project root
@@ -287,11 +289,9 @@ Options:
  input             input data of browsers to use in a compact format
  output            cross-browser-tests-runner settings file
 ```
-### Testem
-#### BrowserStack
-##### cbtr-testem-browserstack-init
-```
-./node_modules/.bin/cbtr-testem-browserstack-init [--help|-h] [--input|-i <cbtr-settings-file>] [--output|-o <testem-settings-file>]
+### cbtr-testem-browserstack-init
+```bash
+$ ./node_modules/.bin/cbtr-testem-browserstack-init [--help|-h] [--input|-i <cbtr-settings-file>] [--output|-o <testem-settings-file>]
 
 Defaults:
  input             cbtr.json in project root
@@ -311,135 +311,7 @@ The utility would ask you the following questions:
     - Some browsers may not support taking a video, and this behavior is pretty dynamic. So you need to experiment and figure out for yourself.
 - Please provide a timeout value [60]
     - Minimum timeout on BrowserStack has to be 60 seconds.
-
-## Server
-The cross-browser-tests-runner server helps creating and managing tests and their state.
-### Native Runner mode
+### cbtr-browserstack-update
+```bash
+$ ./node_modules/.bin/cbtr-browserstack-update
 ```
-$ node ./node_modules/cross-browser-tests-runner/server.js --native-runner
-```
-It would exit after completing all tests.
-### Other Runners mode
-```
-$ node ./node_modules/cross-browser-tests-runner/server.js
-```
-It would keep running in foreground, and you can use PM2 to run it in background, or add `&` on Linux/OSX to move it to background.
-### Usage
-```
-./node_modules/cross-browser-tests-runner/server.js [--help|-h] [--config|-c <config-file>] [--native-runner|-n]
-
-Defaults:
- config            cbtr.json in project root, or CBTR_SETTINGS env var
- native-runner     false
-
-Options:
- help              print this help
- config            cross-browser-tests-runner settings file
- native-runner     if the server should work as native test runner
-```
-## Native Runner
-### Test HTML
-A test HTML needs to have a certain structure. The Native Runner needs that to be able to instrument your test code.
-#### Jasmine 1.x
-The following sample test html shows the structure needed.
-- Jasmine javascript and css files need to be loaded manually.
-- `/cross-browser-tests-runner.js` is a 'dynamically' served file which constitutes the 'instrumentation' needed by native runner
-- The Jasmine setup, execution code and `jasmine_content` div elements are needed as shown.
-- Your javascript source and unit test files can be relative to the html file (as shown in this sample), or relative to root. The root directory of your project is the root directory of web serving.
-```
-<!doctype html>
-<html>
-<head>
-  <title>Cross Browser Tests Runner</title>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine-html.js"></script>
-  <script src="/cross-browser-tests-runner.js"></script>
-  <script>
-    (function() {
-      var jasmineEnv = jasmine.getEnv();
-      jasmineEnv.addReporter(new jasmine.HtmlReporter);
-      window.onload = function() {
-        jasmineEnv.execute();
-      }
-    })()
-  </script>
-  <script src="../../js/src/app.js"></script>
-  <script src="../../js/tests/jasmine/test.js"></script>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.css">
-</head>
-<body>
-  <div id="jasmine_content"></div>
-</body>
-</html>
-```
-### Code Coverage
-If your JavaScript source is instrumented using a tool like Istanbul, the coverage data collected on the browser is automatically sent and stored into `coverage/` in your project's root. Each test run would create a new file with name of the format `coverage-<random>.json`. You can use Istanbul or any other compatible tool to generate lcov or other format reports, or upload these files to `codecov` or `coveralls` to see detailed reports.
-## Failover
-### Cross-browser platform instability
-BrowserStack tunnels have been seen to die because of undocumented and unresolved issues. This messes up local testing as sometimes the tests cannot be loaded, or results cannot be sent back. The BrowserStack platform code includes monitoring of tunnel processes and restarts any that die
-### Test results reporting with exponential backoff
-Test results and code coverage data sending fails if tunnels die. Since a restart mechanism is in place, there is a retry with exponential backoff mechanism added to maximise the possibility of reporting to reach. This has been verified to improve on test failures.
-
-This is available with the Native Runner alone, as this behavior is added in the instrumented JavaScript of Native Runner, and we do not have control on the instrumentation of third party test runners like testem.
-### Test retries
-Sometimes, tests fail even with above mechanisms in place. In the case of Native Runner, a test retry mechanism has been put in place. The number of retries can be controlled through `cbtr.json`. Even with retries set to 1, this has been seen to improve on test failures as well.
-## Debugging
-Add `LOG_LEVEL=DEBUG` to any of the utilities/commands on Linux/OSX, or export `LOG_LEVEL` as an environment variable. For example:
-```
-LOG_LEVEL=DEBUG ./node_modules/.bin/cbtr-init
-```
-Supported logging levels: DEBUG, INFO, WARN, and ERROR, with DEBUG producing most verbose logging.
-
-Default logging level: `ERROR`
-## Releases
-### Support Matrix
-Version | Platform | Runner | Windows | OSX | Linux
--|-|-|-|-|-
-0.2.0 | BrowserStack | Native Runner | node 6, 7<br>[Issue 1](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1) | node 4, 6, 7<br>[Issue 2](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/2) | node 4-7
-0.1.3 | BrowserStack | Testem | node 6, 7<br>[Issue 1](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1) | node 4, 6, 7<br>[Issue 2](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/2) | node 4-7
-### Deprecated
-- v0.1.1-v0.1.2
-## Caveats & Limitations
-Please check [Issues](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues)
-## Change Log
-### v0.2.7
-- Bugs in implementation of `--errors-only`
-### v0.2.6
-- A switch `--errors-only` added which when provided makes native runner output only details of failed test specs. This helps keeping the log to a minimum and still useful level in case of builds with huge number of browsers.
-- Functional tests were running unstably, which was found to become stable by using a local identifier. Added to testem and native runner functional test confs.
-### v0.2.5
-- Accept large test reports. Default of 100KB in express was too less for some cases. Now, upto 4MB by default is expected. The limit can be changed through `cbtr.json` setting `limit`.
-### v0.2.4
-- Ability to retry a failed test using Native Runner
-### v0.2.3
-- Updated information on code coverage capability of Native Runner
-### v0.2.2
-- BrowserStack tunnel processes die at times, leaving tests in a mess. A monitor was added to ensure tunnel process availability. For Native Runner, the POST calls to send tests results/coverage data now use an exponential backoff in case the calls fail which mostly would be caused because of dead tunnels.
-- Unhandled exception in implementation of finding a process using ps-node fixed
-- Updated browserstack browsers configuration
-### v0.2.1
-- CI detection and usage for specifying test, project and build capabilities for native runner
-- Fixed break in cbtr-init due to change in default settings structure
-- BrowserStack rate limit exceeds easily with monitoring test status every 10 seconds. Moved to 60 seconds.
-### v0.2.0
-- Implementation of Native Runner supporting BrowserStack platform and Jasmine 1.x
-### v0.1.5
-- The utilty `cbtr-browserstack-update` also updates `conf/cbtr-conf.json` to avoid gaps between main config and browserstack config which was causing errors while generating Testem runner config for BrowserStack
-- Format-only updates to `conf/cbtr-conf.json` post the above change
-- Fixed a bug in `cbtr-testem-browserstack-init` around not being able to generate mobile devices in runner config
-### v0.1.4
-- The utility `cbtr-testem-browserstack-init` now allows specifying BrowserStack browser timeout capability
-- Fixed few missing valid OS and OS versions in `conf/cbtr-conf.json`
-### v0.1.3
-- The OSX specific BrowserStackLocal got added to npm package. Removed it. Things otherwise would have worked only on OSX.
-### v0.1.2
-- Fixed missing server.js and other issues in [Issue 3](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/3)
-### v0.1.1
-- Interfaces and factories: cross-browser testing platforms behavior, continuous integration platforms behavior
-- Reusable set of core classes
-- Implementation of platform interfaces for BrowserStack
-- Implementation of continuous integration interfaces for Travis, CircleCI and Appveyor
-- Express server with hierarchy of router plugins. Manages and performs tests using platform factory.
-- Testem integration with BrowserStack using testem server router and testem config hook applications
-- Utilities that help a user get started with cross-browser testing fast
-- Exhaustive unit, integration and functional tests infrastructure with Linux, OSX and Windows CI setups and integration with code coverage and quality platforms
