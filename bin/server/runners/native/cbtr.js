@@ -11,8 +11,8 @@ let
   srvUtils = require('./../../utils'),
   args = require('minimist')(process.argv.slice(2), {
     string: ['config'],
-    boolean: ['errors-only', 'native-runner'],
-    alias: {config: 'c', 'errors-only': 'e', 'native-runner': 'n'}
+    boolean: ['errors-only', 'native-runner', 'omit-traces'],
+    alias: {config: 'c', 'errors-only': 'e', 'native-runner': 'n', 'omit-traces': 'o'}
   })
 
 const COLORS = {
@@ -138,12 +138,14 @@ function specStatus(spec) {
 function logFailures(spec, indent) {
   spec.failures.forEach(failure => {
     console.log(indent, COLORS.FAIL, failure.message, COLORS.RESET)
-    if(failure.trace && failure.trace.stack) {
-      failure.trace.stack.trim().split('\n').forEach(traceLine => {
-        console.log(indent, COLORS.FAIL, traceLine, COLORS.RESET)
-      })
-    } else {
-      console.log(indent, COLORS.WARN, 'no trace available', COLORS.RESET)
+    if(!args['omit-traces']) {
+      if(failure.trace && failure.trace.stack) {
+        failure.trace.stack.trim().split('\n').forEach(traceLine => {
+          console.log(indent, COLORS.FAIL, traceLine, COLORS.RESET)
+        })
+      } else {
+        console.log(indent, COLORS.WARN, 'no trace available', COLORS.RESET)
+      }
     }
   })
 }

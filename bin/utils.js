@@ -42,8 +42,8 @@ exports.serverArgs = (allowedOptions, help) => {
   /* eslint-disable global-require */
   return (require('minimist')(process.argv.slice(2), {
     string: ['config'],
-    boolean: ['help', 'native-runner', 'errors-only'],
-    alias: {config: 'c', help: 'h', 'native-runner': 'n', 'errors-only': 'e' },
+    boolean: ['help', 'native-runner', 'errors-only', 'omit-traces'],
+    alias: {config: 'c', help: 'h', 'native-runner': 'n', 'errors-only': 'e', 'omit-traces': 'o' },
     unknown: opt => {
       return onUnknownOpt(-1 !== allowedOptions.indexOf(opt), opt, help)
     }
@@ -81,13 +81,17 @@ exports.serverHelp = () => {
   console.log(
     '\n' +
     path.basename(process.argv[1]) +
-    ' [--help|-h] [--config|-c <config-file>] [--native-runner|-n]\n\n' +
+    ' [--help|-h] [--config|-c <config-file>] [--native-runner|-n] [--errors-only|-e] [--omit-traces|-o]\n\n' +
     'Defaults:\n' +
     ' config            cbtr.json in project root, or CBTR_SETTINGS env var\n' +
-    ' native-runner     false\n\n' +
+    ' native-runner     false\n' +
+    ' errors-only       false\n' +
+    ' omit-traces       false\n\n' +
     'Options:\n' +
     ' help              print this help\n' +
     ' config            cross-browser-tests-runner settings file\n' +
-    ' native-runner     if the server should work as native test runner'
+    ' native-runner     if the server should work as native test runner\n' +
+    ' errors-only       print only the specs that failed\n' +
+    ' omit-traces       print only the error message and no stack traces'
   )
 }

@@ -112,18 +112,20 @@ $ ./node_modules/.bin/cbtr-server
 It would keep running in foreground, waiting for tests to be run by the test runner used e.g. Testem.
 ### Usage
 ```bash
-$ ./node_modules/.bin/cbtr-server [--help|-h] [--config|-c <config-file>] [--native-runner|-n] [--errors-only|e]
+$ ./node_modules/.bin/cbtr-server [--help|-h] [--config|-c <config-file>] [--native-runner|-n] [--errors-only|-e] [--omit-traces|-o]
 
 Defaults:
  config            cbtr.json in project root, or CBTR_SETTINGS env var
  native-runner     false
  errors-only       false
+ omit-traces       false
 
 Options:
  help              print this help
  config            cross-browser-tests-runner settings file
  native-runner     if the server should work as native test runner
- errors-only       (native runner only) output only failed test cases
+ errors-only       print only the specs that failed
+ omit-traces       print only the error message and no stack traces
 ```
 ## Native Runner
 The native test runner included provides easy [Code Coverage](#code-coverage) and [Failover](#failover) mechanism to counter different issues observed while building this tool.

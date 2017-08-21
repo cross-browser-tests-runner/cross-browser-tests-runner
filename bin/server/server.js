@@ -3,7 +3,7 @@
 'use strict'
 
 const
-  allowedOptions = ['--config', '--native-runner', '--errors-only', '--help']
+  allowedOptions = ['--config', '--native-runner', '--errors-only', '--omit-traces', '--help']
 
 let
   utils = require('./../utils'),
@@ -25,6 +25,8 @@ let
 
 const
   settings = require('./settings')(args.config)
+
+log.debug('args', args)
 
 cbtr.use(bodyParser.json({limit: settings.limit}))
 cbtr.use(bodyParser.urlencoded({limit: settings.limit, extended: true }))
