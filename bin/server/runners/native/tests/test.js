@@ -5,7 +5,7 @@ let
   Log = require('./../../../../../lib/core/log').Log,
   log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Native.Tests.Test'),
   coreUtils = require('./../../../../../lib/core/utils'),
-  CiFactory = require('./../../../../../lib/ci/factory'),
+  CiFactory = require('./../../../../../lib/ci/factory').Factory,
   aliases = {
     /* eslint-disable global-require */
     BrowserStack: require('./../../../../../conf/browserstack-conf.json').Aliases
