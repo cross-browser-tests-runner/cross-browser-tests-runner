@@ -101,7 +101,7 @@ proc.create('node', [path.resolve(__dirname, 'conf/browsers/' + args.platform + 
   })
 })
 .then(() => {
-  console.log('Done! Run "npm start" and then execute your %s tests after specifying the test files and other required details in the runner config', args.runner)
+  console.log('Done! Start the server (./node_modules/.bin/cbtr-server) and then execute your %s tests after specifying the test files and other required details in the runner config', args.runner)
 })
 .catch(err => {
   console.error('Unexpected error in quick start for platform "' + args.platform + '", runner "' + args.runner + '" %s', err)
