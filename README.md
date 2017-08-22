@@ -42,12 +42,12 @@ Jasmine 1.x|v0.2.0+
 *QUnit*|
 *Buster*|
 ### Operating Systems and Node Versions
-Cross-browser Testing Platform|Native Runner|Testem ^1.16.2|*Yeti*|*Karma*|*Intern*
--|-|-|-|-|-
-BrowserStack|**Windows**: nodejs 6, 7 [(1)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1)<br>**Mac**: nodejs 4, 6, 7 [(2)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/2)<br>**Linux**: nodejs 4-7|**Windows**: nodejs 6, 7 [(1)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1)<br>**Mac**: nodejs 4-7<br>**Linux**: nodejs 4-7|||
-*SauceLabs*|||||
-*TestingBot*|||||
-*crossbrowserstesting.com*|||||
+Cross-browser Testing Platform|Native Runner|Testem ^1.16.2|*Yeti*|*Karma*
+-|-|-|-|-
+BrowserStack|**Windows**: nodejs 6, 7 [(1)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1)<br>**Mac**: nodejs 4-7<br>**Linux**: nodejs 4-7|**Windows**: nodejs 6, 7 [(1)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/1)<br>**Mac**: nodejs 4, 6, 7 [(2)](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues/2)<br>**Linux**: nodejs 4-7||
+*SauceLabs*||||
+*TestingBot*||||
+*crossbrowserstesting.com*||||
 
 ## Getting Started - Step by Step
 ### Common Steps
