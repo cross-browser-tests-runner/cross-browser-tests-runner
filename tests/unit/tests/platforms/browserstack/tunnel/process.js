@@ -7,7 +7,6 @@ var
   path = require('path'),
   Promise = require('bluebird'),
   ps = require('ps-node'),
-  sleep = require('sleep'),
   proc = require('./../../../../../../lib/platforms/browserstack/tunnel/process'),
   Process = proc.Process,
   BinaryVars = require('./../../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
@@ -24,21 +23,22 @@ describe('create', function() {
   var proc
   this.timeout(0)
 
-  it('should fail to start the proc with bad options', function() {
-    proc = new Process()
-    var callbacks = {
-      onstderr: function(stderr) {
-        expect(stderr).to.contain('You provided an invalid key')
-      }
-    }
-    return proc.create(BinaryVars.path, [ '--key', 'oapsodpao1910r9109r0141' ], callbacks)
-    .then(() => {
-      return utils.ensureZeroTunnels()
-    })
-    .should.be.fulfilled
-  })
-
   if(!BinaryVars.isWindows) {
+
+    it('should fail to start the proc with bad options', function() {
+      proc = new Process()
+      var callbacks = {
+        onstderr: function(stderr) {
+          expect(stderr).to.contain('You provided an invalid key')
+        }
+      }
+      return proc.create(BinaryVars.path, [ '--key', 'oapsodpao1910r9109r0141' ], callbacks)
+      .then(() => {
+        return utils.ensureZeroTunnels()
+      })
+      .should.be.fulfilled
+    })
+
     it('should fail to start the proc for spawn errors', function() {
       proc = new Process()
       fs.chmodSync(BinaryVars.path, '0400')

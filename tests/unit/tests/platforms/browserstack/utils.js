@@ -5,7 +5,7 @@ var
   expect = require('chai').expect,
   path = require('path'),
   retry = require('p-retry'),
-  sleep = require('sleep'),
+  sleep = require('./../../../../../lib/core/sleep'),
   Request = require('./../../../../../lib/core/request').Request,
   BinaryVars = require('./../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
   coreUtils = require('./../../core/utils')

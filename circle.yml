@@ -20,17 +20,17 @@ test:
     - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./tests/unit/utils/wait.js:
         background: true
         parallel: true
-    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./server.js:
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./bin/server/server.js:
         background: true
         parallel: true
-    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./server.js --native-runner --config tests/integration/conf/native/cbtr.json:
+    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH node ./bin/server/server.js --native-runner --config tests/integration/conf/native/cbtr.json:
         background: true
         parallel: true
     - sleep 2:
         parallel: true
-    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run eslint-unit-tests-codecov:
+    - case $CIRCLE_NODE_INDEX in 1) sleep 150 ;; 2) sleep 300 ;; esac; NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run eslint-unit-tests-cov:
         parallel: true
     - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run integration-tests:
         parallel: true
-    - NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run functional-tests:
+    - case $CIRCLE_NODE_INDEX in 1) sleep 150 ;; 2) sleep 300 ;; esac; NODE_VERSION=`echo ${!NODEVEREXPR}`; PATH=/opt/circleci/nodejs/$NODE_VERSION/bin:$PATH npm run functional-tests:
         parallel: true

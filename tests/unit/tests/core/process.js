@@ -2,7 +2,6 @@
 
 var
   path = require('path'),
-  sleep = require('sleep'),
   ps = require('ps-node'),
   chai = require('chai'),
   chaiAsPromised = require('chai-as-promised'),

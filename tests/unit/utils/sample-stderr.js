@@ -1,4 +1,4 @@
-var sleep = require('sleep')
+var sleep = require('./../../../lib/core/sleep')
 
 console.error('sample process stderr')
 

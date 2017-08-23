@@ -2,6 +2,10 @@ require('./core/errors')
 
 require('./core/log')
 
+describe('sleep', function() {
+  require('./core/sleep')
+})
+
 describe('interfaces', function() {
   require('./core/interfaces')
 })
