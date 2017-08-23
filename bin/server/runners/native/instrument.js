@@ -9,8 +9,6 @@ let
     string: ['config'],
     alias: {config: 'c'}
   }),
-  Log = require('./../../../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Native.Instrument'),
   srvUtils = require('./../../utils')
 
 const
@@ -28,12 +26,10 @@ if('jasmine' === settings.framework) {
 
 router.route('/')
 .get(function(req, res) {
-  log.debug('request for cross-browser-tests-runner js')
   Bluebird.all(jsFiles.map(file => {
     return fs.readFileAsync(file, 'utf-8')
   }))
   .then(contents => {
-    log.debug('serving cross-browser-tests-runner js')
     res.send(contents.join('\n'))
   })
   .catch(err => {

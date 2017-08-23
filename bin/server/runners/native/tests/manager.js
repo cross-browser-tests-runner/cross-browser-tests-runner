@@ -4,7 +4,7 @@ let
   uuidv4 = require('uuid/v4'),
   Bluebird = require('bluebird'),
   Log = require('./../../../../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Native.Tests.Manager'),
+  log = new Log('Server.Runners.Native.Tests.Manager'),
   Factory = require('./../../../../../lib/platforms/factory').Factory,
   Test = require('./test').Test
 
@@ -23,12 +23,11 @@ class Manager {
       return startTests(this.settings, this.names, this.tests, this.platforms)
       .then(() => {
         this.checker = setInterval(() => { this.monitor() }, 5000)
-        log.debug('created and started tests')
         return true
       })
     }
     else {
-      log.debug('no tests inferred from settings')
+      log.debug('no tests found in settings')
       return Promise.resolve(true)
     }
   }

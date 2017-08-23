@@ -34,7 +34,7 @@ let
   fs = Bluebird.promisifyAll(require('fs')),
   readline = Bluebird.promisifyAll(require('readline').createInterface({input:process.stdin, output:process.stdout})),
   Log = require('./../../../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Utils.Settings.Testem.BrowserStack'),
+  log = new Log('Utils.Settings.Testem.BrowserStack'),
   aliases = require('./../../../../conf/browserstack-conf.json').Aliases,
   inputFile = args.input || path.resolve(process.cwd(), "cbtr.json"),
   outputFile = args.output || path.resolve(process.cwd(), "testem.json"),

@@ -62,15 +62,16 @@ describe('required', function() {
 
 describe('open', function() {
 
-  var platform = new Platform()
   this.timeout(0)
 
   it('should silently return if no input is provided', function() {
+    var platform = new Platform()
     return platform.open()
     .should.be.fulfilled
   })
 
   it('should fail for non-array capabilities', function() {
+    var platform = new Platform()
     function tester() {
       platform.open({ local: true })
     }
@@ -78,6 +79,7 @@ describe('open', function() {
   })
 
   it('should fail for bad capability key', function() {
+    var platform = new Platform()
     function tester() {
       platform.open([{
         abc: 123
@@ -87,6 +89,7 @@ describe('open', function() {
   })
 
   it('should create tunnel without id', function() {
+    var platform = new Platform()
     return platform.open([{
       local: true
     }])
@@ -108,6 +111,7 @@ describe('open', function() {
   })
 
   it('should create tunnel and monitor', function() {
+    var platform = new Platform()
     var spy = chai.spy.on(platform, 'monitor')
     platform.stopMonitoring = false
     platform.tunnels = [ ]
@@ -151,6 +155,7 @@ describe('open', function() {
   })
 
   it('should create tunnels with id', function() {
+    var platform = new Platform()
     return platform.open([{
       local: true,
       localIdentifier: 'my-id-1'

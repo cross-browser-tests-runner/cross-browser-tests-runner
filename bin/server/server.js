@@ -21,7 +21,7 @@ let
   express = require('express'),
   cbtr = express(),
   Log = require('./../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server')
+  log = new Log('Server')
 
 const
   settings = require('./settings')(args.config)

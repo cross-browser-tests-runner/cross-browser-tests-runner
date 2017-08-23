@@ -23,6 +23,14 @@
       ]
     }
   },
+  "capabilities": {
+    "BrowserStack": {
+      "JS": {
+        "local": true,
+        "localIdentifier": "cbtr-sample"
+      }
+    }
+  },
   "server": {
     "port": 7982,
     "host": "127.0.0.1"

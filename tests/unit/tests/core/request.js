@@ -24,7 +24,7 @@ describe('request', function() {
     nock('https://www.piaxis.tech')
       .get('/api/v1/runs/')
       .replyWithError('simulated request error')
-    return req.request('https://www.piaxis.tech/api/v1/runs/', 'GET', { })
+    return req.request('https://www.piaxis.tech/api/v1/runs/', 'GET')
     .catch(err => {
       nock.cleanAll()
       expect(err).to.not.be.undefined
@@ -52,8 +52,7 @@ describe('request', function() {
   it('should register an error when authorization fails', function() {
     return req.request(
       'http://www.httpwatch.com/httpgallery/authentication/authenticatedimage/default.aspx',
-      'GET',
-      { }
+      'GET'
     )
     .catch(err => {
       expect(err).to.not.be.undefined

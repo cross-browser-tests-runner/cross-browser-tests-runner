@@ -21,6 +21,14 @@
       ]
     }
   },
+  "capabilities": {
+    "BrowserStack": {
+      "JS": {
+        "local": true,
+        "localIdentifier": "native-functional-tests"
+      }
+    }
+  },
   "server": {
     "port": 7883,
     "host": "127.0.0.1"

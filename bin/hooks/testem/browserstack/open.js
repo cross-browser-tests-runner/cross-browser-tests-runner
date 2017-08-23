@@ -22,7 +22,7 @@ utils.handleHelp(args, help)
 let
   request = require('request-promise'),
   Log = require('./../../../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Hooks.Testem.BrowserStack.Open'),
+  log = new Log('Hooks.Testem.BrowserStack.Open'),
   PlatformKeys = require('./../../../../lib/platforms/interfaces/platform').PlatformKeys
 
 const
@@ -57,8 +57,10 @@ else {
 
 let run
 
+log.debug('settings', settings)
+
 request
-  .put('http://' + settings.host + ':' + settings.port + '/runs/testem/browserstack',
+  .put('http://' + settings.server.host + ':' + settings.server.port + '/runs/testem/browserstack',
     { body: data, json: true })
   .then(response => {
     console.log('opened testem/browserstack')

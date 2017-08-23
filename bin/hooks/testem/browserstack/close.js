@@ -14,13 +14,15 @@ utils.handleHelp(args, help)
 let
   request = require('request-promise'),
   Log = require('./../../../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Hooks.Testem.BrowserStack.Close')
+  log = new Log('Hooks.Testem.BrowserStack.Close')
 
 const
   settings = require('./../../../server/settings')(args.config)
 
+log.debug('settings', settings)
+
 request
-  .delete('http://' + settings.host + ':' + settings.port + '/runs/testem/browserstack')
+  .delete('http://' + settings.server.host + ':' + settings.server.port + '/runs/testem/browserstack')
   .then(response => {
     log.info('closed browserstack-testem runs')
   })

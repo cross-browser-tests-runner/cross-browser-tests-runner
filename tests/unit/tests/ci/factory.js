@@ -19,8 +19,8 @@ describe('get', function() {
       expect(Factory.get().prototype.constructor.name).to.equal('Travis')
       delete process.env.TRAVIS_BUILD_ID
     }
-    else {
-      expect(Factory.get().prototype.constructor.name).to.be.oneOf(['Travis', 'Circle', 'Appveyor'])
+    else if(process.env.TRAVIS_BUILD_ID) {
+      expect(Factory.get().prototype.constructor.name).to.equal('Travis')
     }
   })
 
@@ -30,8 +30,8 @@ describe('get', function() {
       expect(Factory.get().prototype.constructor.name).to.equal('Circle')
       delete process.env.CIRCLE_BUILD_URL
     }
-    else {
-      expect(Factory.get().prototype.constructor.name).to.be.oneOf(['Travis', 'Circle', 'Appveyor'])
+    else if(process.env.CIRCLE_BUILD_URL) {
+      expect(Factory.get().prototype.constructor.name).to.equal('Circle')
     }
   })
 
@@ -41,8 +41,8 @@ describe('get', function() {
       expect(Factory.get().prototype.constructor.name).to.equal('Appveyor')
       delete process.env.APPVEYOR_JOB_ID
     }
-    else {
-      expect(Factory.get().prototype.constructor.name).to.be.oneOf(['Travis', 'Circle', 'Appveyor'])
+    else if(process.env.APPVEYOR_JOB_ID) {
+      expect(Factory.get().prototype.constructor.name).to.equal('Appveyor')
     }
   })
 

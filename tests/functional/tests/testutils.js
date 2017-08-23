@@ -3,6 +3,6 @@
 var
   Log = require('./../../../lib/core/log').Log
 
-let log = new Log(process.env.LOG_LEVEL || 'ERROR', 'FunctionalTests')
+let log = new Log('FunctionalTests')
 
 exports.log = log

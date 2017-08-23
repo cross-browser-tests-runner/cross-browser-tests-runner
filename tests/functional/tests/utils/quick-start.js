@@ -99,7 +99,7 @@ describe('quick-start.js', function() {
       expect(out).to.contain('Updating browsers for platform: browserstack')
       expect(out).to.contain('Creating global cross-browser-tests-runner settings from sample browsers for browserstack')
       expect(out).to.contain('Creating testem config for browserstack platform using cross-browser-tests-runner settings')
-      expect(out).to.contain('Done! Run "npm start" and then execute your testem tests after specifying the test files and other required details in the runner config')
+      expect(out).to.contain('Done! Start the server (./node_modules/.bin/cbtr-server) and then execute your testem tests after specifying the test files and other required details in the runner config')
     })
     .then(() => {
       var outputFile = path.resolve(process.cwd(), 'testem.json')

@@ -32,7 +32,7 @@ let
   Bluebird = require('bluebird'),
   fs = Bluebird.promisifyAll(require('fs')),
   Log = require('./../../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Utils.Settings.Cbtr'),
+  log = new Log('Utils.Settings.Cbtr'),
   serverDefaults = require('./../../server/defaults'),
   config = require('./../../../conf/cbtr-conf.json'),
   browsersFile = args.input || path.resolve(process.cwd(), ".cbtr-browsers.yml"),

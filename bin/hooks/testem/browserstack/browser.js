@@ -26,12 +26,13 @@ let
   Log = require('./../../../../lib/core/log').Log,
   PlatformKeys = require('./../../../../lib/platforms/interfaces/platform').PlatformKeys,
   CiFactory = require('./../../../../lib/ci/factory').Factory,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Hooks.Testem.BrowserStack.Browser')
+  log = new Log('Hooks.Testem.BrowserStack.Browser')
 
 const
   settings = require('./../../../server/settings')(args.config)
 
 log.debug('Arguments received', args)
+log.debug('settings', settings)
 
 try {
   let Ci = CiFactory.get()

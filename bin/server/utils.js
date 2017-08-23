@@ -2,7 +2,7 @@
 
 let
   Log = require('./../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.utils')
+  log = new Log('Server.utils')
 
 function error(err, res) {
   log.error('error processing request', err)

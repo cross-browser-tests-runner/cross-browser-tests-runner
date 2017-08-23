@@ -12,7 +12,7 @@ let
   fs = Bluebird.promisifyAll(require('fs')),
   Log = require('./../../../../lib/core/log').Log,
   Request = require('./../../../../lib/core/request').Request,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Utils.Conf.BrowserStack'),
+  log = new Log('Utils.Conf.BrowserStack'),
   configFile = path.resolve(__dirname, './../../../../conf/browserstack-conf.json'),
   mainConfigFile = path.resolve(__dirname, './../../../../conf/cbtr-conf.json'),
   config = require(configFile),

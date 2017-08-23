@@ -3,7 +3,7 @@
 let
   uuidv4 = require('uuid/v4'),
   Log = require('./../../../../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Native.Tests.Test'),
+  log = new Log('Server.Runners.Native.Tests.Test'),
   coreUtils = require('./../../../../../lib/core/utils'),
   CiFactory = require('./../../../../../lib/ci/factory').Factory,
   aliases = {
@@ -32,7 +32,6 @@ class Test {
     ci(capabilities)
     this.capabilities = capabilities
     this.retries = retries
-    log.debug('created', this)
   }
 
   run(platform) {
@@ -42,7 +41,6 @@ class Test {
       this.runId = result.id
       this.status = 'started'
       this.checker = setInterval(() => { this.monitor() }, 30000)
-      log.debug('started test', this)
       return this
     })
   }
@@ -51,7 +49,6 @@ class Test {
     if('stopped' === this.status) {
       clearInterval(this.checker)
       this.checker = null
-      log.debug('test %s has stopped, monitoring stopped hence', this.id)
       return
     }
     this.platform.status(this.runId)
@@ -60,9 +57,6 @@ class Test {
         return this._onNoReports()
       }
       return Promise.resolve(true)
-    })
-    .then(() => {
-      log.debug('completed monitoring iteration for %s', this.id)
     })
   }
 
@@ -73,7 +67,7 @@ class Test {
       return true
     })
     .catch(err => {
-      log.error('stopping test failed with %s, ignoring...', err)
+      log.warn('stopping test failed with %s, ignoring...', err)
       this.status = 'stopped'
       return true
     })
@@ -102,7 +96,6 @@ class Test {
   }
 
   _onNoReports() {
-    log.debug('test %s has stopped on the platform, but no test reports were sent', this.id)
     clearInterval(this.checker)
     this.checker = null
     console.log(coreUtils.COLORS.FAIL + 'browser %s %s %s %s for url %s did not respond with results', this.browser.browser, this.browser.browserVersion || this.browser.device, this.browser.os, this.browser.osVersion, this.url, coreUtils.COLORS.RESET, '\n')
@@ -126,7 +119,6 @@ function ci(capabilities) {
     capabilities.build = Ci.commit
   }
   catch(err) {
-    log.debug('ignore failure of CI env detection %s', err)
     capabilities.project = 'anonymous/anonymous'
     capabilities.test = uuidv4()
     capabilities.build = 'unknown build'

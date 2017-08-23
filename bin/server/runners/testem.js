@@ -2,20 +2,16 @@
 
 let
   router = require('express').Router(),
-  Log = require('./../../../lib/core/log').Log,
-  log = new Log(process.env.LOG_LEVEL || 'ERROR', 'Server.Runners.Testem'),
   Factory = require('./../../../lib/platforms/factory').Factory,
   srvUtils = require('./../utils'),
   platforms = { },
   platform
 
 function setup(req) {
-  log.debug('processing %s %s', req.method, req.url, req.body)
   platform = req.params.platform
   platforms[platform] = platforms[platform] || { }
   platforms[platform].object = platforms[platform].object || Factory.get(req.params.platform)
   platforms[platform].runs = platforms[platform].runs || [ ]
-  log.debug('obtained Platform handler for %s', platform)
 }
 
 router.route('/:platform')
@@ -24,7 +20,6 @@ router.route('/:platform')
   platforms[platform].object
   .open(req.body.capabilities)
   .then(() => {
-    log.debug('opened %s', platform)
     res.json({ })
   })
   .catch(err => {
@@ -37,7 +32,6 @@ router.route('/:platform')
   .run(req.body.url, req.body.browser, req.body.capabilities)
   .then(run => {
     platforms[platform].runs.push(run.id)
-    log.debug('created %s run %s', platform, run.id)
     res.json({id: run.id})
   })
   .catch(err => {
@@ -46,10 +40,8 @@ router.route('/:platform')
 })
 .delete(function(req, res) {
   setup(req)
-  log.debug('take screenshots? %s', req.body.screenshot)
   platforms[platform].object.close(req.body.screenshot)
   .then(() => {
-    log.debug('all existing %s runs stopped', platform)
     delete platforms[platform].runs
     res.end()
   })
@@ -62,10 +54,8 @@ router.route('/:platform/:run')
 .delete(function(req, res) {
   setup(req)
   let run = req.params.run
-  log.debug('take screenshots? %s', req.body.screenshot)
   return platforms[platform].object.stop(run, req.body.screenshot)
   .then(() => {
-    log.debug('%s run %s stopped', platform, run)
     let idx = platforms[platform].runs.indexOf(run)
     if(idx !== -1) {
       platforms[platform].runs.splice(idx, 1)
