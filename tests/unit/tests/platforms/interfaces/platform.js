@@ -25,6 +25,13 @@ describe('runMultiple', function() {
   })
 })
 
+describe('runScript', function() {
+  it('should throw an error', function() {
+    var tester = function() { (new Platform()).runScript() }
+    expect(tester).to.throw(Error)
+  })
+})
+
 describe('stop', function() {
   it('should throw an error', function() {
     var tester = function() { (new Platform()).stop() }

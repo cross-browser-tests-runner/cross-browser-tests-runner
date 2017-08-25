@@ -37,10 +37,12 @@ describe('project', function() {
 describe('session', function() {
 
   it('should return a string if relevant env vars are set', function() {
-    if(!process.env.TRAVIS_JOB_NUMBER) {
-      process.env.TRAVIS_JOB_NUMBER = '4.1'
-      expect(Travis.session).to.equal('Travis 4.1')
+    if(!process.env.TRAVIS_BUILD_NUMBER && !process.env.TRAVIS_JOB_NUMBER) {
+      process.env.TRAVIS_BUILD_NUMBER = '4'
+      process.env.TRAVIS_JOB_NUMBER = '1'
+      expect(Travis.session).to.match(/^TRAVIS\-4\.1\-/)
       delete process.env.TRAVIS_JOB_NUMBER
+      delete process.env.TRAVIS_BUILD_NUMBER
     }
     else {
       expect(Travis.session).to.not.be.empty

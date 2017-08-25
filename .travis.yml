@@ -1,36 +1,45 @@
-language:
-  - objective-c
+language: node_js
+
+os:
+  - linux
+  - osx
+
+node_js:
+  - "4.8.4"
+  - "5.12.0"
+  - "6.9.0"
+  - "7.0.0"
+  - "8.0.0"
 
 env:
-  - NODE_VERSION="7",CBTR_TEST="eslint-unit-tests-cov",ADD_DELAY=0
-  - NODE_VERSION="6",CBTR_TEST="eslint-unit-tests-cov",ADD_DELAY=0
-  - NODE_VERSION="4",CBTR_TEST="eslint-unit-tests-cov",ADD_DELAY=0
-  - NODE_VERSION="7",CBTR_TEST="integration-tests",ADD_DELAY=0
-  - NODE_VERSION="6",CBTR_TEST="integration-tests",ADD_DELAY=0
-  - NODE_VERSION="4",CBTR_TEST="integration-tests",ADD_DELAY=0
-  - NODE_VERSION="7",CBTR_TEST="functional-tests",ADD_DELAY=0
-  - NODE_VERSION="6",CBTR_TEST="functional-tests",ADD_DELAY=150
-  - NODE_VERSION="4",CBTR_TEST="functional-tests",ADD_DELAY=300
+  - CBTR_TEST=eslint-unit-tests-1,IS_UNIT_TEST=1
+  - CBTR_TEST=unit-tests-2,IS_UNIT_TEST=1
+  - CBTR_TEST=integration-tests,IS_UNIT_TEST=0
+  - CBTR_TEST=functional-tests,IS_UNIT_TEST=0
+
+matrix:
+  allow_failures:
+    - os: linux
+      node_js: 5.12.0
+      env: CBTR_TEST=functional-tests
 
 branches:
   only:
   - master
 
-install:
-  - rm -rf ~/.nvm
-  - git clone https://github.com/creationix/nvm.git ~/.nvm
-  - source ~/.nvm/nvm.sh
-  - nvm install $NODE_VERSION
-  - nvm use $NODE_VERSION
-  - node --version
-  - npm install
-
 before_script:
-  - if [ "eslint-unit-tests-cov" == $CBTR_TEST ]; then node ./tests/unit/utils/static-srv.js & fi
-  - if [ "eslint-unit-tests-cov" == $CBTR_TEST ]; then node ./tests/unit/utils/wait.js & fi
-  - if [ "eslint-unit-tests-cov" != $CBTR_TEST ]; then node ./bin/server/server.js & fi
-  - if [ "eslint-unit-tests-cov" != $CBTR_TEST ]; then node ./bin/server/server.js --native-runner --config tests/integration/conf/native/cbtr.json & fi
-  - sleep $ADD_DELAY
+  - if [ "1" == "$IS_UNIT_TEST" ]; then node ./tests/unit/utils/static-srv.js & fi
+  - if [ "1" == "$IS_UNIT_TEST" ]; then node ./tests/unit/utils/wait.js & fi
+  - if [ "0" == "$IS_UNIT_TEST" ]; then node ./bin/server/server.js & fi
+  - if [ "0" == "$IS_UNIT_TEST" ]; then node ./bin/server/server.js --native-runner --config tests/integration/conf/native/cbtr.json & fi
 
 script:
   - npm run $CBTR_TEST
+
+after_script:
+  - if [ "1" == "$IS_UNIT_TEST" ]; then npm run codecov-upload; npm run coveralls-upload; fi
+  - if [ "unit-tests-3" == "$CBTR_TEST" ]; then if [ "8.0.0" == "$TRAVIS_NODE_VERSION" ]; then if [ "osx" == "$TRAVIS_OS_NAME" ]; then curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$TRAVIS_BUILD_NUMBER&payload[status]=done"; fi; fi; fi
+
+cache:
+  directories:
+    - node_modules

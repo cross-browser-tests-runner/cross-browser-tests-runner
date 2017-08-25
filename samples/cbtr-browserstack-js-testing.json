@@ -25,10 +25,8 @@
   },
   "capabilities": {
     "BrowserStack": {
-      "JS": {
-        "local": true,
-        "localIdentifier": "cbtr-sample"
-      }
+      "local": true,
+      "localIdentifier": "cbtr-sample"
     }
   },
   "server": {

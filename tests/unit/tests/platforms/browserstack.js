@@ -14,6 +14,12 @@ describe('Worker', function() {
   require('./browserstack/worker')
 })
 
+if(process.version > 'v6') {
+  describe('WebDriver', function() {
+    require('./browserstack/webdriver')
+  })
+}
+
 describe('Platform', function() {
   require('./browserstack/platform')
 })

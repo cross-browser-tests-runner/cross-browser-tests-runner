@@ -4,6 +4,7 @@ var
   chai = require('chai'),
   chaiAsPromised = require('chai-as-promised'),
   fs = require('fs'),
+  Env = require('./../../../../../lib/core/env').Env,
   Tunnel = require('./../../../../../lib/platforms/browserstack/tunnel').Tunnel,
   Manager = require('./../../../../../lib/platforms/browserstack/manager').Manager,
   BinaryVars = require('./../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
@@ -135,7 +136,7 @@ describe('exists', function() {
   })
 })
 
-if(!BinaryVars.isWindows) {
+if(!Env.isWindows) {
 
   describe('remove', function() {
 

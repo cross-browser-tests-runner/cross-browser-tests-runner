@@ -91,7 +91,7 @@ exports.serverHelp = () => {
     ' help              print this help\n' +
     ' config            cross-browser-tests-runner settings file\n' +
     ' native-runner     if the server should work as native test runner\n' +
-    ' errors-only       print only the specs that failed\n' +
-    ' omit-traces       print only the error message and no stack traces'
+    ' errors-only       (native runner only) print only the specs that failed\n' +
+    ' omit-traces       (native runner only) print only the error message and no stack traces'
   )
 }

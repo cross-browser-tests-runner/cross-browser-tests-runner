@@ -78,9 +78,9 @@ describe('browser.js', function() {
   })
 
   it('should create a test for valid arguments and then stop run and exit when killed', function() {
-    var proc = new Process(), tried = false
+    var proc = new Process(), tried = false, build = utils.buildDetails()
     return proc
-    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "http://localhost:3000/tests/pages/tests.html" ], {
+    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://localhost:3000/tests/pages/tests.html" ], {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {
           tried = true
@@ -96,9 +96,9 @@ describe('browser.js', function() {
   })
 
   it('should create a test for valid arguments and then stop run with screenshots and exit when killed', function() {
-    var proc = new Process(), tried = false
+    var proc = new Process(), tried = false, build = utils.buildDetails()
     return proc
-    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--screenshots", "--video", "http://localhost:3000/tests/pages/tests.html" ], {
+    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "--screenshots", "--video", "http://localhost:3000/tests/pages/tests.html" ], {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {
           tried = true

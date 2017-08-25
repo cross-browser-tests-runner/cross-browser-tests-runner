@@ -1,0 +1,5 @@
+BrowserStack:
+  Selenium:
+    Windows:
+      7:
+        Mobile Safari:

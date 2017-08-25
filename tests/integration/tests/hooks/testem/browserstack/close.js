@@ -61,9 +61,9 @@ describe('close.js', function() {
   })
 
   it('should successfully close runs after a test for valid arguments is created', function() {
-    var proc = new Process(), tried = false
+    var proc = new Process(), tried = false, build = utils.buildDetails()
     return proc
-    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "http://www.piaxis.tech" ], {
+    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://www.piaxis.tech" ], {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {
           tried = true

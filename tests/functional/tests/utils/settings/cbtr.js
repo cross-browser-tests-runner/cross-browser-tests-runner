@@ -125,7 +125,7 @@ describe('generic', function() {
       },
       onstderr: function(stderr) {
         utils.log.error(stderr)
-        expect(stderr).to.contain('Unknown browser "SomeBrowser", valid options are: Chrome, Firefox, Internet Explorer, Opera, Safari, Edge, Yandex, IE Mobile, Mobile Safari, Android Browser, Opera Mobile Browser')
+        expect(stderr).to.contain('Unknown browser "SomeBrowser", valid options are: Chrome, Firefox, Internet Explorer, Opera, Safari, Edge, Yandex, IE Mobile, Mobile Safari, Mobile Safari iPad, Mobile Safari iPhone, Android Browser, Android Browser Selenium, Opera Mobile Browser')
       }
     })
     .catch(err => {
@@ -162,166 +162,336 @@ describe('BrowserStack', function() {
     .should.be.fulfilled
   })
 
-  it('should fail for unsupported os in input yaml file', function() {
-    var proc = new Process(),
-      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/unsup-os.yml')
-    return proc.create('node', [
-      path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
-      '--input', inputFile
-    ], {
-      onstdout: function(stdout) {
-        utils.log.debug(stdout)
-      },
-      onstderr: function(stderr) {
-        utils.log.error(stderr)
-        expect(stderr).to.contain('Unsupported OS "Ubuntu" for test type "JS" for "BrowserStack" platform, valid options are: Windows, Mac OSX, Opera OS, Windows Mobile, Android, iOS')
-      }
+  describe("JS", function() {
+
+    it('should fail for unsupported os in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/js-testing/unsup-os.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported OS "Ubuntu" for test type "JS" for "BrowserStack" platform, valid options are: Windows, Mac OSX, Opera OS, Windows Mobile, Android, iOS')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
+
+    it('should fail for unsupported os version in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/js-testing/unsup-os-version.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported version "Vista" for os "Windows" for test type "JS" for "BrowserStack" platform, valid options are: 7, 8, 10, XP, 8.1')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .should.be.fulfilled
+
+    it('should fail for unsupported browser in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/js-testing/unsup-browser.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported browser "Mobile Safari" on "Windows 7" for test type "JS" for "BrowserStack" platform, valid options are: Opera, Safari, Chrome, Internet Explorer, Firefox, Yandex')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should fail for unsupported browser version in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/js-testing/unsup-browser-version.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported version "10.0" for browser "Chrome" on "Windows XP" for test type "JS" for "BrowserStack" platform, valid options are:')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should fail for unsupported device in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/js-testing/unsup-device.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported device "Nokia Lumia" for browser "IE Mobile" on "Windows Mobile 8.1" for test type "JS" for "BrowserStack" platform, valid options are: Nokia Lumia 930, Nokia Lumia 925, Nokia Lumia 630, Nokia Lumia 520')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should create cbtr.json for valid desktop browsers in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/js-testing/desktop-1.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          expect(stdout).to.contain('Created cross-browser-tests-runner settings file -')
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+        }
+      })
+      .then(() => {
+        var outputFile = path.resolve(process.cwd(), 'cbtr.json')
+        expect(fs.existsSync(outputFile)).to.be.true
+        return fs.unlinkAsync(outputFile)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should create cbtr.json for valid mobile browsers in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/js-testing/mobile-1.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          expect(stdout).to.contain('Created cross-browser-tests-runner settings file -')
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+        }
+      })
+      .then(() => {
+        var outputFile = path.resolve(process.cwd(), 'cbtr.json')
+        expect(fs.existsSync(outputFile)).to.be.true
+        return fs.unlinkAsync(outputFile)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
   })
 
-  it('should fail for unsupported os version in input yaml file', function() {
-    var proc = new Process(),
-      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/unsup-os-version.yml')
-    return proc.create('node', [
-      path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
-      '--input', inputFile
-    ], {
-      onstdout: function(stdout) {
-        utils.log.debug(stdout)
-      },
-      onstderr: function(stderr) {
-        utils.log.error(stderr)
-        expect(stderr).to.contain('Unsupported version "Vista" for os "Windows" for test type "JS" for "BrowserStack" platform, valid options are: 7, 8, 10, XP, 8.1')
-      }
-    })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
-    })
-    .should.be.fulfilled
-  })
+  describe("Selenium", function() {
 
-  it('should fail for unsupported browser in input yaml file', function() {
-    var proc = new Process(),
-      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/unsup-browser.yml')
-    return proc.create('node', [
-      path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
-      '--input', inputFile
-    ], {
-      onstdout: function(stdout) {
-        utils.log.debug(stdout)
-      },
-      onstderr: function(stderr) {
-        utils.log.error(stderr)
-        expect(stderr).to.contain('Unsupported browser "Mobile Safari" on "Windows 7" for test type "JS" for "BrowserStack" platform, valid options are: Opera, Safari, Chrome, Internet Explorer, Firefox, Yandex')
-      }
+    it('should fail for unsupported os in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/selenium/unsup-os.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported OS "Ubuntu" for test type "Selenium" for "BrowserStack" platform, valid options are: Windows, Mac OSX, iOS, Android')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
-    })
-    .should.be.fulfilled
-  })
 
-  it('should fail for unsupported browser version in input yaml file', function() {
-    var proc = new Process(),
-      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/unsup-browser-version.yml')
-    return proc.create('node', [
-      path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
-      '--input', inputFile
-    ], {
-      onstdout: function(stdout) {
-        utils.log.debug(stdout)
-      },
-      onstderr: function(stderr) {
-        utils.log.error(stderr)
-        expect(stderr).to.contain('Unsupported version "10.0" for browser "Chrome" on "Windows 7" for test type "JS" for "BrowserStack" platform, valid options are:')
-      }
+    it('should fail for unsupported os version in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/selenium/unsup-os-version.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported version "Vista" for os "Windows" for test type "Selenium" for "BrowserStack" platform, valid options are: 7, 8, 10, XP, 8.1')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
-    })
-    .should.be.fulfilled
-  })
 
-  it('should fail for unsupported device in input yaml file', function() {
-    var proc = new Process(),
-      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/unsup-device.yml')
-    return proc.create('node', [
-      path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
-      '--input', inputFile
-    ], {
-      onstdout: function(stdout) {
-        utils.log.debug(stdout)
-      },
-      onstderr: function(stderr) {
-        utils.log.error(stderr)
-        expect(stderr).to.contain('Unsupported device "Nokia Lumia" for browser "IE Mobile" on "Windows Mobile 8.1" for test type "JS" for "BrowserStack" platform, valid options are: Nokia Lumia 930, Nokia Lumia 925, Nokia Lumia 630, Nokia Lumia 520')
-      }
+    it('should fail for unsupported browser in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/selenium/unsup-browser.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported browser "Mobile Safari" on "Windows 7" for test type "Selenium" for "BrowserStack" platform, valid options are: Opera, Chrome, Internet Explorer, Firefox')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
-    })
-    .should.be.fulfilled
-  })
 
-  it('should create cbtr.json for valid desktop browsers in input yaml file', function() {
-    var proc = new Process(),
-      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/desktop-1.yml')
-    return proc.create('node', [
-      path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
-      '--input', inputFile
-    ], {
-      onstdout: function(stdout) {
-        expect(stdout).to.contain('Created cross-browser-tests-runner settings file -')
-      },
-      onstderr: function(stderr) {
-        utils.log.error(stderr)
-      }
+    it('should fail for unsupported browser version in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/selenium/unsup-browser-version.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported version "10.0" for browser "Chrome" on "Windows XP" for test type "Selenium" for "BrowserStack" platform, valid options are:')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .then(() => {
-      var outputFile = path.resolve(process.cwd(), 'cbtr.json')
-      expect(fs.existsSync(outputFile)).to.be.true
-      return fs.unlinkAsync(outputFile)
-    })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
-    })
-    .should.be.fulfilled
-  })
 
-  it('should create cbtr.json for valid mobile browsers in input yaml file', function() {
-    var proc = new Process(),
-      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/mobile-1.yml')
-    return proc.create('node', [
-      path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
-      '--input', inputFile
-    ], {
-      onstdout: function(stdout) {
-        expect(stdout).to.contain('Created cross-browser-tests-runner settings file -')
-      },
-      onstderr: function(stderr) {
-        utils.log.error(stderr)
-      }
+    it('should fail for unsupported device in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/bad/browserstack/selenium/unsup-device.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          utils.log.debug(stdout)
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+          expect(stderr).to.contain('Unsupported device "Nokia Lumia" for browser "Mobile Safari iPad" on "iOS 5.1" for test type "Selenium" for "BrowserStack" platform, valid options are: iPad 3rd')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .then(() => {
-      var outputFile = path.resolve(process.cwd(), 'cbtr.json')
-      expect(fs.existsSync(outputFile)).to.be.true
-      return fs.unlinkAsync(outputFile)
+
+    it('should create cbtr.json for valid desktop browsers in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/selenium/desktop-1.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          expect(stdout).to.contain('Created cross-browser-tests-runner settings file -')
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+        }
+      })
+      .then(() => {
+        var outputFile = path.resolve(process.cwd(), 'cbtr.json')
+        expect(fs.existsSync(outputFile)).to.be.true
+        return fs.unlinkAsync(outputFile)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .catch(err => {
-      utils.log.error(err)
-      throw err
+
+    it('should create cbtr.json for valid mobile browsers in input yaml file', function() {
+      var proc = new Process(),
+        inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/selenium/mobile-1.yml')
+      return proc.create('node', [
+        path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
+        '--input', inputFile
+      ], {
+        onstdout: function(stdout) {
+          expect(stdout).to.contain('Created cross-browser-tests-runner settings file -')
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+        }
+      })
+      .then(() => {
+        var outputFile = path.resolve(process.cwd(), 'cbtr.json')
+        expect(fs.existsSync(outputFile)).to.be.true
+        return fs.unlinkAsync(outputFile)
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .should.be.fulfilled
+
   })
 
 })

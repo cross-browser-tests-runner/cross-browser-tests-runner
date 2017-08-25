@@ -6,7 +6,8 @@ let
   Log = require('./../../../../../lib/core/log').Log,
   log = new Log('Server.Runners.Native.Tests.Manager'),
   Factory = require('./../../../../../lib/platforms/factory').Factory,
-  Test = require('./test').Test
+  JsTest = require('./js-test').JsTest,
+  SeleniumTest = require('./selenium-test').SeleniumTest
 
 class Manager {
 
@@ -49,14 +50,14 @@ class Manager {
   }
 
   end(req, res, settings) {
-    if('POST' === req.method && Test.checkUrl(req)) {
-      const run = Test.runParam(req)
+    if('POST' === req.method && JsTest.checkUrl(req)) {
+      const run = JsTest.runParam(req)
       if(this.run === run) {
-        const testId = Test.testParam(req)
+        const testId = JsTest.testParam(req)
         if(testId && this.tests[testId]) {
           let test = this.tests[testId]
           if('started' === test.status) {
-            const takeScreenshot = settings.capabilities[test.on].JS.screenshots
+            const takeScreenshot = settings.capabilities[test.on].screenshots
             setTimeout(function() {test.stop(takeScreenshot)}, 3000)
             return false
           }
@@ -98,14 +99,28 @@ function select(settings) {
   const all = Object.keys(settings.browsers)
   let names = [ ]
   all.forEach(name => {
-    if(!settings.browsers[name].JS) {
-      log.warn('no "JS" testing browsers specified for %s, ignoring it...', name)
+    if(cantPickPlatform(settings, name)) {
+      log.warn('no "JS" or "Selenium" testing browsers specified for %s, ignoring it...', name)
     }
     else {
       names.push(name)
     }
   })
   return names
+}
+
+function cantPickPlatform(settings, name) {
+  return (noJsBrowsers(settings, name) && badSeleniumConfig(settings, name))
+}
+
+function noJsBrowsers(settings, name) {
+  return (!settings.browsers[name].JS || !settings.browsers[name].JS.length)
+}
+
+function badSeleniumConfig(settings, name) {
+  return (!(settings.browsers[name].Selenium
+    && settings.browsers[name].Selenium.length
+    && settings.test_script))
 }
 
 function getPlatforms(names) {
@@ -117,16 +132,45 @@ function getPlatforms(names) {
 }
 
 function createTests(settings, names, run) {
-  let tests = { }
   const
     testFiles = 'string' === typeof(settings.test_file) ? [ settings.test_file ] : settings.test_file,
     host = 'http://' + settings.server.host + ':' + settings.server.port
+  return Object.assign(createJSTests(settings, names, run, testFiles, host),
+    createSeleniumTests(settings, names, run, testFiles, host))
+}
+
+function createJSTests(settings, names, run, testFiles, host) {
+  let tests = { }
   names.forEach(name => {
-    const capabilities = settings.capabilities[name].JS
+    if(noJsBrowsers(settings, name)) {
+      return
+    }
+    const capabilities = settings.capabilities[name]
     settings.browsers[name].JS.forEach(browser => {
       testFiles.forEach(testFile => {
-        let test = new Test(name, host, testFile, run, browser, capabilities, settings.retries)
+        let test = new JsTest(name, host, testFile, run, browser, capabilities, settings.retries)
         tests[test.id] = test
+      })
+    })
+  })
+  return tests
+}
+
+function createSeleniumTests(settings, names, run, testFiles, host) {
+  let tests = { }
+  const
+    scriptFiles = 'string' === typeof(settings.test_script) ? [ settings.test_script ] : settings.test_script
+  names.forEach(name => {
+    if(badSeleniumConfig(settings, name)) {
+      return
+    }
+    const capabilities = settings.capabilities[name]
+    settings.browsers[name].Selenium.forEach(browser => {
+      testFiles.forEach(testFile => {
+        scriptFiles.forEach(scriptFile => {
+          let test = new SeleniumTest(name, host, testFile, run, browser, capabilities, scriptFile)
+          tests[test.id] = test
+        })
       })
     })
   })
@@ -135,7 +179,7 @@ function createTests(settings, names, run) {
 
 function startTests(settings, names, tests, platforms) {
   return Bluebird.all(names.map(name => {
-    return platforms[name].open([settings.capabilities[name].JS])
+    return platforms[name].open([settings.capabilities[name]])
   }))
   .then(() => {
     return Bluebird.all(Object.keys(tests).map(id => {

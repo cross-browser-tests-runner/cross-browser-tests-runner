@@ -7,6 +7,7 @@ var
   path = require('path'),
   Promise = require('bluebird'),
   ps = require('ps-node'),
+  Env = require('./../../../../../../lib/core/env').Env,
   proc = require('./../../../../../../lib/platforms/browserstack/tunnel/process'),
   Process = proc.Process,
   BinaryVars = require('./../../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
@@ -23,7 +24,7 @@ describe('create', function() {
   var proc
   this.timeout(0)
 
-  if(!BinaryVars.isWindows) {
+  if(!Env.isWindows) {
 
     it('should fail to start the proc with bad options', function() {
       proc = new Process()
@@ -61,14 +62,14 @@ describe('create', function() {
   it('should fail to start the proc for functional errors', function() {
     proc = new Process()
     var badLogFile
-    if(!BinaryVars.isWindows) {
+    if(!Env.isWindows) {
       badLogFile = '/proc.txt'
     } else {
       badLogFile = '\\Windows\\system32\\abczya\\proc.txt'
     }
     var callbacks = {
       onstderr: function(stderr) {
-        if(!BinaryVars.isWindows) {
+        if(!Env.isWindows) {
           expect(stderr).to.contain('Please specify a path with write permission')
         } else {
           // utils.log.error(error)
@@ -141,7 +142,7 @@ describe('stop', function() {
     .should.be.rejectedWith('Process: no pid associated to stop')
   })
 
-  if(!BinaryVars.isWindows) {
+  if(!Env.isWindows) {
     it('should fail to stop the proc for spawn errors', function() {
       proc = new Process()
       return proc.create(BinaryVars.path, [])

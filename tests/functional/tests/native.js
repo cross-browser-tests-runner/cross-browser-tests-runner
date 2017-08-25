@@ -53,4 +53,35 @@ describe('Native Runner', function() {
     })
     .should.be.fulfilled
   })
+
+  if(process.version > 'v6') {
+    it('should work for a selenium test', function() {
+      var proc = new Process(), out = ''
+      return proc
+      .create('node', [
+          path.resolve(process.cwd(), 'bin/server/server.js'),
+          '--native-runner',
+          '--config', 'tests/functional/conf/native/selenium-1.json'
+      ], {
+        onstdout: function(stdout) {
+          out += stdout
+          console.log('stdout: ', stdout.trim())
+        },
+        onstderr: function(stderr) {
+          utils.log.error(stderr)
+        }
+      })
+      .then(() => {
+        if(!out.match(/Selenium Test Script: text of #test-message Hi, this is a test page for functional testing of selenium testing with cross\-browser\-tests\-runner native runner/)) {
+          utils.log.warn('Selenium test did not run')
+        }
+      })
+      .catch(err => {
+        utils.log.error(err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+  }
+
 })

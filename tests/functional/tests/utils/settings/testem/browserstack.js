@@ -49,7 +49,7 @@ describe('BrowserStack', function() {
 
   it('should create testem.json for an input cbtr.json', function() {
     var proc = new Process(),
-      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/desktop-1.yml')
+      inputFile = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/js-testing/desktop-1.yml')
     return proc.create('node', [
       path.resolve(process.cwd(), 'bin/utils/settings/cbtr.js'),
       '--input', inputFile

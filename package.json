@@ -1,10 +1,10 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.2.15",
+  "version": "0.3.0",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reeteshranjan/cross-browser-tests-runner.git"
+    "url": "git+https://github.com/cross-browser-tests-runner/cross-browser-tests-runner.git"
   },
   "keywords": [
     "cross-browser testing",
@@ -27,9 +27,9 @@
   "author": "Reetesh Ranjan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/reeteshranjan/cross-browser-tests-runner/issues"
+    "url": "https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/issues"
   },
-  "homepage": "https://github.com/reeteshranjan/cross-browser-tests-runner#readme",
+  "homepage": "https://github.com/cross-browser-tests-runner/cross-browser-tests-runner#readme",
   "files": [
     "lib",
     "bin",
@@ -48,8 +48,12 @@
   },
   "scripts": {
     "eslint": "./node_modules/.bin/eslint bin/ lib/",
-    "unit-tests": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit/tests.js",
-    "unit-tests-win": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit/tests.js",
+    "unit-tests-1": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit/tests/ci.js tests/unit/tests/core.js tests/unit/tests/platforms/interfaces.js tests/unit/tests/platforms/factory.js tests/unit/tests/platforms/core.js tests/unit/tests/platforms/browserstack/tunnel-deps.js tests/unit/tests/platforms/browserstack/tunnel.js tests/unit/tests/platforms/browserstack/manager.js tests/unit/tests/platforms/browserstack/worker.js tests/unit/tests/platforms/browserstack/webdriver.js",
+    "unit-tests-2": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit/tests/platforms/browserstack/platform.js",
+    "eslint-unit-tests-1": "npm run eslint && npm run unit-tests-1",
+    "unit-tests-win-1": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit/tests/ci.js tests/unit/tests/core.js tests/unit/tests/platforms/interfaces.js tests/unit/tests/platforms/factory.js tests/unit/tests/platforms/core.js tests/unit/tests/platforms/browserstack/tunnel-deps.js tests/unit/tests/platforms/browserstack/tunnel.js tests/unit/tests/platforms/browserstack/manager.js tests/unit/tests/platforms/browserstack/worker.js tests/unit/tests/platforms/browserstack/webdriver.js",
+    "unit-tests-win-2": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000 tests/unit/tests/platforms/browserstack/platform.js",
+    "eslint-unit-tests-win-1": "npm run eslint && npm run unit-tests-win-1",
     "cov-html": "UNIT_TESTS=1 LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000 tests/unit/tests.js",
     "no-cov": "UNIT_TESTS=1 LOG_LEVEL=DEBUG ./node_modules/.bin/mocha tests/unit/tests.js",
     "integration-tests": "LOG_LEVEL=WARN ./node_modules/.bin/mocha tests/integration/tests.js",
@@ -57,12 +61,7 @@
     "functional-tests": "LOG_LEVEL=WARN ./node_modules/.bin/mocha tests/functional/tests.js",
     "functional-tests-win": "./node_modules/.bin/mocha tests/functional/tests.js",
     "codecov-upload": "./node_modules/.bin/codecov",
-    "coveralls-upload": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coveralls-upload-win": "node node_modules\\coveralls\\bin\\coveralls-win.js coverage\\lcov.info",
-    "eslint-unit-tests-cov": "npm run eslint && npm run unit-tests && npm run codecov-upload && npm run coveralls-upload",
-    "eslint-unit-tests-cov-win": "npm run eslint && npm run unit-tests-win && npm run codecov-upload && npm run coveralls-upload-win",
-    "eslint-unit-tests-codecov": "npm run eslint && npm run unit-tests && npm run codecov-upload",
-    "eslint-unit-tests-codecov-win": "npm run eslint && npm run unit-tests-win && npm run codecov-upload"
+    "coveralls-upload": "cat coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "engines": {
     "node": ">=4",
@@ -92,6 +91,7 @@
     "p-retry": "^1.0.0",
     "ps-node": "^0.1.6",
     "request-promise": "^4.2.1",
+    "selenium-webdriver": "^3.5.0",
     "useragent": "^2.2.1",
     "uuid": "^3.1.0"
   }

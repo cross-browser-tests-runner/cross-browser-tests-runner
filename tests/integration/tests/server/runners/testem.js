@@ -226,9 +226,10 @@ describe('POST /:platform', function() {
   })
 
   it('should succeed with 200 with valid parameters', function() {
+    var build = utils.buildDetails()
     return request(host)
       .post('/runs/testem/browserstack')
-      .send({"browser":{"os":"Windows","osVersion":"10","browser":"firefox","browserVersion":"43.0"},"url":"http://piaxis.tech"})
+      .send({"browser":{"os":"Windows","osVersion":"10","browser":"firefox","browserVersion":"43.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project},"url":"http://piaxis.tech"})
       .then(res => {
         expect(res.body).to.not.be.undefined
         expect(res.body).to.have.keys('id')
@@ -315,9 +316,10 @@ describe('DELETE /:platform/:run', function() {
   })
 
   it('should succeed with 200 for a valid run', function() {
+    var build = utils.buildDetails()
     return request(host)
       .post('/runs/testem/browserstack')
-      .send({"browser":{"os":"Windows","osVersion":"10","browser":"firefox","browserVersion":"43.0"},"url":"http://piaxis.tech"})
+      .send({"browser":{"os":"Windows","osVersion":"10","browser":"firefox","browserVersion":"43.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project},"url":"http://piaxis.tech"})
       .then(res => {
         expect(res.body).to.not.be.undefined
         expect(res.body).to.have.keys('id')

@@ -18,6 +18,9 @@
         "--browser", "chrome",
         "--browserVersion", "51.0",
         "--timeout", "90",
+        "--build", "testem-build",
+        "--project", "cross-browser-tests-runner/cross-browser-tests-runner",
+        "--test", "testem-test-id",
         "--screenshots", "--video",
         "--local", "--localIdentifier", "cbtr-testem-test"
       ],
@@ -32,6 +35,9 @@
         "--browser", "firefox",
         "--browserVersion", "43.0",
         "--timeout", "90",
+        "--build", "testem-build",
+        "--project", "cross-browser-tests-runner/cross-browser-tests-runner",
+        "--test", "testem-test-id",
         "--screenshots", "--video",
         "--local", "--localIdentifier", "cbtr-testem-test"
       ],
@@ -46,6 +52,9 @@
         "--browser", "safari",
         "--browserVersion", "9.1",
         "--timeout", "90",
+        "--build", "testem-build",
+        "--project", "cross-browser-tests-runner/cross-browser-tests-runner",
+        "--test", "testem-test-id",
         "--screenshots", "--video",
         "--local", "--localIdentifier", "cbtr-testem-test"
       ],
@@ -60,6 +69,9 @@
         "--browser", "ie",
         "--browserVersion", "11.0",
         "--timeout", "90",
+        "--build", "testem-build",
+        "--project", "cross-browser-tests-runner/cross-browser-tests-runner",
+        "--test", "testem-test-id",
         "--screenshots", "--video",
         "--local", "--localIdentifier", "cbtr-testem-test"
       ],

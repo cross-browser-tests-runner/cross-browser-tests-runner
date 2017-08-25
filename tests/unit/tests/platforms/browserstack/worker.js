@@ -95,12 +95,16 @@ describe('create', function() {
   })
 
   it('should create a remote url test', function() {
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://www.piaxis.tech',
       browser : 'chrome',
-      browser_version : '45.0',
+      browser_version : '45.0'
     })
     .then(() => {
       expect(worker.id).to.not.be.undefined
@@ -114,7 +118,11 @@ describe('create', function() {
   })
 
   it('should create a local url test', function() {
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://localhost:3000/tests/pages/tests.html',
@@ -134,7 +142,11 @@ describe('create', function() {
   })
 
   it('should create a url test with other optional capabilities', function() {
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://localhost:3000/tests/pages/tests.html',
@@ -142,10 +154,7 @@ describe('create', function() {
       browser_version : '45.0',
       'browserstack.local' : true,
       'browserstack.debug' : true,
-      'browserstack.video' : true,
-      project: 'cross-browser-test-runner',
-      build: 'initial',
-      name: 'my-js-test'
+      'browserstack.video' : true
     })
     .then(() => {
       expect(worker.id).to.not.be.undefined
@@ -166,7 +175,11 @@ describe('status', function() {
   this.timeout(0)
 
   it('should give running status for a valid worker', function() {
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://www.piaxis.tech',
@@ -188,7 +201,11 @@ describe('status', function() {
   })
 
   it('should give terminated status for an invalid worker', function() {
+    var build = utils.buildDetails(), saveId
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://www.piaxis.tech',
@@ -196,12 +213,16 @@ describe('status', function() {
       browser_version : '45.0',
     })
     .then(() => {
+      saveId = worker.id
       worker.id = 'xxxxxxxxxxxx'
       worker.endpoint = worker.processed.settings.host + WorkerVars.workerApiEndpoint + '/' + worker.id
       return worker.status()
     })
     .then(status => {
       expect(status).to.equal('terminated')
+      worker.id = saveId
+      worker.endpoint = worker.processed.settings.host + WorkerVars.workerApiEndpoint + '/' + worker.id
+      return utils.safeKillWorker(worker)
     })
     .catch(err => {
       utils.log.error(err)
@@ -218,7 +239,11 @@ describe('terminate', function() {
   this.timeout(0)
 
   it('should terminate a running worker', function() {
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://www.piaxis.tech',
@@ -236,7 +261,11 @@ describe('terminate', function() {
   })
 
   it('should safely terminate a stopped worker', function() {
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://www.piaxis.tech',
@@ -264,7 +293,11 @@ describe('screenshot', function() {
 
   it('should create a screenshot for a valid worker', function() {
     var worker = new Worker()
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://www.piaxis.tech',
@@ -286,12 +319,19 @@ describe('screenshot', function() {
       utils.log.error(err)
       throw err
     })
+    .then(() => {
+      return utils.safeKillWorker(worker)
+    })
     .should.be.fulfilled
   })
 
   it('should fail for invalid worker', function() {
-    var worker = new Worker()
+    var worker = new Worker(), saveId
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://www.piaxis.tech',
@@ -299,6 +339,7 @@ describe('screenshot', function() {
       browser_version : '45.0',
     })
     .then(() => {
+      saveId = worker.id
       worker.id = 'xxxxxxxxxxxx'
       worker.endpoint = worker.processed.settings.host + WorkerVars.workerApiEndpoint + '/' + worker.id
       return worker.screenshot()
@@ -314,12 +355,21 @@ describe('screenshot', function() {
         throw err
       }
     })
+    .then(() => {
+      worker.id = saveId
+      worker.endpoint = worker.processed.settings.host + WorkerVars.workerApiEndpoint + '/' + worker.id
+      return utils.safeKillWorker(worker)
+    })
     .should.be.fulfilled
   })
 
   it('should fail for a terminated worker', function() {
     var worker = new Worker()
+    var build = utils.buildDetails()
     return worker.create({
+      build: build.build,
+      project: build.project,
+      name: build.name,
       os : 'Windows',
       os_version : '10',
       url : 'http://www.piaxis.tech',

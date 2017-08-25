@@ -98,7 +98,10 @@
     "Yandex",
     "IE Mobile",
     "Mobile Safari",
+    "Mobile Safari iPad",
+    "Mobile Safari iPhone",
     "Android Browser",
+    "Android Browser Selenium",
     "Opera Mobile Browser"
   ]
 }

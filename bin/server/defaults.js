@@ -7,11 +7,9 @@ const
     limit: '4mb',
     capabilities: {
       BrowserStack: {
-        JS: {
-          local: true,
-          screenshots: true,
-          timeout: 120
-        }
+        local: true,
+        screenshots: true,
+        timeout: 120
       }
     },
     server: {

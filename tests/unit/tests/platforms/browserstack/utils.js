@@ -55,7 +55,7 @@ function killRunningTunnels() {
 }
 
 function awaitZeroTunnels() {
-  const max = 5, minTimeout = 500, factor = 2
+  const max = 6, minTimeout = 500, factor = 2
   const check = (retries) => {
     return tunnels()
     .then(procs => {
@@ -73,7 +73,7 @@ function awaitZeroTunnels() {
 }
 
 function ensureZeroTunnels() {
-  const max = 5, minTimeout = 500, factor = 2
+  const max = 6, minTimeout = 500, factor = 2
   const check = (retries) => { 
     return killRunningTunnels()
     .then(awaitZeroTunnels)
@@ -105,12 +105,11 @@ function killWorker(worker) {
       }
     }
   )
-  .then(response => {
-    coreUtils.log.debug('worker %s terminate response %d', worker.id, response.statusCode)
+  .then(() => {
     return true
   })
   .catch(error => {
-    coreUtils.log.debug('worker %s terminate error %d %s', worker.id, error.statusCode, error.response.body)
+    coreUtils.log.debug('worker %s terminate error %d', worker.id, error.statusCode, error.response.body)
     throw error
   })
 }
@@ -131,38 +130,77 @@ function workerStatus(worker) {
   )
   .then(response => {
     var status = (response.body && response.body.status || 'terminated')
-    coreUtils.log.debug('worker %s status %s', worker.id, status)
     return status
   })
 }
 
-function safeKillWorker(worker) {
-  sleep.msleep(400)
-  var max = 10, minTimeout = 500, factor = 1
-  const check = (retries) => {
-    coreUtils.log.debug('sending termination request for %s...', worker.id)
+function waitUntilRunningRetries(worker) {
+  var max = 6, minTimeout = 500, factor = 2
+  const check = () => {
+    return workerStatus(worker)
+    .then(status => {
+      if('running' === status || 'terminated' === status) {
+        coreUtils.log.debug('worker %s status is %s, no need to wait anymore', worker.id, status)
+        return true
+      }
+      coreUtils.log.debug('worker %s status is %s, waiting for it to become running', worker.id, status)
+      throw new Error('worker ' + worker.id + ' status is still ' + status)
+    })
+  }
+  return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
+}
+
+function terminateWorkerRetries(worker) {
+  var max = 12, minTimeout = 5000, factor = 1
+  const check = () => {
     return killWorker(worker)
     .then(() => {
-      coreUtils.log.debug('ensuring termination of %s, checking status...', worker.id)
       return workerStatus(worker)
     })
     .catch(error => {
       return workerStatus(worker)
     })
     .then(status => {
-      coreUtils.log.debug('status reported %s', status)
       if('terminated' === status) {
+        coreUtils.log.debug('worker %s terminated', worker.id)
         return true
       }
-      if(retries < max) {
-        throw new Error('not done yet')
-      }
-      return true
+      coreUtils.log.debug('worker %s not terminated yet', worker.id)
+      throw new Error('not done yet')
     })
   }
   return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
 }
 
+function safeKillWorker(worker) {
+  return waitUntilRunningRetries(worker)
+  .then(() => {
+    return terminateWorkerRetries(worker)
+  })
+  .catch(() => {
+    return terminateWorkerRetries(worker)
+  })
+}
+
+function safeStopScript(webDriver) {
+  if(webDriver.timer) {
+    clearTimeout(webDriver.timer)
+    delete webDriver.timer
+  }
+  coreUtils.log.debug('closing web driver session %s', webDriver.session)
+  return webDriver.driver.quit()
+  .then(response => {
+    coreUtils.log.debug('web driver session %s closed', webDriver.session)
+    return true
+  })
+  .catch(err => {
+    coreUtils.log.info('web driver session %s closed with error %s', webDriver.session, err)
+    return true
+  })
+}
+
 exports.ensureZeroTunnels = ensureZeroTunnels
 exports.safeKillWorker = safeKillWorker
+exports.safeStopScript = safeStopScript
+exports.buildDetails = coreUtils.buildDetails
 exports.log = coreUtils.log

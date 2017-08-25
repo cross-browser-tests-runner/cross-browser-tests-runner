@@ -22,7 +22,7 @@ describe('in', function() {
 describe('project', function() {
 
   it('should return a string if relevant env vars are set', function() {
-    if(!process.env.CIRCLE_PROJECT_USERNAME) {
+    if(!process.env.CIRCLE_PROJECT_USERNAME && !process.env.CIRCLE_PROJECT_REPONAME) {
       process.env.CIRCLE_PROJECT_USERNAME = 'a'
       process.env.CIRCLE_PROJECT_REPONAME = 'b'
       expect(Circle.project).to.equal('a/b')
@@ -42,7 +42,7 @@ describe('session', function() {
     if(!process.env.CIRCLE_BUILD_NUM) {
       process.env.CIRCLE_BUILD_NUM = 4
       process.env.CIRCLE_NODE_INDEX = 1
-      expect(Circle.session).to.equal('CircleCI 4.1')
+      expect(Circle.session).to.match(/CIRCLE\-4\.1/)
       delete process.env.CIRCLE_BUILD_NUM
       delete process.env.CIRCLE_NODE_INDEX
     }

@@ -22,10 +22,10 @@ describe('in', function() {
 describe('project', function() {
 
   it('should return a string if relevant env vars are set', function() {
-    if(!process.env.APPVEYOR_PROJECT_SLUG) {
-      process.env.APPVEYOR_PROJECT_SLUG = 'a/b'
+    if(!process.env.APPVEYOR_REPO_NAME) {
+      process.env.APPVEYOR_REPO_NAME = 'a/b'
       expect(Appveyor.project).to.equal('a/b')
-      delete process.env.APPVEYOR_PROJECT_SLUG
+      delete process.env.APPVEYOR_REPO_NAME
     }
     else {
       expect(Appveyor.project).to.not.be.empty
@@ -37,10 +37,12 @@ describe('project', function() {
 describe('session', function() {
 
   it('should return a string if relevant env vars are set', function() {
-    if(!process.env.APPVEYOR_JOB_NAME) {
-      process.env.APPVEYOR_JOB_NAME = '4.1'
-      expect(Appveyor.session).to.equal('Appveyor 4.1')
-      delete process.env.APPVEYOR_JOB_NAME
+    if(!process.env.APPVEYOR_JOB_NUMBER && !process.env.APPVEYOR_BUILD_NUMBER) {
+      process.env.APPVEYOR_BUILD_NUMBER = '4'
+      process.env.APPVEYOR_JOB_NUMBER = '1'
+      expect(Appveyor.session).to.match(/^APPVEYOR\-4\.1\-/)
+      delete process.env.APPVEYOR_JOB_NUMBER
+      delete process.env.APPVEYOR_BUILD_NUMBER
     }
     else {
       expect(Appveyor.session).to.not.be.empty

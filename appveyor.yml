@@ -4,21 +4,66 @@ environment:
   BROWSERSTACK_USERNAME:
     secure: Jk/DEZv3lFCKevI5j+b/0Q==
   matrix:
-  - nodejs_version: "7"
-    cbtr_test: "eslint-unit-tests-cov-win"
-  - nodejs_version: "6"
-    cbtr_test: "eslint-unit-tests-cov-win"
-  - nodejs_version: "7"
+  - nodejs_version: "4.2.0"
+    cbtr_test: "eslint-unit-tests-win-1"
+    is_unit_test: "true"
+  - nodejs_version: "5.0.0"
+    cbtr_test: "eslint-unit-tests-win-1"
+    is_unit_test: "true"
+  - nodejs_version: "6.9.0"
+    cbtr_test: "eslint-unit-tests-win-1"
+    is_unit_test: "true"
+  - nodejs_version: "7.0.0"
+    cbtr_test: "eslint-unit-tests-win-1"
+    is_unit_test: "true"
+  - nodejs_version: "8.0.0"
+    cbtr_test: "eslint-unit-tests-win-1"
+    is_unit_test: "true"
+  - nodejs_version: "4.2.0"
+    cbtr_test: "unit-tests-win-2"
+    is_unit_test: "true"
+  - nodejs_version: "5.0.0"
+    cbtr_test: "unit-tests-win-2"
+    is_unit_test: "true"
+  - nodejs_version: "6.9.0"
+    cbtr_test: "unit-tests-win-2"
+    is_unit_test: "true"
+  - nodejs_version: "7.0.0"
+    cbtr_test: "unit-tests-win-2"
+    is_unit_test: "true"
+  - nodejs_version: "8.0.0"
+    cbtr_test: "unit-tests-win-2"
+    is_unit_test: "true"
+  - nodejs_version: "4.2.0"
     cbtr_test: "integration-tests-win"
-  - nodejs_version: "6"
+    is_unit_test: "false"
+  - nodejs_version: "5.0.0"
     cbtr_test: "integration-tests-win"
-  - nodejs_version: "7"
+    is_unit_test: "false"
+  - nodejs_version: "6.9.0"
+    cbtr_test: "integration-tests-win"
+    is_unit_test: "false"
+  - nodejs_version: "7.0.0"
+    cbtr_test: "integration-tests-win"
+    is_unit_test: "false"
+  - nodejs_version: "8.0.0"
+    cbtr_test: "integration-tests-win"
+    is_unit_test: "false"
+  - nodejs_version: "4.2.0"
     cbtr_test: "functional-tests-win"
-  - nodejs_version: "6"
+    is_unit_test: "false"
+  - nodejs_version: "5.0.0"
     cbtr_test: "functional-tests-win"
-
-matrix:
-  fast_finish: true
+    is_unit_test: "false"
+  - nodejs_version: "6.9.0"
+    cbtr_test: "functional-tests-win"
+    is_unit_test: "false"
+  - nodejs_version: "7.0.0"
+    cbtr_test: "functional-tests-win"
+    is_unit_test: "false"
+  - nodejs_version: "8.0.0"
+    cbtr_test: "functional-tests-win"
+    is_unit_test: "false"
 
 branches:
   only:
@@ -36,14 +81,18 @@ init:
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
-  - copy /y .\etc\coveralls\bin\coveralls-win.js .\node_modules\coveralls\bin
 
-test_script:
+before_test:
   - ps: $wait = Start-Process node .\tests\unit\utils\wait.js
   - ps: $staticsrv = Start-Process node .\tests\unit\utils\static-srv.js
   - ps: $server = Start-Process node .\bin\server\server.js
   - ps: $server = Start-Process node -ArgumentList ".\bin\server\server.js --native-runner --config tests\integration\conf\native\cbtr.json"
+
+test_script:
   - npm run %cbtr_test%
+
+after_test:
+  - cmd: IF %is_unit_test%==true npm run codecov-upload
 
 build: off
 

@@ -34,17 +34,19 @@ const
 log.debug('Arguments received', args)
 log.debug('settings', settings)
 
-try {
-  let Ci = CiFactory.get()
-  args.project = Ci.project
-  args.test = Ci.session
-  args.build = Ci.commit
-}
-catch(err) {
-  log.debug('ignore failure of CI env detection %s', err)
-  args.project = 'anonymous/anonymous'
-  args.test = uuidv4()
-  args.build = 'unknown build'
+if(!args.project || !args.test || !args.build) {
+  try {
+    let Ci = CiFactory.get()
+    args.project = Ci.project
+    args.test = Ci.session
+    args.build = Ci.commit
+  }
+  catch(err) {
+    log.debug('ignore failure of CI env detection %s', err)
+    args.project = 'anonymous/anonymous'
+    args.test = uuidv4()
+    args.build = 'unknown build'
+  }
 }
 
 let

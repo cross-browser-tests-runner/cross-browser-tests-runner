@@ -1,0 +1,6 @@
+BrowserStack:
+  Selenium:
+    iOS:
+      "5.1":
+        Mobile Safari iPad:
+          - "Nokia Lumia"

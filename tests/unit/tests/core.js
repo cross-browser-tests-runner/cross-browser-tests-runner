@@ -2,12 +2,12 @@ require('./core/errors')
 
 require('./core/log')
 
-describe('sleep', function() {
-  require('./core/sleep')
+describe('env', function() {
+  require('./core/env')
 })
 
-describe('interfaces', function() {
-  require('./core/interfaces')
+describe('sleep', function() {
+  require('./core/sleep')
 })
 
 describe('settings', function() {
@@ -20,4 +20,8 @@ describe('Request', function() {
 
 describe('Process', function() {
   require('./core/process')
+})
+
+describe('RemoteFile', function() {
+  require('./core/remotefile')
 })
