@@ -12,16 +12,16 @@ node_js:
   - "8.0.0"
 
 env:
-  - CBTR_TEST=eslint-unit-tests-1,IS_UNIT_TEST=1
-  - CBTR_TEST=unit-tests-2,IS_UNIT_TEST=1
-  - CBTR_TEST=integration-tests,IS_UNIT_TEST=0
-  - CBTR_TEST=functional-tests,IS_UNIT_TEST=0
+  - CBTR_TEST="eslint-unit-tests-1",IS_UNIT_TEST=1
+  - CBTR_TEST="unit-tests-2",IS_UNIT_TEST=1
+  - CBTR_TEST="integration-tests",IS_UNIT_TEST=0
+  - CBTR_TEST="functional-tests",IS_UNIT_TEST=0
 
 matrix:
   allow_failures:
     - os: linux
       node_js: 5.12.0
-      env: CBTR_TEST=functional-tests
+      env: CBTR_TEST="functional-tests"
 
 branches:
   only:
@@ -38,7 +38,7 @@ script:
 
 after_script:
   - if [ "1" == "$IS_UNIT_TEST" ]; then npm run codecov-upload; npm run coveralls-upload; fi
-  - if [ "unit-tests-3" == "$CBTR_TEST" ]; then if [ "8.0.0" == "$TRAVIS_NODE_VERSION" ]; then if [ "osx" == "$TRAVIS_OS_NAME" ]; then curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$TRAVIS_BUILD_NUMBER&payload[status]=done"; fi; fi; fi
+  - if [ "unit-tests-2" == "$CBTR_TEST" ]; then if [ "8.0.0" == "$TRAVIS_NODE_VERSION" ]; then if [ "osx" == "$TRAVIS_OS_NAME" ]; then curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$TRAVIS_BUILD_NUMBER&payload[status]=done"; fi; fi; fi
 
 cache:
   directories:
