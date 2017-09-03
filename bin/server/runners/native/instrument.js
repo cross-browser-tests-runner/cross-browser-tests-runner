@@ -7,7 +7,8 @@ let
   fs = Bluebird.promisifyAll(require('fs')),
   args = require('minimist')(process.argv.slice(2), {
     string: ['config'],
-    alias: {config: 'c'}
+    boolean: ['error-reports-only'],
+    alias: {config: 'c', 'error-reports-only': 'E'}
   }),
   srvUtils = require('./../../utils')
 
@@ -30,7 +31,10 @@ router.route('/')
     return fs.readFileAsync(file, 'utf-8')
   }))
   .then(contents => {
-    res.send(contents.join('\n'))
+    var reportVarsJs =
+      'var cbtrReportErrorsOnly = ' + args['error-reports-only'] + '\n' +
+      'var cbtrDontReportTraces = ' + args['omit-report-traces'] + '\n'
+    res.send(reportVarsJs + contents.join('\n'))
   })
   .catch(err => {
     srvUtils.error(err, res)

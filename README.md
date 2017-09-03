@@ -136,20 +136,24 @@ $ ./node_modules/.bin/cbtr-server
 It would keep running in foreground, waiting for tests to be run by the test runner used e.g. Testem.
 ### Usage
 ```bash
-$ ./node_modules/.bin/cbtr-server [--help|-h] [--config|-c <config-file>] [--native-runner|-n] [--errors-only|-e] [--omit-traces|-o]
+$ ./node_modules/.bin/cbtr-server [--help|-h] [--config|-c <config-file>] [--native-runner|-n] [--errors-only|-e] [--omit-traces|-o] [--error-reports-only|-E] [--omit-report-traces|-O]
 
 Defaults:
- config            cbtr.json in project root, or CBTR_SETTINGS env var
- native-runner     false
- errors-only       false
- omit-traces       false
+ config              cbtr.json in project root, or CBTR_SETTINGS env var
+ native-runner       false
+ errors-only         false
+ omit-traces         false
+ error-reports-only  false
+ omit-report-traces  false
 
 Options:
- help              print this help
- config            cross-browser-tests-runner settings file
- native-runner     if the server should work as native test runner
- errors-only       (native runner only) print only the specs that failed
- omit-traces       (native runner only) print only the error message and no stack traces
+ help                print this help
+ config              cross-browser-tests-runner settings file
+ native-runner       if the server should work as native test runner
+ errors-only         (native runner only) print only the specs that failed
+ omit-traces         (native runner only) print only the error message and no stack traces
+ error-reports-only  (native runner only) report only the error specs from browser
+ omit-report-traces  (native runner only) do not include stack traces in reports sent by browser
 ```
 ## Native Runner
 The native test runner was included to provide easy [Code Coverage](#code-coverage) and [Failover](#failover) mechanism to counter different issues observed while building this tool, which were not possible to solve using third party runners/tools. It performs both JS and Selenium testing.

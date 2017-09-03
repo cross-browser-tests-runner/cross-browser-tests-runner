@@ -7,7 +7,7 @@ function __getFailures(items) {
       delete items[idx].passed_;
       trace = items[idx].trace;
       items[idx].trace = {
-        stack: trace.stack,
+        stack: !cbtrDontReportTraces && trace.stack,
         message: trace.message,
         file: trace.fileName,
         line: trace.lineNumber,
@@ -34,7 +34,7 @@ function __processSuite(suite) {
   suites = suite.suites(),
   idx;
   for(idx = 0; idx < specs.length; ++idx) {
-    __handleSpec(specs[idx], data, idx);
+    __handleSpec(specs[idx], data)
   }
   for(idx = 0; idx < suites.length; ++idx) {
     __handleSuite(suites[idx], data, idx);
@@ -42,20 +42,32 @@ function __processSuite(suite) {
   return data;
 }
 
-function __handleSpec(spec, data, idx) {
+function __handleSpec(spec, data) {
   var results = spec.results();
-  data.specs.push({
+  var record = {
     description: spec.description,
     duration: spec.duration,
     passed: results.passedCount === results.totalCount,
     skipped: results.skipped,
     failures: __getFailures(results.getItems())
-  })
-  data.passed += (data.specs[idx].passed ? 1 : 0);
-  data.failed += (!data.specs[idx].passed && !data.specs[idx].skipped ? 1 : 0);
-  data.skipped += (data.specs[idx].skipped ? 1 : 0);
-  data.duration += data.specs[idx].duration;
+  }
+  __updateSpecResults(record, data);
+  __checkAndIncludeSpec(record, data);
+}
+
+function __updateSpecResults(record, data) {
+  data.passed += (record.passed ? 1 : 0);
+  data.failed += (!record.passed && !record.skipped ? 1 : 0);
+  data.skipped += (record.skipped ? 1 : 0);
+  data.duration += record.duration;
   ++data.total;
+}
+
+function __checkAndIncludeSpec(record, data) {
+  var failed = !record.passed && !record.skipped;
+  if(!cbtrReportErrorsOnly || failed) {
+    data.specs.push(record)
+  }
 }
 
 function __handleSuite(suite, data, idx) {

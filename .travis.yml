@@ -19,8 +19,7 @@ env:
 
 matrix:
   allow_failures:
-    - os: linux
-      node_js: 5.12.0
+    - node_js: 5.12.0
       env: CBTR_TEST="functional-tests"
 
 branches:
