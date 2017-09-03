@@ -1,0 +1,8 @@
+SauceLabs:
+  JS:
+    Windows:
+      7:
+        Chrome:
+          - 32.0-36.0
+          - "40.0"
+        Firefox: "41.0"

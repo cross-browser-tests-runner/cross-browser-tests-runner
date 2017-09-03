@@ -1,0 +1,21 @@
+SauceLabs:
+  JS:
+    Windows:
+      7:
+        Chrome:
+          - 32.0-36.0
+          - "26.0"
+    Mac OSX:
+      "10.12":
+        Mobile Safari iPhone:
+          - 10.3
+  Selenium:
+    Mac OSX:
+      "10.9":
+        Firefox:
+          - 23.0-31.0
+          - "36.0"
+    Android:
+      "5.0":
+        Android Browser:
+          - "Android Emulator"

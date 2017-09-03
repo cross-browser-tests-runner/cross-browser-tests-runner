@@ -21,7 +21,7 @@ describe('POST', function() {
 
   this.timeout(0)
 
-  it('should return 404 for POST on instrumented js', function() {
+  it('should fail with 404 status code', function() {
     return request(host)
       .post('/cross-browser-tests-runner.js')
       .catch(err => {
@@ -29,7 +29,7 @@ describe('POST', function() {
         return true
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
@@ -40,7 +40,7 @@ describe('GET', function() {
 
   this.timeout(0)
 
-  it('should get the instrumented javascript file', function() {
+  it('should return the instrumented javascript file', function() {
     return request(host)
       .get('/cross-browser-tests-runner.js')
       .then(res => {
@@ -49,7 +49,7 @@ describe('GET', function() {
         expect(res.statusCode).to.equal(200)
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled

@@ -1,7 +1,7 @@
-describe('Tunnel', function() {
+describe('Interfaces', function() {
   require('./interfaces/tunnel')
-})
-
-describe('Platform', function() {
+  require('./interfaces/jobif')
+  require('./interfaces/job')
+  require('./interfaces/scriptjob')
   require('./interfaces/platform')
 })

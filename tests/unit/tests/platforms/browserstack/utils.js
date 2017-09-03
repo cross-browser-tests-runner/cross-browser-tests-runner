@@ -2,13 +2,12 @@
 
 var
   ps = require('ps-node'),
-  expect = require('chai').expect,
   path = require('path'),
   retry = require('p-retry'),
   sleep = require('./../../../../../lib/core/sleep'),
   Request = require('./../../../../../lib/core/request').Request,
   BinaryVars = require('./../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
-  coreUtils = require('./../../core/utils')
+  utils = require('./../../core/utils')
 
 function stopProc(pid) {
   try {
@@ -21,14 +20,14 @@ function stopProc(pid) {
   while(counter--) {
     try {
       process.kill(pid, 0)
-      coreUtils.log.debug('waiting as process %d is still responding...', pid)
+      utils.log.debug('waiting as process %d is still responding...', pid)
       sleep.msleep(800)
     }
     catch(e) {
       break
     }
   }
-  coreUtils.log.debug('Stopped process %d', pid)
+  utils.log.debug('Stopped process %d', pid)
 }
 
 function tunnels() {
@@ -49,7 +48,7 @@ function killRunningTunnels() {
     procs.forEach(proc => {
       stopProc(proc.pid)
     })
-    coreUtils.log.debug('killed %d found tunnel processes', procs.length)
+    utils.log.debug('killed %d found tunnel processes', procs.length)
     return true
   })
 }
@@ -59,7 +58,7 @@ function awaitZeroTunnels() {
   const check = (retries) => {
     return tunnels()
     .then(procs => {
-      coreUtils.log.debug('number of remaining tunnel processes', procs.length)
+      utils.log.debug('number of remaining tunnel processes', procs.length)
       if(!procs.length) {
         return 0
       }
@@ -91,10 +90,10 @@ function ensureZeroTunnels() {
   return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
 }
 
-function killWorker(worker) {
+function killJob(job) {
   var req = new Request()
   return req.request(
-    worker.endpoint,
+    job.endpoint,
     'DELETE',
     {
       json: true,
@@ -109,15 +108,15 @@ function killWorker(worker) {
     return true
   })
   .catch(error => {
-    coreUtils.log.debug('worker %s terminate error %d', worker.id, error.statusCode, error.response.body)
+    utils.log.debug('job %s stop error %d', job.id, error.statusCode, error.response.body)
     throw error
   })
 }
 
-function workerStatus(worker) {
+function jobStatus(job) {
   var req = new Request()
   return req.request(
-    worker.endpoint,
+    job.endpoint,
     'GET',
     {
       json: true,
@@ -129,78 +128,79 @@ function workerStatus(worker) {
     }
   )
   .then(response => {
-    var status = (response.body && response.body.status || 'terminated')
+    var status = (response.body && response.body.status || 'stopped')
     return status
   })
 }
 
-function waitUntilRunningRetries(worker) {
+function waitUntilRunningRetries(job) {
   var max = 6, minTimeout = 500, factor = 2
   const check = () => {
-    return workerStatus(worker)
+    return jobStatus(job)
     .then(status => {
-      if('running' === status || 'terminated' === status) {
-        coreUtils.log.debug('worker %s status is %s, no need to wait anymore', worker.id, status)
+      if('running' === status || 'stopped' === status) {
+        utils.log.debug('job %s status is %s, no need to wait anymore', job.id, status)
         return true
       }
-      coreUtils.log.debug('worker %s status is %s, waiting for it to become running', worker.id, status)
-      throw new Error('worker ' + worker.id + ' status is still ' + status)
+      utils.log.debug('job %s status is %s, waiting for it to become running', job.id, status)
+      throw new Error('job ' + job.id + ' status is still ' + status)
     })
   }
   return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
 }
 
-function terminateWorkerRetries(worker) {
+function terminateJobRetries(job) {
   var max = 12, minTimeout = 5000, factor = 1
   const check = () => {
-    return killWorker(worker)
+    return killJob(job)
     .then(() => {
-      return workerStatus(worker)
+      return jobStatus(job)
     })
     .catch(error => {
-      return workerStatus(worker)
+      return jobStatus(job)
     })
     .then(status => {
-      if('terminated' === status) {
-        coreUtils.log.debug('worker %s terminated', worker.id)
+      if('stopped' === status) {
+        utils.log.debug('job %s stopped', job.id)
         return true
       }
-      coreUtils.log.debug('worker %s not terminated yet', worker.id)
+      utils.log.debug('job %s not stopped yet', job.id)
       throw new Error('not done yet')
     })
   }
   return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
 }
 
-function safeKillWorker(worker) {
-  return waitUntilRunningRetries(worker)
+function safeKillJob(job) {
+  return waitUntilRunningRetries(job)
   .then(() => {
-    return terminateWorkerRetries(worker)
+    return terminateJobRetries(job)
   })
   .catch(() => {
-    return terminateWorkerRetries(worker)
+    return terminateJobRetries(job)
   })
 }
 
-function safeStopScript(webDriver) {
-  if(webDriver.timer) {
-    clearTimeout(webDriver.timer)
-    delete webDriver.timer
+function safeStopScript(scriptJob) {
+  if(scriptJob.timer) {
+    clearTimeout(scriptJob.timer)
+    delete scriptJob.timer
   }
-  coreUtils.log.debug('closing web driver session %s', webDriver.session)
-  return webDriver.driver.quit()
+  utils.log.debug('closing web driver session %s', scriptJob.session)
+  return scriptJob.driver.quit()
   .then(response => {
-    coreUtils.log.debug('web driver session %s closed', webDriver.session)
+    utils.log.debug('web driver session %s closed', scriptJob.session)
     return true
   })
   .catch(err => {
-    coreUtils.log.info('web driver session %s closed with error %s', webDriver.session, err)
+    utils.log.info('web driver session %s closed with error %s', scriptJob.session, err)
     return true
   })
 }
 
 exports.ensureZeroTunnels = ensureZeroTunnels
-exports.safeKillWorker = safeKillWorker
+exports.safeKillJob = safeKillJob
 exports.safeStopScript = safeStopScript
-exports.buildDetails = coreUtils.buildDetails
-exports.log = coreUtils.log
+exports.buildDetails = utils.buildDetails
+exports.tunnels = tunnels
+exports.log = utils.log

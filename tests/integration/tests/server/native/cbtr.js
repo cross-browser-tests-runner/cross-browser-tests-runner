@@ -21,7 +21,7 @@ describe('/', function() {
 
   this.timeout(0)
 
-  it('should return 404 for GET', function() {
+  it('should fail with 404 status code for GET method', function() {
     return request(host)
       .get('/cbtr')
       .catch(err => {
@@ -29,13 +29,13 @@ describe('/', function() {
         return true
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
   })
 
-  it('should return 404 for POST', function() {
+  it('should fail with 404 status code for POST method', function() {
     return request(host)
       .post('/cbtr')
       .catch(err => {
@@ -43,7 +43,7 @@ describe('/', function() {
         return true
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
@@ -54,7 +54,7 @@ describe('/run', function() {
 
   this.timeout(0)
 
-  it('should return 404 for GET', function() {
+  it('should fail with 404 status code for GET method', function() {
     return request(host)
       .get('/cbtr/run')
       .catch(err => {
@@ -62,17 +62,17 @@ describe('/run', function() {
         return true
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
   })
 
-  it('should silently complete without any parameters for POST', function() {
+  it('should work for POST method even without any parameters', function() {
     return request(host)
       .post('/cbtr/run')
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
@@ -84,7 +84,7 @@ describe('/coverage', function() {
 
   this.timeout(0)
 
-  it('should return 404 for GET', function() {
+  it('should fail with 404 status code for GET method', function() {
     return request(host)
       .get('/cbtr/coverage')
       .catch(err => {
@@ -92,17 +92,17 @@ describe('/coverage', function() {
         return true
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
   })
 
-  it('should silently complete without any parameters for POST', function() {
+  it('should work for POST method even without any parameters', function() {
     return request(host)
       .post('/cbtr/coverage')
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled

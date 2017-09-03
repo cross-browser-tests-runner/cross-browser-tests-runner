@@ -9,7 +9,7 @@ const COLORS = {
   RESET: "\x1b[0m"
 }
 
-exports.header = function(agent, results) {
+exports.header = (agent, results) => {
   console.log(
     results.passed === results.total
       ? COLORS.OK + '✓' + COLORS.RESET + COLORS.DESC

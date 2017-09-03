@@ -15,11 +15,11 @@ function error(err, res) {
 }
 
 function defaults(router) {
-  router.use(function(req, res) {
+  router.use((req, res) => {
     log.warn('cannot serve %s %s', req.method, req.url)
     res.sendStatus(404)
   })
-  router.use(function(err, req, res, next) {
+  router.use((err, req, res, next) => {
     error(err, res)
   })
 }

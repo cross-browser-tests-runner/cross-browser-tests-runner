@@ -15,55 +15,73 @@ describe('close.js', function() {
 
   this.timeout(0)
 
-  it('should fail for unsupported argument', function() {
-    var proc = new Process()
-    return proc
-    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/close.js'), '--unknown' ], {
+  it('should fail if an unsupported command line option is provided', function() {
+    var proc = new Process(), out = ''
+    return proc.create('node',
+      utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/close.js', [
+        '--unknown'
+      ]), {
       onstderr: function(stderr) {
-        expect(stderr).to.contain('Unknown option: --unknown')
+        out += stderr
       }
     })
+    .then(() => {
+      expect(out).to.contain('Unknown option: --unknown')
+      return true
+    })
     .catch(err => {
-      utils.log.error(err)
+      utils.log.error('error: ', err)
       throw err
     })
     .should.be.fulfilled
   })
 
-  it('should print help', function() {
-    var proc = new Process()
-    return proc
-    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/close.js'), '--help' ], {
+  it('should print help if "--help" command line option is provided', function() {
+    var proc = new Process(), out = ''
+    return proc.create('node',
+      utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/close.js', [
+        '--help'
+      ]), {
       onstdout: function(stdout) {
-        expect(stdout).to.contain("close.js [--help|-h] [--config|-c <config-file>]")
+        out += stdout
       }
     })
+    .then(() => {
+      expect(out).to.contain("close.js [--help|-h] [--config|-c <config-file>]")
+      return true
+    })
     .catch(err => {
-      utils.log.error(err)
+      utils.log.error('error: ', err)
       throw err
     })
     .should.be.fulfilled
   })
 
-  it('should successfully run whether any runs exist or not', function() {
-    var proc = new Process()
-    return proc
-    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/close.js') ], {
+  it('should successfully run and complete even if no runs exist', function() {
+    var proc = new Process(), out = ''
+    return proc.create('node',
+      utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/close.js'), {
       onstdout: function(stdout) {
-        expect(stdout).to.contain('closed browserstack-testem runs')
+        out += stdout
       }
     })
+    .then(() => {
+      expect(out).to.contain('closed browserstack-testem runs')
+      return true
+    })
     .catch(err => {
-      utils.log.error(err)
+      utils.log.error('error: ', err)
       throw err
     })
     .should.be.fulfilled
   })
 
-  it('should successfully close runs after a test for valid arguments is created', function() {
-    var proc = new Process(), tried = false, build = utils.buildDetails()
-    return proc
-    .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/browser.js'), "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://www.piaxis.tech" ], {
+  it('should successfully close runs and the platform once called after a test getting created', function() {
+    var proc = new Process(), tried = false, build = utils.buildDetails(), out = ''
+    return proc.create('node',
+      utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/browser.js', [
+        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://www.piaxis.tech"
+      ]), {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {
           tried = true
@@ -72,16 +90,23 @@ describe('close.js', function() {
       }
     })
     .then(() => {
-      proc = new Process()
-      return proc
-      .create('node', [ path.resolve(process.cwd(), 'bin/hooks/testem/browserstack/close.js') ], {
+      var proc2 = new Process()
+      return proc2.create('node',
+        utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/close.js'), {
         onstdout: function(stdout) {
-          expect(stdout).to.contain('closed browserstack-testem runs')
+          out += stdout
+        },
+        onstderr: function(stderr) {
+          utils.errorWithoutCovLines(stderr)
         }
       })
     })
+    .then(() => {
+      expect(out).to.contain('closed browserstack-testem runs')
+      return true
+    })
     .catch(err => {
-      utils.log.error(err)
+      utils.log.error('error: ', err)
       throw err
     })
     .should.be.fulfilled

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var sleep = require('./../../../lib/core/sleep')
 
 console.log('going to wait')

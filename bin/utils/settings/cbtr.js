@@ -64,14 +64,13 @@ function parse(obj) {
     let tests = obj[platform]
     Object.keys(tests).forEach(test => {
       checkPlatformTest(platform, test)
-      switch(platform) {
-        case 'BrowserStack':
-          platformConfig = JSON.parse(
-            fs.readFileSync(
-              path.resolve(__dirname, './../../../conf/browserstack-conf.json'), 'utf8'))
-          break
-        default:
-          break
+      if('BrowserStack' === platform) {
+        platformConfig = JSON.parse(fs.readFileSync(
+          path.resolve(__dirname, './../../../conf/browserstack-conf.json'), 'utf8'))
+      }
+      else /* if('SauceLabs' === platform) */ {
+        platformConfig = JSON.parse(fs.readFileSync(
+          path.resolve(__dirname, './../../../conf/saucelabs-conf.json'), 'utf8'))
       }
       results[platform][test] = [ ]
       let oses = tests[test]
@@ -127,7 +126,7 @@ function parse(obj) {
 
 function checkPlatform(platform) {
   if(!config.Platforms[platform]) {
-    throw new Error('Unknown cross-browser testing platform "'+ platform + '", valid options are: ' + Object.keys(config.Platforms).join(', '))
+    throw new Error('Unknown cross-browser testing platform "'+ platform + '", valid options are: ' + Object.keys(config.Platforms).sort().join(', '))
   }
 }
 
@@ -139,13 +138,13 @@ function checkPlatformTest(platform, test) {
 
 function checkOs(os) {
   if(! config['Operating Systems'][os]) {
-    throw new Error('Unknown OS "' + os + '", valid options are: ' + Object.keys(config['Operating Systems']).join(', '))
+    throw new Error('Unknown OS "' + os + '", valid options are: ' + Object.keys(config['Operating Systems']).sort().join(', '))
   }
 }
 
 function checkPlatformTestOs(platform, test, os) {
   if(!platformConfig[test][os]) {
-    throw new Error('Unsupported OS "' + os + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + Object.keys(platformConfig[test]).join(', '))
+    throw new Error('Unsupported OS "' + os + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + Object.keys(platformConfig[test]).sort().join(', '))
   }
 }
 
@@ -157,7 +156,7 @@ function checkOsVersion(os, osVersion) {
 
 function checkPlatformTestOsVersion(platform, test, os, osVersion) {
   if(!platformConfig[test][os][osVersion]) {
-    throw new Error('Unsupported version "' + osVersion + '" for os "' + os + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + Object.keys(platformConfig[test][os]).join(', '))
+    throw new Error('Unsupported version "' + osVersion + '" for os "' + os + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + Object.keys(platformConfig[test][os]).sort().join(', '))
   }
 }
 
@@ -169,7 +168,7 @@ function checkBrowser(browser) {
 
 function checkPlatformTestOsVersionBrowser(platform, test, os, osVersion, browser) {
   if(!platformConfig[test][os][osVersion][browser]) {
-    throw new Error('Unsupported browser "' + browser + '" on "' + os + ' ' + osVersion + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + Object.keys(platformConfig[test][os][osVersion]).join(', '))
+    throw new Error('Unsupported browser "' + browser + '" on "' + os + ' ' + osVersion + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + Object.keys(platformConfig[test][os][osVersion]).sort().join(', '))
   }
 }
 
@@ -209,7 +208,7 @@ function parseBrowserVersion(browserVersion) {
     }
   }
   else {
-    throw new Error('Unsupported type for browserVersion ' + browserVersion)
+    throw new Error('Unsupported type for browserVersion ' + typeof(browserVersion))
   }
 }
 

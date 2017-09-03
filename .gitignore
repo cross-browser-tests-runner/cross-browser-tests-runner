@@ -38,7 +38,17 @@ jspm_packages
 
 # Downloaded at runtime
 BrowserStackLocal*
+sc-4.*
 landing-1.jpg
+dist/
+dist-*/
+sample.tar.gz
+sample.tgz
+sample.zip
+sample.tar.bz2
+
+# Created at runtime
+sauce-tunnel-tmp-*.txt
 
 # Swap files
 .*swp

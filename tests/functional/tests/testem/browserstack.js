@@ -17,21 +17,21 @@ describe('BrowserStack', function() {
 
   this.timeout(0)
 
-  it('should work in testem ci mode for a jasmine-1.x test', function() {
+  it('should successfully complete testem ci mode Jasmine 1.x tests for few browsers', function() {
     var proc = new Process(), out = ''
     return proc
     .create('node', [
         path.resolve(process.cwd(), 'node_modules/testem/testem.js'),
         'ci',
         '-f',
-        path.resolve(process.cwd(), 'tests/functional/conf/testem/jasmine-1.json')
+        path.resolve(process.cwd(), 'tests/functional/conf/testem/jasmine-1-browserstack.json')
     ], {
       onstdout: function(stdout) {
         out += stdout
-        console.log('stdout: ', stdout.trim())
+        console.log(stdout.trim())
       },
       onstderr: function(stderr) {
-        utils.log.error(stderr)
+        utils.errorWithoutCovLines(stderr)
       }
     })
     .then(() => {
@@ -74,7 +74,7 @@ describe('BrowserStack', function() {
       return true
     })
     .catch(err => {
-      utils.log.error(err)
+      utils.log.error('error: ', err)
       throw err
     })
     .should.be.fulfilled

@@ -1,0 +1,30 @@
+{
+  "framework": "jasmine",
+  "test_file": "tests/functional/code/tests/jasmine/html/tests-ok.html",
+  "retries": 0,
+  "browsers": {
+    "BrowserStack": {
+      "JS": [
+        {
+          "os": "Windows",
+          "osVersion": "7",
+          "browser": "Chrome",
+          "browserVersion": "40.0"
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "BrowserStack": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner"
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "127.0.0.1"
+  }
+}

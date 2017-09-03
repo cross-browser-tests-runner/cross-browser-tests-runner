@@ -1,3 +1,6 @@
+/** global: cbtrReportErrorsOnly */
+/** global: cbtrDontReportTraces */
+
 var __keys = [ 'passed', 'failed', 'skipped', 'total', 'duration' ];
 
 function __getFailures(items) {
@@ -51,21 +54,27 @@ function __handleSpec(spec, data) {
     skipped: results.skipped,
     failures: __getFailures(results.getItems())
   }
+  record.failed = !(record.passed || record.skipped);
   __updateSpecResults(record, data);
   __checkAndIncludeSpec(record, data);
+  delete record.failed;
 }
 
+var statusKeys = ['passed', 'failed', 'skipped'];
+
 function __updateSpecResults(record, data) {
-  data.passed += (record.passed ? 1 : 0);
-  data.failed += (!record.passed && !record.skipped ? 1 : 0);
-  data.skipped += (record.skipped ? 1 : 0);
+  for(var idx = 0; idx < statusKeys.length; ++idx) {
+    var status = statusKeys[idx];
+    if(record[status]) {
+      ++data[status];
+    }
+  }
   data.duration += record.duration;
   ++data.total;
 }
 
 function __checkAndIncludeSpec(record, data) {
-  var failed = !record.passed && !record.skipped;
-  if(!cbtrReportErrorsOnly || failed) {
+  if(!cbtrReportErrorsOnly || record.failed) {
     data.specs.push(record)
   }
 }

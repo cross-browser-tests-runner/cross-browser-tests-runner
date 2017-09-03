@@ -1,0 +1,8 @@
+SauceLabs:
+  Selenium:
+    iOS:
+      "10.3":
+        Safari:
+          - "Nokia Lumia"
+          - "iPad Simulator"
+          - "iPhone 7 Plus Simulator"

@@ -17,7 +17,7 @@ let
   cbtrLog = require('./cbtr-log')
 
 router.route('/run')
-.post(function(req, res) {
+.post((req, res) => {
   log.debug('results: %s', JSON.stringify(req.body, null, 2))
   if(!req.body.suites) {
     res.json()
@@ -28,26 +28,15 @@ router.route('/run')
   req.body.suites.forEach(suite => {
     cbtrLog.suite(suite, '  ', args)
   })
-  console.log('')
   res.json()
 })
 
 router.route('/coverage')
-.post(function(req, res) {
+.post((req, res) => {
   log.debug('coverage data: %s', JSON.stringify(req.body, null, 2))
   const coverageDir = path.resolve(process.cwd(), 'coverage')
   fs.statAsync(coverageDir)
-  .then(stats => {
-    if(!stats.isDirectory()) {
-      log.error('cannot store coverage data as %s is not a directory', coverageDir)
-      throw new Error('not a directory')
-    }
-    return true
-  })
-  .catch(err => {
-    if(err.message.match(/not a directory/)) {
-      throw err
-    }
+  .catch(() => {
     return fs.mkdirAsync(coverageDir)
   })
   .then(() => {
@@ -77,10 +66,7 @@ function agentOsStr(agent) {
 
 function agentDeviceStr(agent) {
   if(agent.device && 'Other' !== agent.device.family) {
-    return (' (' + agent.device.family
-      + ('0' !== agent.device.major ? (' ' + agent.device.major + '.' + agent.device.minor) : '')
-      + ')'
-    )
+    return (' (' + agent.device.family + ')')
   }
   return ''
 }

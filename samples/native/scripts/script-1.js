@@ -9,6 +9,10 @@ exports.script = (driver, webdriver) => {
     console.log('Selenium Test Script: text of #test-message %s', text)
     return true
   })
+  .catch(err => {
+    console.log('Error in script: %s', err)
+    return true
+  })
 }
 
 exports.decider = (driver, webdriver) => {

@@ -1,0 +1,9 @@
+SauceLabs:
+  Selenium:
+    Windows:
+      7:
+        Chrome:
+          - 41.0-44.0
+          - 43.0
+          - 10.0-15.0
+          - "23.0"

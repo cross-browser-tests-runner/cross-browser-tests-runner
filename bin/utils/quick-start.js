@@ -4,7 +4,7 @@
 
 const
   allowedOptions = [ 'platform', 'runner', 'help' ],
-  allowedPlatforms = [ 'browserstack' ],
+  allowedPlatforms = [ 'browserstack', 'saucelabs' ],
   allowedRunners = [ 'testem' ]
 
 let
@@ -23,10 +23,10 @@ function help() {
   console.log(
     '\n' +
     path.basename(process.argv[1]) +
-    ' [--help|-h] [--platform|-p <cross-browser platform>] [--runner|-o <tests-runner>]\n\n' +
+    ' [--help|-h] [--platform|-p <cross-browser platform>] [--runner|-r <tests-runner>]\n\n' +
     'Options:\n' +
     ' help              print this help\n' +
-    ' platform          browserstack\n' +
+    ' platform          browserstack|saucelabs\n' +
     ' runner            testem'
   )
 }
@@ -56,34 +56,18 @@ utils.handleHelp(args, help)
 let
   Process = require('./../../lib/core/process').Process
 
-/* eslint-disable no-process-exit */
-
 let proc = new Process()
 console.log('Updating browsers for platform: %s', args.platform)
-proc.create('node', [path.resolve(__dirname, 'conf/browsers/' + args.platform + '.js')], {
-  onstderr: err => {
-    console.error('Unexpected error while updating browsers: %s', err)
-    process.exit(1)
-  }
-})
+proc.create('node', [path.resolve(__dirname, 'conf/browsers/' + args.platform + '.js')])
 .then(() => {
   console.log('Creating global cross-browser-tests-runner settings from sample browsers for %s', args.platform)
   proc = new Process()
-  return proc.create('node', [path.resolve(__dirname, 'settings/cbtr.js'), '--input', path.resolve(__dirname, '../../samples/.cbtr-browsers-' + args.platform + '.yml')], {
-    onstderr: err => {
-      console.error('Unexpected error while creating CBTR settings: %s', err)
-      process.exit(1)
-    }
-  })
+  return proc.create('node', [path.resolve(__dirname, 'settings/cbtr.js'), '--input', path.resolve(__dirname, '../../samples/.cbtr-browsers-' + args.platform + '.yml')])
 })
 .then(() => {
   console.log('Creating %s config for %s platform using cross-browser-tests-runner settings', args.runner, args.platform)
   proc = new Process()
   return proc.create('node', [path.resolve(__dirname, 'settings/' + args.runner + '/' + args.platform + '.js')], {
-    onstderr: err => {
-      console.error('Unexpected error while creating runner config: %s', err)
-      process.exit(1)
-    },
     onstdout: out => {
       if(out.match(/Are you using multiple tunnels with different identifiers/)) {
         proc.proc.stdin.write('y\n')
@@ -103,8 +87,3 @@ proc.create('node', [path.resolve(__dirname, 'conf/browsers/' + args.platform + 
 .then(() => {
   console.log('Done! Start the server (./node_modules/.bin/cbtr-server) and then execute your %s tests after specifying the test files and other required details in the runner config', args.runner)
 })
-.catch(err => {
-  console.error('Unexpected error in quick start for platform "' + args.platform + '", runner "' + args.runner + '" %s', err)
-})
-
-/* eslint-enable no-process-exit */

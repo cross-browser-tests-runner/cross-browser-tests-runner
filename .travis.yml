@@ -5,40 +5,33 @@ os:
   - osx
 
 node_js:
-  - "4.8.4"
-  - "5.12.0"
-  - "6.9.0"
-  - "7.0.0"
-  - "8.0.0"
+  - "stable"
+  - "4.8"
 
 env:
-  - CBTR_TEST="eslint-unit-tests-1",IS_UNIT_TEST=1
-  - CBTR_TEST="unit-tests-2",IS_UNIT_TEST=1
-  - CBTR_TEST="integration-tests",IS_UNIT_TEST=0
-  - CBTR_TEST="functional-tests",IS_UNIT_TEST=0
-
-matrix:
-  allow_failures:
-    - node_js: 5.12.0
-      env: CBTR_TEST="functional-tests"
+  - CBTR_TEST="functional-tests" TEST_TYPE="functional"
+  - CBTR_TEST="integration-tests" TEST_TYPE="integration"
+  - CBTR_TEST="eslint-unit-tests-1" TEST_TYPE="unit"
+  - CBTR_TEST="unit-tests-2" TEST_TYPE="unit"
+  - CBTR_TEST="unit-tests-3a" TEST_TYPE="unit"
+  - CBTR_TEST="unit-tests-3b" TEST_TYPE="unit"
 
 branches:
   only:
   - master
 
 before_script:
-  - if [ "1" == "$IS_UNIT_TEST" ]; then node ./tests/unit/utils/static-srv.js & fi
-  - if [ "1" == "$IS_UNIT_TEST" ]; then node ./tests/unit/utils/wait.js & fi
-  - if [ "0" == "$IS_UNIT_TEST" ]; then node ./bin/server/server.js & fi
-  - if [ "0" == "$IS_UNIT_TEST" ]; then node ./bin/server/server.js --native-runner --config tests/integration/conf/native/cbtr.json & fi
+  - if [ "unit" == "$TEST_TYPE" ]; then ./tests/unit/utils/static-srv.js & fi
+  - if [ "unit" == "$TEST_TYPE" ]; then ./tests/unit/utils/wait.js & fi
+  - if [ "functional" == "$TEST_TYPE" ]; then ./node_modules/.bin/istanbul instrument tests/functional/code/src/app.js > tests/functional/code/src/app.inst.js; fi
+  - if [ "unit" != "$TEST_TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js & fi
+  - if [ "unit" != "$TEST_TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js -- --native-runner --config tests/integration/conf/native/cbtr.json & fi
 
 script:
   - npm run $CBTR_TEST
 
 after_script:
-  - if [ "1" == "$IS_UNIT_TEST" ]; then npm run codecov-upload; npm run coveralls-upload; fi
-  - if [ "unit-tests-2" == "$CBTR_TEST" ]; then if [ "8.0.0" == "$TRAVIS_NODE_VERSION" ]; then if [ "osx" == "$TRAVIS_OS_NAME" ]; then curl -k https://coveralls.io/webhook?repo_token=$COVERALLS_REPO_TOKEN -d "payload[build_num]=$TRAVIS_BUILD_NUMBER&payload[status]=done"; fi; fi; fi
-
-cache:
-  directories:
-    - node_modules
+  - if [ "unit" != "$TEST_TYPE" ]; then for server in `ps auxwww | grep "bin/server/server.js" | grep -v grep | awk '{print $2}'`; do kill -INT $server; sleep 2; done; fi
+  - ./node_modules/.bin/istanbul report
+  - npm run codecov-upload
+  - npm run coveralls-upload

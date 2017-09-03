@@ -10,7 +10,16 @@ const
         local: true,
         screenshots: true,
         timeout: 120
+      },
+      SauceLabs: {
+        local: true,
+        timeout: 120,
+        framework: 'custom'
       }
+    },
+    parallel: {
+      BrowserStack: 2,
+      SauceLabs: 5
     },
     server: {
       port: 7982,

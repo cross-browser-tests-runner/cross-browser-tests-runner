@@ -1,0 +1,8 @@
+SauceLabs:
+  JS:
+    Windows:
+      7:
+        Chrome:
+          - false
+          - "10.0"
+          - 11

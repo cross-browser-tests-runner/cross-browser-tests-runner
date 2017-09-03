@@ -12,8 +12,8 @@ let
   }),
   srvUtils = require('./../../utils')
 
-const
-  settings = require('./../../settings')(args.config)
+/*const
+  settings = require('./../../settings')(args.config)*/
 
 let
   jsFiles = [
@@ -21,12 +21,12 @@ let
     path.resolve(__dirname, './patch/cbtr.js')
   ]
 
-if('jasmine' === settings.framework) {
-  jsFiles.push(path.resolve(__dirname, './patch/jasmine-1.js'))
-}
+//if('jasmine' === settings.framework) {
+jsFiles.push(path.resolve(__dirname, './patch/jasmine-1.js'))
+//}
 
 router.route('/')
-.get(function(req, res) {
+.get((req, res) => {
   Bluebird.all(jsFiles.map(file => {
     return fs.readFileAsync(file, 'utf-8')
   }))
@@ -35,9 +35,6 @@ router.route('/')
       'var cbtrReportErrorsOnly = ' + args['error-reports-only'] + '\n' +
       'var cbtrDontReportTraces = ' + args['omit-report-traces'] + '\n'
     res.send(reportVarsJs + contents.join('\n'))
-  })
-  .catch(err => {
-    srvUtils.error(err, res)
   })
 })
 

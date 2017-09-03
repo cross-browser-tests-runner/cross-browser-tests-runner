@@ -1,5 +1,5 @@
-if(process.version > 'v6') {
-  describe('WebDriver', function() {
-    require('./core/webdriver')
-  })
-}
+describe('Core', function() {
+  if(process.version > 'v6') {
+    require('./core/scriptjob')
+  }
+})

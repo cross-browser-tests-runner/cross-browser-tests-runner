@@ -15,7 +15,7 @@ function setup(req) {
 }
 
 router.route('/:platform')
-.put(function(req, res) {
+.put((req, res) => {
   setup(req)
   platforms[platform].object
   .open(req.body.capabilities)
@@ -26,7 +26,7 @@ router.route('/:platform')
     srvUtils.error(err, res)
   })
 })
-.post(function(req, res) {
+.post((req, res) => {
   setup(req)
   platforms[platform].object
   .run(req.body.url, req.body.browser, req.body.capabilities)
@@ -38,7 +38,7 @@ router.route('/:platform')
     srvUtils.error(err, res)
   })
 })
-.delete(function(req, res) {
+.delete((req, res) => {
   setup(req)
   platforms[platform].object.close(req.body.screenshot)
   .then(() => {
@@ -51,15 +51,13 @@ router.route('/:platform')
 })
 
 router.route('/:platform/:run')
-.delete(function(req, res) {
+.delete((req, res) => {
   setup(req)
   let run = req.params.run
   return platforms[platform].object.stop(run, req.body.screenshot)
   .then(() => {
     let idx = platforms[platform].runs.indexOf(run)
-    if(idx !== -1) {
-      platforms[platform].runs.splice(idx, 1)
-    }
+    platforms[platform].runs.splice(idx, 1)
     res.end()
   })
   .catch(err => {

@@ -20,7 +20,7 @@ describe('main', function() {
 
   this.timeout(0)
 
-  it('should return 400 for bad JSON in request', function() {
+  it('should fail with 400 status code for bad JSON in request', function() {
     return request(host)
       .post('/')
       .set('Content-Type', 'application/json')
@@ -30,13 +30,13 @@ describe('main', function() {
         return true
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
   })
 
-  it('should return 404 for unsupported url', function() {
+  it('should fail with 404 status code for an unknown url', function() {
     return request(host)
       .get('/some-url')
       .catch(err => {
@@ -44,7 +44,7 @@ describe('main', function() {
         return true
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled

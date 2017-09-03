@@ -5,7 +5,7 @@ let
   router = express.Router(),
   instrumentRouter = require('./native/instrument'),
   cbtrRouter = require('./native/cbtr'),
-  tests = require('./native/tests'),
+  run = require('./native/run'),
   srvUtils = require('./../utils'),
   args = require('minimist')(process.argv.slice(2), {
     string: ['config'],
@@ -15,12 +15,16 @@ let
 const
   settings = require('./../settings')(args.config)
 
-tests.start(settings)
+run.start(settings)
 
 router.use('/cross-browser-tests-runner.js', instrumentRouter)
 
 router.use('/cbtr/run', (req, res, next) => {
-  tests.endOne(req, res, next, settings)
+  run.endOne(req, res, next)
+})
+
+router.use('/cbtr/status', (req, res) => {
+  run.status(req, res)
 })
 
 router.use('/cbtr', cbtrRouter)

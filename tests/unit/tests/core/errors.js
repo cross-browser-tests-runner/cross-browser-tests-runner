@@ -5,16 +5,20 @@ var
   errors = require('./../../../../lib/core/errors'),
   InputError = errors.InputError
 
-describe('InputError', function() {
+describe('errors', function() {
 
-  it('should work as an Error subclass', function() {
-    function tester() { throw new InputError('XYZ') }
-    expect(tester).to.throw(InputError)
-  })
+  describe('InputError', function() {
 
-  it('should return InputError as name', function() {
-    expect(InputError.prototype.name).to.equal('InputError')
-    expect((new InputError('XYZ')).name).to.equal('InputError')
+    it('should work as a throw-and-catch-able Error subtype', function() {
+      function tester() { throw new InputError('XYZ') }
+      expect(tester).to.throw(InputError)
+    })
+
+    it('should return "InputError" as name as expected out of Error subtypes', function() {
+      expect(InputError.prototype.name).to.equal('InputError')
+      expect((new InputError('XYZ')).name).to.equal('InputError')
+    })
+
   })
 
 })

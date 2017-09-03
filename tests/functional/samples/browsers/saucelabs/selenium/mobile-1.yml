@@ -1,0 +1,8 @@
+SauceLabs:
+  Selenium:
+    iOS:
+      "8.4":
+        Safari:
+          - "iPad 2 Simulator"
+          - "iPhone 6 Simulator"
+          - "iPhone 5 Simulator"

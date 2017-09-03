@@ -21,7 +21,7 @@ describe('POST', function() {
 
   this.timeout(0)
 
-  it('should return 404 for POST on existing page', function() {
+  it('should fail with 404 status code for POST method even for an existing static page', function() {
     return request(host)
       .post('/samples/native/tests/html/jasmine/tests.html')
       .catch(err => {
@@ -29,7 +29,7 @@ describe('POST', function() {
         return true
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
@@ -40,14 +40,14 @@ describe('GET', function() {
 
   this.timeout(0)
 
-  it('should get a valid static file', function() {
+  it('should return a static file matching a valid url', function() {
     return request(host)
       .get('/samples/native/tests/html/jasmine/tests.html')
       .then(res => {
         expect(res.statusCode).to.equal(200)
       })
       .catch(err => {
-        utils.log.error(err)
+        utils.log.error('error: ', err)
         throw err
       })
       .should.be.fulfilled
