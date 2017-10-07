@@ -2,6 +2,7 @@
   "ignore": [
     "**/tests/**",
     "**/conf/**",
+    "**/doc/**",
     "**/etc/**",
     "**/samples/**",
     "**/deps/**",
