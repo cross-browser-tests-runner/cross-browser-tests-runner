@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -81,13 +81,13 @@
     "eslint": "^4.8.0",
     "finalhandler": "^1.1.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.5.0",
+    "mocha": "^4.0.1",
     "nock": "^9.0.22",
     "serve-static": "^1.13.1",
     "testem": "^1.18.4"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "decompress": "^4.2.0",
     "decompress-targz": "^4.1.1",
@@ -98,7 +98,7 @@
     "p-retry": "^1.0.0",
     "ps-node": "^0.1.6",
     "request-promise": "^4.2.2",
-    "selenium-webdriver": "^3.5.0",
+    "selenium-webdriver": "^3.6.0",
     "useragent": "^2.2.1",
     "uuid": "^3.1.0"
   }
