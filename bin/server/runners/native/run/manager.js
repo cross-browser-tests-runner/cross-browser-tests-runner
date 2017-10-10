@@ -161,16 +161,19 @@ class Manager {
 }
 
 function stopTest(test, takeScreenshot) {
+  test.nativeRunnerStopping = true
   handleScreenshot(test, takeScreenshot)
   .then(() => {
     return test.stop()
   })
   .then(() => {
     test.nativeRunnerStopped = true
+    delete test.nativeRunnerStopping
   })
   .catch(err => {
     log.warn('encountered error while stopping test %s', err)
     test.nativeRunnerStopped = true
+    delete test.nativeRunnerStopping
   })
 }
 

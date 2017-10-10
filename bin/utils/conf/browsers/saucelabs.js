@@ -72,12 +72,12 @@ function handleJSBrowser(config, os, osVersion, browser, browserName) {
   let
     osConfig = config[os] = config[os] || { },
     osVersionConfig = osConfig[osVersion] = osConfig[osVersion] || { },
-    array = osVersionConfig[browserName] || [ ]
-  if(!browser.short_version.match(/\./)) {
-    browser.short_version += '.0'
-  }
-  if(-1 === array.indexOf(browser.short_version)) {
-    array.push(browser.short_version)
+    array = osVersionConfig[browserName] || [ ],
+    browserVersion = browser.long_version.match(/^[0-9]/)
+      ? browser.long_version.replace(/^([0-9]+\.[0-9]+).*$/, "$1")
+      : browser.short_version
+  if(-1 === array.indexOf(browserVersion)) {
+    array.push(browserVersion)
     osVersionConfig[browserName] = array.sort()
   }
 }

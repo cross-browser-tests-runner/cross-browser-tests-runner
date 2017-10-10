@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -92,7 +92,7 @@
     "decompress": "^4.2.0",
     "decompress-targz": "^4.1.1",
     "decompress-unzip": "^4.0.1",
-    "express": "^4.16.1",
+    "express": "^4.16.2",
     "js-yaml": "^3.9.1",
     "minimist": "^1.2.0",
     "p-retry": "^1.0.0",

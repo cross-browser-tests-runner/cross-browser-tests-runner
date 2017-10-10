@@ -84,14 +84,16 @@ class Monitor {
         if('JS' !== test.nativeRunnerConfig.type) {
           completedTests.push(test)
         }
-        else if(!test.nativeRunnerConfig.sawStopped) {
-          log.debug('test %s has been seen stopped once without being marked by native runner', test.serverId)
-          test.nativeRunnerConfig.sawStopped = true
-        }
-        else {
-          delete test.nativeRunnerConfig.sawStopped
-          this._processJsTestRetries(test)
-          completedTests.push(test)
+        else if(!test.nativeRunnerStopping) {
+          if(!test.nativeRunnerConfig.sawStopped) {
+            log.debug('test %s has been seen stopped once without being marked by native runner', test.serverId)
+            test.nativeRunnerConfig.sawStopped = true
+          }
+          else {
+            delete test.nativeRunnerConfig.sawStopped
+            this._processJsTestRetries(test)
+            completedTests.push(test)
+          }
         }
       }
     })

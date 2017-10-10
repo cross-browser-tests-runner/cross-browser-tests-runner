@@ -60,10 +60,8 @@ utils.handleHelp(args, help)
 
 let
   request = require('request-promise'),
-  uuidv4 = require('uuid/v4'),
   Log = require('./../../../../lib/core/log').Log,
   PlatformKeys = require('./../../../../lib/platforms/interfaces/platform').PlatformKeys,
-  CiFactory = require('./../../../../lib/ci/factory').Factory,
   log = new Log('Hooks.Testem.Common.Browser')
 
 const
@@ -78,7 +76,6 @@ const main = (platform) => {
     browser : { },
     capabilities : { }
   }
-  setupNomenclature()
   setupInput(data)
   let run
   request
@@ -93,27 +90,6 @@ const main = (platform) => {
   .catch(err => {
     log.error('failed to create test - %s', err)
   })
-}
-
-function setupNomenclature() {
-  if(buildNotSpecified()) {
-    try {
-      let Ci = CiFactory.get()
-      args.project = Ci.project
-      args.test = Ci.session
-      args.build = Ci.commit
-    }
-    catch(err) {
-      log.debug('ignore failure of CI env detection %s', err)
-      args.project = 'anonymous/anonymous'
-      args.test = uuidv4()
-      args.build = 'unknown build'
-    }
-  }
-}
-
-function buildNotSpecified() {
-  return !(args.project && args.test && args.build)
 }
 
 function setupInput(data) {
