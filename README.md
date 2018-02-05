@@ -5,61 +5,9 @@
 
 One tool to do cross-browser testing across multiple cross-browser testing platforms, runners and frameworks.
 
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [How To Test](#how-to-test)
-- [Status](#status)
-- [Acknowledgements](#acknowledgements)
+## Documentation
 
-## Installation
-
-```bash
-$ npm install cross-browser-tests-runner
-```
-
-## Quick Start
-
-To see few sample tests running quickly, see [Quick Start](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/wiki/Quick-Start).
-
-## How to Test
-
-Use the [How to Test](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/wiki/How-to-Test) guide to start writing and running your own tests.
-
-## Troubleshooting
-
-See [Troubleshooting](https://github.com/cross-browser-tests-runner/cross-browser-tests-runner/wiki/Troubleshooting)
-
-## Status
-### Integrations
-
-Platform|JS - Testem|JS - In-built Runner|Selenium
--|-|-|-
-BrowserStack|✓|✓|✓
-SauceLabs|✓|✓|✓
-CrossBrowserTesting|✓|✓|✓
-
-### JS Frameworks supported by Native Runner
-
-Unit Testing Framework|
--|
-Jasmine 1.x|
-
-### Supported Node.js Versions
-
-Node version|Linux|OS X|Windows
--|-|-|-
-4.8.6|✓|✓|✓
-8.9.1|✓|✓|✓
-
-> v6.9.0 is the minimum version for Selenium tests and core Selenium functionality has been verified on this version. For the sake of time, v6 is not part of CI builds currently, and would be included later.
-
-### Minimum Node.js Versions
-
-Platform|JS - Testem|JS - In-built Runner|Selenium
--|-|-|-
-BrowserStack|v4.8.5+<br>✗ v5.x.x|v4.8.5+|v6.9.0+
-SauceLabs|v6.9.0+|v6.9.0+|v6.9.0+
-CrossBrowserTesting|v4.8.5+<br>✗ v5.x.x|v4.8.5+|v6.9.0+
+See the [documentation](http://cross-browser-tests-runner.readthedocs.io/)
 
 ## Acknowledgements
-[![BrowserStack](doc/img/ack/browserstack-logo.png)](https://www.browserstack.com) [![SauceLabs](doc/img/ack/saucelabs-logo.png)](https://www.saucelabs.com) [![CrossBrowserTesting](doc/img/ack/crossbrowsertesting-logo.png)](https://crossbrowsertesting.com) [![Travis CI](doc/img/ack/travis-logo.png)](https://travis-ci.org) [![Appveyor](doc/img/ack/appveyor-logo.png)](https://appveyor.com)
+[![BrowserStack](docs/source/img/ack/browserstack-logo.png)](https://www.browserstack.com) [![SauceLabs](docs/source/img/ack/saucelabs-logo.png)](https://www.saucelabs.com) [![CrossBrowserTesting](docs/source/img/ack/crossbrowsertesting-logo.png)](https://crossbrowsertesting.com) [![Travis CI](docs/source/img/ack/travis-logo.png)](https://travis-ci.org) [![Appveyor](docs/source/img/ack/appveyor-logo.png)](https://appveyor.com)

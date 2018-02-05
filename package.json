@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -51,137 +51,106 @@
   },
   "scripts": {
     "eslint": "./node_modules/.bin/eslint bin/ lib/",
-
     "unx-test-command": "LOG_LEVEL=WARN ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./node_modules/mocha/bin/_mocha -- --exit --reporter lcovonly --ui bdd -R spec -t 5000 $TEST_PATH",
-
     "unit-tests": "TEST_PATH=tests/unit/tests.js npm run unx-test-command",
-
     "non-3rd-party": "TEST_PATH=tests/unit/non-3rd-party.js npm run unx-test-command",
     "eslint-non-3rd-party": "npm run eslint && npm run non-3rd-party",
-
     "browserstack-tunnel": "TEST_PATH=tests/unit/browserstack-tunnel.js npm run unx-test-command",
     "saucelabs-tunnel": "TEST_PATH=tests/unit/saucelabs-tunnel.js npm run unx-test-command",
     "crossbrowsertesting-tunnel": "TEST_PATH=tests/unit/crossbrowsertesting-tunnel.js npm run unx-test-command",
-
     "core-scriptjob": "TEST_PATH=tests/unit/core-scriptjob.js npm run unx-test-command",
     "browserstack-scriptjob": "TEST_PATH=tests/unit/browserstack-scriptjob.js npm run unx-test-command",
     "saucelabs-scriptjob": "TEST_PATH=tests/unit/saucelabs-scriptjob.js npm run unx-test-command",
     "crossbrowsertesting-scriptjob": "TEST_PATH=tests/unit/crossbrowsertesting-scriptjob.js npm run unx-test-command",
-
     "browserstack-job": "TEST_PATH=tests/unit/browserstack-job.js npm run unx-test-command",
     "saucelabs-job": "TEST_PATH=tests/unit/saucelabs-job.js npm run unx-test-command",
     "crossbrowsertesting-job": "TEST_PATH=tests/unit/crossbrowsertesting-job.js npm run unx-test-command",
-
     "browserstack-platform-open": "TEST_PATH=tests/unit/browserstack-platform-open.js npm run unx-test-command",
     "browserstack-platform-job": "TEST_PATH=tests/unit/browserstack-platform-job.js npm run unx-test-command",
     "browserstack-platform-scriptjob": "TEST_PATH=tests/unit/browserstack-platform-scriptjob.js npm run unx-test-command",
     "browserstack-platform-status": "TEST_PATH=tests/unit/browserstack-platform-status.js npm run unx-test-command",
     "browserstack-platform-stop": "TEST_PATH=tests/unit/browserstack-platform-stop.js npm run unx-test-command",
     "browserstack-platform-close": "TEST_PATH=tests/unit/browserstack-platform-close.js npm run unx-test-command",
-
     "saucelabs-platform-open": "TEST_PATH=tests/unit/saucelabs-platform-open.js npm run unx-test-command",
     "saucelabs-platform-job": "TEST_PATH=tests/unit/saucelabs-platform-job.js npm run unx-test-command",
     "saucelabs-platform-scriptjob": "TEST_PATH=tests/unit/saucelabs-platform-scriptjob.js npm run unx-test-command",
     "saucelabs-platform-status": "TEST_PATH=tests/unit/saucelabs-platform-status.js npm run unx-test-command",
     "saucelabs-platform-stop": "TEST_PATH=tests/unit/saucelabs-platform-stop.js npm run unx-test-command",
     "saucelabs-platform-close": "TEST_PATH=tests/unit/saucelabs-platform-close.js npm run unx-test-command",
-
     "crossbrowsertesting-platform-open": "TEST_PATH=tests/unit/crossbrowsertesting-platform-open.js npm run unx-test-command",
     "crossbrowsertesting-platform-job": "TEST_PATH=tests/unit/crossbrowsertesting-platform-job.js npm run unx-test-command",
     "crossbrowsertesting-platform-scriptjob": "TEST_PATH=tests/unit/crossbrowsertesting-platform-scriptjob.js npm run unx-test-command",
     "crossbrowsertesting-platform-status": "TEST_PATH=tests/unit/crossbrowsertesting-platform-status.js npm run unx-test-command",
     "crossbrowsertesting-platform-stop": "TEST_PATH=tests/unit/crossbrowsertesting-platform-stop.js npm run unx-test-command",
     "crossbrowsertesting-platform-close": "TEST_PATH=tests/unit/crossbrowsertesting-platform-close.js npm run unx-test-command",
-
     "core-integration-tests": "TEST_PATH=tests/integration/core.js npm run unx-test-command",
     "browserstack-integration-tests": "TEST_PATH=tests/integration/browserstack.js npm run unx-test-command",
     "saucelabs-integration-tests": "TEST_PATH=tests/integration/saucelabs.js npm run unx-test-command",
     "crossbrowsertesting-integration-tests": "TEST_PATH=tests/integration/crossbrowsertesting.js npm run unx-test-command",
-
     "core-functional-tests": "TEST_PATH=tests/functional/core.js npm run unx-test-command",
-
     "utils-browserstack-tests": "TEST_PATH=tests/functional/utils-browserstack.js npm run unx-test-command",
     "utils-saucelabs-tests": "TEST_PATH=tests/functional/utils-saucelabs.js npm run unx-test-command",
     "utils-crossbrowsertesting-tests": "TEST_PATH=tests/functional/utils-crossbrowsertesting.js npm run unx-test-command",
-
     "testem-browserstack": "TEST_PATH=tests/functional/testem-browserstack.js npm run unx-test-command",
     "testem-saucelabs": "TEST_PATH=tests/functional/testem-saucelabs.js npm run unx-test-command",
     "testem-crossbrowsertesting": "TEST_PATH=tests/functional/testem-crossbrowsertesting.js npm run unx-test-command",
-
     "native-runner-cases": "TEST_PATH=tests/functional/native-cases.js npm run unx-test-command",
     "native-runner-retries": "TEST_PATH=tests/functional/native-retries.js npm run unx-test-command",
     "native-runner-working": "TEST_PATH=tests/functional/native-working.js npm run unx-test-command",
-
     "browserstack-platform": "TEST_PATH=tests/unit/browserstack-platform.js npm run unx-test-command",
     "saucelabs-platform": "TEST_PATH=tests/unit/saucelabs-platform.js npm run unx-test-command",
     "crossbrowsertesting-platform": "TEST_PATH=tests/unit/crossbrowsertesting-platform.js npm run unx-test-command",
     "native-runner": "TEST_PATH=tests/functional/native-runner.js npm run unx-test-command",
-
     "win-test-command": "./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./node_modules/mocha/bin/_mocha -- --exit --reporter lcovonly --ui bdd -R spec -t 5000 %TEST_PATH%",
-
     "unit-tests-win": "cmd /v /c \"set TEST_PATH=tests/unit/tests.js&& npm run win-test-command\"",
-
     "non-3rd-party-win": "cmd /v /c \"set TEST_PATH=tests/unit/non-3rd-party.js&& npm run win-test-command\"",
     "eslint-non-3rd-party-win": "npm run eslint && npm run non-3rd-party-win",
-
     "browserstack-tunnel-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-tunnel.js&& npm run win-test-command\"",
     "saucelabs-tunnel-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-tunnel.js&& npm run win-test-command\"",
     "crossbrowsertesting-tunnel-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-tunnel.js&& npm run win-test-command\"",
-
     "core-scriptjob-win": "cmd /v /c \"set TEST_PATH=tests/unit/core-scriptjob.js&& npm run win-test-command\"",
     "browserstack-scriptjob-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-scriptjob.js&& npm run win-test-command\"",
     "saucelabs-scriptjob-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-scriptjob.js&& npm run win-test-command\"",
     "crossbrowsertesting-scriptjob-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-scriptjob.js&& npm run win-test-command\"",
-
     "browserstack-job-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-job.js&& npm run win-test-command\"",
     "saucelabs-job-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-job.js&& npm run win-test-command\"",
     "crossbrowsertesting-job-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-job.js&& npm run win-test-command\"",
-
     "browserstack-platform-open-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-platform-open.js&& npm run win-test-command\"",
     "browserstack-platform-job-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-platform-job.js&& npm run win-test-command\"",
     "browserstack-platform-scriptjob-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-platform-scriptjob.js&& npm run win-test-command\"",
     "browserstack-platform-status-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-platform-status.js&& npm run win-test-command\"",
     "browserstack-platform-stop-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-platform-stop.js&& npm run win-test-command\"",
     "browserstack-platform-close-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-platform-close.js&& npm run win-test-command\"",
-
     "saucelabs-platform-open-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-platform-open.js&& npm run win-test-command\"",
     "saucelabs-platform-job-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-platform-job.js&& npm run win-test-command\"",
     "saucelabs-platform-scriptjob-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-platform-scriptjob.js&& npm run win-test-command\"",
     "saucelabs-platform-status-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-platform-status.js&& npm run win-test-command\"",
     "saucelabs-platform-stop-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-platform-stop.js&& npm run win-test-command\"",
     "saucelabs-platform-close-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-platform-close.js&& npm run win-test-command\"",
-
     "crossbrowsertesting-platform-open-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-platform-open.js&& npm run win-test-command\"",
     "crossbrowsertesting-platform-job-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-platform-job.js&& npm run win-test-command\"",
     "crossbrowsertesting-platform-scriptjob-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-platform-scriptjob.js&& npm run win-test-command\"",
     "crossbrowsertesting-platform-status-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-platform-status.js&& npm run win-test-command\"",
     "crossbrowsertesting-platform-stop-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-platform-stop.js&& npm run win-test-command\"",
     "crossbrowsertesting-platform-close-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-platform-close.js&& npm run win-test-command\"",
-
     "core-integration-tests-win": "cmd /v /c \"set TEST_PATH=tests/integration/core.js&& npm run win-test-command\"",
     "browserstack-integration-tests-win": "cmd /v /c \"set TEST_PATH=tests/integration/browserstack.js&& npm run win-test-command\"",
     "saucelabs-integration-tests-win": "cmd /v /c \"set TEST_PATH=tests/integration/saucelabs.js&& npm run win-test-command\"",
     "crossbrowsertesting-integration-tests-win": "cmd /v /c \"set TEST_PATH=tests/integration/crossbrowsertesting.js&& npm run win-test-command\"",
-
     "core-functional-tests-win": "cmd /v /c \"set TEST_PATH=tests/functional/core.js&& npm run win-test-command\"",
-
     "utils-browserstack-tests-win": "cmd /v /c \"set TEST_PATH=tests/functional/utils-browserstack.js&& npm run win-test-command\"",
     "utils-saucelabs-tests-win": "cmd /v /c \"set TEST_PATH=tests/functional/utils-saucelabs.js&& npm run win-test-command\"",
     "utils-crossbrowsertesting-tests-win": "cmd /v /c \"set TEST_PATH=tests/functional/utils-crossbrowsertesting.js&& npm run win-test-command\"",
-
     "testem-browserstack-win": "cmd /v /c \"set TEST_PATH=tests/functional/testem-browserstack.js&& npm run win-test-command\"",
     "testem-saucelabs-win": "cmd /v /c \"set TEST_PATH=tests/functional/testem-saucelabs.js&& npm run win-test-command\"",
     "testem-crossbrowsertesting-win": "cmd /v /c \"set TEST_PATH=tests/functional/testem-crossbrowsertesting.js&& npm run win-test-command\"",
-
     "native-runner-cases-win": "cmd /v /c \"set TEST_PATH=tests/functional/native-cases.js&& npm run win-test-command\"",
     "native-runner-retries-win": "cmd /v /c \"set TEST_PATH=tests/functional/native-retries.js&& npm run win-test-command\"",
     "native-runner-working-win": "cmd /v /c \"set TEST_PATH=tests/functional/native-working.js&& npm run win-test-command\"",
-
     "browserstack-platform-win": "cmd /v /c \"set TEST_PATH=tests/unit/browserstack-platform.js&& npm run win-test-command\"",
     "saucelabs-platform-win": "cmd /v /c \"set TEST_PATH=tests/unit/saucelabs-platform.js&& npm run win-test-command\"",
     "crossbrowsertesting-platform-win": "cmd /v /c \"set TEST_PATH=tests/unit/crossbrowsertesting-platform.js&& npm run win-test-command\"",
     "native-runner-win": "cmd /v /c \"set TEST_PATH=tests/functional/native-runner.js&& npm run win-test-command\"",
-
     "codecov-upload": "./node_modules/.bin/codecov",
     "coveralls-upload": "cat coverage/lcov.info | ./node_modules/.bin/coveralls",
     "coveralls-upload-win": "node node_modules\\coveralls\\bin\\coveralls-win.js coverage\\lcov.info"
