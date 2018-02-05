@@ -37,11 +37,11 @@ describe('SauceLabs', function() {
       }
     })
     .then(() => {
-      if(!out.match(/Safari 10.0 \- sum should return the sum of two numbers./)) {
-        utils.log.warn('Safari 10.0 sum test failed')
+      if(!out.match(/Safari 10.1 \- sum should return the sum of two numbers./)) {
+        utils.log.warn('Safari 10.1 sum test failed')
       }
-      if(!out.match(/Safari 10.0 \- mult should return the product of two numbers./)) {
-        utils.log.warn('Safari 10.0 mult test failed')
+      if(!out.match(/Safari 10.1 \- mult should return the product of two numbers./)) {
+        utils.log.warn('Safari 10.1 mult test failed')
       }
       if(!out.match(/Firefox 43.0 \- sum should return the sum of two numbers./)) {
         utils.log.warn('Firefox 43.0 sum test failed')

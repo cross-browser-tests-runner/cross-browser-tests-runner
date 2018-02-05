@@ -15,3 +15,6 @@
 
 {Paste the log produced while running the relevant executable with LOG_LEVEL=DEBUG}
 
+**Attachments**:
+
+{Describe your attachments e.g. browser config .yml file, settings .json file, snapshot etc.}

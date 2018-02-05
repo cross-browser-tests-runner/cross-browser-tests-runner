@@ -1,0 +1,174 @@
+{
+  "suites": [
+    {
+      "description": "sum",
+      "specs": [],
+      "suites": [
+        {
+          "description": "suite 1",
+          "specs": [
+            {
+              "description": "should return the sum of two numbers",
+              "duration": 87,
+              "passed": true,
+              "skipped": false,
+              "failures": []
+            }
+          ],
+          "suites": [],
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1,
+          "duration": 87
+        },
+        {
+          "description": "suite 2",
+          "specs": [
+            {
+              "description": "should treat 0 as 1",
+              "duration": 5,
+              "passed": false,
+              "skipped": false,
+              "failures": [
+                {
+                  "type": "expect",
+                  "matcherName": "toEqual",
+                  "expected": 3,
+                  "actual": 2,
+                  "message": "Expected 2 to equal 3.",
+                  "trace": {
+                    "stack": "Error: Expected 2 to equal 3.\n    at new jasmine.ExpectationResult (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:114:32)\n    at matchersClass.toEqual (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:1235:29)\n    at jasmine.Spec.<anonymous> (http://127.0.0.1:7982/tests/functional/code/tests/jasmine/js/test.js:9:25)\n    at jasmine.Block.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:1064:17)\n    at jasmine.Queue.next_ (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2096:31)\n    at jasmine.Queue.start (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2049:8)\n    at jasmine.Spec.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2376:14)\n    at jasmine.Queue.next_ (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2096:31)\n    at jasmine.Queue.start (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2049:8)\n    at jasmine.Suite.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2521:14)",
+                    "message": "Expected 2 to equal 3."
+                  }
+                }
+              ]
+            }
+          ],
+          "suites": [],
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "total": 1,
+          "duration": 5
+        }
+      ],
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "total": 2,
+      "duration": 92
+    },
+    {
+      "description": "mult",
+      "specs": [],
+      "suites": [
+        {
+          "description": "suite 1",
+          "specs": [
+            {
+              "description": "should return the product of two numbers",
+              "duration": 0,
+              "passed": true,
+              "skipped": false,
+              "failures": []
+            }
+          ],
+          "suites": [],
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1,
+          "duration": 0
+        },
+        {
+          "description": "suite 2",
+          "specs": [
+            {
+              "description": "should treat 1 as 0",
+              "duration": 0,
+              "passed": false,
+              "skipped": false,
+              "failures": [
+                {
+                  "type": "expect",
+                  "matcherName": "toEqual",
+                  "expected": 0,
+                  "actual": 2,
+                  "message": "Expected 2 to equal 0.",
+                  "trace": {
+                    "stack": "Error: Expected 2 to equal 0.\n    at new jasmine.ExpectationResult (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:114:32)\n    at matchersClass.toEqual (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:1235:29)\n    at jasmine.Spec.<anonymous> (http://127.0.0.1:7982/tests/functional/code/tests/jasmine/js/test.js:22:26)\n    at jasmine.Block.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:1064:17)\n    at jasmine.Queue.next_ (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2096:31)\n    at jasmine.Queue.start (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2049:8)\n    at jasmine.Spec.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2376:14)\n    at jasmine.Queue.next_ (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2096:31)\n    at jasmine.Queue.start (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2049:8)\n    at jasmine.Suite.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2521:14)",
+                    "message": "Expected 2 to equal 0."
+                  }
+                }
+              ]
+            }
+          ],
+          "suites": [],
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "total": 1,
+          "duration": 0
+        }
+      ],
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "total": 2,
+      "duration": 0
+    },
+    {
+      "description": "always true",
+      "specs": [],
+      "suites": [
+        {
+          "description": "suite 1",
+          "specs": [
+            {
+              "description": "should say 1 is 1",
+              "duration": 0,
+              "passed": true,
+              "skipped": false,
+              "failures": []
+            }
+          ],
+          "suites": [],
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1,
+          "duration": 0
+        },
+        {
+          "description": "suite 2",
+          "specs": [
+            {
+              "description": "should say 1 is not 0",
+              "duration": 0,
+              "passed": true,
+              "skipped": false,
+              "failures": []
+            }
+          ],
+          "suites": [],
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1,
+          "duration": 0
+        }
+      ],
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "total": 2,
+      "duration": 0
+    }
+  ],
+  "passed": 4,
+  "failed": 2,
+  "skipped": 0,
+  "total": 6,
+  "duration": 92
+}

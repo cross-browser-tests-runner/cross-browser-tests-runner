@@ -97,12 +97,12 @@ if(process.version > 'v6') {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://google.com', {
           browser: 'Chrome Mobile',
-          browserVersion: '61.0',
+          browserVersion: '33.0',
           os: 'Android',
-          osVersion: '7.0',
-          device: 'Android Nexus 6P',
+          osVersion: '4.2',
+          device: 'Android Galaxy S4',
           orientation: 'portrait',
-          resolution: '1440x2560'
+          resolution: '1080x1920'
         }, {
           build: build.build,
           test: build.test,
@@ -529,6 +529,43 @@ if(process.version > 'v6') {
           throw err
         })
         .should.be.fulfilled
+      })
+
+    })
+
+    describe('hasScreenshotOption', function() {
+
+      this.timeout(0)
+
+      it('should return false if screenshots option was not provided while creating', function() {
+        var build = utils.buildDetails()
+        var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '39.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
+          build: build.build,
+          test: build.test,
+          project: build.project
+        })
+        expect(scriptJob.hasScreenshotOption()).to.equal(false)
+      })
+
+      it('should return true if screenshots option was provided while creating', function() {
+        var build = utils.buildDetails()
+        var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '39.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
+          build: build.build,
+          test: build.test,
+          project: build.project,
+          screenshots: true
+        })
+        expect(scriptJob.hasScreenshotOption()).to.equal(true)
       })
 
     })

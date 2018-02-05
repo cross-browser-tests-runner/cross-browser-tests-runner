@@ -1,7 +1,9 @@
 CrossBrowserTesting:
   Selenium:
     Android:
-      "7.0":
-        Android Nexus 6P:
-          resolution: 1440x2560
-          orientation: portrait
+      "4.4":
+        Chrome Mobile:
+          "58.0":
+            Android Galaxy Note 3:
+              resolution: 1080x1920
+              orientation: portrait

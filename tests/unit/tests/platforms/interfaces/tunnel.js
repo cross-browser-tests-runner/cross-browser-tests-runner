@@ -20,6 +20,13 @@ describe('Tunnel', function() {
     })
   })
 
+  describe('restart', function() {
+    it('should throw an error', function() {
+      var tester = function() { (new Tunnel()).restart() }
+      expect(tester).to.throw(Error)
+    })
+  })
+
   describe('status', function() {
     it('should throw an error', function() {
       var tester = function() { (new Tunnel()).status() }

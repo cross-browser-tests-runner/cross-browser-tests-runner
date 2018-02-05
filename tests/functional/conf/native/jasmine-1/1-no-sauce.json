@@ -31,8 +31,8 @@
         {
           "os": "Android",
           "osVersion": "6.0",
-          "browser": "Maxthon Mobile",
-          "browserVersion": "4.3",
+          "browser": "Firefox Mobile",
+          "browserVersion": "54.0",
           "device": "Android Nexus 9"
         }
       ]

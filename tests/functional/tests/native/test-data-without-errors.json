@@ -1,0 +1,45 @@
+{
+  "suites": [
+    {
+      "description": "sum",
+      "specs": [
+        {
+          "description": "should return the sum of two numbers",
+          "duration": 7,
+          "passed": true,
+          "skipped": false,
+          "failures": []
+        }
+      ],
+      "suites": [],
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1,
+      "duration": 7
+    },
+    {
+      "description": "mult",
+      "specs": [
+        {
+          "description": "should return the product of two numbers",
+          "duration": 0,
+          "passed": true,
+          "skipped": false,
+          "failures": []
+        }
+      ],
+      "suites": [],
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1,
+      "duration": 0
+    }
+  ],
+  "passed": 2,
+  "failed": 0,
+  "skipped": 0,
+  "total": 2,
+  "duration": 7
+}

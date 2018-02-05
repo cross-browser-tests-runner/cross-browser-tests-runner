@@ -226,6 +226,37 @@ if(process.version > 'v6') {
         .to.throw('required option browser missing')
       })
 
+      it('should tolerate failure of creating a job and ensure the others get created', function() {
+        var build = utils.buildDetails()
+        return Job.createMultiple('http://www.piaxis.tech', [{
+          os: 'Android',
+          osVersion: '7.0',
+          browser: 'Android Browser',
+          browserVersion: null,
+          device: 'Android GoogleAPI Emulator'
+        }, {
+          os: 'Windows',
+          osVersion: '8.1',
+          browser: 'Firefox',
+          browserVersion: '41.0'
+        }], {
+          build: build.build,
+          project: build.project,
+          test: build.test
+        })
+        .then(jobs => {
+          expect(jobs.length).to.equal(2)
+          expect(jobs[0].id).to.be.undefined
+          expect(jobs[1].id).to.not.be.undefined
+          return utils.safeKillJob(jobs[1])
+        })
+        .catch(err => {
+          utils.log.error('error: ', err)
+          throw err
+        })
+        .should.be.fulfilled
+      })
+
       it('should create test jobs if a remote url and valid values for all mandatory parameters are provided', function() {
         var build = utils.buildDetails()
         return Job.createMultiple('http://www.piaxis.tech', [{

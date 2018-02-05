@@ -20,45 +20,38 @@ class Manager {
 
   start() {
     if(this.settings.browsers && this.settings.capabilities && this.settings.test_file) {
-      let creator = new Creator(this.settings)
-      creator.create()
-      this.names = creator.names
-      this.platforms = creator.platforms
-      this.tests = creator.tests
+      this.creator = new Creator(this.settings)
+      this.creator.create()
     }
     if(this.countTests()) {
       return this._run()
       .then(() => {
-        let monitor = new Monitor(this.tests, this.running, this)
+        let monitor = new Monitor(this)
         monitor.start()
         return true
       })
     }
     else {
-      console.log('no tests found in settings')
+      console.log('%s no tests found in settings', (new Date()).toISOString())
       return Promise.resolve(true)
     }
   }
 
   _run() {
     let error
-    return Bluebird.all(this.names.map(name => {
-      return this.platforms[name].open([this.settings.capabilities[name]])
+    return Bluebird.all(this.creator.names.map(name => {
+      return this.creator.platforms[name].open([this.settings.capabilities[name]])
     }))
     .then(() => {
-      this.runner = new Runner(this.settings, this.names, this.platforms, this.tests)
+      this.runner = new Runner(this)
       return this.runner.pickAndRun()
-    })
-    .then(running => {
-      this.running = running
-      return true
     })
     .catch(err => {
       log.error('could not start tests cleanly!')
       log.error('attempting to close the platforms and exit cleanly... please wait!')
       error = err
-      return Bluebird.all(this.names.map(name => {
-        return this.platforms[name].close()
+      return Bluebird.all(this.creator.names.map(name => {
+        return this.creator.platforms[name].close()
       }))
     })
     .then(() => {
@@ -69,13 +62,13 @@ class Manager {
   }
 
   countTests() {
-    if(!this.tests) {
+    if(!this.creator || !this.creator.tests) {
       return 0
     }
     let sum = 0
-    Object.keys(this.tests).forEach(name => {
-      Object.keys(this.tests[name]).forEach(type => {
-        this.tests[name][type].forEach(config => {
+    Object.keys(this.creator.tests).forEach(name => {
+      Object.keys(this.creator.tests[name]).forEach(type => {
+        this.creator.tests[name][type].forEach(config => {
           sum += (this.settings.browsers[name][type].length - config.browserIndex)
         })
       })
@@ -154,8 +147,8 @@ class Manager {
   }
 
   close() {
-    return Bluebird.all(this.names.map(name => {
-      return this.platforms[name].close()
+    return Bluebird.all(this.creator.names.map(name => {
+      return this.creator.platforms[name].close()
     }))
     .then(() => {
       completed(this.passed ? 0 : 1)
@@ -229,9 +222,9 @@ function handleScreenshot(test, takeScreenshot) {
 
 function completed(code) {
   if(0 === code) {
-    console.log(utils.COLORS.OK + 'all tests ran and passed' + utils.COLORS.RESET)
+    console.log(utils.COLORS.OK + (new Date()).toISOString() + ' all tests ran and passed' + utils.COLORS.RESET)
   } else {
-    console.log(utils.COLORS.FAIL + 'run of tests was unsuccessful' + utils.COLORS.RESET)
+    console.log(utils.COLORS.FAIL + (new Date()).toISOString() + ' run of tests was unsuccessful' + utils.COLORS.RESET)
   }
   /* eslint-disable no-process-exit */
   process.exit(code)

@@ -291,6 +291,54 @@ describe('Tunnel', function() {
 
   })
 
+  describe('restart', function() {
+
+    var tunnel = null
+    this.timeout(0)
+
+    it('should fail if tunnel was never started', function() {
+      tunnel = new Tunnel()
+      return tunnel.restart()
+      .should.be.rejectedWith('options.uri is a required argument')
+    })
+
+    it('should tolerate the fact that the tunnel is already stopped', function() {
+      tunnel = new Tunnel()
+      return tunnel.start()
+      .then(() => {
+        return tunnel.stop()
+      })
+      .then(() => {
+        return tunnel.restart()
+      })
+      .then(() => {
+        return utils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should work after a tunnel is started', function() {
+      tunnel = new Tunnel()
+      return tunnel.start()
+      .then(() => {
+        return tunnel.restart()
+      })
+      .then(() => {
+        return utils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+  })
+
   describe('status', function() {
 
     var tunnel = null

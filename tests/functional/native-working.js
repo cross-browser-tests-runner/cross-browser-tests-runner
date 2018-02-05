@@ -1,3 +1,3 @@
 describe('Functional Tests', function() {
-  require('./tests/testem')
+  require('./tests/native-working')
 })

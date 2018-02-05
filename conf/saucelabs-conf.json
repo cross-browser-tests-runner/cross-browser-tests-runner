@@ -455,6 +455,15 @@
         "1.6.4",
         "1.6.5",
         "1.7.1"
+      ],
+      "iPad (5th generation) Simulator": [
+        "1.7.1"
+      ],
+      "iPad Pro (12.9 inch) (2nd generation) Simulator": [
+        "1.7.1"
+      ],
+      "iPad Pro (10.5 inch) Simulator": [
+        "1.7.1"
       ]
     },
     "chromeDriver": {
@@ -634,8 +643,11 @@
       "11.0": {
         "Mobile Safari": {
           "None": [
+            "iPad (5th generation) Simulator",
             "iPad Air 2 Simulator",
             "iPad Air Simulator",
+            "iPad Pro (10.5 inch) Simulator",
+            "iPad Pro (12.9 inch) (2nd generation) Simulator",
             "iPad Pro (12.9 inch) Simulator",
             "iPad Pro (9.7 inch) Simulator",
             "iPad Simulator",
@@ -1481,10 +1493,6 @@
           "beta": [],
           "dev": []
         },
-        "Safari": {
-          "10.0": [],
-          "11.0": []
-        },
         "Chrome": {
           "27.0": [],
           "28.0": [],
@@ -1522,6 +1530,10 @@
           "62.0": [],
           "beta": [],
           "dev": []
+        },
+        "Safari": {
+          "10.1": [],
+          "11.0": []
         }
       },
       "El Capitan": {
@@ -1781,8 +1793,11 @@
       "11.0": {
         "Mobile Safari": {
           "None": [
+            "iPad (5th generation) Simulator",
             "iPad Air 2 Simulator",
             "iPad Air Simulator",
+            "iPad Pro (10.5 inch) Simulator",
+            "iPad Pro (12.9 inch) (2nd generation) Simulator",
             "iPad Pro (12.9 inch) Simulator",
             "iPad Pro (9.7 inch) Simulator",
             "iPad Simulator",
@@ -2628,10 +2643,6 @@
           "beta": [],
           "dev": []
         },
-        "Safari": {
-          "10.0": [],
-          "11.0": []
-        },
         "Chrome": {
           "27.0": [],
           "28.0": [],
@@ -2669,6 +2680,10 @@
           "62.0": [],
           "beta": [],
           "dev": []
+        },
+        "Safari": {
+          "10.1": [],
+          "11.0": []
         }
       },
       "El Capitan": {

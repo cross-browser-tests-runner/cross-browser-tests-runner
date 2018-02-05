@@ -51,11 +51,11 @@
           "browserVersion": "10.0"
         },
         {
-          "os": "Android",
-          "osVersion": "7.0",
-          "browser": "Chrome Mobile",
-          "browserVersion": "61.0",
-          "device": "Android Nexus 6P"
+          "os": "iOS",
+          "osVersion": "9.3",
+          "browser": "Mobile Safari",
+          "browserVersion": "9.0",
+          "device": "iPad Air 2 Simulator"
         }
       ]
     }

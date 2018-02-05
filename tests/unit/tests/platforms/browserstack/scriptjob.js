@@ -439,6 +439,43 @@ if(process.version > 'v6') {
 
     })
 
+    describe('hasScreenshotOption', function() {
+
+      this.timeout(0)
+
+      it('should return false if screenshots option was not provided while creating', function() {
+        var build = utils.buildDetails()
+        var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '39.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
+          build: build.build,
+          test: build.test,
+          project: build.project
+        })
+        expect(scriptJob.hasScreenshotOption()).to.equal(false)
+      })
+
+      it('should return true if screenshots option was provided while creating', function() {
+        var build = utils.buildDetails()
+        var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '39.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
+          build: build.build,
+          test: build.test,
+          project: build.project,
+          screenshots: true
+        })
+        expect(scriptJob.hasScreenshotOption()).to.equal(true)
+      })
+
+    })
+
     describe('screenshot', function() {
 
       this.timeout(0)

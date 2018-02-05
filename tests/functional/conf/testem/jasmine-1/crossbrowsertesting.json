@@ -1,5 +1,5 @@
 {
-  "parallel": 4,
+  "parallel": 2,
   "browser_start_timeout" : 90,
   "framework": "jasmine",
   "on_start": {

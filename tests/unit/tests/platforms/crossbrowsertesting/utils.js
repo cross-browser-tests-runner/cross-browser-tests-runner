@@ -259,6 +259,7 @@ function readRequest(url, method) {
 }
 
 exports.log = utils.log
+exports.stopProc = stopProc
 exports.ensureZeroTunnels = ensureZeroTunnels
 exports.tunnels = tunnels
 exports.buildDetails = utils.buildDetails

@@ -2,47 +2,47 @@
 
 let
   path = require('path'),
-  Bluebird = require('bluebird')
+  Bluebird = require('bluebird'),
+  Log = require('./../../../../../lib/core/log').Log,
+  log = new Log('Server.Runners.Native.Tests.Runner')
 
 class Runner {
 
-  constructor(settings, names, platforms, tests) {
-    this.settings = settings
-    this.names = names
-    this.platforms = platforms
-    this.tests = tests
+  constructor(manager) {
+    this.manager = manager
     this.running = { }
-    this.names.forEach(name => {
+    this.manager.creator.names.forEach(name => {
       this.running[name] = [ ]
     })
+    this.failed = [ ]
   }
 
   pickAndRun() {
     let runConfigs = { }
-    this.names.forEach(name => {
-      let capacity = this.settings.parallel[name] - this.running[name].length
+    this.manager.creator.names.forEach(name => {
+      let capacity = this.manager.settings.parallel[name] - this.running[name].length
       runConfigs[name] = {JS: [ ], Selenium: [ ]}
       capacity = this._pickJsConfig(name, runConfigs[name].JS, capacity)
       this._pickSeleniumConfig(name, runConfigs[name].Selenium, capacity)
     })
     return this._run(runConfigs)
     .then(() => {
-      return this.running
+      return true
     })
   }
 
   _pickJsConfig(name, runConfigs, capacity) {
-    let browsers = this.settings.browsers[name].JS
-    while(capacity && this.tests[name].JS.length) {
+    let browsers = this.manager.settings.browsers[name].JS
+    while(capacity && this.manager.creator.tests[name].JS.length) {
       let
-        config = this.tests[name].JS[0],
+        config = this.manager.creator.tests[name].JS[0],
         runConfig = {url: config.url, browsers: [ ]}
       while(capacity && browsers.length > config.browserIndex) {
         runConfig.browsers.push(browsers[config.browserIndex++])
         --capacity
       }
       if(browsers.length === config.browserIndex) {
-        this.tests[name].JS.shift()
+        this.manager.creator.tests[name].JS.shift()
       }
       runConfigs.push(runConfig)
     }
@@ -50,17 +50,17 @@ class Runner {
   }
 
   _pickSeleniumConfig(name, runConfigs, capacity) {
-    let browsers = this.settings.browsers[name].Selenium
-    while(capacity && this.tests[name].Selenium.length) {
+    let browsers = this.manager.settings.browsers[name].Selenium
+    while(capacity && this.manager.creator.tests[name].Selenium.length) {
       let
-        config = this.tests[name].Selenium[0],
+        config = this.manager.creator.tests[name].Selenium[0],
         runConfig = {url: config.url, scriptFile: config.scriptFile, browsers: [ ]}
       while(capacity && browsers.length > config.browserIndex) {
         runConfig.browsers.push(browsers[config.browserIndex++])
         --capacity
       }
       if(browsers.length === config.browserIndex) {
-        this.tests[name].Selenium.shift()
+        this.manager.creator.tests[name].Selenium.shift()
       }
       runConfigs.push(runConfig)
     }
@@ -74,14 +74,27 @@ class Runner {
       results.forEach((result, idx) => {
         let
           runConfig = ret.configs[idx],
-          run = this.platforms[runConfig.name].runs[result.id]
+          run = this.manager.creator.platforms[runConfig.name].runs[result.id]
         if('JS' === runConfig.type) {
           run.jobs.forEach((job, idx) => {
             job.nativeRunnerConfig = {url: runConfig.url, browser: runConfig.browsers[idx], name: runConfig.name, type: runConfig.type, run: result.id}
-            if('retries' in runConfig) {
-              job.nativeRunnerConfig.retries = runConfig.retries
+            if(!job.failed) {
+              if('retries' in runConfig) {
+                job.nativeRunnerConfig.retries = runConfig.retries
+              }
+              this.running[runConfig.name].push(job)
+            } else {
+              job.nativeRunnerConfig.retries = 'retries' in runConfig
+                ? runConfig.retries - 1
+                : this.manager.settings.retries || 0
+              if(job.nativeRunnerConfig.retries > 0) {
+                log.debug('would be retrying failed test for url %s browser %s platform %s (%d retries left)', job.nativeRunnerConfig.url, JSON.stringify(job.nativeRunnerConfig.browser), job.nativeRunnerConfig.name, job.nativeRunnerConfig.retries)
+                this.failed.push(job)
+              } else {
+                log.debug('no retries left for failed test for url %s browser %s platform %s', job.nativeRunnerConfig.url, JSON.stringify(job.nativeRunnerConfig.browser), job.nativeRunnerConfig.name)
+                this.manager.passed = false
+              }
             }
-            this.running[runConfig.name].push(job)
           })
         }
         else {
@@ -99,17 +112,17 @@ class Runner {
     let promises = [ ], configs = [ ]
     Object.keys(runConfigs).forEach(name => {
       Object.keys(runConfigs[name]).forEach(type => {
-        let capabilities = this.settings.capabilities[name]
+        let capabilities = this.manager.settings.capabilities[name]
         runConfigs[name][type].forEach(runConfig => {
           if('Selenium' === type) {
             /* eslint-disable global-require */
             let script = require(path.resolve(process.cwd(), runConfig.scriptFile))
             /* eslint-enable global-require */
-            promises.push(this.platforms[name].runScriptMultiple(
+            promises.push(this.manager.creator.platforms[name].runScriptMultiple(
                 runConfig.url, clone(runConfig.browsers), clone(capabilities), script.script, script.decider))
           }
           else {
-            promises.push(this.platforms[name].runMultiple(
+            promises.push(this.manager.creator.platforms[name].runMultiple(
                 runConfig.url, clone(runConfig.browsers), clone(capabilities), true))
           }
           runConfig.type = type
@@ -137,8 +150,8 @@ class Runner {
 
   underCapacity() {
     let capacity = 0
-    this.names.forEach(name => {
-      capacity += this.settings.parallel[name] - this.running[name].length
+    this.manager.creator.names.forEach(name => {
+      capacity += this.manager.settings.parallel[name] - this.running[name].length
     })
     return (0 !== capacity)
   }
@@ -151,7 +164,7 @@ class Runner {
       listByName[name].push(test)
     })
     Object.keys(listByName).forEach(name => {
-      let capacity = this.settings.parallel[name] - this.running[name].length
+      let capacity = this.manager.settings.parallel[name] - this.running[name].length
       runConfigs[name] = {JS: [ ], Selenium: [ ]}
       listByName[name].forEach(test => {
         if(capacity) {

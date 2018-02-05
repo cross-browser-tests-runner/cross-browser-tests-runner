@@ -3,12 +3,13 @@
     "browser": {
       "Chrome Mobile": {
         "@key": "browserVersion",
-        "59.0": "MblChrome59",
         "61.0": "MblChrome61",
         "58.0": "MblChrome58",
+        "59.0": "MblChrome59",
         "33.0": "MblChrome33",
         "60.0": "MblChrome60",
         "57.0": "MblChrome57",
+        "62.0": "MblChrome62",
         "51.0": "MblChrome51",
         "43.0": "MblChrome43",
         "47.0": "MblChrome47",
@@ -21,11 +22,24 @@
         "7.0": "MblSafari7.0",
         "6.0": "MblSafari6.0",
         "10.0": "MblSafari10.0",
+        "11.0": "MblSafari11.0",
         "5.1": "MblSafari5.1",
         "5.0.2": "MblSafari5.02",
-        "4.0.4": "MblSafari4.0.4",
-        "11.0": "MblSafari11.0",
         "4.0.5": "MblSafari4.0.5"
+      },
+      "Safari": {
+        "@key": "browserVersion",
+        "11.0": "Safari11",
+        "10.0": "Safari10",
+        "9.0": "Safari9",
+        "8.0": "Safari8",
+        "7.0": "Safari7",
+        "6.2": "Safari6.2",
+        "6.0": "Safari6",
+        "5.1": "Safari5.1",
+        "5.0": "Safari5",
+        "3.1.2": "Safari3.1.2",
+        "4.0": "Safari4"
       },
       "Chrome x64": {
         "@key": "browserVersion",
@@ -112,23 +126,10 @@
         "9.0": "FF9",
         "39.0": "FF39",
         "56.0": "FF56",
+        "57.0": "FF57",
         "3.5": "FF3.5",
         "2.0.0.12": "FF2",
         "3.0.11": "FF3.0.11"
-      },
-      "Safari": {
-        "@key": "browserVersion",
-        "10.0": "Safari10",
-        "9.0": "Safari9",
-        "8.0": "Safari8",
-        "7.0": "Safari7",
-        "6.2": "Safari6.2",
-        "11.0": "Safari11",
-        "6.0": "Safari6",
-        "5.1": "Safari5.1",
-        "5.0": "Safari5",
-        "3.1.2": "Safari3.1.2",
-        "4.0": "Safari4"
       },
       "Chrome": {
         "@key": "browserVersion",
@@ -198,7 +199,8 @@
         "42.0": "FF42x64",
         "43.0": "FF43x64",
         "44.0": "FF44x64",
-        "56.0": "FF56x64"
+        "56.0": "FF56x64",
+        "57.0": "FF57x64"
       },
       "Internet Explorer": {
         "@key": "browserVersion",
@@ -228,8 +230,8 @@
         "@key": "browserVersion",
         "54.0": "MblFF54",
         "53.0": "MblFF53",
+        "57.0": "MblFF57",
         "55.0": "MblFF55",
-        "52.0": "MblFF52",
         "56.0": "MblFF56",
         "28.0": "MblFF28",
         "47.0": "MblFF47"
@@ -247,6 +249,7 @@
         "@key": "browserVersion",
         "27.0": "OperaMini27",
         "24.0": "OperaMini24",
+        "31.0": "OperaMini31",
         "30.0": "OperaMini30",
         "26.0": "OperaMini26",
         "28.0": "OperaMini28",
@@ -275,12 +278,15 @@
       "Android Browser": {
         "@key": "browserVersion",
         "4.4": "Android4.4",
-        "5.0": "Android5.0",
         "4.2": "Android4.2",
         "4.1": "Android4.1",
         "4.0": "Android4.0",
         "2.3": "Android2.3",
         "2.2": "Android2.2"
+      },
+      "Samsung Browser": {
+        "@key": "browserVersion",
+        "5.4": "MblSamsung5.4"
       },
       "Maxthon Mobile HD": {
         "@key": "browserVersion",
@@ -310,6 +316,7 @@
       "Opera": {
         "@key": "browserVersion",
         "48.0": "Opera48",
+        "49.0": "Opera49",
         "38.0": "Opera38",
         "39.0": "Opera39",
         "40.0": "Opera40",
@@ -387,24 +394,11 @@
       "Mozilla": {
         "@key": "browserVersion",
         "1.7.13": "Mozilla1.7"
-      },
-      "Samsung Browser": {
-        "@key": "browserVersion",
-        "5.4": "MblSamsung5.4"
       }
     },
     "os": {
       "Android": {
         "@key": "osVersion",
-        "6.0": {
-          "@key": "device",
-          "Android Nexus 9": "Nexus9-And60",
-          "Android Nexus 6P": "Nexus6P-And60"
-        },
-        "7.0": {
-          "@key": "device",
-          "Android Nexus 6P": "Nexus6P-And70"
-        },
         "5.0": {
           "@key": "device",
           "Android Nexus 6": "Nexus6-And50",
@@ -428,6 +422,15 @@
           "@key": "device",
           "Android Galaxy Tab 2": "GalaxyTab2-And41",
           "Android Galaxy S3": "GalaxyS3-And41"
+        },
+        "6.0": {
+          "@key": "device",
+          "Android Nexus 9": "Nexus9-And60",
+          "Android Nexus 6P": "Nexus6P-And60"
+        },
+        "7.0": {
+          "@key": "device",
+          "Android Nexus 6P": "Nexus6P-And70"
         },
         "4.0": {
           "@key": "device",
@@ -484,6 +487,12 @@
           "iPad Pro Simulator": "iPadPro-iOS102Sim",
           "iPhone 7 Simulator": "iPhone7-iOS102Sim"
         },
+        "11.0": {
+          "@key": "device",
+          "iPad Pro Simulator": "iPadPro-iOS11",
+          "iPhone X Simulator": "iPhoneX-iOS11",
+          "iPhone 8 Simulator": "iPhone8-iOS11"
+        },
         "9.0": {
           "@key": "device",
           "iPad Air 2": "iPadAir2-iOS9",
@@ -500,10 +509,6 @@
           "iPad 4": "iPad4-iOS6",
           "iPhone 5": "iPhone5-iOS6"
         },
-        "5.1": {
-          "@key": "device",
-          "iPad 3": "iPad3-iOS5"
-        },
         "5.0": {
           "@key": "device",
           "iPad 2 Simulator": "iPad2-iOS5sim",
@@ -515,29 +520,24 @@
           "@key": "device",
           "iPad 2": "iPad2-iOS4"
         },
-        "4.1": {
-          "@key": "device",
-          "iPad 1": "iPad1-iOS3",
-          "iPhone 4": "iPhone4-iOS4",
-          "iPhone 3GS": "iPhone3GS-iOS4"
-        },
-        "11.0": {
-          "@key": "device",
-          "iPhone 8 Simulator": "iPhone8-iOS11"
-        },
         "8.3": {
           "@key": "device",
           "iPhone 6 Plus": "iPhone6Plus-iOS8"
+        },
+        "4.1": {
+          "@key": "device",
+          "iPhone 4": "iPhone4-iOS4",
+          "iPhone 3GS": "iPhone3GS-iOS4"
         }
       },
       "OS X": {
         "@key": "osVersion",
+        "High Sierra": "Mac10.13",
         "Sierra": "Mac10.12",
         "El Capitan": "Mac10.11",
         "Yosemite": "Mac10.10",
         "Mavericks": "Mac10.9",
         "Mountain Lion": "Mac10.8",
-        "High Sierra": "Mac10.13",
         "Lion": "Mac10.7"
       },
       "Windows": {
@@ -590,21 +590,6 @@
       "@key": "os",
       "Android": {
         "@key": "osVersion",
-        "6.0": {
-          "@key": "device",
-          "Android Nexus 9": [
-            "1536x2048"
-          ],
-          "Android Nexus 6P": [
-            "1440x2560"
-          ]
-        },
-        "7.0": {
-          "@key": "device",
-          "Android Nexus 6P": [
-            "1440x2560"
-          ]
-        },
         "5.0": {
           "@key": "device",
           "Android Nexus 6": [
@@ -662,6 +647,21 @@
           "Android Galaxy S3": [
             "1280x720",
             "720x1280"
+          ]
+        },
+        "6.0": {
+          "@key": "device",
+          "Android Nexus 9": [
+            "1536x2048"
+          ],
+          "Android Nexus 6P": [
+            "1440x2560"
+          ]
+        },
+        "7.0": {
+          "@key": "device",
+          "Android Nexus 6P": [
+            "1440x2560"
           ]
         },
         "4.0": {
@@ -782,6 +782,21 @@
             "750x1334"
           ]
         },
+        "11.0": {
+          "@key": "device",
+          "iPad Pro Simulator": [
+            "2048x2732",
+            "2732x2048"
+          ],
+          "iPhone X Simulator": [
+            "1125x2436",
+            "2436x1125"
+          ],
+          "iPhone 8 Simulator": [
+            "1334x750",
+            "750x1334"
+          ]
+        },
         "9.0": {
           "@key": "device",
           "iPad Air 2": [
@@ -819,13 +834,6 @@
             "640x1136"
           ]
         },
-        "5.1": {
-          "@key": "device",
-          "iPad 3": [
-            "1536x2048",
-            "2048x1536"
-          ]
-        },
         "5.0": {
           "@key": "device",
           "iPad 2 Simulator": [
@@ -851,35 +859,36 @@
             "1024x768"
           ]
         },
-        "4.1": {
-          "@key": "device",
-          "iPad 1": [
-            "1024x768"
-          ],
-          "iPhone 4": [
-            "640x960"
-          ],
-          "iPhone 3GS": [
-            "320x480"
-          ]
-        },
-        "11.0": {
-          "@key": "device",
-          "iPhone 8 Simulator": [
-            "1334x750",
-            "750x1334"
-          ]
-        },
         "8.3": {
           "@key": "device",
           "iPhone 6 Plus": [
             "1080x1920",
             "1920x1080"
           ]
+        },
+        "4.1": {
+          "@key": "device",
+          "iPhone 4": [
+            "640x960"
+          ],
+          "iPhone 3GS": [
+            "320x480"
+          ]
         }
       },
       "OS X": {
         "@key": "osVersion",
+        "High Sierra": [
+          "1024x768",
+          "1152x864",
+          "1152x900",
+          "1280x1024",
+          "1280x800",
+          "1366x768",
+          "1400x900",
+          "1920x1200",
+          "2560x1600"
+        ],
         "Sierra": [
           "1024x768",
           "1152x864",
@@ -942,17 +951,6 @@
           "1400x1050",
           "1400x900",
           "1600x1200",
-          "1920x1200",
-          "2560x1600"
-        ],
-        "High Sierra": [
-          "1024x768",
-          "1152x864",
-          "1152x900",
-          "1280x1024",
-          "1280x800",
-          "1366x768",
-          "1400x900",
           "1920x1200",
           "2560x1600"
         ],
@@ -1147,24 +1145,6 @@
       "@key": "os",
       "Android": {
         "@key": "osVersion",
-        "6.0": {
-          "@key": "device",
-          "Android Nexus 9": {
-            "@key": "resolution",
-            "1536x2048": "portrait"
-          },
-          "Android Nexus 6P": {
-            "@key": "resolution",
-            "1440x2560": "portrait"
-          }
-        },
-        "7.0": {
-          "@key": "device",
-          "Android Nexus 6P": {
-            "@key": "resolution",
-            "1440x2560": "portrait"
-          }
-        },
         "5.0": {
           "@key": "device",
           "Android Nexus 6": {
@@ -1234,6 +1214,24 @@
             "@key": "resolution",
             "720x1280": "portrait",
             "1280x720": "landscape"
+          }
+        },
+        "6.0": {
+          "@key": "device",
+          "Android Nexus 9": {
+            "@key": "resolution",
+            "1536x2048": "portrait"
+          },
+          "Android Nexus 6P": {
+            "@key": "resolution",
+            "1440x2560": "portrait"
+          }
+        },
+        "7.0": {
+          "@key": "device",
+          "Android Nexus 6P": {
+            "@key": "resolution",
+            "1440x2560": "portrait"
           }
         },
         "4.0": {
@@ -1376,6 +1374,24 @@
             "1334x750": "landscape"
           }
         },
+        "11.0": {
+          "@key": "device",
+          "iPad Pro Simulator": {
+            "@key": "resolution",
+            "2048x2732": "portrait",
+            "2732x2048": "landscape"
+          },
+          "iPhone X Simulator": {
+            "@key": "resolution",
+            "1125x2436": "portrait",
+            "2436x1125": "landscape"
+          },
+          "iPhone 8 Simulator": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
+          }
+        },
         "9.0": {
           "@key": "device",
           "iPad Air 2": {
@@ -1420,14 +1436,6 @@
             "1136x640": "landscape"
           }
         },
-        "5.1": {
-          "@key": "device",
-          "iPad 3": {
-            "@key": "resolution",
-            "1536x2048": "portrait",
-            "2048x1536": "landscape"
-          }
-        },
         "5.0": {
           "@key": "device",
           "iPad 2 Simulator": {
@@ -1458,12 +1466,16 @@
             "1024x768": "landscape"
           }
         },
+        "8.3": {
+          "@key": "device",
+          "iPhone 6 Plus": {
+            "@key": "resolution",
+            "1080x1920": "portrait",
+            "1920x1080": "landscape"
+          }
+        },
         "4.1": {
           "@key": "device",
-          "iPad 1": {
-            "@key": "resolution",
-            "1024x768": "landscape"
-          },
           "iPhone 4": {
             "@key": "resolution",
             "640x960": "portrait"
@@ -1471,22 +1483,6 @@
           "iPhone 3GS": {
             "@key": "resolution",
             "320x480": "portrait"
-          }
-        },
-        "11.0": {
-          "@key": "device",
-          "iPhone 8 Simulator": {
-            "@key": "resolution",
-            "750x1334": "portrait",
-            "1334x750": "landscape"
-          }
-        },
-        "8.3": {
-          "@key": "device",
-          "iPhone 6 Plus": {
-            "@key": "resolution",
-            "1080x1920": "portrait",
-            "1920x1080": "landscape"
           }
         }
       },
@@ -1734,7 +1730,7 @@
       },
       "7.0": {
         "Chrome Mobile": {
-          "61.0": [
+          "62.0": [
             "Android Nexus 6P"
           ]
         },
@@ -1744,7 +1740,7 @@
           ]
         },
         "Firefox Mobile": {
-          "55.0": [
+          "57.0": [
             "Android Nexus 6P"
           ]
         },
@@ -1754,7 +1750,7 @@
           ]
         },
         "Opera Mini": {
-          "30.0": [
+          "31.0": [
             "Android Nexus 6P"
           ]
         },
@@ -1998,6 +1994,15 @@
           ]
         }
       },
+      "11.0": {
+        "Mobile Safari": {
+          "11.0": [
+            "iPad Pro Simulator",
+            "iPhone 8 Simulator",
+            "iPhone X Simulator"
+          ]
+        }
+      },
       "9.3": {
         "Mobile Safari": {
           "9.0": [
@@ -2102,13 +2107,6 @@
           ]
         }
       },
-      "5.1": {
-        "Mobile Safari": {
-          "5.1": [
-            "iPad 3"
-          ]
-        }
-      },
       "5.0": {
         "Mobile Safari": {
           "5.1": [
@@ -2123,13 +2121,6 @@
         "Mobile Safari": {
           "5.0.2": [
             "iPad 2"
-          ]
-        }
-      },
-      "11.0": {
-        "Mobile Safari": {
-          "11.0": [
-            "iPhone 8 Simulator"
           ]
         }
       },
@@ -2184,10 +2175,12 @@
           "62.0": []
         },
         "Firefox": {
-          "56.0": []
+          "56.0": [],
+          "57.0": []
         },
         "Opera": {
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         },
         "Safari": {
           "11.0": []
@@ -2217,7 +2210,8 @@
           "53.0": [],
           "54.0": [],
           "55.0": [],
-          "56.0": []
+          "56.0": [],
+          "57.0": []
         },
         "Opera": {
           "38.0": [],
@@ -2230,7 +2224,8 @@
           "45.0": [],
           "46.0": [],
           "47.0": [],
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         },
         "Safari": {
           "10.0": []
@@ -2283,7 +2278,8 @@
           "58.0": [],
           "59.0": [],
           "60.0": [],
-          "61.0": []
+          "61.0": [],
+          "62.0": []
         },
         "Firefox": {
           "10.0": [],
@@ -2336,6 +2332,7 @@
           "54.0": [],
           "55.0": [],
           "56.0": [],
+          "57.0": [],
           "6.0": [],
           "7.0": [],
           "8.0": [],
@@ -2376,7 +2373,8 @@
           "45.0": [],
           "46.0": [],
           "47.0": [],
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         },
         "Safari": {
           "9.0": []
@@ -2429,7 +2427,8 @@
           "58.0": [],
           "59.0": [],
           "60.0": [],
-          "61.0": []
+          "61.0": [],
+          "62.0": []
         },
         "Firefox": {
           "10.0": [],
@@ -2482,6 +2481,7 @@
           "54.0": [],
           "55.0": [],
           "56.0": [],
+          "57.0": [],
           "6.0": [],
           "7.0": [],
           "8.0": [],
@@ -2522,7 +2522,8 @@
           "45.0": [],
           "46.0": [],
           "47.0": [],
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         },
         "Safari": {
           "8.0": []
@@ -2575,7 +2576,8 @@
           "58.0": [],
           "59.0": [],
           "60.0": [],
-          "61.0": []
+          "61.0": [],
+          "62.0": []
         },
         "Firefox": {
           "10.0": [],
@@ -2628,6 +2630,7 @@
           "54.0": [],
           "55.0": [],
           "56.0": [],
+          "57.0": [],
           "6.0": [],
           "7.0": [],
           "8.0": [],
@@ -2667,7 +2670,8 @@
           "44.0": [],
           "45.0": [],
           "47.0": [],
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         },
         "Safari": {
           "7.0": []
@@ -3034,7 +3038,8 @@
           "53.0": [],
           "54.0": [],
           "55.0": [],
-          "56.0": []
+          "56.0": [],
+          "57.0": []
         },
         "Firefox x64": {
           "42.0": [],
@@ -3051,7 +3056,8 @@
           "53.0": [],
           "54.0": [],
           "55.0": [],
-          "56.0": []
+          "56.0": [],
+          "57.0": []
         },
         "Internet Explorer": {
           "11.0": []
@@ -3081,7 +3087,8 @@
           "45.0": [],
           "46.0": [],
           "47.0": [],
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         }
       },
       "8.1": {
@@ -3180,7 +3187,8 @@
           "53.0": [],
           "54.0": [],
           "55.0": [],
-          "56.0": []
+          "56.0": [],
+          "57.0": []
         },
         "Firefox x64": {
           "42.0": [],
@@ -3197,7 +3205,8 @@
           "53.0": [],
           "54.0": [],
           "55.0": [],
-          "56.0": []
+          "56.0": [],
+          "57.0": []
         },
         "Internet Explorer": {
           "11.0": []
@@ -3236,7 +3245,8 @@
           "45.0": [],
           "46.0": [],
           "47.0": [],
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         }
       },
       "8 Preview": {
@@ -3368,6 +3378,7 @@
           "54.0": [],
           "55.0": [],
           "56.0": [],
+          "57.0": [],
           "6.0": [],
           "7.0": [],
           "8.0": [],
@@ -3388,7 +3399,8 @@
           "53.0": [],
           "54.0": [],
           "55.0": [],
-          "56.0": []
+          "56.0": [],
+          "57.0": []
         },
         "Internet Explorer": {
           "10.0": []
@@ -3432,7 +3444,8 @@
           "45.0": [],
           "46.0": [],
           "47.0": [],
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         },
         "Safari": {
           "5.1": []
@@ -3567,6 +3580,7 @@
           "54.0": [],
           "55.0": [],
           "56.0": [],
+          "57.0": [],
           "6.0": [],
           "7.0": [],
           "8.0": [],
@@ -3587,7 +3601,8 @@
           "53.0": [],
           "54.0": [],
           "55.0": [],
-          "56.0": []
+          "56.0": [],
+          "57.0": []
         },
         "Internet Explorer": {
           "10.0": [],
@@ -3636,7 +3651,8 @@
           "45.0": [],
           "46.0": [],
           "47.0": [],
-          "48.0": []
+          "48.0": [],
+          "49.0": []
         }
       },
       "7 Beta": {
@@ -3740,6 +3756,7 @@
           "54.0": [],
           "55.0": [],
           "56.0": [],
+          "57.0": [],
           "6.0": [],
           "7.0": [],
           "8.0": [],
@@ -4188,20 +4205,6 @@
   },
   "Selenium": {
     "Android": {
-      "6.0": {
-        "Chrome Mobile": {
-          "59.0": [
-            "Android Nexus 9"
-          ]
-        }
-      },
-      "7.0": {
-        "Chrome Mobile": {
-          "61.0": [
-            "Android Nexus 6P"
-          ]
-        }
-      },
       "5.0": {
         "Chrome Mobile": {
           "61.0": [
@@ -4283,6 +4286,11 @@
       }
     },
     "OS X": {
+      "High Sierra": {
+        "Safari": {
+          "11.0": []
+        }
+      },
       "Sierra": {
         "Chrome x64": {
           "52.0": [],

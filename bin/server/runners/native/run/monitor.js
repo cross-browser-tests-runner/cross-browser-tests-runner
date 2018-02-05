@@ -8,9 +8,7 @@ let
 
 class Monitor {
 
-  constructor(tests, running, manager) {
-    this.tests = tests
-    this.running = running
+  constructor(manager) {
     this.manager = manager
     this.retries = [ ]
   }
@@ -24,7 +22,7 @@ class Monitor {
     .then(numRunning => {
       let
         testsLeft = this.manager.countTests(),
-        numToRetry = this.retries.length,
+        numToRetry = this.retries.length + this.manager.runner.failed.length,
         done = !testsLeft && !numRunning && !numToRetry
       log.debug('tests left %d, running %d, to retry %d', testsLeft, numRunning, numToRetry)
       log.debug('have all tests run and completed? %s', done)
@@ -56,8 +54,8 @@ class Monitor {
   _runThruRunning() {
     let runningTests = [ ], statusPromises = [ ], completedTests = [ ]
     /* eslint-disable guard-for-in */
-    for(let name in this.running) {
-      let set = this.running[name]
+    for(let name in this.manager.runner.running) {
+      let set = this.manager.runner.running[name]
       set.forEach(test => {
         if(test.nativeRunnerStopped) {
           completedTests.push(test)
@@ -70,7 +68,7 @@ class Monitor {
     }
     /* eslint-enable guard-for-in */
     completedTests.forEach(test => {
-      let set = this.running[test.nativeRunnerConfig.name]
+      let set = this.manager.runner.running[test.nativeRunnerConfig.name]
       set.splice(set.indexOf(test), 1)
     })
     return {runningTests: runningTests, statusPromises: statusPromises}
@@ -102,26 +100,26 @@ class Monitor {
       }
     })
     completedTests.forEach(test => {
-      let set = this.running[test.nativeRunnerConfig.name]
+      let set = this.manager.runner.running[test.nativeRunnerConfig.name]
       set.splice(set.indexOf(test), 1)
     })
   }
 
   _countRunning() {
     let sum = 0
-    Object.keys(this.running).forEach(name => {
-      sum += this.running[name].length
+    Object.keys(this.manager.runner.running).forEach(name => {
+      sum += this.manager.runner.running[name].length
     })
     return sum
   }
 
   _processJsTestRetries(test) {
     let browser = test.nativeRunnerConfig.browser
-    console.log(coreUtils.COLORS.FAIL + 'browser %s %s %s %s for url %s did not respond with results', browser.browser, browser.browserVersion || browser.device, browser.os, browser.osVersion, test.nativeRunnerConfig.url, coreUtils.COLORS.RESET, '\n')
+    console.log(coreUtils.COLORS.FAIL + '%s browser %s %s %s %s for url %s did not respond with results', (new Date()).toISOString(), browser.browser, browser.browserVersion || browser.device, browser.os, browser.osVersion, test.nativeRunnerConfig.url, coreUtils.COLORS.RESET, '\n')
     test.nativeRunnerConfig.retries = 'retries' in test.nativeRunnerConfig
       ? test.nativeRunnerConfig.retries - 1
       : this.manager.settings.retries || 0
-    if(test.nativeRunnerConfig.retries) {
+    if(test.nativeRunnerConfig.retries > 0) {
       log.debug('would be retrying test %s serverId %s after other tests finish (%d retries left)', test.id, test.serverId, test.nativeRunnerConfig.retries)
       this.retries.push(test)
     }
@@ -137,7 +135,11 @@ class Monitor {
         this.manager.runner.pickAndRun() // Keep running at capacity
       }
       else if(numToRetry) {
-        this.manager.runner.retry(this.retries)
+        if(this.retries.length) {
+          this.manager.runner.retry(this.retries)
+        } else {
+          this.manager.runner.retry(this.manager.runner.failed)
+        }
       }
     }
   }

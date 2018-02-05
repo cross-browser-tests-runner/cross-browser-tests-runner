@@ -48,12 +48,10 @@ Jasmine 1.x|
 
 Node version|Linux|OS X|Windows
 -|-|-|-
-4.8.5|✓|✓|✓
-8.9.0|✓|✓|✓
+4.8.6|✓|✓|✓
+8.9.1|✓|✓|✓
 
-> v6.9.0 is the minimum version for Selenium tests and core Selenium functionality has been verified on this version. For the sake of time, v6 is not part of CI builds currently, and would be included later. As of now the overall build time is 12+ hours for verifying functionality on Windows, Linux and OS X, for latest v4 LTS and v8 LTS.
-
-> Only LTS node versions (v6.9.0-v6.11.5, v4.2.0-v4.8.5, v8.9.0+) would be supported and included in CI builds. This does not necessarily mean that things don't work on other versions. In the earlier phases, builds with various v4, v5, v6, v7 and v8 versions (non-LTS ones included) were attempted and most functionality worked. However; maintaining a huge build matrix is not feasible currently.
+> v6.9.0 is the minimum version for Selenium tests and core Selenium functionality has been verified on this version. For the sake of time, v6 is not part of CI builds currently, and would be included later.
 
 ### Minimum Node.js Versions
 

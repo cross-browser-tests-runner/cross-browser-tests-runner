@@ -1,0 +1,39 @@
+{
+  "framework": "jasmine",
+  "test_file": "tests/functional/code/tests/jasmine/html/tests.html",
+  "retries": 1,
+  "browsers": {
+    "SauceLabs": {
+      "JS": [
+        {
+          "os": "Windows",
+          "osVersion": "8",
+          "browser": "Chrome",
+          "browserVersion": "43.0"
+        },
+        {
+          "os": "Android",
+          "osVersion": "7.0",
+          "browser": "Android Browser",
+          "browserVersion": null,
+          "device": "Android GoogleAPI Emulator"
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "SauceLabs": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "timeout": 30,
+      "screenshots": true
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}

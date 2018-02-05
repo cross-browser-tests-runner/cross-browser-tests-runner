@@ -345,6 +345,40 @@ describe('Job', function() {
       .should.be.fulfilled
     })
 
+    it('should tolerate failure of jobs and return them as failed', function() {
+      var build = utils.buildDetails()
+      return Job.createMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
+        os: 'OS X',
+        osVersion : 'El Capitan',
+        browser : 'Opera',
+        browserVersion : '35.0'
+      }, {
+        os: 'Windows',
+        osVersion : '8.1',
+        browser : 'Chrome',
+        browserVersion : '49.0'
+      }], {
+        build: build.build,
+        project: build.project,
+        test: build.test,
+        local: true,
+        localIdentifier: 'non-existent-tunnel'
+      })
+      .then(jobs => {
+        expect(jobs.length).to.equal(2)
+        expect(jobs[0].id).to.be.undefined
+        expect(jobs[0].failed).to.be.true
+        expect(jobs[1].id).to.be.undefined
+        expect(jobs[1].failed).to.be.true
+        return true
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
   })
 
   describe('status', function() {

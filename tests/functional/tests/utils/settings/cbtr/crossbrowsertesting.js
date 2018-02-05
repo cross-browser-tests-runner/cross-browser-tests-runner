@@ -535,7 +535,7 @@ describe('CrossBrowserTesting', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "osVersion" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"Android","osVersion":"abc","browser":"Chrome Mobile","browserVersion":"59.0","device":"Android Nexus 9"}')
+        expect(out).to.contain('Unsupported property "osVersion" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"Android","osVersion":"abc","browser":"Chrome Mobile","browserVersion":"33.0","device":"Android Galaxy S4"}')
         return true
       })
       .catch(err => {

@@ -34,6 +34,13 @@ describe('ScriptJob', function() {
     })
   })
 
+  describe('hasScreenshotOption', function() {
+    it('should throw an error', function() {
+      var tester = function() { (new ScriptJob()).hasScreenshotOption() }
+      expect(tester).to.throw(Error)
+    })
+  })
+
   describe('screenshot', function() {
     it('should throw an error', function() {
       var tester = function() { (new ScriptJob()).screenshot() }

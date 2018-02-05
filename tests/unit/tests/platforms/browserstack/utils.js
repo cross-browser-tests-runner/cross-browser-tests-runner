@@ -198,6 +198,7 @@ function safeStopScript(scriptJob) {
   })
 }
 
+exports.stopProc = stopProc
 exports.ensureZeroTunnels = ensureZeroTunnels
 exports.safeKillJob = safeKillJob
 exports.safeStopScript = safeStopScript

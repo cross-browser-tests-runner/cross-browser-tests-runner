@@ -23,8 +23,8 @@ const
     },
     parallel: {
       BrowserStack: 2,
-      SauceLabs: 5,
-      CrossBrowserTesting: 5
+      SauceLabs: 2,
+      CrossBrowserTesting: 2
     },
     server: {
       port: 7982,
