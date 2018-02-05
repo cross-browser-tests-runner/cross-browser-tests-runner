@@ -1,18 +1,18 @@
 {
   "browsers": {
-    "SauceLabs": {
+    "CrossBrowserTesting": {
       "JS": [
         {
-          "os": "Windows",
-          "osVersion": "7",
-          "browser": "Chrome",
-          "browserVersion": "32.0"
+          "os": "Android",
+          "osVersion": "7.0",
+          "browser": "Dolphin Mobile",
+          "browserVersion": "12.0"
         },
         {
           "os": "OS X",
           "osVersion": "Sierra",
-          "browser": "Mobile Safari",
-          "browserVersion": "10.3"
+          "browser": "Safari",
+          "browserVersion": "10.0"
         }
       ]
     }
@@ -23,7 +23,7 @@
     "samples/native/tests/html/jasmine/tests-cov.html"
   ],
   "capabilities": {
-    "SauceLabs": {
+    "CrossBrowserTesting": {
       "local": true,
       "screenshots": true,
       "timeout": 60

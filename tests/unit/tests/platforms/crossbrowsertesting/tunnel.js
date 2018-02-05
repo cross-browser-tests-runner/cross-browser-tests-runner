@@ -8,7 +8,7 @@ var
   Env = require('./../../../../../lib/core/env').Env,
   Tunnel = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel').Tunnel,
   Manager = require('./../../../../../lib/platforms/crossbrowsertesting/manager').Manager,
-  ArchiveVars = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel/archive').ArchiveVars,
+  BinaryVars = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel/binary').BinaryVars,
   utils = require('./utils')
 
 chai.use(chaiAsPromised)
@@ -82,12 +82,11 @@ describe('Tunnel', function() {
 
     describe('remove', function() {
 
-      it('should remove the locally stored tunnel executable binary and archive', function() {
+      it('should remove the locally stored tunnel executable binary', function() {
         var tunnel = new Tunnel()
         return tunnel.remove()
         .then(function() {
-          expect(fs.existsSync(ArchiveVars.path)).to.equal(false)
-          expect(fs.existsSync(ArchiveVars.binary)).to.equal(false)
+          expect(fs.existsSync(BinaryVars.path)).to.equal(false)
         })
         .catch(err => {
           utils.log.error('error: ', err)
@@ -104,12 +103,11 @@ describe('Tunnel', function() {
     var tunnel = null
     this.timeout(0)
 
-    it('should be able to download the tunnel archive and extract its contents', function() {
+    it('should be able to download the tunnel binary', function() {
       tunnel = new Tunnel()
       return tunnel.fetch()
       .then(function() {
-        expect(fs.existsSync(ArchiveVars.path)).to.be.true
-        expect(fs.existsSync(ArchiveVars.binary)).to.be.true
+        expect(fs.existsSync(BinaryVars.path)).to.be.true
       })
       .catch(err => {
         utils.log.error('error: ', err)

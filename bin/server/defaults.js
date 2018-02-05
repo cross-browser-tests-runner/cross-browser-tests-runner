@@ -27,7 +27,7 @@ const
       CrossBrowserTesting: 5
     },
     server: {
-      port: 8000,
+      port: 7982,
       host: '127.0.0.1'
     }
   }

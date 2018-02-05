@@ -188,7 +188,7 @@ if(process.version > 'v6') {
           return scriptJob.driver.getPageSource()
         })
         .then(source => {
-          match = source.match(/To test against localhost and other locations behind your firewall, you'll need to use Sauce Connect./)
+          match = source.match(/http:\/\/build\.cross\-browser\-tests\-runner\.org:3000\/tests\/pages\/tests\.html is not available/)
           return scriptJob.driver.quit()
         })
         .then(() => {

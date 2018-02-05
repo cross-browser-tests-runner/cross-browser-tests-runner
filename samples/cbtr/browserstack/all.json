@@ -31,7 +31,7 @@
       ],
       "Selenium": [
         {
-          "os": "Mac OSX",
+          "os": "OS X",
           "osVersion": "Mavericks",
           "browser": "Firefox",
           "browserVersion": "39.0"
@@ -39,7 +39,7 @@
         {
           "os": "Android",
           "osVersion": "4.0",
-          "browser": "Android Browser Selenium",
+          "browser": "Android Browser",
           "browserVersion": null,
           "device": "Motorola Razr"
         }

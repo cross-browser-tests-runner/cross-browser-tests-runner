@@ -306,7 +306,7 @@ describe('Platform', function() {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
-          browserVersion: '31.0'
+          browserVersion: '31.0',
           abc: 123
         }], { })
         .should.be.rejectedWith('option abc is not allowed')

@@ -64,6 +64,19 @@ exports.ioHelpArgs = (allowedOptions, help) => {
   /* eslint-enable global-require */
 }
 
+exports.ioUpdateHelpArgs = (allowedOptions, help) => {
+  /* eslint-disable global-require */
+  return (require('minimist')(process.argv.slice(2), {
+    string: ['input', 'output'],
+    boolean: ['update', 'help'],
+    alias: {input: 'i', output: 'o', help: 'h', update: 'u'},
+    unknown: opt => {
+      return onUnknownOpt(-1 !== allowedOptions.indexOf(opt), opt, help)
+    }
+  }))
+  /* eslint-enable global-require */
+}
+
 exports.configHelpAppHelp = () => {
   console.log(
     '\n' +

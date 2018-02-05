@@ -3,7 +3,7 @@
 'use strict'
 
 const
-  allowedOptions = [ 'input', 'output', 'help' ],
+  allowedOptions = [ 'input', 'output', 'update', 'help' ],
   mobileOses = [ 'iOS', 'Android', 'Windows Phone', 'Blackberry' ],
   standardProperties = ['os', 'osVersion', 'browser', 'browserVersion', 'device', 'TestType'],
   allowedProperties = require('./../../../lib/platforms/interfaces/platform').PlatformKeys.browser
@@ -12,20 +12,22 @@ let
   path = require('path'),
   utils = require('./../../utils'),
   
-  args = utils.ioHelpArgs(allowedOptions, help)
+  args = utils.ioUpdateHelpArgs(allowedOptions, help)
 
 function help() {
   console.log(
     '\n' +
     path.basename(process.argv[1]) +
-    ' [--help|-h] [--input|-i <browsers-yaml-file>] [--output|-o <cbtr-settings-file>]\n\n' +
+    ' [--help|-h] [--input|-i <browsers-yaml-file>] [--output|-o <cbtr-settings-file>] [--update|-u]\n\n' +
     'Defaults:\n' +
     ' input             .cbtr-browsers.yml in project root\n' +
-    ' output            cbtr.json in project root\n\n' +
+    ' output            cbtr.json in project root\n' +
+    ' update            false\n\n' +
     'Options:\n' +
     ' help              print this help\n' +
     ' input             input data of browsers to use in a compact format\n' +
-    ' output            cross-browser-tests-runner settings file'
+    ' output            cross-browser-tests-runner settings file\n' +
+    ' update            if output file exists, update it only'
   )
 }
 
@@ -43,14 +45,19 @@ let
   browsersFile = args.input || path.resolve(process.cwd(), ".cbtr-browsers.yml"),
   outputFile = args.output || path.resolve(process.cwd(), "cbtr.json"),
   platformConfig,
-  platformConfigReader
+  platformConfigReader,
+  browsers
 
 fs.readFileAsync(browsersFile)
 .then(data => {
   log.debug('yml file contents %s', data)
   let obj = yaml.safeLoad(data, 'utf8')
   log.debug('read %s', JSON.stringify(obj, null, 2))
-  let results = Object.assign({"browsers": parse(obj)}, serverDefaults)
+  browsers = parse(obj)
+  return readExisting()
+})
+.then(existing => {
+  let results = mergeResults(existing, { browsers: browsers }, serverDefaults)
   log.debug('parsed results %s', JSON.stringify(results, null, 2))
   return fs.writeFileAsync(outputFile, JSON.stringify(results, null, 2))
 })
@@ -61,6 +68,75 @@ fs.readFileAsync(browsersFile)
   console.error("\x1b[31m", err.message, "\x1b[0m")
   log.debug(err.stack)
 })
+
+function readExisting() {
+  return new Bluebird(resolve => {
+    if(args.update && fs.existsSync(outputFile)) {
+      resolve(JSON.parse(fs.readFileSync(outputFile, 'utf8')))
+    }
+    else {
+      resolve({ })
+    }
+  })
+}
+
+function mergeResults(existing, browsers, defaults) {
+  mergeBrowsers(existing, browsers)
+  Object.keys(defaults).forEach(key => {
+    if(!(key in existing)) {
+      existing[key] = defaults[key]
+    }
+  })
+  return existing
+}
+
+function mergeBrowsers(existing, browsers) {
+  if(!existing.browsers) {
+    existing.browsers = browsers.browsers
+  }
+  else {
+    Object.keys(browsers.browsers).forEach(platform => {
+      if(!existing.browsers[platform]) {
+        existing.browsers[platform] = browsers.browsers[platform]
+      }
+      else {
+        Object.keys(browsers.browsers[platform]).forEach(test => {
+          if(!existing.browsers[platform][test]) {
+            existing.browsers[platform][test] = browsers.browsers[platform][test]
+          }
+          else {
+            browsers.browsers[platform][test].forEach(browser => {
+              if(!browserExists(browser, existing.browsers[platform][test])) {
+                existing.browsers[platform][test].push(browser)
+              }
+            })
+          }
+        })
+      }
+    })
+  }
+}
+
+function browserExists(browser, array) {
+  if(!array.length) {
+    return false
+  }
+  let keys = Object.keys(browser)
+  for(let elIdx = 0; elIdx < array.length; ++elIdx) {
+    let found = true
+    for(let idx = 0; idx < keys.length; ++idx) {
+      let key = keys[idx]
+      if(array[elIdx][key] !== browser[key]) {
+        found = false
+        break
+      }
+    }
+    if(found) {
+      return true
+    }
+  }
+  return false
+}
 
 function parse(obj) {
   let results = { }
@@ -293,8 +369,11 @@ function parseBrowserVersion(browserVersion) {
     }
     return range
   }
-  else if(null !== (match = browserVersion.match(/^\d+(?:\.\d+)?$/))) {
-    return [ float2str(parseFloat(browserVersion)) ]
+  else if(null !== (match = browserVersion.match(/^\d+(?:\.\d+)+$/))) {
+    return browserVersion
+  }
+  else if(null !== (match = browserVersion.match(/^\d+$/))) {
+    return browserVersion + ".0"
   }
   else {
     throw new Error('Unsupported value "' + browserVersion + '" for browserVersion')

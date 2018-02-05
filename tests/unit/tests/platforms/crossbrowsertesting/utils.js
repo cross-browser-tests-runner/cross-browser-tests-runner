@@ -9,8 +9,7 @@ var
   InputError = require('./../../../../../lib/core/errors').InputError,
   sleep = require('./../../../../../lib/core/sleep'),
   Request = require('./../../../../../lib/core/request').Request,
-  ArchiveVars = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel/archive').ArchiveVars,
-  //Job = require('./../../../../../lib/platforms/crossbrowsertesting/job').Job,
+  BinaryVars = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel/binary').BinaryVars,
   utils = require('./../../core/utils')
 
 function stopProc(pid) {
@@ -37,7 +36,7 @@ function stopProc(pid) {
 function tunnels() {
   return new Promise(resolve => {
     ps.lookup({
-      command: !Env.isWindows ? ArchiveVars.binary : 'cbtr-tunnels-win.exe'
+      command: !Env.isWindows ? BinaryVars.path : 'cbtr-tunnels-win64.exe'
     },
     function(err, procs) {
       if(err) throw new Error(err)

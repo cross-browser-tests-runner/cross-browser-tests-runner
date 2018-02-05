@@ -37,7 +37,7 @@ before_script:
   - if [ "unit" == "$TYPE" ]; then ./tests/unit/utils/wait.js & fi
   - if [ "functional" == "$TYPE" ]; then ./node_modules/.bin/istanbul instrument tests/functional/code/src/app.js > tests/functional/code/src/app.inst.js; fi
   - if [ "unit" != "$TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js & fi
-  - if [ "unit" != "$TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js -- --native-runner --config tests/integration/conf/native/cbtr.json & fi
+  - if [ "integration" == "$TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js -- --native-runner --config tests/integration/conf/native/cbtr.json & fi
 
 script:
   - npm run $TEST

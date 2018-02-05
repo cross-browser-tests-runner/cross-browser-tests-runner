@@ -1,33 +1,32 @@
 {
   "browsers": {
-    "SauceLabs": {
+    "CrossBrowserTesting": {
       "JS": [
         {
-          "os": "Windows",
-          "osVersion": "7",
-          "browser": "Chrome",
-          "browserVersion": "32.0"
+          "os": "Android",
+          "osVersion": "7.0",
+          "browser": "Dolphin Mobile",
+          "browserVersion": "12.0"
         },
         {
           "os": "OS X",
           "osVersion": "Sierra",
-          "browser": "Mobile Safari",
-          "browserVersion": "10.3"
+          "browser": "Safari",
+          "browserVersion": "10.0"
         }
       ],
       "Selenium": [
         {
           "os": "OS X",
-          "osVersion": "Mavericks",
-          "browser": "Chrome",
-          "browserVersion": "33.0"
+          "osVersion": "Yosemite",
+          "browser": "Firefox",
+          "browserVersion": "39.0"
         },
         {
-          "os": "Android",
-          "osVersion": "5.0",
-          "browser": "Android Browser",
-          "browserVersion": null,
-          "device": "Android Emulator"
+          "os": "Windows",
+          "osVersion": "8.1",
+          "browser": "Internet Explorer",
+          "browserVersion": "11.0"
         }
       ]
     }
@@ -39,7 +38,7 @@
   ],
   "test_script": "samples/native/scripts/script-1.js",
   "capabilities": {
-    "SauceLabs": {
+    "CrossBrowserTesting": {
       "local": true,
       "screenshots": true,
       "timeout": 300

@@ -1,0 +1,35 @@
+{
+  "browsers": {
+    "CrossBrowserTesting": {
+      "Selenium": [
+        {
+          "os": "OS X",
+          "osVersion": "Yosemite",
+          "browser": "Firefox",
+          "browserVersion": "39.0"
+        },
+        {
+          "os": "Windows",
+          "osVersion": "8.1",
+          "browser": "Internet Explorer",
+          "browserVersion": "11.0"
+        }
+      ]
+    }
+  },
+  "framework": "jasmine",
+  "test_file": [
+    "samples/native/tests/html/selenium/tests.html"
+  ],
+  "test_script": "samples/native/scripts/script-1.js",
+  "capabilities": {
+    "CrossBrowserTesting": {
+      "local": true,
+      "timeout": 180
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}

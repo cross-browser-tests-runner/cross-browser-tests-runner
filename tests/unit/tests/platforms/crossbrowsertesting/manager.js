@@ -5,7 +5,7 @@ var
   chaiAsPromised = require('chai-as-promised'),
   manager = require('./../../../../../lib/platforms/crossbrowsertesting/manager'),
   Manager = manager.Manager,
-  ArchiveVars = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel/archive').ArchiveVars,
+  BinaryVars = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel/binary').BinaryVars,
   Process = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel/process').Process,
   utils = require('./utils')
 
@@ -36,7 +36,7 @@ describe('Manager', function() {
 
     it('should return a non empty array of Process objects pertaining to running tunnels', function() {
       proc = new Process()
-      return proc.create(ArchiveVars.binary, [ ])
+      return proc.create(BinaryVars.path, [ ])
       .then(() => {
         return Manager.running()
       })
@@ -74,7 +74,7 @@ describe('Manager', function() {
 
     it('should return an array of Process objects pertaining to running tunnel processes without identifiers', function() {
       proc = new Process()
-      return proc.create(ArchiveVars.binary, [ ])
+      return proc.create(BinaryVars.path, [ ])
       .then(() => {
         return Manager.withoutId()
       })
