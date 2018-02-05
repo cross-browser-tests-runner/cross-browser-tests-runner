@@ -1,0 +1,1 @@
+At this point, an easy mechanism to accept community pull requests is not in sight because of the lengths of the builds and how the author's open source accounts at various cross-browser testing platforms have daily or other limits, except SauceLabs. The target to figure this one out is 1.0 by which there would be a better comprehension of the overall build size and complexity.

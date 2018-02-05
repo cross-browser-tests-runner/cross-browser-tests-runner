@@ -193,7 +193,7 @@ if(process.version > 'v6') {
 
       it('should run the script and get connection failures in the page opened if a valid local url, valid values for all mandatory capabilities, and no "local" capability were provided while creating the session', function() {
         var build = utils.buildDetails()
-        var scriptJob = new ScriptJob('http://localhost:3000/tests/pages/tests.html', {
+        var scriptJob = new ScriptJob('http://127.0.0.1:3000/tests/pages/tests.html', {
           build: build.build,
           name: build.name,
           project: build.project,
@@ -208,7 +208,7 @@ if(process.version > 'v6') {
           return scriptJob.driver.getPageSource()
         })
         .then(source => {
-          match = source.match(/localhost<\/strong> refused to connect./)
+          match = source.match(/127.0.0.1<\/strong> refused to connect./)
           return scriptJob.driver.quit()
         })
         .then(() => {
@@ -216,7 +216,7 @@ if(process.version > 'v6') {
             return true
           }
           else {
-            throw new Error('Did not get expected page source of failure to connect with localhost')
+            throw new Error('Did not get expected page source of failure to connect with 127.0.0.1')
           }
         })
         .catch(err => {
@@ -228,7 +228,7 @@ if(process.version > 'v6') {
 
       it('should run the script and get expected content in the page opened if a valid local url, valid values for all mandatory capabilities, and "local" capability were provided while creating the session, and a tunnel has been started before running the script', function() {
         var build = utils.buildDetails()
-        var scriptJob = new ScriptJob('http://localhost:3000/tests/pages/tests.html', {
+        var scriptJob = new ScriptJob('http://127.0.0.1:3000/tests/pages/tests.html', {
           build: build.build,
           name: build.name,
           project: build.project,
@@ -262,7 +262,7 @@ if(process.version > 'v6') {
           return utils.ensureZeroTunnels()
         })
         .then(() => {
-          if(!match && !savedSource.match(/localhost<\/strong> refused to connect./)) {
+          if(!match && !savedSource.match(/127.0.0.1<\/strong> refused to connect./)) {
             throw new Error('Did not get expected page source or the source hinting at tunnel failure')
           }
           return true

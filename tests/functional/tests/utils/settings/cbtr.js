@@ -700,7 +700,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unknown OS version "10.7" for os "Mac OSX", valid options are: 10.10, 10.11, 10.12, 10.9, El Capitan, Lion, Mavericks, Mountain Lion, Sierra, Snow Leopard, Yosemite')
+        expect(out).to.contain('Unknown OS version "10.7" for os "Mac OSX", valid options are: 10.10, 10.11, 10.12, 10.9, El Capitan, High Sierra, Lion, Mavericks, Mountain Lion, Sierra, Snow Leopard, Yosemite')
         return true
       })
       .catch(err => {

@@ -3,6 +3,7 @@
 var
   path = require('path'),
   uuidv4 = require('uuid').v4,
+  Env = require('./../lib/core/env').Env,
   CiFactory = require('./../lib/ci/factory').Factory
 
 var build = 'local-' + require('child_process').execSync('git rev-parse HEAD').toString().trim()
@@ -26,19 +27,27 @@ function buildDetails(){
 }
 
 function nodeProcCoverageArgs(executable, args) {
-  let ret = [
-    path.resolve(process.cwd(), 'node_modules/.bin/istanbul'),
-    'cover',
-    '--handle-sigint',
-    '--include-pid',
-    executable
-  ]
-  args = args || [ ]
-  if(args.length) {
-    ret.push('--')
-    ret = ret.concat(args)
+  if(!Env.isWindows) {
+    let ret = [
+      path.resolve(process.cwd(), 'node_modules/.bin/istanbul'),
+      'cover',
+      '--handle-sigint',
+      '--include-pid',
+      executable
+    ]
+    if(args && args.length) {
+      ret.push('--')
+      ret = ret.concat(args)
+    }
+    return ret
   }
-  return ret
+  else {
+    let ret = [ executable ]
+    if(args && args.length) {
+      ret = ret.concat(args)
+    }
+    return ret
+  }
 }
 
 function errorWithoutCovLines(log, out) {

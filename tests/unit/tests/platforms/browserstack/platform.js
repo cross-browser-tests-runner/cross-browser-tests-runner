@@ -280,7 +280,7 @@ describe('Platform', function() {
 
     it('should create a run of a test job if a valid local url, valid values for all mandatory parameters, and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return platform.run('http://localhost:3000/tests/pages/tests.html', {
+      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -311,7 +311,7 @@ describe('Platform', function() {
 
     it('should create a run of a test job for native runner case if a valid local url, valid values for all mandatory parameters, and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return platform.run('http://localhost:3000/tests/pages/tests.html', {
+      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -343,7 +343,7 @@ describe('Platform', function() {
 
     it('should create a run of a test job for native runner case if a valid local url ending in ?, valid values for all mandatory parameters, and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return platform.run('http://localhost:3000/tests/pages/tests.html?', {
+      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html?', {
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -470,7 +470,7 @@ describe('Platform', function() {
     it('should create a run of test jobs if a valid local url and valid values for all mandatory parameters are provided', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.runMultiple('http://localhost:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -508,7 +508,7 @@ describe('Platform', function() {
     it('should create a run of test jobs for native runner case if a valid local url containing query parameters, and valid values for all mandatory parameters are provided', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.runMultiple('http://localhost:3000/tests/pages/tests.html?_=1414190941', [{
+      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html?_=1414190941', [{
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -674,7 +674,7 @@ describe('Platform', function() {
 
       it('should create a run of a script session if a valid local url and valid values for all mandatory parameters are provided', function() {
         var build = utils.buildDetails()
-        return platform.runScript('http://localhost:3000/tests/pages/tests.html', {
+        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
@@ -786,7 +786,7 @@ describe('Platform', function() {
       it('should create a run of script sessions and tolerate errors thrown by scripts run if a valid local url tests and valid values for all mandatory parameters are provided', function() {
         var saveRun
         var build = utils.buildDetails()
-        return platform.runScriptMultiple('http://localhost:3000/tests/pages/tests.html', [{
+        return platform.runScriptMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
@@ -952,7 +952,7 @@ describe('Platform', function() {
 
     it('should successfully stop an ongoing run of test jobs that access a local url', function() {
       var build = utils.buildDetails()
-      return platform.runMultiple('http://localhost:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -986,7 +986,7 @@ describe('Platform', function() {
     if(process.version > 'v6') {
       it('should successfully stop an ongoing run of script jobs that access a local url', function() {
         var build = utils.buildDetails()
-        return platform.runScript('http://localhost:3000/tests/pages/tests.html', {
+        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
@@ -1022,7 +1022,7 @@ describe('Platform', function() {
     it('should successfully stop remaining running test jobs of a run that access a local url after one test job from the run is stopped manually', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.runMultiple('http://localhost:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -1232,7 +1232,7 @@ describe('Platform', function() {
     it('should say "running" for an ongoing run of a test job that accesses a local url', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.run('http://localhost:3000/tests/pages/tests.html', {
+      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -1284,7 +1284,7 @@ describe('Platform', function() {
       it('should say "running" for an ongoing run of a script job that accesses a local url', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://localhost:3000/tests/pages/tests.html', {
+        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '10',
           browser: 'Chrome',
@@ -1338,7 +1338,7 @@ describe('Platform', function() {
     it('should say "stopped" for a completed run of a test job that accessed a local url', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.run('http://localhost:3000/tests/pages/tests.html', {
+      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -1386,7 +1386,7 @@ describe('Platform', function() {
       it('should say "stopped" for a completed run of a script job that accessed a local url', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://localhost:3000/tests/pages/tests.html', {
+        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
@@ -1432,7 +1432,7 @@ describe('Platform', function() {
     it('should say "messy" for an ongoing run of a test job that accesses a local url after the tunnel is stopped manually', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.run('http://localhost:3000/tests/pages/tests.html', {
+      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -1485,7 +1485,7 @@ describe('Platform', function() {
       it('should say "messy" for an ongoing run of a script job that access a local url after the tunnel is stopped manually', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://localhost:3000/tests/pages/tests.html', {
+        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
@@ -1673,7 +1673,7 @@ describe('Platform', function() {
 
     it('should shutdown the tunnels and complete closing the platform if an ongoing run of test jobs that access a local url was stopped by calling "stop" method manually', function() {
       var build = utils.buildDetails()
-      return platform.runMultiple('http://localhost:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -1723,7 +1723,7 @@ describe('Platform', function() {
     if(process.version > 'v6') {
       it('should shutdown the tunnels and complete closing the platform if an ongoing run of script jobs that access a local url was stopped by calling "stop" method manually', function() {
         var build = utils.buildDetails()
-        return platform.runScript('http://localhost:3000/tests/pages/tests.html', {
+        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
@@ -1771,7 +1771,7 @@ describe('Platform', function() {
     it('should stop remaining test jobs of an ongoing run, shutdown the tunnels, and complete closing the platform if one test from the run of test jobs that access a local url was manually stopped', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.runMultiple('http://localhost:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -1819,7 +1819,7 @@ describe('Platform', function() {
       it('should stop remaining script jobs of an ongoing run, shutdown the tunnels, and complete closing the platform if one of the script jobs from the run of script jobs that access a local url was manually stopped', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://localhost:3000/tests/pages/tests.html', {
+        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
@@ -1863,7 +1863,7 @@ describe('Platform', function() {
 
     it('should stop test jobs of an ongoing run of test jobs that access a local url and complete closing the platform even if tunnels involved in the run were stopped manually in between', function() {
       var build = utils.buildDetails()
-      return platform.runMultiple('http://localhost:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
@@ -1913,7 +1913,7 @@ describe('Platform', function() {
       it('should stop scripts jobs of an ongoing run of script jobs that access a local url and complete closing the platform even if tunnels involved in the run were stopped manually in between', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://localhost:3000/tests/pages/tests.html', {
+        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
@@ -1961,7 +1961,7 @@ describe('Platform', function() {
 
       it('should fail if there is a failure in stopping the tunnels associated with a run of test jobs that access a local url (simulated with removing execute permissions for the tunnel binary)', function() {
         var build = utils.buildDetails(), error
-        return platform.runMultiple('http://localhost:3000/tests/pages/tests.html', [{
+        return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
           os: 'Windows',
           osVersion: '10',
           browser: 'Chrome',
@@ -1998,7 +1998,7 @@ describe('Platform', function() {
       if(process.version > 'v6') {
         it('should fail if there is a failure in stopping the tunnels associated with a run of script jobs that access a local url (simulated with removing execute permissions for the tunnel binary)', function() {
           var build = utils.buildDetails(), error
-          return platform.runScriptMultiple('http://localhost:3000/tests/pages/tests.html', [{
+          return platform.runScriptMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
             os: 'Windows',
             osVersion: '10',
             browser: 'Chrome',

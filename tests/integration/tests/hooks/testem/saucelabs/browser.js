@@ -124,7 +124,7 @@ describe('browser.js', function() {
     var proc = new Process(), tried = false, build = utils.buildDetails()
     return proc.create('node',
       utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
-        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "--framework", "custom", "http://localhost:3000/tests/pages/tests.html"
+        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "--framework", "custom", "http://127.0.0.1:3000/tests/pages/tests.html"
       ]), {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {
@@ -144,7 +144,7 @@ describe('browser.js', function() {
     var proc = new Process(), tried = false, build = utils.buildDetails()
     return proc.create('node',
       utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
-        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "--screenshots", "--video", "--framework", "custom", "http://localhost:3000/tests/pages/tests.html"
+        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "--screenshots", "--video", "--framework", "custom", "http://127.0.0.1:3000/tests/pages/tests.html"
       ]), {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {

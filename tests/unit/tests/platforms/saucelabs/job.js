@@ -163,7 +163,7 @@ describe('Job', function() {
 
     it('should create a test job if a local url and valid values for all mandatory parameters are provided', function() {
       var build = utils.buildDetails()
-      return Job.create('http://localhost:3000/tests/pages/tests.html', {
+      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
         platform: 'OS X 10.11',
         browserName: 'chrome',
         version : '41.0'
@@ -187,7 +187,7 @@ describe('Job', function() {
 
     it('should create a test job if a local url, valid values for all mandatory parameters, and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return Job.create('http://localhost:3000/tests/pages/tests.html', {
+      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
         platform: 'OS X 10.11',
         browserName: 'chrome',
         version : '41.0'
@@ -216,7 +216,7 @@ describe('Job', function() {
 
     it('should create a test job for native runner case if a local url and valid values for all mandatory parameters are provided', function() {
       var build = utils.buildDetails()
-      return Job.create('http://localhost:3000/tests/pages/tests.html', {
+      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
         platform: 'OS X 10.11',
         browserName: 'chrome',
         version : '41.0'
@@ -289,7 +289,7 @@ describe('Job', function() {
 
     it('should create test jobs if a local url and valid values for all mandatory parameters are provided', function() {
       var build = utils.buildDetails()
-      return Job.createMultiple('http://localhost:3000/tests/pages/tests.html', [{
+      return Job.createMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
         platform: 'OS X 10.11',
         browserName: 'chrome',
         version : '41.0'

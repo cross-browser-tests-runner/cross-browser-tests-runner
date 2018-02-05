@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
     "cross-browser testing",
     "javascript testing",
     "javascript unit testing",
-    "JS testing",
+    "selenium testing",
     "browserstack",
     "saucelabs",
     "testem",
@@ -81,7 +81,7 @@
     "eslint": "^4.8.0",
     "finalhandler": "^1.1.0",
     "istanbul": "^0.4.5",
-    "mocha": "^4.0.1",
+    "mocha": "^3.5.3",
     "nock": "^9.0.22",
     "serve-static": "^1.13.1",
     "testem": "^1.18.4"

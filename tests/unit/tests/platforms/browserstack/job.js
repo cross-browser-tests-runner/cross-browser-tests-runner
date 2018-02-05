@@ -118,7 +118,7 @@ describe('Job', function() {
 
     it('should create a local url test job if valid values are provided for all mandatory capabilities', function() {
       var build = utils.buildDetails()
-      return Job.create('http://localhost:3000/tests/pages/tests.html', {
+      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
         os : 'Windows',
         os_version : '10',
         browser : 'chrome',
@@ -142,7 +142,7 @@ describe('Job', function() {
 
     it('should create a local url test job when optional capabilities are provided along with valid values for all mandatory capabilities', function() {
       var build = utils.buildDetails()
-      return Job.create('http://localhost:3000/tests/pages/tests.html', {
+      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
         os : 'Windows',
         os_version : '10',
         browser : 'chrome',
@@ -168,7 +168,7 @@ describe('Job', function() {
 
     it('should create a local url test job for native runner case with valid values for all mandatory capabilities and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return Job.create('http://localhost:3000/tests/pages/tests.html', {
+      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
         os : 'Windows',
         os_version : '10',
         browser : 'chrome',
@@ -196,7 +196,7 @@ describe('Job', function() {
 
     it('should create a local url test job for native runner case with the url ending in ? when valid values for all mandatory capabilities are provided', function() {
       var build = utils.buildDetails()
-      return Job.create('http://localhost:3000/tests/pages/tests.html?', {
+      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html?', {
         os : 'Windows',
         os_version : '10',
         browser : 'chrome',
@@ -270,7 +270,7 @@ describe('Job', function() {
 
     it('should create multiple test jobs for a valid local url with valid values for all mandatory capabilities provided', function() {
       var build = utils.buildDetails()
-      return Job.createMultiple('http://localhost:3000/tests/pages/tests.html', [{
+      return Job.createMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
         os : 'Windows',
         os_version : '10',
         browser : 'chrome',
@@ -301,7 +301,7 @@ describe('Job', function() {
 
     it('should create multiple test jobs for native runner case with a local url including query params and valid values for all mandatory capabilities provided', function() {
       var build = utils.buildDetails()
-      return Job.createMultiple('http://localhost:3000/tests/pages/tests.html?_=89141414', [{
+      return Job.createMultiple('http://127.0.0.1:3000/tests/pages/tests.html?_=89141414', [{
         os : 'Windows',
         os_version : '10',
         browser : 'chrome',

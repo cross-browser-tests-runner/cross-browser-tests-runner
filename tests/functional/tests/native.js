@@ -118,7 +118,7 @@ describe('Native Runner', function() {
         utils.log.debug(stdout)
         out += stdout
         if(stdout.match(/no tests found in settings/)) {
-          proc.stop('SIGINT')
+          proc.stop()
         }
       },
       onstderr: function(stderr) {

@@ -47,7 +47,7 @@ Jasmine 1.x|
 Node version|Linux|Mac OSX|Windows
 -|-|-|-
 4.8.4|✓|✓|✓
-8.5.0|✓|✓|✓
+8.6.0|✓|✓|✓
 
 ## Acknowledgements
-[![BrowserStack](doc/img/ack/browserstack-logo.png)](https://www.browserstack.com) [![SauceLabs](doc/img/ack/saucelabs-logo.png)](https://www.saucelabs.com)
+[![BrowserStack](doc/img/ack/browserstack-logo.png)](https://www.browserstack.com) [![SauceLabs](doc/img/ack/saucelabs-logo.png)](https://www.saucelabs.com) [![Travis CI](doc/img/ack/travis-logo.png)](https://travis-ci.org) [![Appveyor](doc/img/ack/appveyor-logo.png)](https://www.appveyor.com/) [![Circle CI](doc/img/ack/circleci-logo.png)](https://circleci.com/)
