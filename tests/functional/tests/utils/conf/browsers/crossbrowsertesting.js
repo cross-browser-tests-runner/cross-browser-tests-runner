@@ -48,4 +48,44 @@ describe('crossbrowsertesting.js', function() {
     })
     .should.be.fulfilled
   })
+
+  if(process.version >= 'v8.5.0') {
+
+    it('should update crossbrowsertesting-conf.json starting from an empty file', function() {
+      var proc = new Process(),
+        configFile = path.resolve(process.cwd(), 'conf/crossbrowsertesting-conf.json'),
+        zeroFile = path.resolve(process.cwd(), 'tests/functional/utils/zero-cbt-conf.json'),
+        lastMtime, currMtime
+      return fs.copyFileAsync(zeroFile, configFile)
+      .then(() => {
+        return fs.statAsync(configFile)
+      })
+      .then(stats => {
+        lastMtime = stats.mtime.getTime()
+        return proc.create('node',
+          utils.nodeProcCoverageArgs('bin/utils/conf/browsers/crossbrowsertesting.js'), {
+          onstdout: function(stdout) {
+            utils.log.debug(stdout)
+          },
+          onstderr: function(stderr) {
+            utils.errorWithoutCovLines(stderr)
+          }
+        })
+      })
+      .then(() => {
+        return fs.statAsync(configFile)
+      })
+      .then(stats => {
+        currMtime = stats.mtime.getTime()
+        expect(currMtime).to.be.at.least(lastMtime)
+        return true
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+  }
+
 })

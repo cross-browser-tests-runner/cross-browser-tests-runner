@@ -114,6 +114,16 @@ describe('Values', function() {
       expect(ret.capabilities.local).to.be.true
     })
 
+    it('should remove "localIdentifier" capability if it has an unsupported value', function() {
+      let ret = Values.js({ os: "Windows", osVersion: "8.1", browser: "Firefox", browserVersion: "39.0" }, { localIdentifier: 120 })
+      expect(ret.capabilities.tunnel_name).to.be.undefined
+    })
+
+    it('should retain "localIdentifier" capability if a supported value is provided', function() {
+      let ret = Values.js({ os: "Windows", osVersion: "8.1", browser: "Firefox", browserVersion: "39.0" }, { localIdentifier: 'my-tunnel' })
+      expect(ret.capabilities.tunnel_name).to.equal('my-tunnel')
+    })
+
     it('should remove "video" capability if it has an unsupported value', function() {
       let ret = Values.js({ os: "Windows", osVersion: "8.1", browser: "Firefox", browserVersion: "39.0" }, { video: 120 })
       expect(ret.capabilities.record_video).to.be.undefined

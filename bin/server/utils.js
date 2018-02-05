@@ -16,7 +16,9 @@ function error(err, res) {
 
 function defaults(router) {
   router.use((req, res) => {
-    log.warn('cannot serve %s %s', req.method, req.url)
+    if(!req.url.match(/favicon/)) {
+      log.warn('cannot serve %s %s', req.method, req.url)
+    }
     res.sendStatus(404)
   })
   router.use((err, req, res, next) => {

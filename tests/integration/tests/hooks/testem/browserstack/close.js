@@ -2,7 +2,9 @@ var
   path = require('path'),
   chai = require('chai'),
   chaiAsPromised = require('chai-as-promised'),
+  Env = require('./../../../../../../lib/core/env').Env,
   Process = require('./../../../../../../lib/core/process').Process,
+  BinaryVars = require('./../../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
   utils = require('./../../../utils')
 
 chai.use(chaiAsPromised)
@@ -56,6 +58,37 @@ describe('close.js', function() {
     })
     .should.be.fulfilled
   })
+
+  if(!Env.isWindows) {
+    it('should fail to close for internal errors (simulated by removing execute permissions from tunnel binary)', function() {
+      var proc = new Process(), out = '', err = ''
+      return utils.safeChmod(BinaryVars.path, '0400')
+      .then(() => {
+        return proc.create('node',
+          utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/close.js'), {
+          onstdout: function(stdout) {
+            out += stdout
+          },
+          onstderr: function(stderr) {
+            utils.errorWithoutCovLines(stderr)
+            err += stderr
+          }
+        })
+      })
+      .then(() => {
+        return utils.safeChmod(BinaryVars.path, '0755')
+      })
+      .then(() => {
+        expect(err).to.contain('failed to close browserstack-testem runs')
+        return true
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+  }
 
   it('should successfully run and complete even if no runs exist', function() {
     var proc = new Process(), out = ''

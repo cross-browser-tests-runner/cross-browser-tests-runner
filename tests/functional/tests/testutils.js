@@ -24,3 +24,4 @@ exports.buildDetails = utils.buildDetails
 exports.nodeProcCoverageArgs = utils.nodeProcCoverageArgs
 exports.errorWithoutCovLines = errorWithoutCovLines
 exports.copyFileAsync = copyFileAsync
+exports.safeChmod = utils.safeChmod

@@ -8,7 +8,7 @@ SauceLabs:
     OS X:
       Sierra:
         Safari:
-          11.0:
+          "11.0":
             resolution: 2048x1536
     iOS:
       "10.3":

@@ -219,6 +219,13 @@ if(process.version > 'v6') {
         expect(()=>{Job.createMultiple('http://google.com', [ ])}).to.throw('no browsers specified for createMultiple')
       })
 
+      it('should throw an error if required keys are not provided', function() {
+        expect(()=>{return Job.createMultiple('http://google.com', [
+          undefined
+        ])})
+        .to.throw('required option browser missing')
+      })
+
       it('should create test jobs if a remote url and valid values for all mandatory parameters are provided', function() {
         var build = utils.buildDetails()
         return Job.createMultiple('http://www.piaxis.tech', [{
@@ -387,7 +394,7 @@ if(process.version > 'v6') {
       var job
       this.timeout(0)
 
-      it('should successfully stop a running test job', function() {
+      it('should successfully stop a running test job and set passed status', function() {
         var build = utils.buildDetails()
         return Job.create('http://www.piaxis.tech', {
           os: 'OS X',
@@ -400,7 +407,7 @@ if(process.version > 'v6') {
           test: build.test
         })
         .then(job => {
-          return job.stop()
+          return job.stop(true)
         })
         .catch(err => {
           utils.log.error('error: ', err)
@@ -409,7 +416,7 @@ if(process.version > 'v6') {
         .should.be.fulfilled
       })
 
-      it('should successfully stop a test job running on android emulator', function() {
+      it('should successfully stop a test job running on android emulator and marked failed status', function() {
         var build = utils.buildDetails()
         return Job.create('http://www.piaxis.tech', {
           os: 'Android',
@@ -423,7 +430,7 @@ if(process.version > 'v6') {
           test: build.test
         })
         .then(job => {
-          return job.stop()
+          return job.stop(false)
         })
         .catch(err => {
           utils.log.error('error: ', err)
@@ -446,10 +453,10 @@ if(process.version > 'v6') {
         })
         .then(j => {
           job = j
-          return job.stop()
+          return job.stop(true)
         })
         .then(() => {
-          return job.stop()
+          return job.stop(true)
         })
         .catch(err => {
           utils.log.error('error: ', err)

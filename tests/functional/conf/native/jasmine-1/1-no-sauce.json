@@ -1,7 +1,7 @@
 {
   "framework": "jasmine",
   "test_file": "tests/functional/code/tests/jasmine/html/tests.html",
-  "retries": 0,
+  "retries": 1,
   "browsers": {
     "BrowserStack": {
       "JS": [
@@ -9,33 +9,31 @@
           "os": "Windows",
           "osVersion": "7",
           "browser": "Chrome",
-          "browserVersion": "10.0"
+          "browserVersion": "40.0"
         },
         {
-          "os": "Windows",
-          "osVersion": "10",
-          "browser": "Chrome",
-          "browserVersion": "45.0"
-        }
-      ]
-    },
-    "SauceLabs": {
-      "JS": [
-        {
-          "os": "Windows",
-          "osVersion": "10",
-          "browser": "Chrome",
-          "browserVersion": "50.0"
+          "os": "iOS",
+          "osVersion": "6.0",
+          "browser": "Mobile Safari",
+          "browserVersion": null,
+          "device": "iPad 3rd (6.0)"
         }
       ]
     },
     "CrossBrowserTesting": {
       "JS": [
         {
-          "os": "Windows",
-          "osVersion": "8.1",
-          "browser": "Chrome",
-          "browserVersion": "55.0"
+          "os": "OS X",
+          "osVersion": "El Capitan",
+          "browser": "Opera",
+          "browserVersion": "44.0"
+        },
+        {
+          "os": "Android",
+          "osVersion": "6.0",
+          "browser": "Maxthon Mobile",
+          "browserVersion": "4.3",
+          "device": "Android Nexus 9"
         }
       ]
     }
@@ -47,15 +45,7 @@
       "build": "native-runner-build",
       "test": "native-runner-functional-test",
       "project": "cross-browser-tests-runner/cross-browser-tests-runner",
-      "timeout": 60
-    },
-    "SauceLabs": {
-      "local": true,
-      "localIdentifier": "native-functional-tests",
-      "build": "native-runner-build",
-      "test": "native-runner-functional-test",
-      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
-      "timeout": 30
+      "screenshots": true
     },
     "CrossBrowserTesting": {
       "local": true,
@@ -63,7 +53,8 @@
       "build": "native-runner-build",
       "test": "native-runner-functional-test",
       "project": "cross-browser-tests-runner/cross-browser-tests-runner",
-      "timeout": 60
+      "screenshots": true,
+      "timeout": 90
     }
   },
   "server": {

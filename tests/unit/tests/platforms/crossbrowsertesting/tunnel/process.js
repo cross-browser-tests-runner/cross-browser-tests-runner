@@ -60,18 +60,6 @@ describe('Process', function() {
       })
     }
 
-    /*it('should fail to start the tunnel process if the ready file argument points to a path for which the process would have no write permissions', function() {
-      proc = new Process()
-      var badReadyFile
-      if(!Env.isWindows) {
-        badReadyFile = '/proc.txt'
-      } else {
-        badReadyFile = '\\Windows\\system32\\abczya\\proc.txt'
-      }
-      return proc.create(BinaryVars.path, [ '--ready', badReadyFile ])
-      .should.be.rejectedWith('cannot create ready file')
-    })*/
-
     it('should be able to start the tunnel process with no command line options provided', function() {
       proc = new Process()
       return proc.create(BinaryVars.path, [ ], {
@@ -81,6 +69,38 @@ describe('Process', function() {
       })
       .then(() => {
         expect(proc.pid).to.not.be.undefined
+        return utils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should be able to start the tunnel process if the --tunnelname argument is provided without its value', function() {
+      proc = new Process()
+      return proc.create(BinaryVars.path, [ '--tunnelname' ])
+      .then(() => {
+        expect(proc.pid).to.not.be.undefined
+        expect(proc.tunnelId).to.not.be.undefined
+        return utils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should be able to start the tunnel process if the --tunnelname argument is provided with a value', function() {
+      proc = new Process()
+      return proc.create(BinaryVars.path, [ '--tunnelname', 'test-local-id'])
+      .then(() => {
+        expect(proc).to.not.be.null
+        expect(proc.pid).to.not.be.undefined
+        expect(proc.tunnelId).to.not.be.undefined
+        expect(proc.tunnelId).to.equal('test-local-id')
         return utils.ensureZeroTunnels()
       })
       .catch(err => {
@@ -104,9 +124,25 @@ describe('Process', function() {
       .should.be.rejectedWith('options.uri is a required argument')
     })
 
-    it('should successfully stop a running tunnel process', function() {
+    it('should successfully stop a running tunnel process without a tunnel identifier', function() {
       proc = new Process()
       return proc.create(BinaryVars.path, [])
+      .then(() => {
+        return proc.stop()
+      })
+      .then(() => {
+        return utils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should successfully stop a running tunnel process with a tunnel identifier', function() {
+      proc = new Process()
+      return proc.create(BinaryVars.path, [ '--tunnelname', 'my-tunnel' ])
       .then(() => {
         return proc.stop()
       })
@@ -167,7 +203,7 @@ describe('Process', function() {
 
     it('should return "stopped" for a stopped tunnel process', function() {
       proc = new Process()
-      return proc.create(BinaryVars.path, [ ])
+      return proc.create(BinaryVars.path, [ '--tunnelname', 'my-test-tunnel' ])
       .then(() => {
         return proc.stop()
       })

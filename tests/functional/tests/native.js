@@ -1,6 +1,5 @@
 var
   path = require('path'),
-  fs = require('fs'),
   chai = require('chai'),
   chaiHttp = require('chai-http'),
   chaiAsPromised = require('chai-as-promised'),
@@ -17,6 +16,227 @@ var
   expect = chai.expect,
   should = chai.should(),
   request = chai.request
+
+const TestDataWithErrors = {
+  "suites": [
+    {
+      "description": "sum",
+      "specs": [],
+      "suites": [
+        {
+          "description": "suite 1",
+          "specs": [
+            {
+              "description": "should return the sum of two numbers",
+              "duration": 87,
+              "passed": true,
+              "skipped": false,
+              "failures": []
+            }
+          ],
+          "suites": [],
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1,
+          "duration": 87
+        },
+        {
+          "description": "suite 2",
+          "specs": [
+            {
+              "description": "should treat 0 as 1",
+              "duration": 5,
+              "passed": false,
+              "skipped": false,
+              "failures": [
+                {
+                  "type": "expect",
+                  "matcherName": "toEqual",
+                  "expected": 3,
+                  "actual": 2,
+                  "message": "Expected 2 to equal 3.",
+                  "trace": {
+                    "stack": "Error: Expected 2 to equal 3.\n    at new jasmine.ExpectationResult (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:114:32)\n    at matchersClass.toEqual (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:1235:29)\n    at jasmine.Spec.<anonymous> (http://127.0.0.1:7982/tests/functional/code/tests/jasmine/js/test.js:9:25)\n    at jasmine.Block.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:1064:17)\n    at jasmine.Queue.next_ (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2096:31)\n    at jasmine.Queue.start (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2049:8)\n    at jasmine.Spec.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2376:14)\n    at jasmine.Queue.next_ (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2096:31)\n    at jasmine.Queue.start (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2049:8)\n    at jasmine.Suite.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2521:14)",
+                    "message": "Expected 2 to equal 3."
+                  }
+                }
+              ]
+            }
+          ],
+          "suites": [],
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "total": 1,
+          "duration": 5
+        }
+      ],
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "total": 2,
+      "duration": 92
+    },
+    {
+      "description": "mult",
+      "specs": [],
+      "suites": [
+        {
+          "description": "suite 1",
+          "specs": [
+            {
+              "description": "should return the product of two numbers",
+              "duration": 0,
+              "passed": true,
+              "skipped": false,
+              "failures": []
+            }
+          ],
+          "suites": [],
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1,
+          "duration": 0
+        },
+        {
+          "description": "suite 2",
+          "specs": [
+            {
+              "description": "should treat 1 as 0",
+              "duration": 0,
+              "passed": false,
+              "skipped": false,
+              "failures": [
+                {
+                  "type": "expect",
+                  "matcherName": "toEqual",
+                  "expected": 0,
+                  "actual": 2,
+                  "message": "Expected 2 to equal 0.",
+                  "trace": {
+                    "stack": "Error: Expected 2 to equal 0.\n    at new jasmine.ExpectationResult (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:114:32)\n    at matchersClass.toEqual (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:1235:29)\n    at jasmine.Spec.<anonymous> (http://127.0.0.1:7982/tests/functional/code/tests/jasmine/js/test.js:22:26)\n    at jasmine.Block.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:1064:17)\n    at jasmine.Queue.next_ (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2096:31)\n    at jasmine.Queue.start (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2049:8)\n    at jasmine.Spec.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2376:14)\n    at jasmine.Queue.next_ (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2096:31)\n    at jasmine.Queue.start (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2049:8)\n    at jasmine.Suite.execute (https://cdnjs.cloudflare.com/ajax/libs/jasmine/1.3.1/jasmine.js:2521:14)",
+                    "message": "Expected 2 to equal 0."
+                  }
+                }
+              ]
+            }
+          ],
+          "suites": [],
+          "passed": 0,
+          "failed": 1,
+          "skipped": 0,
+          "total": 1,
+          "duration": 0
+        }
+      ],
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "total": 2,
+      "duration": 0
+    },
+    {
+      "description": "always true",
+      "specs": [],
+      "suites": [
+        {
+          "description": "suite 1",
+          "specs": [
+            {
+              "description": "should say 1 is 1",
+              "duration": 0,
+              "passed": true,
+              "skipped": false,
+              "failures": []
+            }
+          ],
+          "suites": [],
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1,
+          "duration": 0
+        },
+        {
+          "description": "suite 2",
+          "specs": [
+            {
+              "description": "should say 1 is not 0",
+              "duration": 0,
+              "passed": true,
+              "skipped": false,
+              "failures": []
+            }
+          ],
+          "suites": [],
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1,
+          "duration": 0
+        }
+      ],
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "total": 2,
+      "duration": 0
+    }
+  ],
+  "passed": 4,
+  "failed": 2,
+  "skipped": 0,
+  "total": 6,
+  "duration": 92
+},
+TestDataWithoutErrors = {
+  "suites": [
+    {
+      "description": "sum",
+      "specs": [
+        {
+          "description": "should return the sum of two numbers",
+          "duration": 7,
+          "passed": true,
+          "skipped": false,
+          "failures": []
+        }
+      ],
+      "suites": [],
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1,
+      "duration": 7
+    },
+    {
+      "description": "mult",
+      "specs": [
+        {
+          "description": "should return the product of two numbers",
+          "duration": 0,
+          "passed": true,
+          "skipped": false,
+          "failures": []
+        }
+      ],
+      "suites": [],
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1,
+      "duration": 0
+    }
+  ],
+  "passed": 2,
+  "failed": 0,
+  "skipped": 0,
+  "total": 2,
+  "duration": 7
+}
+
 
 describe('Native Runner', function() {
 
@@ -37,7 +257,9 @@ describe('Native Runner', function() {
             console.log(stdout.trim())
           }
           if(stdout.match(/Chrome 40.0 Windows 7/)) {
-            fs.chmodSync(BinaryVars.path, '0400')
+            utils.safeChmod(BinaryVars.path, '0400').then(() => {
+              utils.log.debug('Changed mode to read-only')
+            })
           }
         },
         onstderr: function(stderr) {
@@ -46,7 +268,9 @@ describe('Native Runner', function() {
         }
       })
       .then(() => {
-        fs.chmodSync(BinaryVars.path, '0755')
+        return utils.safeChmod(BinaryVars.path, '0755')
+      })
+      .then(() => {
         expect(out).to.contain('failed closing platforms')
         return bsUtils.ensureZeroTunnels()
       })
@@ -59,7 +283,7 @@ describe('Native Runner', function() {
   }
 
   it('should ignore bad POST requests to /cbtr/run endpoint', function() {
-    var proc = new Process(), out = '', host = 'http://build.cross-browser-tests-runner.org:8000'
+    var proc = new Process(), out = '', host = 'http://build.cross-browser-tests-runner.org:8000', began = false
     return proc.create(
       'node',
       utils.nodeProcCoverageArgs('bin/server/server.js', [
@@ -71,7 +295,8 @@ describe('Native Runner', function() {
         if(!stdout.match(/=============== Coverage summary ==========/)) {
           console.log(stdout.trim())
         }
-        if(stdout.match(/Chrome 40.0 Windows 7/)) {
+        if(stdout.match(/Chrome 40.0 Windows 7/) && !began) {
+          began = true
           var run, test
           request(host)
           .get('/cbtr/status')
@@ -81,12 +306,38 @@ describe('Native Runner', function() {
             test = res.body[run][0]
             utils.log.debug('Found run %s, test %s from native runner', run, test)
             return request(host)
-            .post('/cbtr/run?cbtr_run=' + run + '&cbtr_test=xyz')
+            .post('/cbtr/run?a=b')
+            .send(TestDataWithoutErrors)
+          })
+          .catch(err => {
+            expect(err).to.have.status(400)
+            return request(host)
+            .post('/cbtr/run?cbtr_run=&cbtr_test=')
+            .send(TestDataWithoutErrors)
+          })
+          .catch(err => {
+            expect(err).to.have.status(400)
+            return request(host)
+            .post('/cbtr/run?cbtr_run=' + run + '&cbtr_test=')
+            .send(TestDataWithoutErrors)
+          })
+          .catch(err => {
+            expect(err).to.have.status(400)
+            return request(host)
+            .post('/cbtr/run?cbtr_run=some-run&cbtr_test=' + test)
+            .send(TestDataWithoutErrors)
+          })
+          .catch(err => {
+            expect(err).to.have.status(404)
+            return request(host)
+            .post('/cbtr/run?cbtr_run=' + run + '&cbtr_test=some-test')
+            .send(TestDataWithoutErrors)
           })
           .catch(err => {
             expect(err).to.have.status(404)
             return request(host)
             .post('/cbtr/run?cbtr_run=' + run + '&cbtr_test=' + test)
+            .send(TestDataWithoutErrors)
           })
           .then(res => {
             expect(res.statusCode).to.be.oneOf([200, 404])
@@ -166,15 +417,50 @@ describe('Native Runner', function() {
     .should.be.fulfilled
   })
 
+  if(process.version > 'v6') {
+    it('should cause the "unknown run" race condition and handle it successfully and not report with "did not respond"', function() {
+      var proc = new Process(), out = '', err = ''
+      return proc.create(
+        'node',
+        utils.nodeProcCoverageArgs('bin/server/server.js', [
+          '--native-runner',
+          '--errors-only',
+          '--config',
+          'tests/functional/conf/native/jasmine-1/fast-and-slow.json'
+        ]), {
+        onstdout: function(stdout) {
+          out += stdout
+          if(!stdout.match(/=============== Coverage summary ==========/)) {
+            console.log(stdout.trim())
+          }
+        },
+        onstderr: function(stderr) {
+          utils.errorWithoutCovLines(stderr)
+          err += stderr
+        }
+      })
+      .then(() => {
+        expect(err).to.not.match(/Chrome 60\.0 Windows 10.*did not respond/)
+        expect(out).to.not.match(/Chrome 60\.0 Windows 10.*did not respond/)
+        expect(err).to.match(/Manager unknown run/)
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+  }
+
   it('should work successfully for a valid Jasmine 1.x test configuration and print failed test cases only, if "--errors-only" command line option is provided', function() {
-    var proc = new Process(), out = ''
+    var proc = new Process(), out = '', confName = (process.version > 'v6' ? '1.json' : '1-no-sauce.json')
     return proc.create(
       'node',
       utils.nodeProcCoverageArgs('bin/server/server.js', [
         '--native-runner',
         '--errors-only',
         '--config',
-        'tests/functional/conf/native/jasmine-1/1.json'
+        'tests/functional/conf/native/jasmine-1/' + confName
       ]), {
       onstdout: function(stdout) {
         out += stdout
@@ -300,7 +586,7 @@ describe('Native Runner', function() {
   if(process.version > 'v6') {
 
     it('should complete all tests specified in a Selenium test configuration', function() {
-      var proc = new Process(), out = ''
+      var proc = new Process(), out = '', host = 'http://build.cross-browser-tests-runner.org:8000', askedStatus = false
       return proc.create(
         'node',
         utils.nodeProcCoverageArgs('bin/server/server.js', [
@@ -312,6 +598,15 @@ describe('Native Runner', function() {
           out += stdout
           if(!stdout.match(/=============== Coverage summary ==========/)) {
             console.log(stdout.trim())
+          }
+          if(!askedStatus) {
+            askedStatus = true
+            request(host)
+            .get('/cbtr/status')
+            .then(res => {
+              expect(res).to.have.status(200)
+              expect(res.body).to.deep.equal({ })
+            })
           }
         },
         onstderr: function(stderr) {

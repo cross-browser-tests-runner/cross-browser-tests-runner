@@ -100,7 +100,7 @@ describe('Platform', function() {
           throw new Error('no tunnels yet')
         })
       },
-      minTimeout = 2000, factor = 1, max = 60
+      minTimeout = 1000, factor = 1, max = 240
       return retry(check, {minTimeout: minTimeout, factor: factor, retries: max})
     }
 

@@ -112,6 +112,8 @@ describe('RemoteArchive', function() {
         var statAfter = fs.statSync(remoteArchive.path)
         expect(statBefore).to.not.be.null
         expect(statBefore.ctime).to.deep.equal(statAfter.ctime)
+        // test remove without extracting here
+        return remoteArchive.remove()
       })
       .catch(err => {
         utils.log.error('error: ', err)

@@ -123,18 +123,13 @@ describe('Tunnel', function() {
     var tunnel = null
     this.timeout(0)
 
-    it('should prevent starting another tunnel if one already exists', function() {
-      var tunnel1 = new Tunnel({})
-      var tunnel2 = new Tunnel({})
-      return tunnel1.start()
+    it('should be able to start a tunnel without id if none exists already', function() {
+      var tunnel = new Tunnel({ })
+      return tunnel.start()
       .then(() => {
-        expect(tunnel1).to.not.be.null
-        expect(tunnel1.process.pid).to.not.be.undefined
-        expect(tunnel1.process.tunnelId).to.be.undefined
-        return tunnel2.start()
-      })
-      .catch(err => {
-        expect(err.message).to.contain('a tunnel exists already')
+        expect(tunnel).to.not.be.null
+        expect(tunnel.process.pid).to.not.be.undefined
+        expect(tunnel.process.tunnelId).to.be.undefined
         return Manager.running()
       })
       .then(procs => {
@@ -150,18 +145,114 @@ describe('Tunnel', function() {
       .should.be.fulfilled
     })
 
-    it('should be able to start a tunnel if none exists already', function() {
-      var tunnel = new Tunnel({ })
+    it('should be able to start a tunnel with id if none exists already', function() {
+      var tunnel = new Tunnel({ tunnelname: 'my-tunnel-id' })
       return tunnel.start()
       .then(() => {
         expect(tunnel).to.not.be.null
         expect(tunnel.process.pid).to.not.be.undefined
-        expect(tunnel.process.tunnelId).to.be.undefined
+        expect(tunnel.process.tunnelId).to.not.be.undefined
         return Manager.running()
       })
       .then(procs => {
         if(1 !== procs.length) {
           utils.log.warn('expected 1 tunnel to be running')
+        }
+        return utils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should start a tunnel without id even if another one exists and the other one should get killed automatically', function() {
+      var tunnel1 = new Tunnel({})
+      var tunnel2 = new Tunnel({})
+      return tunnel1.start()
+      .then(() => {
+        expect(tunnel1).to.not.be.null
+        expect(tunnel1.process.pid).to.not.be.undefined
+        expect(tunnel1.process.tunnelId).to.be.undefined
+        return tunnel2.start()
+      })
+      .then(() => {
+        expect(tunnel2).to.not.be.null
+        expect(tunnel2.process.pid).to.not.be.undefined
+        expect(tunnel2.process.tunnelId).to.be.undefined
+        expect(tunnel1.status()).to.equal('stopped')
+        return Manager.running()
+      })
+      .then(procs => {
+        if(1 !== procs.length) {
+          utils.log.warn('expected 1 tunnel to be running')
+        }
+        return utils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should start a tunnel with id even if another one with the same id exists and the other one should get killed automatically', function() {
+      var tunnel1 = new Tunnel({ tunnelname: 'same-id'})
+      var tunnel2 = new Tunnel({ tunnelname: 'same-id'})
+      return tunnel1.start()
+      .then(() => {
+        expect(tunnel1).to.not.be.null
+        expect(tunnel1.process.pid).to.not.be.undefined
+        expect(tunnel1.process.tunnelId).to.equal('same-id')
+        return tunnel2.start()
+      })
+      .then(() => {
+        expect(tunnel2).to.not.be.null
+        expect(tunnel2.process.pid).to.not.be.undefined
+        expect(tunnel2.process.tunnelId).to.equal('same-id')
+        expect(tunnel1.status()).to.equal('stopped')
+        return Manager.running()
+      })
+      .then(procs => {
+        if(1 !== procs.length) {
+          utils.log.warn('expected 1 tunnel to be running')
+        }
+        return utils.ensureZeroTunnels()
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should be able to start a tunnel without id and two tunnels with different id simultaneously', function() {
+      var tunnel1 = new Tunnel({ tunnelname: 'id-1'})
+      var tunnel2 = new Tunnel({ tunnelname: 'id-2'})
+      var tunnel3 = new Tunnel({ })
+      return tunnel1.start()
+      .then(() => {
+        expect(tunnel1).to.not.be.null
+        expect(tunnel1.process.pid).to.not.be.undefined
+        expect(tunnel1.process.tunnelId).to.equal('id-1')
+        return tunnel2.start()
+      })
+      .then(() => {
+        expect(tunnel2).to.not.be.null
+        expect(tunnel2.process.pid).to.not.be.undefined
+        expect(tunnel2.process.tunnelId).to.equal('id-2')
+        return tunnel3.start()
+      })
+      .then(() => {
+        expect(tunnel3).to.not.be.null
+        expect(tunnel3.process.pid).to.not.be.undefined
+        expect(tunnel3.process.tunnelId).to.be.undefined
+        return Manager.running()
+      })
+      .then(procs => {
+        if(3 !== procs.length) {
+          utils.log.warn('expected 3 tunnels to be running')
         }
         return utils.ensureZeroTunnels()
       })

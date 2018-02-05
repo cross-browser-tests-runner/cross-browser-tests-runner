@@ -365,13 +365,13 @@ describe('Job', function() {
         job = j
         saveId = job.id
         job.id = 'xxxxxxxxxxxx'
-        job.endpoint = job.processed.settings.host + JobVars.jobApiEndpoint + '/' + job.id
+        job.endpoint = job.endpoint.replace(/worker\/.*$/, 'worker/' + job.id)
         return job.status()
       })
       .then(status => {
         expect(status).to.equal('stopped')
         job.id = saveId
-        job.endpoint = job.processed.settings.host + JobVars.jobApiEndpoint + '/' + job.id
+        job.endpoint = job.endpoint.replace(/worker\/.*$/, 'worker/' + job.id)
         return utils.safeKillJob(job)
       })
       .catch(err => {
@@ -388,7 +388,7 @@ describe('Job', function() {
     var job
     this.timeout(0)
 
-    it('should successfully stop a running test job', function() {
+    it('should successfully stop a running test job and mark it as passed', function() {
       var build = utils.buildDetails()
       return Job.create('http://www.piaxis.tech', {
         os: 'OS X',
@@ -401,7 +401,7 @@ describe('Job', function() {
         test: build.test
       })
       .then(job => {
-        return job.stop()
+        return job.stop(true)
       })
       .catch(err => {
         utils.log.error('error: ', err)
@@ -424,7 +424,7 @@ describe('Job', function() {
       })
       .then(j => {
         job = j
-        return job.stop()
+        return job.stop(false)
       })
       .then(() => {
         return job.stop()
@@ -494,7 +494,7 @@ describe('Job', function() {
         job = j
         saveId = job.id
         job.id = 'xxxxxxxxxxxx'
-        job.endpoint = job.processed.settings.host + JobVars.jobApiEndpoint + '/' + job.id
+        job.endpoint = job.endpoint.replace(/worker\/.*$/, 'worker/' + job.id)
         return job.screenshot()
       })
       .catch(err => {
@@ -510,7 +510,7 @@ describe('Job', function() {
       })
       .then(() => {
         job.id = saveId
-        job.endpoint = job.processed.settings.host + JobVars.jobApiEndpoint + '/' + job.id
+        job.endpoint = job.endpoint.replace(/worker\/.*$/, 'worker/' + job.id)
         return utils.safeKillJob(job)
       })
       .should.be.fulfilled
@@ -531,7 +531,7 @@ describe('Job', function() {
       })
       .then(j => {
         job = j
-        return job.stop()
+        return job.stop(true)
       })
       .then(() => {
         return job.screenshot()

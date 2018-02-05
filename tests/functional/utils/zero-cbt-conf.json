@@ -1,0 +1,14 @@
+{
+  "conversions": {
+  },
+  "parameters": {
+    "build": "<string>",
+    "local": "<boolean>",
+    "localIdentifier": "<string>",
+    "test": "<string>",
+    "timeout": "<number>",
+    "video": "<boolean>",
+    "screenshots": "<boolean>",
+    "captureNetwork": "<boolean>"
+  }
+}

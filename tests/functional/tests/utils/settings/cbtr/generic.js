@@ -139,4 +139,60 @@ describe('generic', function() {
     .should.be.fulfilled
   })
 
+  function newProc(input) {
+    var proc = new Process()
+    return proc.create('node',
+      utils.nodeProcCoverageArgs('bin/utils/settings/cbtr.js', [
+        '--input', input, '--update'
+      ]), {
+      onstdout: function(stdout) {
+      },
+      onstderr: function(stderr) {
+      }
+    })
+  }
+
+  it('should be able to merge new config with existing config', function() {
+    var proc = new Process(),
+      outputFile = path.resolve(process.cwd(), 'cbtr.json')
+      inputFile1 = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/js-testing/desktop-1.yml'),
+      inputFile2 = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/js-testing/mobile-1.yml'),
+      inputFile3 = path.resolve(process.cwd(), 'tests/functional/samples/browsers/saucelabs/js-testing/desktop-1.yml'),
+      inputFile4 = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/js-testing/mobile-1.yml'),
+      inputFile5 = path.resolve(process.cwd(), 'tests/functional/samples/browsers/browserstack/selenium/desktop-1.yml')
+    return proc.create('node',
+      utils.nodeProcCoverageArgs('bin/utils/settings/cbtr.js', [
+        '--input', inputFile1
+      ]), {
+      onstdout: function(stdout) {
+      },
+      onstderr: function(stderr) {
+      }
+    })
+    .then(() => {
+      expect(fs.existsSync(outputFile)).to.be.true
+      return newProc(inputFile2)
+    })
+    .then(() => {
+      expect(fs.existsSync(outputFile)).to.be.true
+      return newProc(inputFile3)
+    })
+    .then(() => {
+      expect(fs.existsSync(outputFile)).to.be.true
+      return newProc(inputFile4)
+    })
+    .then(() => {
+      expect(fs.existsSync(outputFile)).to.be.true
+      return newProc(inputFile5)
+    })
+    .then(() => {
+      return fs.unlinkAsync(outputFile)
+    })
+    .catch(err => {
+      utils.log.error('error: ', err)
+      throw err
+    })
+    .should.be.fulfilled
+  })
+
 })

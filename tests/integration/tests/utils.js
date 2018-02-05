@@ -14,3 +14,4 @@ exports.log = log
 exports.buildDetails = utils.buildDetails
 exports.nodeProcCoverageArgs = utils.nodeProcCoverageArgs
 exports.errorWithoutCovLines = errorWithoutCovLines
+exports.safeChmod = utils.safeChmod

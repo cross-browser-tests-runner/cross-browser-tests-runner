@@ -24,6 +24,9 @@ const main = (platform) => {
   .then(() => {
     console.log('closed ' + platform + '-testem runs')
   })
+  .catch(err => {
+    log.error('failed to close ' + platform + '-testem runs - %s', err)
+  })
 }
 
 function help() {

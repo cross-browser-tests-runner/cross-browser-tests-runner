@@ -25,6 +25,7 @@
   "capabilities": {
     "CrossBrowserTesting": {
       "local": true,
+      "localIdentifier": "tunnel-id",
       "timeout": 180
     }
   },

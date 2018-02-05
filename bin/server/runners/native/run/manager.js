@@ -2,6 +2,7 @@
 
 let
   Bluebird = require('bluebird'),
+  utils = require('./../../../../../lib/core/utils'),
   Log = require('./../../../../../lib/core/log').Log,
   log = new Log('Server.Runners.Native.Tests.Manager'),
   Creator = require('./creator').Creator,
@@ -13,6 +14,8 @@ class Manager {
 
   constructor(settings) {
     this.settings = settings
+    this.earlyBirds = { }
+    this.passed = true
   }
 
   start() {
@@ -84,37 +87,42 @@ class Manager {
     return (this.runner && this.runner.status())
   }
 
-  end(req, res) {
-    if('POST' === req.method && UrlParser.isValid(req)) {
-      const run = UrlParser.run(req)
-      if(run && this._runExists(run)) {
-        const testId = UrlParser.test(req)
-        let test
-        if(testId && null !== (test = this._findTest(testId))) {
-          if(!test.nativeRunnerStopped) {
-            const takeScreenshot = this.settings.capabilities[test.nativeRunnerConfig.name].screenshots
-            setTimeout(()=>{
-              stopTest(test, takeScreenshot)
-            }, 3000)
-            return false
-          }
-          else {
-            log.warn('test %s for run %s is not running, cannot end', testId, run)
-            res.sendStatus(404)
-          }
-        }
-        else {
-          log.warn('unknown test %s for run %s (404)', testId, run)
-          res.sendStatus(404)
-        }
-      }
-      else {
-        log.warn('unknown run %s (404)', run)
-        res.sendStatus(404)
-      }
-      return true
+  end(req, res, passed) {
+    if(invalidQueryParams(req, res)) {
+      return
     }
-    return false
+    const run = UrlParser.run(req), testId = UrlParser.test(req), test = this._findTest(testId)
+    if(unknownRun(this, run, res) || unknownTest(test, testId, run, res)) {
+      this.earlyBirds[run] = this.earlyBirds[run] || { }
+      this.earlyBirds[run][testId] = { passed: passed }
+      return
+    }
+    if(alreadyStopped(test, testId, run, res)) {
+      return
+    }
+    this.scheduleStop(test, passed)
+    res.json()
+  }
+
+  scheduleStop(test, passed) {
+    if(!passed) {
+      this.passed = false
+    }
+    const takeScreenshot = this.settings.capabilities[test.nativeRunnerConfig.name].screenshots
+    setTimeout(()=>{
+      stopTest(test, takeScreenshot, passed)
+    }, 500)
+  }
+
+  isEarlyBird(test) {
+    let run = test.nativeRunnerConfig.run, testId = test.serverId
+    return (this.earlyBirds[run] && testId in this.earlyBirds[run])
+  }
+
+  handleEarlyBird(test) {
+    let run = test.nativeRunnerConfig.run, testId = test.serverId
+    log.debug('scheduling stopping of early bird run %s test %s', run, testId)
+    this.scheduleStop(test, this.earlyBirds[run][testId].passed)
   }
 
   _runExists(run) {
@@ -150,31 +158,64 @@ class Manager {
       return this.platforms[name].close()
     }))
     .then(() => {
-      completed()
+      completed(this.passed ? 0 : 1)
     })
     .catch(err => {
       log.error('failed closing platforms %s', err)
-      completed()
+      completed(1)
     })
   }
 
 }
 
-function stopTest(test, takeScreenshot) {
+function invalidQueryParams(req, res) {
+  if(!UrlParser.isValid(req)) {
+    log.warn('invalid query %s (400)', JSON.stringify(req.query))
+    res.sendStatus(400)
+    return true
+  }
+  return false
+}
+
+function unknownRun(manager, run, res) {
+  if(!manager._runExists(run)) {
+    log.warn('unknown run %s (404)', run)
+    res.sendStatus(404)
+    return true
+  }
+  return false
+}
+
+function unknownTest(test, testId, run, res) {
+  if(null === test) {
+    log.warn('unknown test %s for run %s (404)', testId, run)
+    res.sendStatus(404)
+    return true
+  }
+  return false
+}
+
+function alreadyStopped(test, testId, run, res) {
+  if(test.nativeRunnerStopped) {
+    log.warn('test %s for run %s is not running, cannot end', testId, run)
+    res.sendStatus(404)
+    return true
+  }
+  return false
+}
+
+function stopTest(test, takeScreenshot, passed) {
+  const postStop = () => {
+    test.nativeRunnerStopped = true
+    delete test.nativeRunnerStopping
+  }
   test.nativeRunnerStopping = true
   handleScreenshot(test, takeScreenshot)
   .then(() => {
-    return test.stop()
+    return test.stop(passed)
   })
-  .then(() => {
-    test.nativeRunnerStopped = true
-    delete test.nativeRunnerStopping
-  })
-  .catch(err => {
-    log.warn('encountered error while stopping test %s', err)
-    test.nativeRunnerStopped = true
-    delete test.nativeRunnerStopping
-  })
+  .then(postStop)
+  .catch(postStop)
 }
 
 function handleScreenshot(test, takeScreenshot) {
@@ -186,10 +227,14 @@ function handleScreenshot(test, takeScreenshot) {
   }
 }
 
-function completed() {
-  console.log('completed all tests')
+function completed(code) {
+  if(0 === code) {
+    console.log(utils.COLORS.OK + 'all tests ran and passed' + utils.COLORS.RESET)
+  } else {
+    console.log(utils.COLORS.FAIL + 'run of tests was unsuccessful' + utils.COLORS.RESET)
+  }
   /* eslint-disable no-process-exit */
-  process.exit(0)
+  process.exit(code)
   /* eslint-enable no-process-exit */
 }
 

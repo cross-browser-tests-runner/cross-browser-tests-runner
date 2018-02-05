@@ -289,6 +289,7 @@ describe('Tunnel', function() {
         expect(tunnel2).to.not.be.null
         expect(tunnel2.process.pid).to.not.be.undefined
         expect(tunnel2.process.tunnelId).to.be.undefined
+        expect(tunnel1.status()).to.equal('stopped')
         return Manager.running()
       })
       .then(procs => {
@@ -330,6 +331,7 @@ describe('Tunnel', function() {
         expect(tunnel2.process.pid).to.not.be.undefined
         expect(tunnel2.process.tunnelId).not.to.be.undefined
         expect(tunnel2.process.tunnelId).to.equal('test-1')
+        expect(tunnel1.status()).to.equal('stopped')
         return Manager.running()
       })
       .then(procs => {

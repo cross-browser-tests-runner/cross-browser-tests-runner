@@ -219,6 +219,7 @@ describe('Platform', function() {
       }, {
         timeout: 60,
         local: true,
+        localIdentifier: 'my-tunnel',
         video: true,
         build: build.build,
         test: build.test,
@@ -278,6 +279,7 @@ describe('Platform', function() {
       }, {
         timeout: 60,
         local: true,
+        localIdentifier: 'my-tunnel-1',
         video: true,
         build: build.build,
         test: build.test,
@@ -437,6 +439,7 @@ describe('Platform', function() {
         device: 'Win Phone 8 Simulator'
       }], {
         local: true,
+        localIdentifier: 'my-mult-tunnel',
         build: build.build,
         test: build.test,
         project: build.project
@@ -697,7 +700,9 @@ describe('Platform', function() {
         }], {
           build: build.build,
           test: build.test,
-          project: build.project
+          project: build.project,
+          local: true,
+          localIdentifier: 'my-mult-script-tunnel'
         },
         badScript
         )
@@ -891,6 +896,7 @@ describe('Platform', function() {
           browserVersion: '47.0'
         }, {
           local: true,
+          localIdentifier: 'my-script-tunnel',
           build: build.build,
           test: build.test,
           project: build.project
@@ -1135,6 +1141,7 @@ describe('Platform', function() {
         browserVersion: '1.5'
       }, {
         local: true,
+        localIdentifier: 'my-run-tunnel',
         build: build.build,
         test: build.test,
         project: build.project
@@ -1229,6 +1236,7 @@ describe('Platform', function() {
         device: 'BB Bold 9900 Simulator'
       }, {
         local: true,
+        localIdentifier: 'stop-test-tunnel',
         build: build.build,
         test: build.test,
         project: build.project
@@ -1371,6 +1379,7 @@ describe('Platform', function() {
           browserVersion: '38.0'
         }, {
           local: true,
+          localIdentifier: 'messy-test-tunnel',
           build: build.build,
           test: build.test,
           project: build.project
@@ -1661,6 +1670,7 @@ describe('Platform', function() {
         device: 'Android Nexus 6'
       }], {
         local: true,
+        localIdentifier: 'close-test-tunnel',
         build: build.build,
         test: build.test,
         project: build.project
@@ -1794,6 +1804,7 @@ describe('Platform', function() {
           browserVersion: '46.0'
         }, {
           local: true,
+          localIdentifier: 'close-script-run-tunnel',
           build: build.build,
           test: build.test,
           project: build.project

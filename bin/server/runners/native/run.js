@@ -21,8 +21,6 @@ exports.status = (req, res) => {
   res.json(manager.status())
 }
 
-exports.endOne = (req, res, next) => {
-  if(!manager.end(req, res)) {
-    next()
-  }
+exports.endOne = (req, res, passed) => {
+  manager.end(req, res, passed)
 }

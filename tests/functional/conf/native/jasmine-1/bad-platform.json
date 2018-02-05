@@ -9,22 +9,22 @@
     "BrowserStack": {
     },
     "SauceLabs": {
+    },
+    "CrossBrowserTesting": {
       "JS": [
         {
           "os": "Windows",
-          "osVersion": "8",
+          "osVersion": "8 Preview",
           "browser": "Chrome",
-          "browserVersion": "43.0"
+          "browserVersion": "33.0"
         },
         {
-          "os": "Linux",
-          "osVersion": null,
-          "browser": "Chrome",
-          "browserVersion": "34.0"
+          "os": "Ubuntu",
+          "osVersion": "Vivid",
+          "browser": "Firefox",
+          "browserVersion": "40.0"
         }
       ]
-    },
-    "CrossBrowserTesting": {
     }
   },
   "capabilities": {
@@ -45,6 +45,7 @@
     },
     "CrossBrowserTesting": {
       "local": true,
+      "localIdentifier": "native-functional-tests",
       "build": "native-runner-build",
       "test": "native-runner-functional-test",
       "project": "cross-browser-tests-runner/cross-browser-tests-runner"

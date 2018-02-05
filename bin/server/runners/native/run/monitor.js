@@ -79,8 +79,12 @@ class Monitor {
   _processRunningStatus(results, runningTests) {
     let completedTests = [ ]
     results.forEach((status, idx) => {
-      if('stopped' === status) {
-        let test = runningTests[idx]
+      let test = runningTests[idx]
+      if(this.manager.isEarlyBird(test)) {
+        this.manager.handleEarlyBird(test)
+        completedTests.push(test)
+      }
+      else if('stopped' === status) {
         if('JS' !== test.nativeRunnerConfig.type) {
           completedTests.push(test)
         }
@@ -123,6 +127,7 @@ class Monitor {
     }
     else {
       log.debug('no retries left for test %s serverId %s', test.id, test.serverId)
+      this.manager.passed = false
     }
   }
 

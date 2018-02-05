@@ -3,6 +3,7 @@
 var
   chai = require('chai'),
   Bluebird = require('bluebird'),
+  Tunnel = require('./../../../../../lib/platforms/crossbrowsertesting/tunnel').Tunnel,
   job = require('./../../../../../lib/platforms/crossbrowsertesting/job'),
   Job = job.Job,
   JobVars = job.JobVars,
@@ -75,6 +76,26 @@ describe('Job', function() {
       .to.throw('invalid version "10.0" for browser "Chrome" for osVersion "10" for os "Windows"')
     })
 
+    it('should fail to create a local url job if a non-existent tunnel is provided', function() {
+      var build = utils.buildDetails()
+      return Job.create('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+        os: 'Windows',
+        osVersion : '10',
+        browser : 'Firefox',
+        browserVersion : '44.0',
+        resolution: '1600x1200'
+      }, {
+        timeout: 60,
+        video: true,
+        local: true,
+        localIdentifier: 'my-tunnel',
+        build: build.build,
+        project: build.project,
+        test: build.test
+      })
+      .should.be.rejectedWith('The named tunnel you have specified does not appear to exist')
+    })
+
     it('should create a remote url test job if valid values are provided for all mandatory capabilities', function() {
       var build = utils.buildDetails()
       return Job.create('http://www.google.com',{
@@ -143,6 +164,39 @@ describe('Job', function() {
       .then(job => {
         expect(job.id).to.not.be.undefined
         return utils.safeKillJob(job)
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
+    })
+
+    it('should create a local url test job when an existing named tunnel is provided', function() {
+      var build = utils.buildDetails(), tunnel = new Tunnel({ tunnelname: 'my-tunnel'})
+      return tunnel.start()
+      .then(() => {
+        return Job.create('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          os: 'Windows',
+          osVersion : '8.1',
+          browser : 'Chrome x64',
+          browserVersion : '51.0'
+        }, {
+          build: build.build,
+          project: build.project,
+          test: build.test,
+          local: true,
+          localIdentifier: 'my-tunnel',
+          video: true,
+          captureNetwork: true
+        })
+      })
+      .then(job => {
+        expect(job.id).to.not.be.undefined
+        return utils.safeKillJob(job)
+      })
+      .then(() => {
+        return utils.ensureZeroTunnels()
       })
       .catch(err => {
         utils.log.error('error: ', err)
@@ -375,7 +429,7 @@ describe('Job', function() {
       })
       .then(j => {
         job = j
-        return job.stop()
+        return job.stop(true)
       })
       .then(() => {
         return job.status()
@@ -405,10 +459,10 @@ describe('Job', function() {
       })
       .then(j => {
         job = j
-        return job.stop()
+        return job.stop(false)
       })
       .then(() => {
-        return job.stop()
+        return job.stop(false)
       })
       .catch(err => {
         utils.log.error('error: ', err)

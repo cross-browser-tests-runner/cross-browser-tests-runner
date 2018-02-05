@@ -74,6 +74,25 @@ if(process.version > 'v6') {
         .to.throw('invalid osVersion "XP" for os "Windows"')
       })
 
+      it('should fail to create a script job if a local url with a non-existent tunnel is provided', function() {
+        var build = utils.buildDetails()
+        var scriptJob = new ScriptJob('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          browser: 'Internet Explorer',
+          browserVersion: '11.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
+          build: build.build,
+          test: build.test,
+          project: build.project,
+          video: true,
+          local: true,
+          localIdentifier: 'my-tunnel'
+        })
+        return scriptJob.create()
+        .should.be.rejectedWith('The named tunnel you have specified does not appear to exist')
+      })
+
       it('should create a script job if a remote url and a valid browser is provided', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://google.com', {
@@ -93,6 +112,38 @@ if(process.version > 'v6') {
         return scriptJob.create()
         .then(() => {
           return scriptJob.driver.quit()
+        })
+        .catch(err => {
+          utils.log.error('error: ', err)
+          throw err
+        })
+        .should.be.fulfilled
+      })
+
+      it('should create a script job with a local url when an existing named tunnel is provided', function() {
+        var build = utils.buildDetails(), tunnel = new Tunnel({ tunnelname: 'my-tunnel' })
+        var scriptJob = new ScriptJob('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          browser: 'Firefox x64',
+          browserVersion: '51.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
+          build: build.build,
+          test: build.test,
+          project: build.project,
+          video: true,
+          local: true,
+          localIdentifier: 'my-tunnel'
+        })
+        return tunnel.start()
+        .then(() => {
+          return scriptJob.create()
+        })
+        .then(() => {
+          return scriptJob.driver.quit()
+        })
+        .then(() => {
+          return utils.ensureZeroTunnels()
         })
         .catch(err => {
           utils.log.error('error: ', err)
@@ -227,15 +278,17 @@ if(process.version > 'v6') {
           build: build.build,
           test: build.test,
           project: build.project,
-          video: true
+          video: true,
+          local: true,
+          localIdentifier: 'my-named-tunnel'
         })
-        var tunnel = new Tunnel({ })
+        var tunnel = new Tunnel({ tunnelname: 'my-named-tunnel' })
         var match, savedSource
         return tunnel.start()
         .then(() => {
           expect(tunnel).to.not.be.null
           expect(tunnel.process.pid).to.not.be.undefined
-          expect(tunnel.process.tunnelId).to.be.undefined
+          expect(tunnel.process.tunnelId).to.equal('my-named-tunnel')
           return scriptJob.create()
         })
         .then(() => {

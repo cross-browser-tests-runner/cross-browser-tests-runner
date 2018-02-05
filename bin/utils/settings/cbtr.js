@@ -118,9 +118,6 @@ function mergeBrowsers(existing, browsers) {
 }
 
 function browserExists(browser, array) {
-  if(!array.length) {
-    return false
-  }
   let keys = Object.keys(browser)
   for(let elIdx = 0; elIdx < array.length; ++elIdx) {
     let found = true
@@ -364,7 +361,7 @@ function parseBrowserVersion(browserVersion) {
     let min = parseFloat(match[1]), max = parseFloat(match[2]), range = [ ]
     while(min <= max) {
       let f = min
-      range.push(float2str(f))
+      range.push(f.toString() + '.0')
       min += 1.0
     }
     return range
@@ -372,18 +369,7 @@ function parseBrowserVersion(browserVersion) {
   else if(null !== (match = browserVersion.match(/^\d+(?:\.\d+)+$/))) {
     return browserVersion
   }
-  else if(null !== (match = browserVersion.match(/^\d+$/))) {
-    return browserVersion + ".0"
-  }
   else {
     throw new Error('Unsupported value "' + browserVersion + '" for browserVersion')
   }
-}
-
-function float2str(f) {
-  f = f.toString()
-  if(!f.match(/\./)) {
-    f += '.0'
-  }
-  return f
 }

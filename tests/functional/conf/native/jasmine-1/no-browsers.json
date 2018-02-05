@@ -21,6 +21,7 @@
     },
     "CrossBrowserTeseting": {
       "local": true,
+      "localIdentifier": "native-functional-tests",
       "build": "native-runner-build",
       "test": "native-runner-functional-test",
       "project": "cross-browser-tests-runner/cross-browser-tests-runner",

@@ -580,6 +580,7 @@
   "parameters": {
     "build": "<string>",
     "local": "<boolean>",
+    "localIdentifier": "<string>",
     "test": "<string>",
     "timeout": "<number>",
     "video": "<boolean>",
@@ -1956,6 +1957,15 @@
         }
       }
     },
+    "Blackberry": {
+      "Blackberry Bold 9900": {
+        "Blackberry Browser": {
+          "9900": [
+            "BB Bold 9900 Simulator"
+          ]
+        }
+      }
+    },
     "iOS": {
       "10.1": {
         "Mobile Safari": {
@@ -2116,17 +2126,6 @@
           ]
         }
       },
-      "4.1": {
-        "Mobile Safari": {
-          "4.0.4": [
-            "iPad 1"
-          ],
-          "4.0.5": [
-            "iPhone 3GS",
-            "iPhone 4"
-          ]
-        }
-      },
       "11.0": {
         "Mobile Safari": {
           "11.0": [
@@ -2153,13 +2152,12 @@
             "iPhone 6 Plus"
           ]
         }
-      }
-    },
-    "Blackberry": {
-      "Blackberry Bold 9900": {
-        "Blackberry Browser": {
-          "9900": [
-            "BB Bold 9900 Simulator"
+      },
+      "4.1": {
+        "Mobile Safari": {
+          "4.0.5": [
+            "iPhone 3GS",
+            "iPhone 4"
           ]
         }
       }

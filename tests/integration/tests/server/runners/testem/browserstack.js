@@ -1,7 +1,6 @@
 global.Promise = global.Promise || require('bluebird')
 
 var
-  fs = require('fs'),
   Env = require('./../../../../../../lib/core/env').Env,
   settings = require('./../../../../../../bin/server/settings')(),
   BinaryVars = require('./../../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
@@ -117,17 +116,18 @@ describe('BrowserStack', function() {
 
       if(!Env.isWindows) {
         it('should fail with 500 status code for internal errors (simulated with removing execute permissions from tunnel binary)', function() {
-          fs.chmodSync(BinaryVars.path, '0400')
-          return request(host)
-          .put('/runs/testem/browserstack')
-          .send({capabilities:[{local:true}]})
+          return utils.safeChmod(BinaryVars.path, '0400')
+          .then(() => {
+            return request(host)
+            .put('/runs/testem/browserstack')
+            .send({capabilities:[{local:true}]})
+          })
           .catch(err => {
-            fs.chmodSync(BinaryVars.path, '0755')
             expect(err.status).to.equal(500)
             expect(err.response.body).to.not.be.undefined
             expect(err.response.body).to.have.keys('error')
             expect(err.response.body.error).to.contain('spawn EACCES')
-            return true
+            return utils.safeChmod(BinaryVars.path, '0755')
           })
           .catch(err => {
             utils.log.error('error: ', err)
@@ -179,16 +179,20 @@ describe('BrowserStack', function() {
           .then(res => {
             expect(res.body).to.not.be.undefined
             expect(res.statusCode).to.equal(200)
-            fs.chmodSync(BinaryVars.path, '0400')
+            return utils.safeChmod(BinaryVars.path, '0400')
+          })
+          .then(() => {
             return request(host)
               .delete('/runs/testem/browserstack')
           })
           .catch(err => {
-            fs.chmodSync(BinaryVars.path, '0755')
             expect(err.status).to.equal(500)
             expect(err.response.body).to.not.be.undefined
             expect(err.response.body).to.have.keys('error')
             expect(err.response.body.error).to.contain('spawn EACCES')
+            return utils.safeChmod(BinaryVars.path, '0755')
+          })
+          .then(() => {
             return request(host)
               .delete('/runs/testem/browserstack')
           })

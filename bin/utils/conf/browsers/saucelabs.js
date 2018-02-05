@@ -64,7 +64,6 @@ common.run('SauceLabs', [{
       browserConfig = getBrowserConfig(osVersionConfig, browserName),
       browserVersion = getWebdriverBrowserVersion(browser)
     getBrowserVersionConfig(browserConfig, browserVersion)
-    browserConfig[browserVersion] = browserConfig[browserVersion] || [ ]
     config.Selenium[os] = config.JS[os]
   }
 }, {

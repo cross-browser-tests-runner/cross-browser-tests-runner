@@ -2,11 +2,19 @@
 
 var
   path = require('path'),
+  Bluebird = require('bluebird'),
+  fs = Bluebird.promisifyAll(require('fs')),
+  retry = require('p-retry'),
   uuidv4 = require('uuid').v4,
   Env = require('./../lib/core/env').Env,
   CiFactory = require('./../lib/ci/factory').Factory
 
 var build = 'local-' + require('child_process').execSync('git rev-parse HEAD').toString().trim()
+
+var fileModes = {
+  '0400': 33024,
+  '0755': 33261
+}
 
 function buildDetails(){
   try {
@@ -60,6 +68,23 @@ function errorWithoutCovLines(log, out) {
   }
 }
 
+function safeChmod(file, mode) {
+  const check = () => {
+    return fs.statAsync(file)
+    .then(stat => {
+      if(fileModes[mode] === stat.mode) {
+        return stat
+      }
+      throw new Error('Mode not changed yet')
+    })
+  }
+  return fs.chmodAsync(file, mode)
+  .then(() => {
+    return retry(check, {retries: 5, minInterval: 100, factor: 2})
+  })
+}
+
 exports.buildDetails = buildDetails
 exports.nodeProcCoverageArgs = nodeProcCoverageArgs
 exports.errorWithoutCovLines = errorWithoutCovLines
+exports.safeChmod = safeChmod

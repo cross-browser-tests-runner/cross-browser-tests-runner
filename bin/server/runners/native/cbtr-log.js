@@ -15,8 +15,14 @@ exports.header = (agent, results) => {
       ? COLORS.OK + '✓' + COLORS.RESET + COLORS.DESC
       : COLORS.FAIL + '×',
     agent,
-    '(', results.passed, 'passed,', results.failed, 'failed,', results.skipped, 'skipped )',
-    COLORS.RESET)
+    COLORS.DESC + '[', countsStr(results), COLORS.DESC + ']',
+    COLORS.DESC + '(' + results.duration + 'ms)' + COLORS.RESET)
+}
+
+function countsStr(results) {
+  return (results.passed ? COLORS.OK + results.passed + ' passed' : '') +
+    (results.failed ? ' ' + COLORS.FAIL + results.failed + ' failed' : '') +
+    (results.skipped ? ' ' + COLORS.WARN + results.skipped + ' skipped' : '')
 }
 
 exports.suite = logSuite

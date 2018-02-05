@@ -36,7 +36,7 @@ function stopProc(pid) {
 function tunnels() {
   return new Promise(resolve => {
     ps.lookup({
-      command: !Env.isWindows ? BinaryVars.path : 'cbtr-tunnels-win64.exe'
+      command: !Env.isWindows ? BinaryVars.path : 'cbt-tunnels-win64.exe'
     },
     function(err, procs) {
       if(err) throw new Error(err)
