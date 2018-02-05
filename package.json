@@ -1,6 +1,6 @@
 {
   "name": "cross-browser-tests-runner",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Seamless cross-browser testing with multiple platforms and runners",
   "repository": {
     "type": "git",
