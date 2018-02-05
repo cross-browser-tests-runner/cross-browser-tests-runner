@@ -1,0 +1,36 @@
+{
+  "framework": "jasmine",
+  "test_file": [
+    "samples/native/tests/html/jasmine/tests.html",
+    "samples/native/tests/html/jasmine/tests-cov.html"
+  ],
+  "browsers": {
+    "BrowserStack": {
+      "JS": [
+        {
+          "os": "Windows",
+          "osVersion": "7",
+          "browser": "Chrome",
+          "browserVersion": "32.0"
+        },
+        {
+          "os": "iOS",
+          "osVersion": "6.0",
+          "browser": "Mobile Safari",
+          "browserVersion": null,
+          "device": "iPad 3rd (6.0)"
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "BrowserStack": {
+      "local": true,
+      "localIdentifier": "cbtr-sample"
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}

@@ -14,14 +14,20 @@ const
       SauceLabs: {
         local: true,
         timeout: 120
+      },
+      CrossBrowserTesting: {
+        local: true,
+        screenshots: true,
+        timeout: 120
       }
     },
     parallel: {
       BrowserStack: 2,
-      SauceLabs: 5
+      SauceLabs: 5,
+      CrossBrowserTesting: 5
     },
     server: {
-      port: 7982,
+      port: 8000,
       host: '127.0.0.1'
     }
   }

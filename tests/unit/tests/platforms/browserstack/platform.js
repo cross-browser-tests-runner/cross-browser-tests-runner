@@ -3,7 +3,7 @@
 var
   Bluebird = require('bluebird'),
   retry = require('p-retry'),
-  fs = require('fs'),
+  fs = Bluebird.promisifyAll(require('fs')),
   chai = require('chai'),
   spies = require('chai-spies'),
   chaiAsPromised = require('chai-as-promised'),
@@ -1913,12 +1913,16 @@ describe('Platform', function() {
         })
         .then(run => {
           checkRun(run)
-          fs.chmodSync(BinaryVars.path, '0400')
+          return fs.chmodAsync(BinaryVars.path, '0400')
+        })
+        .then(() => {
           return platform.close()
         })
         .catch(err => {
           error = err
-          fs.chmodSync(BinaryVars.path, '0755')
+          return fs.chmodAsync(BinaryVars.path, '0755')
+        })
+        .then(() => {
           platform.stopMonitoring = true
           return utils.ensureZeroTunnels()
         })
@@ -1951,12 +1955,16 @@ describe('Platform', function() {
           script)
           .then(run => {
             checkRun(run)
-            fs.chmodSync(BinaryVars.path, '0400')
+            return fs.chmodAsync(BinaryVars.path, '0400')
+          })
+          .then(() => {
             return platform.close()
           })
           .catch(err => {
             error = err
-            fs.chmodSync(BinaryVars.path, '0755')
+            return fs.chmodAsync(BinaryVars.path, '0755')
+          })
+          .then(() => {
             platform.stopMonitoring = true
             return utils.ensureZeroTunnels()
           })

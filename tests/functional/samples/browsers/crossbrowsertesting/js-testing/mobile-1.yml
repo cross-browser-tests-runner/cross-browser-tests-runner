@@ -1,0 +1,14 @@
+CrossBrowserTesting:
+  JS:
+    iOS:
+      "7.0":
+        Mobile Safari:
+          "7.0":
+            iPad Mini Retina:
+              resolution: 1536x2048
+            iPhone 5s:
+              resolution: 1136x640
+      "6.0":
+        Chrome Mobile:
+          "33.0":
+            iPad 4:

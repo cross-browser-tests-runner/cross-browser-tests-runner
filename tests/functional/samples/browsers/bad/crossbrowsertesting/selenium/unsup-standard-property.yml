@@ -1,0 +1,6 @@
+CrossBrowserTesting:
+  Selenium:
+    Android:
+      "6.0":
+        Android Nexus 9:
+          osVersion: abc

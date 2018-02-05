@@ -246,7 +246,7 @@ describe('BrowserStack', function() {
         var build = utils.buildDetails()
         return request(host)
         .post('/runs/testem/browserstack')
-        .send({"browser":{"os":"Windows","osVersion":"10","browser":"Firefox","browserVersion":"43.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project},"url":"http://piaxis.tech"})
+        .send({"browser":{"os":"Windows","osVersion":"10","browser":"Firefox","browserVersion":"43.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project, "timeout": 30},"url":"http://piaxis.tech"})
         .then(res => {
           expect(res.body).to.not.be.undefined
           expect(res.body).to.have.keys('id')
@@ -325,7 +325,7 @@ describe('BrowserStack', function() {
         var build = utils.buildDetails()
         return request(host)
         .post('/runs/testem/browserstack')
-        .send({"browser":{"os":"Windows","osVersion":"10","browser":"Chrome","browserVersion":"43.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project},"url":"http://piaxis.tech"})
+        .send({"browser":{"os":"Windows","osVersion":"10","browser":"Chrome","browserVersion":"43.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project, "timeout": 30},"url":"http://piaxis.tech"})
         .then(res => {
           expect(res.body).to.not.be.undefined
           expect(res.body).to.have.keys('id')

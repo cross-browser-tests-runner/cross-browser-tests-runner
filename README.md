@@ -31,7 +31,7 @@ See [Troubleshooting](https://github.com/cross-browser-tests-runner/cross-browse
 ## Status
 ### Integrations
 
-Testing Type|BrowserStack|SauceLabs
+Testing Type|BrowserStack|SauceLabs|CrossBrowserTesting
 -|-|-
 JavaScript Unit Tests|<ul><li>Testem</li><li>In-built runner</li></ul>|<ul><li>Testem</li><li>In-built runner</li></ul>
 Selenium Tests|In-built runner|In-built runner
@@ -53,11 +53,11 @@ Node version|Linux|OS X
 
 ### Minimum Node.js Versions
 
-Feature|BrowserStack|SauceLabs
+Feature|BrowserStack|SauceLabs|CrossBrowserTesting
 -|-|-
-JavaScript Unit Testing - Testem|✗ v5.x.x|✗ v5.x.x
-JavaScript Unit Testing - In-built runner|v4.8.4+|v6.9.0+
-Selenium Testing|v6.9.0+|v6.9.0+
+JavaScript Unit Testing - Testem|v4.8.4+<br>✗ v5.x.x|v4.8.4+<br>✗ v5.x.x|v4.8.4+<br>✗ v5.x.x
+JavaScript Unit Testing - In-built runner|v4.8.4+|v6.9.0+|v4.8.4+
+Selenium Testing|v6.9.0+|v6.9.0+|v6.9.0+
 
 ## Acknowledgements
-[![BrowserStack](doc/img/ack/browserstack-logo.png)](https://www.browserstack.com) [![SauceLabs](doc/img/ack/saucelabs-logo.png)](https://www.saucelabs.com) [![Travis CI](doc/img/ack/travis-logo.png)](https://travis-ci.org)
+[![BrowserStack](doc/img/ack/browserstack-logo.png)](https://www.browserstack.com) [![SauceLabs](doc/img/ack/saucelabs-logo.png)](https://www.saucelabs.com) [![CrossBrowserTesting](doc/img/ack/crossbrowsertesting-logo.png)](https://crossbrowsertesting.com) [![Travis CI](doc/img/ack/travis-logo.png)](https://travis-ci.org)

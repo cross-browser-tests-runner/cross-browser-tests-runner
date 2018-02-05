@@ -1,0 +1,34 @@
+{
+  "framework": "jasmine",
+  "test_file": "tests/functional/code/tests/jasmine/html/tests.html",
+  "capabilities": {
+    "BrowserStack": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true
+    },
+    "SauceLabs": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "timeout": 90,
+      "screenshots": true
+    },
+    "CrossBrowserTeseting": {
+      "local": true,
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "timeout": 60
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}

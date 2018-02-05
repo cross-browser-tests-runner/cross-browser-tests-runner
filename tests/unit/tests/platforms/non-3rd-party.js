@@ -5,3 +5,7 @@ describe('BrowserStack', function() {
 describe('SauceLabs', function() {
   require('./saucelabs/values')
 })
+
+describe('CrossBrowserTesting', function() {
+  require('./crossbrowsertesting/values')
+})

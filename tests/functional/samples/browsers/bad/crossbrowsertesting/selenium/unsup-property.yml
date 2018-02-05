@@ -1,0 +1,6 @@
+CrossBrowserTesting:
+  Selenium:
+    iOS:
+      "8.1":
+        iPad Air Simulator:
+          someProperty: abc

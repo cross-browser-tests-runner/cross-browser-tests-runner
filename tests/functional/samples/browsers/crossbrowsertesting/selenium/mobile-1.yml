@@ -1,0 +1,7 @@
+CrossBrowserTesting:
+  Selenium:
+    Android:
+      "7.0":
+        Android Nexus 6P:
+          resolution: 1440x2560
+          orientation: portrait

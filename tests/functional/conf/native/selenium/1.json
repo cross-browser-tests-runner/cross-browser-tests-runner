@@ -1,0 +1,95 @@
+{
+  "test_file": "tests/functional/code/tests/selenium/html/tests.html",
+  "test_script": "tests/functional/code/scripts/selenium/script-1.js",
+  "browsers": {
+    "BrowserStack": {
+      "Selenium": [
+        {
+          "os": "OS X",
+          "osVersion": "Mavericks",
+          "browser": "Firefox",
+          "browserVersion": "37.0"
+        },
+        {
+          "os": "Windows",
+          "osVersion": "7",
+          "browser": "Chrome",
+          "browserVersion": "37.0"
+        },
+        {
+          "os": "iOS",
+          "osVersion": "8.3",
+          "browser": "Mobile Safari",
+          "browserVersion": null,
+          "device": "iPad Air"
+        }
+      ]
+    },
+    "SauceLabs": {
+      "Selenium": [
+        {
+          "os": "OS X",
+          "osVersion": "Mavericks",
+          "browser": "Chrome",
+          "browserVersion": "33.0"
+        },
+        {
+          "os": "Android",
+          "osVersion": "5.0",
+          "browser": "Android Browser",
+          "browserVersion": null,
+          "device": "Android Emulator"
+        }
+      ]
+    },
+    "CrossBrowserTesting": {
+      "Selenium": [
+        {
+          "os": "OS X",
+          "osVersion": "Sierra",
+          "browser": "Safari",
+          "browserVersion": "10.0"
+        },
+        {
+          "os": "Android",
+          "osVersion": "7.0",
+          "browser": "Chrome Mobile",
+          "browserVersion": "61.0",
+          "device": "Android Nexus 6P"
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "BrowserStack": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true,
+      "timeout": 120
+    },
+    "SauceLabs": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true,
+      "timeout": 120
+    },
+    "CrossBrowserTesting": {
+      "local": true,
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true,
+      "timeout": 60
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}

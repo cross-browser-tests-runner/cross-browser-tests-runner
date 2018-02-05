@@ -1,0 +1,5 @@
+CrossBrowserTesting:
+  Selenium:
+    iOS:
+      "7.1":
+        Nokia Lumia:

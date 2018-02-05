@@ -1,0 +1,7 @@
+CrossBrowserTesting:
+  JS:
+    Windows:
+      XP Service Pack 2:
+        Chrome:
+          "31.0-36.0":
+            deviceType: abc

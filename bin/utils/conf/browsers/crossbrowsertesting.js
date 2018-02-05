@@ -68,7 +68,7 @@ function processBrowserSet(browserSet, config, testType) {
     device = getDevice(browserSet)
   browserSet.browsers.forEach(browser => {
     let
-      browserName = getBrowserName(browser),
+      browserName = getBrowserName(browser, device),
       browserConfig = getBrowserConfig(osVersionConfig, browserName),
       browserVersion = getBrowserVersion(browser),
       browserVersionConfig = getBrowserVersionConfig(browserConfig, browserVersion)
@@ -119,13 +119,23 @@ function getOsVersionConfig(osConfig, osVersion) {
 }
 
 function getDevice(browserSet) {
-  return ('desktop' !== browserSet.device ? browserSet.name.replace(/ \/.*$/, '') : null)
+  let device = null
+  if('desktop' !== browserSet.device) {
+    device = browserSet.name.replace(/ \/.*$/, '')
+    if(browserSet.name.match(/Simulator/) && !device.match(/Simulator/)) {
+      device += ' Simulator' // needed for iOS ones
+    }
+  }
+  return device
 }
 
-function getBrowserName(browser) {
+function getBrowserName(browser, device) {
   let name = aliases.browser[browser.type] || browser.type
   if(browser.name.match(/64\-bit/)) {
     name += ' x64'
+  }
+  if(device && 'Internet Explorer' === browser.type) {
+    name = 'IE Mobile'
   }
   return name
 }

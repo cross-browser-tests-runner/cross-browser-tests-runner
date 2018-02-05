@@ -2,5 +2,4 @@ SauceLabs:
   Selenium:
     iOS:
       "10.3":
-        Mobile Safari:
-          Nokia Lumia, iPad Simulator, iPhone 7 Plus Simulator:
+        Nokia Lumia, iPad Simulator, iPhone 7 Plus Simulator:

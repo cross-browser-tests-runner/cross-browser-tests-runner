@@ -30,7 +30,7 @@ describe('Native Runner', function() {
         utils.nodeProcCoverageArgs('bin/server/server.js', [
           '--native-runner',
           '--config',
-          'tests/functional/conf/native/jasmine-1-tiny.json',
+          'tests/functional/conf/native/jasmine-1/tiny.json',
         ]), {
         onstdout: function(stdout) {
           if(!stdout.match(/=============== Coverage summary ==========/)) {
@@ -65,7 +65,7 @@ describe('Native Runner', function() {
       utils.nodeProcCoverageArgs('bin/server/server.js', [
         '--native-runner',
         '--config',
-        'tests/functional/conf/native/jasmine-1-tiny.json',
+        'tests/functional/conf/native/jasmine-1/tiny.json',
       ]), {
       onstdout: function(stdout) {
         if(!stdout.match(/=============== Coverage summary ==========/)) {
@@ -112,7 +112,7 @@ describe('Native Runner', function() {
       utils.nodeProcCoverageArgs('bin/server/server.js', [
         '--native-runner',
         '--config',
-        'tests/functional/conf/native/jasmine-1-no-browsers.json'
+        'tests/functional/conf/native/jasmine-1/no-browsers.json'
       ]), {
       onstdout: function(stdout) {
         utils.log.debug(stdout)
@@ -143,7 +143,7 @@ describe('Native Runner', function() {
       utils.nodeProcCoverageArgs('bin/server/server.js', [
         '--native-runner',
         '--config',
-        'tests/functional/conf/native/jasmine-1-bad-browsers.json'
+        'tests/functional/conf/native/jasmine-1/bad-browsers.json'
       ]), {
       onstdout: function(stdout) {
         if(!stdout.match(/=============== Coverage summary ==========/)) {
@@ -174,7 +174,7 @@ describe('Native Runner', function() {
         '--native-runner',
         '--errors-only',
         '--config',
-        'tests/functional/conf/native/jasmine-1.json'
+        'tests/functional/conf/native/jasmine-1/1.json'
       ]), {
       onstdout: function(stdout) {
         out += stdout
@@ -202,7 +202,7 @@ describe('Native Runner', function() {
         '--errors-only',
         '--omit-traces',
         '--config',
-        'tests/functional/conf/native/jasmine-1-bad-platform.json'
+        'tests/functional/conf/native/jasmine-1/bad-platform.json'
       ]), {
       onstdout: function(stdout) {
         out += stdout
@@ -228,7 +228,7 @@ describe('Native Runner', function() {
       utils.nodeProcCoverageArgs('bin/server/server.js', [
         '--native-runner',
         '--config',
-        'tests/functional/conf/native/jasmine-1-retries.json'
+        'tests/functional/conf/native/jasmine-1/retries.json'
       ]), {
       onstdout: function(stdout) {
         out += stdout
@@ -266,7 +266,7 @@ describe('Native Runner', function() {
       utils.nodeProcCoverageArgs('bin/server/server.js', [
         '--native-runner',
         '--config',
-        'tests/functional/conf/native/jasmine-1-0-retries.json'
+        'tests/functional/conf/native/jasmine-1/0-retries.json'
       ]), {
       onstdout: function(stdout) {
         out += stdout
@@ -306,7 +306,7 @@ describe('Native Runner', function() {
         utils.nodeProcCoverageArgs('bin/server/server.js', [
           '--native-runner',
           '--config',
-          'tests/functional/conf/native/selenium-1.json'
+          'tests/functional/conf/native/selenium/1.json'
         ]), {
         onstdout: function(stdout) {
           out += stdout
@@ -338,7 +338,7 @@ describe('Native Runner', function() {
         utils.nodeProcCoverageArgs('bin/server/server.js', [
           '--native-runner',
           '--config',
-          'tests/functional/conf/native/selenium-1-bad-platform.json'
+          'tests/functional/conf/native/selenium/bad-platform.json'
         ]), {
         onstdout: function(stdout) {
           out += stdout

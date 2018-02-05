@@ -1,0 +1,52 @@
+{
+  "browsers": {
+    "SauceLabs": {
+      "JS": [
+        {
+          "os": "Windows",
+          "osVersion": "7",
+          "browser": "Chrome",
+          "browserVersion": "32.0"
+        },
+        {
+          "os": "Mac OSX",
+          "osVersion": "10.12",
+          "browser": "Mobile Safari iPhone",
+          "browserVersion": "10.3"
+        }
+      ],
+      "Selenium": [
+        {
+          "os": "Mac OSX",
+          "osVersion": "10.9",
+          "browser": "Chrome",
+          "browserVersion": "33.0"
+        },
+        {
+          "os": "Android",
+          "osVersion": "5.0",
+          "browser": "Android Browser",
+          "browserVersion": null,
+          "device": "Android Emulator"
+        }
+      ]
+    }
+  },
+  "framework": "jasmine",
+  "retries": 1,
+  "test_file": [
+    "samples/native/tests/html/jasmine/tests.html"
+  ],
+  "test_script": "samples/native/scripts/script-1.js",
+  "capabilities": {
+    "SauceLabs": {
+      "local": true,
+      "screenshots": true,
+      "timeout": 300
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}

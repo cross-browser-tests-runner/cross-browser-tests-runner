@@ -4,7 +4,7 @@
 
 const
   allowedOptions = [ 'input', 'output', 'help' ],
-  mobileOses = [ 'iOS', 'Android', 'Windows Phone' ],
+  mobileOses = [ 'iOS', 'Android', 'Windows Phone', 'Blackberry' ],
   standardProperties = ['os', 'osVersion', 'browser', 'browserVersion', 'device', 'TestType'],
   allowedProperties = require('./../../../lib/platforms/interfaces/platform').PlatformKeys.browser
 
@@ -118,12 +118,13 @@ function handleDesktopOsVersion(platform, test, os, osVersion, osVersions, resul
 
 function handleMobileOsVersion(platform, test, os, osVersion, osVersions, results) {
   let browsersOrDevices = osVersions[osVersion],
-    osHasNativeBrowserOnly = (1 === Object.keys(platformConfig[test][os][osVersion]).length),
-    nativeBrowser = (osHasNativeBrowserOnly ? Object.keys(platformConfig[test][os][osVersion])[0] : undefined)
+    nativeBrowserOnly = osHasSingleVersionNativeBrowser(test, os, osVersion),
+    nativeBrowser = (nativeBrowserOnly ? Object.keys(platformConfig[test][os][osVersion])[0] : undefined),
+    nativeBrowserVersion = (nativeBrowserOnly ? getNativeBrowserSingleVersion(test, os, osVersion): undefined)
   Object.keys(browsersOrDevices).forEach(browserOrDeviceSpec => {
-    if(osHasNativeBrowserOnly && nativeBrowser !== browserOrDeviceSpec) {
-      // native browser omitted, and devices have been specified
-      handleMobileDevices(platform, test, os, osVersion, nativeBrowser, browserOrDeviceSpec, browsersOrDevices, results)
+    if(nativeBrowserOnly) {
+      // must be devices only
+      handleMobileDevices(platform, test, os, osVersion, nativeBrowser, nativeBrowserVersion, browserOrDeviceSpec, browsersOrDevices, results)
     }
     else {
       handleMobileBrowser(platform, test, os, osVersion, browserOrDeviceSpec, browsersOrDevices, results)
@@ -140,13 +141,9 @@ function handleDesktopBrowser(platform, test, os, osVersion, browser, browsers, 
 }
 
 function handleDesktopBrowserVersionSpec(platform, test, os, osVersion, browser, browserVersionSpec, browserVersions, results) {
-  let specParts = browserVersionSpec.split(',').map(part => { return part.trim() }),
-    versions = [ ]
-  specParts.forEach(specPart => {
-    versions = versions.concat(parseBrowserVersion(specPart))
-  })
-  checkPlatformTestOsVersionBrowserVersions(platform, test, os, osVersion, browser, versions)
-  let properties = browserVersions[browserVersionSpec]
+  let
+    versions = processBrowserVersionSpec(platform, test, os, osVersion, browser, browserVersionSpec),
+    properties = browserVersions[browserVersionSpec]
   versions.forEach(version => {
     if(properties) {
       checkProperties(test, os, osVersion, browser, version, null, properties)
@@ -157,26 +154,64 @@ function handleDesktopBrowserVersionSpec(platform, test, os, osVersion, browser,
   })
 }
 
+function osHasSingleVersionNativeBrowser(test, os, osVersion) {
+  let
+    osVersionConfig = platformConfig[test][os][osVersion],
+    browsers = Object.keys(osVersionConfig),
+    firstBrowserVersions = Object.keys(osVersionConfig[browsers[0]])
+  return (1 === browsers.length && 1 === firstBrowserVersions.length)
+}
+
+function getNativeBrowserSingleVersion(test, os, osVersion) {
+  let
+    osVersionConfig = platformConfig[test][os][osVersion],
+    browsers = Object.keys(osVersionConfig)
+  return Object.keys(osVersionConfig[browsers[0]])[0]
+}
+
 function handleMobileBrowser(platform, test, os, osVersion, browser, browsers, results) {
   checkPlatformTestOsVersionBrowser(platform, test, os, osVersion, browser)
-  let devices = browsers[browser]
-  Object.keys(devices).forEach(deviceSpec => {
-    handleMobileDevices(platform, test, os, osVersion, browser, deviceSpec, devices, results)
+  let browserVersions = browsers[browser]
+  Object.keys(browserVersions).forEach(browserVersionSpec => {
+    handleMobileBrowserVersionSpec(platform, test, os, osVersion, browser, browserVersionSpec, browserVersions, results)
   })
 }
 
-function handleMobileDevices(platform, test, os, osVersion, browser, deviceSpec, devices, results) {
+function handleMobileBrowserVersionSpec(platform, test, os, osVersion, browser, browserVersionSpec, browserVersions, results) {
+  let
+    versions = processBrowserVersionSpec(platform, test, os, osVersion, browser, browserVersionSpec),
+    devicesSpecs = browserVersions[browserVersionSpec]
+  versions.forEach(version => {
+    Object.keys(devicesSpecs).forEach(deviceSpec => {
+      handleMobileDevices(platform, test, os, osVersion, browser, version, deviceSpec, devicesSpecs, results)
+    })
+  })
+}
+
+function handleMobileDevices(platform, test, os, osVersion, browser, browserVersion, deviceSpec, devices, results) {
   let specParts = deviceSpec.split(',').map(part => { return part.trim() })
-  checkPlatformTestOsVersionBrowserDevices(platform, test, os, osVersion, browser, specParts)
+  checkPlatformTestOsVersionBrowserDevices(platform, test, os, osVersion, browser, browserVersion, specParts)
   let properties = devices[deviceSpec]
   specParts.forEach(device => {
     if(properties) {
-      checkProperties(test, os, osVersion, browser, null, device, properties)
+      checkProperties(test, os, osVersion, browser, browserVersion, device, properties)
     }
     results[platform][test].push(Object.assign({
-      os: os, osVersion: osVersion, browser: browser, browserVersion: null, device: device
+      os: os, osVersion: osVersion, browser: browser,
+      browserVersion: ('None' !== browserVersion ? browserVersion : null),
+      device: device
     }, properties))
   })
+}
+
+function processBrowserVersionSpec(platform, test, os, osVersion, browser, browserVersionSpec) {
+  let specParts = browserVersionSpec.split(',').map(part => { return part.trim() }),
+    versions = [ ]
+  specParts.forEach(specPart => {
+    versions = versions.concat(parseBrowserVersion(specPart))
+  })
+  checkPlatformTestOsVersionBrowserVersions(platform, test, os, osVersion, browser, versions)
+  return versions
 }
 
 function checkPlatform(platform) {
@@ -217,31 +252,29 @@ function checkPlatformTestOsVersionBrowserVersions(platform, test, os, osVersion
   })
 }
 
-function checkPlatformTestOsVersionBrowserDevices(platform, test, os, osVersion, browser, devices) {
+function checkPlatformTestOsVersionBrowserDevices(platform, test, os, osVersion, browser, browserVersion, devices) {
   devices.forEach(device => {
-    if(-1 === platformConfig[test][os][osVersion][browser].None.indexOf(device)) {
-      throw new Error('Unsupported device "' + device + '" for browser "' + browser + '" on "' + os + ' ' + osVersion + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + platformConfig[test][os][osVersion][browser].None.sort().join(', '))
+    if(-1 === platformConfig[test][os][osVersion][browser][browserVersion].indexOf(device)) {
+      throw new Error('Unsupported device "' + device + '" for browser "' + browser + '" on "' + os + ' ' + osVersion + '" for test type "' + test + '" for "' + platform + '" platform, valid options are: ' + platformConfig[test][os][osVersion][browser][browserVersion].sort().join(', '))
     }
   })
 }
 
 function checkProperties(test, os, osVersion, browser, browserVersion, device, properties) {
+  let input = {TestType: test, os: os, osVersion: osVersion, browser: browser, browserVersion: browserVersion, device: device}
+  input = Object.assign(input, properties)
   Object.keys(properties).forEach(propertyKey => {
-    let input = {TestType: test, os: os, osVersion: osVersion, browser: browser, browserVersion: browserVersion, device: device}
     if((-1 !== allowedProperties.indexOf(propertyKey) && -1 !== standardProperties.indexOf(propertyKey)) ||
       (-1 === allowedProperties.indexOf(propertyKey)))
     {
       throw new Error('Unsupported property "' + propertyKey + '" with value "' + properties[propertyKey] + '" for the browser/platform combination ' + JSON.stringify(input))
     }
-    input[propertyKey] = properties[propertyKey]
     try {
       if(!platformConfigReader.validate('parameters', propertyKey, input)) {
-        delete input[propertyKey]
         throw new Error('Invalid property "' + propertyKey + '" with value "' + properties[propertyKey] + '" for the browser/platform combination ' + JSON.stringify(input))
       }
     } catch(e) {
       if(!e.message.match(/^Invalid property "/)) {
-        delete input[propertyKey]
         throw new Error('Unsupported property "' + propertyKey + '" with value "' + properties[propertyKey] + '" for the browser/platform combination ' + JSON.stringify(input))
       }
       throw e

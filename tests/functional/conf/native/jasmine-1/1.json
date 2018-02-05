@@ -1,0 +1,89 @@
+{
+  "framework": "jasmine",
+  "test_file": "tests/functional/code/tests/jasmine/html/tests.html",
+  "retries": 1,
+  "browsers": {
+    "BrowserStack": {
+      "JS": [
+        {
+          "os": "Windows",
+          "osVersion": "7",
+          "browser": "Chrome",
+          "browserVersion": "40.0"
+        },
+        {
+          "os": "iOS",
+          "osVersion": "6.0",
+          "browser": "Mobile Safari",
+          "browserVersion": null,
+          "device": "iPad 3rd (6.0)"
+        }
+      ]
+    },
+    "SauceLabs": {
+      "JS": [
+        {
+          "os": "Windows",
+          "osVersion": "8",
+          "browser": "Chrome",
+          "browserVersion": "43.0"
+        },
+        {
+          "os": "Android",
+          "osVersion": "4.4",
+          "browser": "Android Browser",
+          "browserVersion": null,
+          "device": "LG Nexus 4 Emulator"
+        }
+      ]
+    },
+    "CrossBrowserTesting": {
+      "JS": [
+        {
+          "os": "OS X",
+          "osVersion": "El Capitan",
+          "browser": "Opera",
+          "browserVersion": "44.0"
+        },
+        {
+          "os": "Android",
+          "osVersion": "6.0",
+          "browser": "Maxthon Mobile",
+          "browserVersion": "4.3",
+          "device": "Android Nexus 9"
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "BrowserStack": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true
+    },
+    "SauceLabs": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "timeout": 90,
+      "screenshots": true
+    },
+    "CrossBrowserTesting": {
+      "local": true,
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true,
+      "timeout": 90
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}

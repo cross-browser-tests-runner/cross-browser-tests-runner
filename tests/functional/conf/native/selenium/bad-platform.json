@@ -1,0 +1,57 @@
+{
+  "test_file": "tests/functional/code/tests/selenium/html/tests.html",
+  "test_script": "tests/functional/code/scripts/selenium/script-1.js",
+  "browsers": {
+    "BrowserStack": {
+    },
+    "SauceLabs": {
+      "Selenium": [
+        {
+          "os": "OS X",
+          "osVersion": "Sierra",
+          "browser": "Chrome",
+          "browserVersion": "45.0"
+        },
+        {
+          "os": "Windows",
+          "osVersion": "7",
+          "browser": "Chrome",
+          "browserVersion": "37.0"
+        }
+      ]
+    },
+    "CrossBrowserTesting": {
+    }
+  },
+  "capabilities": {
+    "BrowserStack": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true,
+      "timeout": 120
+    },
+    "SauceLabs": {
+      "local": true,
+      "localIdentifier": "native-functional-tests",
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true,
+      "timeout": 120
+    },
+    "CrossBrowserTesting": {
+      "local": true,
+      "build": "native-runner-build",
+      "test": "native-runner-functional-test",
+      "project": "cross-browser-tests-runner/cross-browser-tests-runner",
+      "screenshots": true
+    }
+  },
+  "server": {
+    "port": 8000,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}

@@ -1,0 +1,5 @@
+CrossBrowserTesting:
+  JS:
+    Windows Phone:
+      "8.1":
+        Nokia Lumia, iPhone 4:

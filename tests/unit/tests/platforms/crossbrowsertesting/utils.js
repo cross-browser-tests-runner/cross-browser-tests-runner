@@ -49,7 +49,8 @@ function tunnels() {
 const
   host = 'https://crossbrowsertesting.com/api/v3',
   allTunnelsApi = '/tunnels',
-  oneTunnelApi = '/tunnels/{id}'
+  oneTunnelApi = '/tunnels/{id}',
+  seleniumTestApi = '/selenium/{platformId}'
 
 function killServerTunnels() {
   var serverIds
@@ -149,60 +150,9 @@ function ensureZeroTunnels() {
   return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
 }
 
-/*function safeKillJob(job) {
-  return waitUntilRunningRetries(job)
-  .then(() => {
-    return terminateJobRetries(job)
-  })
-}
+const baseUrl = 'https://crossbrowsertesting.com/api/v3/livetests'
 
-function waitUntilRunningRetries(job) {
-  if(job.id) {
-    utils.log.debug('the job has an id %s, so no need to wait for it to get one', job.id)
-    return Promise.resolve(true)
-  }
-  utils.log.debug('the job with js-test id %s has not got a job id, so would wait for it to get one', job.jsTestId)
-  var max = 120, minTimeout = 2000, factor = 1
-  const check = () => {
-    return jsTestStatus(job)
-    .then(response => {
-      let details = response.body['js tests'][0]
-      utils.log.debug('js-test status response %s', JSON.stringify(details))
-      if(details.status
-          && -1 !== ['test queued', 'test new'].indexOf(details.status)
-          && 'job not ready' === details.job_id)
-      {
-        throw new Error('not ready yet')
-      }
-      if('test error' === details.status && 'job not ready' === details.job_id) {
-        throw new retry.AbortError('Platforms.CrossBrowserTesting.Job: job could not be created due to bad input, response is ' + JSON.stringify(response.body))
-      }
-      job.id = details.job_id
-      job.endpoint = job.endpoint.replace(/\/jobs\/.*$/, '\/jobs/' + job.id)
-      return true
-    })
-  }
-  return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
-  .catch(err => {
-    if(err.message.match(/job could not be created due to bad input, response is/)) {
-      throw new InputError(err.message)
-    }
-    else if(err.message.match(/not ready yet/)) {
-      utils.log.error('could not get a job id after a very long wait for js-test %s', job.jsTestId)
-    }
-    throw err
-  })
-}
-
-function jsTestStatus(job) {
-  return writeRequest(
-    'https://crossbrowsertesting.com/rest/v1/' + process.env.CROSSBROWSERTESTING_USERNAME + '/js-tests/status',
-    'POST',
-    {'js tests':[job.jsTestId]}
-  )
-}
-
-function terminateJobRetries(job) {
+function safeKillJob(job) {
   var max = 7, minTimeout = 400, factor = 2
   const check = () => {
     return jobStatus(job)
@@ -219,13 +169,10 @@ function terminateJobRetries(job) {
   .then(() => {
     return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
   })
-  .then(() => {
-    return writeRequest(job.endpoint, 'PUT', {passed: true})
-  })
 }
 
 function killJob(job) {
-  return writeRequest(job.endpoint + '/stop', 'PUT')
+  return writeRequest(baseUrl + '/' + job.id, 'DELETE')
   .then(response => {
     utils.log.debug('response for stopping job %s', job.id, response.body)
     return true
@@ -236,16 +183,14 @@ function killJob(job) {
   })
 }
 
-const StatusMap = {
-  'in progress': 'running',
-  'complete': 'stopped'
-}
-
 function jobStatus(job) {
-  return readRequest(job.endpoint, 'GET')
+  return readRequest(baseUrl + '/' + job.id, 'GET')
   .then(response => {
     utils.log.debug('status api response for job %s', job.id, response.body)
-    return (response.body && StatusMap[response.body.status] || 'stopped')
+    if(!response.body.active && 'stopped' === response.body.state) {
+      return 'stopped'
+    }
+    return 'running'
   })
   .catch(err => {
     utils.log.error('error: ', err)
@@ -262,7 +207,7 @@ function safeStopScript(scriptJob) {
   return scriptJob.driver.quit()
   .then(response => {
     utils.log.debug('web driver session %s closed', scriptJob.session)
-    return true
+    return waitForScriptStop(scriptJob)
   })
   .catch(err => {
     utils.log.info('web driver session %s closed with error %s', scriptJob.session, err)
@@ -272,20 +217,19 @@ function safeStopScript(scriptJob) {
 
 function waitForScriptStop(scriptJob) {
   var max = 7, minTimeout = 400, factor = 2
-  let job = new Job(scriptJob.session, null, null)
   const check = () => {
-    return jobStatus(job)
-    .then(status => {
-      if('stopped' === status) {
-        utils.log.debug('script job session %s stopped', job.id)
+    return readRequest(host + seleniumTestApi.replace(/{platformId}/, scriptJob.platformId), 'GET')
+    .then(response => {
+      if(!response.body.active && 'stopped' === response.body.state) {
+        utils.log.debug('script job session %s stopped', scriptJob.session)
         return true
       }
-      utils.log.debug('script job session %s not stopped yet', job.id)
+      utils.log.debug('script job session %s not stopped yet', scriptJob.session)
       throw new Error('not done yet')
     })
   }
   return retry(check, { retries: max, minTimeout: minTimeout, factor: factor })
-}*/
+}
 
 function writeRequest(url, method, body) {
   var req = new Request()
@@ -318,8 +262,7 @@ function readRequest(url, method) {
 exports.log = utils.log
 exports.ensureZeroTunnels = ensureZeroTunnels
 exports.tunnels = tunnels
-/*exports.buildDetails = utils.buildDetails
+exports.buildDetails = utils.buildDetails
 exports.safeKillJob = safeKillJob
-exports.waitUntilRunningRetries = waitUntilRunningRetries
 exports.safeStopScript = safeStopScript
-exports.waitForScriptStop = waitForScriptStop*/
+exports.waitForScriptStop = waitForScriptStop

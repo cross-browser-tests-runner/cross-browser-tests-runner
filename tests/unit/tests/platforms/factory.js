@@ -36,5 +36,12 @@ describe('Factory', function() {
       expect(platform.constructor.name).to.equal('Platform')
     })
 
+    it('should return CrossBrowserTesting platform object for "crossbrowsertesting" input', function() {
+      var platform = Factory.get('crossbrowsertesting')
+      expect(platform).to.not.be.undefined
+      expect(platform).to.not.be.null
+      expect(platform.constructor.name).to.equal('Platform')
+    })
+
   })
 })

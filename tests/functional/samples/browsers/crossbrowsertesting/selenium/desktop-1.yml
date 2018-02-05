@@ -1,0 +1,9 @@
+CrossBrowserTesting:
+  Selenium:
+    OS X:
+      Mavericks:
+        Chrome:
+          "32.0-36.0, 23.0":
+        Firefox:
+          "41.0":
+            resolution: 1400x1050

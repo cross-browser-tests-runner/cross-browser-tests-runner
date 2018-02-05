@@ -1,0 +1,7 @@
+CrossBrowserTesting:
+  JS:
+    OS X:
+      Yosemite:
+        Chrome:
+          "30.0-33.0":
+            resolution: 400x300

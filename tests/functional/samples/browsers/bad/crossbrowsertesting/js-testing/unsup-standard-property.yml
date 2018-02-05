@@ -1,0 +1,7 @@
+CrossBrowserTesting:
+  JS:
+    OS X:
+      Yosemite:
+        Chrome:
+          "31.0-36.0":
+            device: abc

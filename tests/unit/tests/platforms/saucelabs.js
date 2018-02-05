@@ -3,7 +3,7 @@ describe('SauceLabs', function() {
   require('./saucelabs/manager')
   require('./saucelabs/tunnel')
   require('./saucelabs/values')
-  require('./saucelabs/job')
   require('./saucelabs/scriptjob')
+  require('./saucelabs/job')
   require('./saucelabs/platform')
 })

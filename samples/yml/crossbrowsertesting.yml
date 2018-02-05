@@ -1,0 +1,25 @@
+CrossBrowserTesting:
+  JS:
+    Windows:
+      "10":
+        Chrome x64:
+          "45.0-49.0, 54.0":
+            resolution: 1920x1200
+    Android:
+      "6.0":
+        Dolphin Mobile:
+          "11.5":
+            Android Nexus 9:
+        Maxthon Mobile:
+          "4.3":
+            Android Nexus 9:
+              resolution: 1536x2048
+  Selenium:
+    OS X:
+      El Capitan:
+        Safari:
+          "9.0":
+            resolution: 2560x1440
+    iOS:
+      "9.3":
+        iPhone 6s Plus Simulator, iPad Pro Simulator:

@@ -23,8 +23,10 @@ describe('SauceLabs', function() {
     .create('node', [
         path.resolve(process.cwd(), 'node_modules/testem/testem.js'),
         'ci',
+        '--host',
+        'build.cross-browser-tests-runner.org',
         '-f',
-        path.resolve(process.cwd(), 'tests/functional/conf/testem/jasmine-1-saucelabs.json')
+        path.resolve(process.cwd(), 'tests/functional/conf/testem/jasmine-1/saucelabs.json')
     ], {
       onstdout: function(stdout) {
         out += stdout

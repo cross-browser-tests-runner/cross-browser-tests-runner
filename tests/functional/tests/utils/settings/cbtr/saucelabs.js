@@ -192,7 +192,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "someProperty" with value "304x310" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 7 Simulator"}')
+        expect(out).to.contain('Unsupported property "someProperty" with value "304x310" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 7 Simulator","someProperty":"304x310"}')
         return true
       })
       .catch(err => {
@@ -218,7 +218,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "browserVersion" with value "304x310" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 7 Simulator"}')
+        expect(out).to.contain('Unsupported property "browserVersion" with value "304x310" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":"304x310","device":"iPhone 7 Simulator"}')
         return true
       })
       .catch(err => {
@@ -244,7 +244,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "isPhysicalDevice" with value "true" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 7 Simulator"}')
+        expect(out).to.contain('Unsupported property "isPhysicalDevice" with value "true" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 7 Simulator","isPhysicalDevice":true}')
         return true
       })
       .catch(err => {
@@ -270,7 +270,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Invalid property "deviceType" with value "abc" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 7 Simulator"}')
+        expect(out).to.contain('Invalid property "deviceType" with value "abc" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 7 Simulator","deviceType":"abc"}')
         return true
       })
       .catch(err => {
@@ -296,7 +296,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Invalid property "resolution" with value "100x300" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 7 Simulator"}')
+        expect(out).to.contain('Invalid property "resolution" with value "100x300" for the browser/platform combination {"TestType":"JS","os":"iOS","osVersion":"10.3","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 7 Simulator","resolution":"100x300"}')
         return true
       })
       .catch(err => {
@@ -510,7 +510,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "someProperty" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null}')
+        expect(out).to.contain('Unsupported property "someProperty" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null,"someProperty":"abc"}')
         return true
       })
       .catch(err => {
@@ -536,7 +536,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "os" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null}')
+        expect(out).to.contain('Unsupported property "os" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"abc","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null}')
         return true
       })
       .catch(err => {
@@ -562,7 +562,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "isPhysicalDevice" with value "false" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null}')
+        expect(out).to.contain('Unsupported property "isPhysicalDevice" with value "false" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null,"isPhysicalDevice":false}')
         return true
       })
       .catch(err => {
@@ -588,7 +588,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Invalid property "resolution" with value "400x300" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null}')
+        expect(out).to.contain('Invalid property "resolution" with value "400x300" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null,"resolution":"400x300"}')
         return true
       })
       .catch(err => {
@@ -614,7 +614,7 @@ describe('SauceLabs', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Invalid property "orientation" with value "portrait" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null}')
+        expect(out).to.contain('Invalid property "orientation" with value "portrait" for the browser/platform combination {"TestType":"Selenium","os":"Windows","osVersion":"7","browser":"Chrome","browserVersion":"41.0","device":null,"orientation":"portrait"}')
         return true
       })
       .catch(err => {

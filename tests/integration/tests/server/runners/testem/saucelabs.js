@@ -157,7 +157,7 @@ describe('SauceLabs', function() {
           var build = utils.buildDetails()
           return request(host)
           .post('/runs/testem/saucelabs')
-          .send({"browser":{"os":"OS X","osVersion":"Yosemite","browser":"Chrome","browserVersion":"44.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project},"url":"http://piaxis.tech"})
+          .send({"browser":{"os":"OS X","osVersion":"Yosemite","browser":"Chrome","browserVersion":"44.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project, "timeout": 20},"url":"http://piaxis.tech"})
           .then(res => {
             expect(res.body).to.not.be.undefined
             expect(res.body).to.have.keys('id')
@@ -240,7 +240,7 @@ describe('SauceLabs', function() {
           var build = utils.buildDetails()
           return request(host)
           .post('/runs/testem/saucelabs')
-          .send({"browser":{"os":"Windows","osVersion":"8","browser":"Firefox","browserVersion":"40.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project},"url":"http://piaxis.tech"})
+          .send({"browser":{"os":"Windows","osVersion":"8","browser":"Firefox","browserVersion":"40.0"},"capabilities":{"build":build.build,"test":build.test,"project":build.project, "timeout": 20},"url":"http://piaxis.tech"})
           .then(res => {
             expect(res.body).to.not.be.undefined
             expect(res.body).to.have.keys('id')

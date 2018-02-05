@@ -1,0 +1,7 @@
+CrossBrowserTesting:
+  Selenium:
+    OS X:
+      Mavericks:
+        Firefox:
+          "34.0-36.0":
+            orientation: portrait

@@ -1,0 +1,6 @@
+CrossBrowserTesting:
+  Selenium:
+    Android:
+      "4.2":
+        Android Galaxy S4:
+          deviceType: abc

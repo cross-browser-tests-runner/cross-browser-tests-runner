@@ -3,7 +3,8 @@
 var
   chai = require('chai'),
   chaiAsPromised = require('chai-as-promised'),
-  fs = require('fs'),
+  Bluebird = require('bluebird'),
+  fs = Bluebird.promisifyAll(require('fs')),
   path = require('path'),
   Promise = require('bluebird'),
   ps = require('ps-node'),
@@ -45,13 +46,17 @@ describe('Process', function() {
 
       it('should fail to start the tunnel process in case the executable binary does not have execute permissions', function() {
         proc = new Process()
-        fs.chmodSync(BinaryVars.path, '0400')
-        return proc.create(BinaryVars.path, [ ])
+        return fs.chmodAsync(BinaryVars.path, '0400')
+        .then(() => {
+          return proc.create(BinaryVars.path, [ ])
+        })
         .catch(error => {
           if(error && (!error.message || !error.message.match(/spawn EACCES/))) {
             utils.log.error(error)
           }
-          fs.chmodSync(BinaryVars.path, '0755')
+          return fs.chmodAsync(BinaryVars.path, '0755')
+        })
+        .then(() => {
           return utils.ensureZeroTunnels()
         })
         .catch(err => {
@@ -176,7 +181,9 @@ describe('Process', function() {
         proc = new Process()
         return proc.create(BinaryVars.path, [])
         .then(() => {
-          fs.chmodSync(BinaryVars.path, '0400')
+          return fs.chmodAsync(BinaryVars.path, '0400')
+        })
+        .then(() => {
           return(proc.stop())
         })
         .catch(error => {
@@ -186,7 +193,9 @@ describe('Process', function() {
           expect(error.message).to.contain('spawn EACCES')
           expect(proc).to.not.be.null
           expect(proc.pid).to.not.be.undefined
-          fs.chmodSync(BinaryVars.path, '0755')
+          return fs.chmodAsync(BinaryVars.path, '0755')
+        })
+        .then(() => {
           return utils.ensureZeroTunnels()
         })
         .catch(err => {

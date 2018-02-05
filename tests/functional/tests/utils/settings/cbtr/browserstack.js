@@ -192,7 +192,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "someProperty" with value "abc" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Chrome","browserVersion":"43.0","device":null}')
+        expect(out).to.contain('Unsupported property "someProperty" with value "abc" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Chrome","browserVersion":"43.0","device":null,"someProperty":"abc"}')
         return true
       })
       .catch(err => {
@@ -218,7 +218,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "device" with value "abc" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Chrome","browserVersion":"43.0","device":null}')
+        expect(out).to.contain('Unsupported property "device" with value "abc" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Chrome","browserVersion":"43.0","device":"abc"}')
         return true
       })
       .catch(err => {
@@ -244,7 +244,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "deviceType" with value "abc" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Chrome","browserVersion":"43.0","device":null}')
+        expect(out).to.contain('Unsupported property "deviceType" with value "abc" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Chrome","browserVersion":"43.0","device":null,"deviceType":"abc"}')
         return true
       })
       .catch(err => {
@@ -270,7 +270,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Invalid property "resolution" with value "400x300" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Chrome","browserVersion":"43.0","device":null}')
+        expect(out).to.contain('Invalid property "resolution" with value "400x300" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Chrome","browserVersion":"43.0","device":null,"resolution":"400x300"}')
         return true
       })
       .catch(err => {
@@ -296,7 +296,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Invalid property "orientation" with value "portrait" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Firefox","browserVersion":"34.0","device":null}')
+        expect(out).to.contain('Invalid property "orientation" with value "portrait" for the browser/platform combination {"TestType":"JS","os":"Windows","osVersion":"XP","browser":"Firefox","browserVersion":"34.0","device":null,"orientation":"portrait"}')
         return true
       })
       .catch(err => {
@@ -509,7 +509,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "someProperty" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 4S"}')
+        expect(out).to.contain('Unsupported property "someProperty" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 4S","someProperty":"abc"}')
         return true
       })
       .catch(err => {
@@ -535,7 +535,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "osVersion" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 4S"}')
+        expect(out).to.contain('Unsupported property "osVersion" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"abc","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 4S"}')
         return true
       })
       .catch(err => {
@@ -561,7 +561,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Unsupported property "deviceType" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 4S"}')
+        expect(out).to.contain('Unsupported property "deviceType" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 4S","deviceType":"abc"}')
         return true
       })
       .catch(err => {
@@ -587,7 +587,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Invalid property "orientation" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 4S"}')
+        expect(out).to.contain('Invalid property "orientation" with value "abc" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 4S","orientation":"abc"}')
         return true
       })
       .catch(err => {
@@ -613,7 +613,7 @@ describe('BrowserStack', function() {
         }
       })
       .then(() => {
-        expect(out).to.contain('Invalid property "resolution" with value "400x300" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":null,"device":"iPhone 4S"}')
+        expect(out).to.contain('Invalid property "resolution" with value "400x300" for the browser/platform combination {"TestType":"Selenium","os":"iOS","osVersion":"5.1","browser":"Mobile Safari","browserVersion":"None","device":"iPhone 4S","resolution":"400x300"}')
         return true
       })
       .catch(err => {

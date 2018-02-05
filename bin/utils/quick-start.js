@@ -4,7 +4,7 @@
 
 const
   allowedOptions = [ 'platform', 'runner', 'help' ],
-  allowedPlatforms = [ 'browserstack', 'saucelabs' ],
+  allowedPlatforms = [ 'browserstack', 'saucelabs', 'crossbrowsertesting' ],
   allowedRunners = [ 'testem' ]
 
 let
@@ -26,7 +26,7 @@ function help() {
     ' [--help|-h] [--platform|-p <cross-browser platform>] [--runner|-r <tests-runner>]\n\n' +
     'Options:\n' +
     ' help              print this help\n' +
-    ' platform          browserstack|saucelabs\n' +
+    ' platform          browserstack|saucelabs|crossbrowsertesting\n' +
     ' runner            testem'
   )
 }
@@ -62,7 +62,7 @@ proc.create('node', [path.resolve(__dirname, 'conf/browsers/' + args.platform + 
 .then(() => {
   console.log('Creating global cross-browser-tests-runner settings from sample browsers for %s', args.platform)
   proc = new Process()
-  return proc.create('node', [path.resolve(__dirname, 'settings/cbtr.js'), '--input', path.resolve(__dirname, '../../samples/yml/.cbtr-browsers-' + args.platform + '.yml')])
+  return proc.create('node', [path.resolve(__dirname, 'settings/cbtr.js'), '--input', path.resolve(__dirname, '../../samples/yml/' + args.platform + '.yml')])
 })
 .then(() => {
   console.log('Creating %s config for %s platform using cross-browser-tests-runner settings', args.runner, args.platform)

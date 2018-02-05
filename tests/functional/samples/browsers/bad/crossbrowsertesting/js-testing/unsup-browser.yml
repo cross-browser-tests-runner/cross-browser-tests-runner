@@ -1,0 +1,5 @@
+CrossBrowserTesting:
+  JS:
+    Windows:
+      "8.1":
+        Mobile Safari:

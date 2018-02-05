@@ -1,0 +1,5 @@
+CrossBrowserTesting:
+  Selenium:
+    Windows:
+      "7 64-bit":
+        Mobile Safari:

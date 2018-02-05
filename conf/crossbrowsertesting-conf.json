@@ -24,6 +24,7 @@
         "5.1": "MblSafari5.1",
         "5.0.2": "MblSafari5.02",
         "4.0.4": "MblSafari4.0.4",
+        "11.0": "MblSafari11.0",
         "4.0.5": "MblSafari4.0.5"
       },
       "Chrome x64": {
@@ -36,6 +37,9 @@
         "57.0": "Chrome57x64",
         "58.0": "Chrome58x64",
         "59.0": "Chrome59x64",
+        "60.0": "Chrome60x64",
+        "61.0": "Chrome61x64",
+        "62.0": "Chrome62x64",
         "45.0": "Chrome45x64",
         "46.0": "Chrome46x64",
         "47.0": "Chrome47x64",
@@ -43,17 +47,14 @@
         "49.0": "Chrome49x64",
         "50.0": "Chrome50x64",
         "51.0": "Chrome51x64",
-        "60.0": "Chrome60x64",
         "39.0": "Chrome39x64",
         "40.0": "Chrome40x64",
         "41.0": "Chrome41x64",
         "42.0": "Chrome42x64",
         "43.0": "Chrome43x64",
         "44.0": "Chrome44x64",
-        "61.0": "Chrome61x64",
         "38.0": "Chrome38x64",
-        "37.0": "Chrome37x64",
-        "62.0": "Chrome62x64"
+        "37.0": "Chrome37x64"
       },
       "Firefox": {
         "@key": "browserVersion",
@@ -65,6 +66,7 @@
         "52.0": "FF52",
         "53.0": "FF53",
         "54.0": "FF54",
+        "55.0": "FF55",
         "40.0": "FF40",
         "41.0": "FF41",
         "42.0": "FF42",
@@ -109,7 +111,6 @@
         "8.0": "FF8",
         "9.0": "FF9",
         "39.0": "FF39",
-        "55.0": "FF55",
         "56.0": "FF56",
         "3.5": "FF3.5",
         "2.0.0.12": "FF2",
@@ -285,6 +286,10 @@
         "@key": "browserVersion",
         "4.3": "MblMaxthonHD4.3"
       },
+      "Blackberry Browser": {
+        "9900": "BB9900",
+        "@key": "browserVersion"
+      },
       "Chrome for iOS": {
         "@key": "browserVersion",
         "57.0": "ChromeiOS57"
@@ -297,9 +302,10 @@
         "@key": "browserVersion",
         "14.0": "OperaiOS14"
       },
-      "Blackberry Browser": {
-        "9900": "BB9900",
-        "@key": "browserVersion"
+      "IE Mobile": {
+        "@key": "browserVersion",
+        "11.0": "MblIE11",
+        "10.0": "MblIE10"
       },
       "Opera": {
         "@key": "browserVersion",
@@ -381,6 +387,10 @@
       "Mozilla": {
         "@key": "browserVersion",
         "1.7.13": "Mozilla1.7"
+      },
+      "Samsung Browser": {
+        "@key": "browserVersion",
+        "5.4": "MblSamsung5.4"
       }
     },
     "os": {
@@ -436,41 +446,43 @@
         "@key": "osVersion",
         "9.3": {
           "@key": "device",
-          "iPad Pro": "iPadPro-iOS9Sim",
-          "iPad Air 2": "iPadAir2-iOS9Sim",
-          "iPhone 6s Plus": "iPhone6sPlus-iOS9sim",
-          "iPhone 6s": "iPhone6s-iOS9sim"
+          "iPad Pro Simulator": "iPadPro-iOS9Sim",
+          "iPad Air 2 Simulator": "iPadAir2-iOS9Sim",
+          "iPhone 6s Plus Simulator": "iPhone6sPlus-iOS9sim",
+          "iPhone 6s Simulator": "iPhone6s-iOS9sim"
         },
         "8.1": {
           "@key": "device",
-          "iPad Air": "iPadAir-iOS8Sim",
-          "iPhone 6 Plus": "iPhone6Plus-iOS8sim",
-          "iPhone 6": "iPhone6-iOS8",
-          "iPad Air 2": "iPadAir2-iOS8"
+          "iPad Air Simulator": "iPadAir-iOS8Sim",
+          "iPhone 6 Plus Simulator": "iPhone6Plus-iOS8sim",
+          "iPhone 6 Simulator": "iPhone6-iOS8sim",
+          "iPad Air 2": "iPadAir2-iOS8",
+          "iPhone 6": "iPhone6-iOS8"
         },
         "7.1": {
           "@key": "device",
-          "iPad Mini Retina": "iPadMiniRetina-iOS7Sim",
-          "iPad 4": "iPad4-iOS7Sim",
-          "iPhone 5s": "iPhone5s-iOS7sim"
+          "iPad Mini Retina Simulator": "iPadMiniRetina-iOS7Sim",
+          "iPad 4 Simulator": "iPad4-iOS7Sim",
+          "iPhone 5s Simulator": "iPhone5s-iOS7sim"
         },
         "6.1": {
           "@key": "device",
-          "iPad 3": "iPad3-iOS6sim"
+          "iPad 3 Simulator": "iPad3-iOS6sim"
         },
         "10.0": {
           "@key": "device",
-          "iPhone 7 Plus": "iPhone7Plus-iOS10sim",
-          "iPhone 7": "iPhone7-iOS10sim"
-        },
-        "10.2": {
-          "@key": "device",
-          "iPad Pro": "iPadPro-iOS102Sim",
-          "iPhone 7": "iPhone7-iOS102Sim"
+          "iPhone 7 Plus Simulator": "iPhone7Plus-iOS10sim",
+          "iPhone 7 Simulator": "iPhone7-iOS10sim"
         },
         "10.1": {
           "@key": "device",
           "iPhone 7": "iPhone7-iOS10"
+        },
+        "10.2": {
+          "@key": "device",
+          "iPad Pro": "iPadPro-iOS10",
+          "iPad Pro Simulator": "iPadPro-iOS102Sim",
+          "iPhone 7 Simulator": "iPhone7-iOS102Sim"
         },
         "9.0": {
           "@key": "device",
@@ -494,7 +506,9 @@
         },
         "5.0": {
           "@key": "device",
+          "iPad 2 Simulator": "iPad2-iOS5sim",
           "iPad 2": "iPad2-iOS5",
+          "iPhone 4s Simulator": "iPhone4S-iOS5sim",
           "iPhone 4s": "iPhone4S-iOS5"
         },
         "4.3": {
@@ -506,6 +520,10 @@
           "iPad 1": "iPad1-iOS3",
           "iPhone 4": "iPhone4-iOS4",
           "iPhone 3GS": "iPhone3GS-iOS4"
+        },
+        "11.0": {
+          "@key": "device",
+          "iPhone 8 Simulator": "iPhone8-iOS11"
         },
         "8.3": {
           "@key": "device",
@@ -560,9 +578,13 @@
     }
   },
   "parameters": {
+    "build": "<string>",
+    "local": "<boolean>",
+    "test": "<string>",
+    "timeout": "<number>",
     "video": "<boolean>",
     "screenshots": "<boolean>",
-    "captureNetwork": "<boolean",
+    "captureNetwork": "<boolean>",
     "resolution": {
       "@key": "os",
       "Android": {
@@ -664,70 +686,81 @@
         "@key": "osVersion",
         "9.3": {
           "@key": "device",
-          "iPad Pro": [
+          "iPad Pro Simulator": [
             "2048x2732",
             "2732x2048"
           ],
-          "iPad Air 2": [
+          "iPad Air 2 Simulator": [
             "1536x2048",
             "2048x1536"
           ],
-          "iPhone 6s Plus": [
+          "iPhone 6s Plus Simulator": [
             "1242x2208",
             "2208x1242"
           ],
-          "iPhone 6s": [
+          "iPhone 6s Simulator": [
             "1334x750",
             "750x1334"
           ]
         },
         "8.1": {
           "@key": "device",
-          "iPad Air": [
+          "iPad Air Simulator": [
             "1536x2048",
             "2048x1536"
           ],
-          "iPhone 6 Plus": [
+          "iPhone 6 Plus Simulator": [
             "1242x2208",
             "2208x1242"
           ],
-          "iPhone 6": [
+          "iPhone 6 Simulator": [
             "1334x750",
             "750x1334"
           ],
           "iPad Air 2": [
             "1536x2048",
             "2048x1536"
+          ],
+          "iPhone 6": [
+            "1334x750",
+            "750x1334"
           ]
         },
         "7.1": {
           "@key": "device",
-          "iPad Mini Retina": [
+          "iPad Mini Retina Simulator": [
             "1536x2048",
             "2048x1536"
           ],
-          "iPad 4": [
+          "iPad 4 Simulator": [
             "1536x2048",
             "2048x1536"
           ],
-          "iPhone 5s": [
+          "iPhone 5s Simulator": [
             "1136x640",
             "640x1136"
           ]
         },
         "6.1": {
           "@key": "device",
-          "iPad 3": [
+          "iPad 3 Simulator": [
             "1536x2048",
             "2048x1536"
           ]
         },
         "10.0": {
           "@key": "device",
-          "iPhone 7 Plus": [
+          "iPhone 7 Plus Simulator": [
             "1080x1920",
             "1920x1080"
           ],
+          "iPhone 7 Simulator": [
+            "1334x750",
+            "750x1334"
+          ]
+        },
+        "10.1": {
+          "@key": "device",
           "iPhone 7": [
             "1334x750",
             "750x1334"
@@ -739,14 +772,11 @@
             "2048x2732",
             "2732x2048"
           ],
-          "iPhone 7": [
-            "1334x750",
-            "750x1334"
-          ]
-        },
-        "10.1": {
-          "@key": "device",
-          "iPhone 7": [
+          "iPad Pro Simulator": [
+            "2048x2732",
+            "2732x2048"
+          ],
+          "iPhone 7 Simulator": [
             "1334x750",
             "750x1334"
           ]
@@ -797,9 +827,17 @@
         },
         "5.0": {
           "@key": "device",
+          "iPad 2 Simulator": [
+            "1024x768",
+            "768x1024"
+          ],
           "iPad 2": [
             "1024x768",
             "768x1024"
+          ],
+          "iPhone 4s Simulator": [
+            "640x960",
+            "960x640"
           ],
           "iPhone 4s": [
             "640x960",
@@ -822,6 +860,13 @@
           ],
           "iPhone 3GS": [
             "320x480"
+          ]
+        },
+        "11.0": {
+          "@key": "device",
+          "iPhone 8 Simulator": [
+            "1334x750",
+            "750x1334"
           ]
         },
         "8.3": {
@@ -1216,22 +1261,22 @@
         "@key": "osVersion",
         "9.3": {
           "@key": "device",
-          "iPad Pro": {
+          "iPad Pro Simulator": {
             "@key": "resolution",
             "2048x2732": "portrait",
             "2732x2048": "landscape"
           },
-          "iPad Air 2": {
+          "iPad Air 2 Simulator": {
             "@key": "resolution",
             "1536x2048": "portrait",
             "2048x1536": "landscape"
           },
-          "iPhone 6s Plus": {
+          "iPhone 6s Plus Simulator": {
             "@key": "resolution",
             "1242x2208": "portrait",
             "2208x1242": "landscape"
           },
-          "iPhone 6s": {
+          "iPhone 6s Simulator": {
             "@key": "resolution",
             "750x1334": "portrait",
             "1334x750": "landscape"
@@ -1239,17 +1284,17 @@
         },
         "8.1": {
           "@key": "device",
-          "iPad Air": {
+          "iPad Air Simulator": {
             "@key": "resolution",
             "1536x2048": "portrait",
             "2048x1536": "landscape"
           },
-          "iPhone 6 Plus": {
+          "iPhone 6 Plus Simulator": {
             "@key": "resolution",
             "1242x2208": "portrait",
             "2208x1242": "landscape"
           },
-          "iPhone 6": {
+          "iPhone 6 Simulator": {
             "@key": "resolution",
             "750x1334": "portrait",
             "1334x750": "landscape"
@@ -1258,21 +1303,26 @@
             "@key": "resolution",
             "1536x2048": "portrait",
             "2048x1536": "landscape"
+          },
+          "iPhone 6": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
           }
         },
         "7.1": {
           "@key": "device",
-          "iPad Mini Retina": {
+          "iPad Mini Retina Simulator": {
             "@key": "resolution",
             "1536x2048": "portrait",
             "2048x1536": "landscape"
           },
-          "iPad 4": {
+          "iPad 4 Simulator": {
             "@key": "resolution",
             "1536x2048": "portrait",
             "2048x1536": "landscape"
           },
-          "iPhone 5s": {
+          "iPhone 5s Simulator": {
             "@key": "resolution",
             "640x1136": "portrait",
             "1136x640": "landscape"
@@ -1280,7 +1330,7 @@
         },
         "6.1": {
           "@key": "device",
-          "iPad 3": {
+          "iPad 3 Simulator": {
             "@key": "resolution",
             "1536x2048": "portrait",
             "2048x1536": "landscape"
@@ -1288,11 +1338,19 @@
         },
         "10.0": {
           "@key": "device",
-          "iPhone 7 Plus": {
+          "iPhone 7 Plus Simulator": {
             "@key": "resolution",
             "1080x1920": "portrait",
             "1920x1080": "landscape"
           },
+          "iPhone 7 Simulator": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
+          }
+        },
+        "10.1": {
+          "@key": "device",
           "iPhone 7": {
             "@key": "resolution",
             "750x1334": "portrait",
@@ -1306,15 +1364,12 @@
             "2048x2732": "portrait",
             "2732x2048": "landscape"
           },
-          "iPhone 7": {
+          "iPad Pro Simulator": {
             "@key": "resolution",
-            "750x1334": "portrait",
-            "1334x750": "landscape"
-          }
-        },
-        "10.1": {
-          "@key": "device",
-          "iPhone 7": {
+            "2048x2732": "portrait",
+            "2732x2048": "landscape"
+          },
+          "iPhone 7 Simulator": {
             "@key": "resolution",
             "750x1334": "portrait",
             "1334x750": "landscape"
@@ -1374,10 +1429,20 @@
         },
         "5.0": {
           "@key": "device",
+          "iPad 2 Simulator": {
+            "@key": "resolution",
+            "768x1024": "portrait",
+            "1024x768": "landscape"
+          },
           "iPad 2": {
             "@key": "resolution",
             "768x1024": "portrait",
             "1024x768": "landscape"
+          },
+          "iPhone 4s Simulator": {
+            "@key": "resolution",
+            "640x960": "portrait",
+            "960x640": "landscape"
           },
           "iPhone 4s": {
             "@key": "resolution",
@@ -1405,6 +1470,14 @@
           "iPhone 3GS": {
             "@key": "resolution",
             "320x480": "portrait"
+          }
+        },
+        "11.0": {
+          "@key": "device",
+          "iPhone 8 Simulator": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
           }
         },
         "8.3": {
@@ -1565,8 +1638,8 @@
             "Android Nexus 9"
           ]
         },
-        "Android Browser": {
-          "5.0": [
+        "Samsung Browser": {
+          "5.4": [
             "Android Galaxy S6"
           ]
         }
@@ -1692,11 +1765,9 @@
       },
       "4.4": {
         "Chrome Mobile": {
-          "57.0": [
-            "Android Nexus 5"
-          ],
           "61.0": [
-            "Android Galaxy Tab S"
+            "Android Galaxy Tab S",
+            "Android Nexus 5"
           ],
           "58.0": [
             "Android Galaxy Note 3"
@@ -1706,21 +1777,19 @@
           ]
         },
         "Dolphin Mobile": {
-          "11.5": [
-            "Android Galaxy Note 3",
-            "Android Nexus 5"
-          ],
           "12.0": [
             "Android Galaxy S5",
-            "Android Galaxy Tab S"
+            "Android Galaxy Tab S",
+            "Android Nexus 5"
+          ],
+          "11.5": [
+            "Android Galaxy Note 3"
           ]
         },
         "Firefox Mobile": {
-          "52.0": [
-            "Android Nexus 5"
-          ],
           "56.0": [
-            "Android Galaxy Tab S"
+            "Android Galaxy Tab S",
+            "Android Nexus 5"
           ],
           "53.0": [
             "Android Galaxy Note 3"
@@ -1730,9 +1799,11 @@
           ]
         },
         "Maxthon Mobile": {
-          "4.3": [
-            "Android Galaxy Tab S",
+          "5.0": [
             "Android Nexus 5"
+          ],
+          "4.3": [
+            "Android Galaxy Tab S"
           ],
           "4.5": [
             "Android Galaxy Note 3",
@@ -1740,12 +1811,12 @@
           ]
         },
         "Opera Mini": {
-          "24.0": [
-            "Android Galaxy Note 3",
+          "30.0": [
+            "Android Galaxy Tab S",
             "Android Nexus 5"
           ],
-          "30.0": [
-            "Android Galaxy Tab S"
+          "24.0": [
+            "Android Galaxy Note 3"
           ],
           "28.0": [
             "Android Galaxy S5"
@@ -1755,13 +1826,13 @@
           "12.1": [
             "Android Nexus 5"
           ],
-          "42.0": [
-            "Android Galaxy Note 3",
-            "Android Galaxy S5",
+          "43.0": [
+            "Android Galaxy Tab S",
             "Android Nexus 5"
           ],
-          "43.0": [
-            "Android Galaxy Tab S"
+          "42.0": [
+            "Android Galaxy Note 3",
+            "Android Galaxy S5"
           ]
         },
         "Sleipnir Mobile": {
@@ -1886,6 +1957,13 @@
       }
     },
     "iOS": {
+      "10.1": {
+        "Mobile Safari": {
+          "10.0": [
+            "iPhone 7"
+          ]
+        }
+      },
       "10.2": {
         "Chrome for iOS": {
           "57.0": [
@@ -1900,7 +1978,8 @@
         "Mobile Safari": {
           "10.0": [
             "iPad Pro",
-            "iPhone 7"
+            "iPad Pro Simulator",
+            "iPhone 7 Simulator"
           ]
         },
         "Opera Mini for iOS": {
@@ -1909,30 +1988,24 @@
           ]
         }
       },
-      "10.1": {
-        "Mobile Safari": {
-          "10.0": [
-            "iPhone 7"
-          ]
-        }
-      },
       "9.3": {
         "Mobile Safari": {
           "9.0": [
-            "iPad Air 2",
-            "iPad Pro",
-            "iPhone 6s",
-            "iPhone 6s Plus"
+            "iPad Air 2 Simulator",
+            "iPad Pro Simulator",
+            "iPhone 6s Plus Simulator",
+            "iPhone 6s Simulator"
           ]
         }
       },
       "8.1": {
         "Mobile Safari": {
           "8.0": [
-            "iPad Air",
             "iPad Air 2",
+            "iPad Air Simulator",
             "iPhone 6",
-            "iPhone 6 Plus"
+            "iPhone 6 Plus Simulator",
+            "iPhone 6 Simulator"
           ]
         },
         "Chrome Mobile": {
@@ -1955,9 +2028,9 @@
       "7.1": {
         "Mobile Safari": {
           "7.0": [
-            "iPad 4",
-            "iPad Mini Retina",
-            "iPhone 5s"
+            "iPad 4 Simulator",
+            "iPad Mini Retina Simulator",
+            "iPhone 5s Simulator"
           ]
         }
       },
@@ -2015,7 +2088,7 @@
       "6.1": {
         "Mobile Safari": {
           "6.0": [
-            "iPad 3"
+            "iPad 3 Simulator"
           ]
         }
       },
@@ -2030,7 +2103,9 @@
         "Mobile Safari": {
           "5.1": [
             "iPad 2",
-            "iPhone 4s"
+            "iPad 2 Simulator",
+            "iPhone 4s",
+            "iPhone 4s Simulator"
           ]
         }
       },
@@ -2052,11 +2127,18 @@
           ]
         }
       },
+      "11.0": {
+        "Mobile Safari": {
+          "11.0": [
+            "iPhone 8 Simulator"
+          ]
+        }
+      },
       "10.0": {
         "Mobile Safari": {
           "10.0": [
-            "iPhone 7",
-            "iPhone 7 Plus"
+            "iPhone 7 Plus Simulator",
+            "iPhone 7 Simulator"
           ]
         }
       },
@@ -2084,14 +2166,14 @@
     },
     "Windows Phone": {
       "8": {
-        "Internet Explorer": {
+        "IE Mobile": {
           "10.0": [
             "Win Phone 8 Simulator"
           ]
         }
       },
       "8.1": {
-        "Internet Explorer": {
+        "IE Mobile": {
           "11.0": [
             "Win Phone 8.1 Simulator"
           ]
@@ -4161,43 +4243,43 @@
       "9.3": {
         "Mobile Safari": {
           "9.0": [
-            "iPad Air 2",
-            "iPad Pro",
-            "iPhone 6s",
-            "iPhone 6s Plus"
+            "iPad Air 2 Simulator",
+            "iPad Pro Simulator",
+            "iPhone 6s Plus Simulator",
+            "iPhone 6s Simulator"
           ]
         }
       },
       "8.1": {
         "Mobile Safari": {
           "8.0": [
-            "iPad Air",
-            "iPhone 6",
-            "iPhone 6 Plus"
+            "iPad Air Simulator",
+            "iPhone 6 Plus Simulator",
+            "iPhone 6 Simulator"
           ]
         }
       },
       "7.1": {
         "Mobile Safari": {
           "7.0": [
-            "iPad 4",
-            "iPad Mini Retina",
-            "iPhone 5s"
+            "iPad 4 Simulator",
+            "iPad Mini Retina Simulator",
+            "iPhone 5s Simulator"
           ]
         }
       },
       "6.1": {
         "Mobile Safari": {
           "6.0": [
-            "iPad 3"
+            "iPad 3 Simulator"
           ]
         }
       },
       "10.0": {
         "Mobile Safari": {
           "10.0": [
-            "iPhone 7",
-            "iPhone 7 Plus"
+            "iPhone 7 Plus Simulator",
+            "iPhone 7 Simulator"
           ]
         }
       }
@@ -4212,7 +4294,10 @@
           "56.0": [],
           "57.0": [],
           "58.0": [],
-          "59.0": []
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
         },
         "Firefox": {
           "47.0": [],
@@ -4222,7 +4307,8 @@
           "51.0": [],
           "52.0": [],
           "53.0": [],
-          "54.0": []
+          "54.0": [],
+          "55.0": []
         },
         "Safari": {
           "10.0": []
@@ -4244,7 +4330,9 @@
           "56.0": [],
           "57.0": [],
           "58.0": [],
-          "59.0": []
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
         },
         "Firefox": {
           "40.0": [],
@@ -4261,7 +4349,8 @@
           "51.0": [],
           "52.0": [],
           "53.0": [],
-          "54.0": []
+          "54.0": [],
+          "55.0": []
         },
         "Safari": {
           "9.0": []
@@ -4279,7 +4368,8 @@
           "57.0": [],
           "58.0": [],
           "59.0": [],
-          "60.0": []
+          "60.0": [],
+          "61.0": []
         },
         "Firefox": {
           "37.0": [],
@@ -4298,7 +4388,8 @@
           "51.0": [],
           "52.0": [],
           "53.0": [],
-          "54.0": []
+          "54.0": [],
+          "55.0": []
         },
         "Safari": {
           "8.0": []
@@ -4343,7 +4434,9 @@
           "56.0": [],
           "57.0": [],
           "58.0": [],
-          "59.0": []
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
         },
         "Firefox": {
           "10.0": [],

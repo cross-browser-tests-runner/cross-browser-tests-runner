@@ -3,7 +3,8 @@
 var
   chai = require('chai'),
   chaiAsPromised = require('chai-as-promised'),
-  fs = require('fs'),
+  Bluebird = require('bluebird'),
+  fs = Bluebird.promisifyAll(require('fs')),
   path = require('path'),
   Promise = require('bluebird'),
   ps = require('ps-node'),
@@ -41,14 +42,15 @@ describe('Process', function() {
     if(!Env.isWindows) {
       it('should fail to start the tunnel process if the tunnel executable binary did not have execute permissions', function() {
         proc = new Process()
-        fs.chmodSync(ArchiveVars.binary, '0400')
-        return proc.create(ArchiveVars.binary, [ ])
+        return fs.chmodAsync(ArchiveVars.binary, '0400')
+        .then(() => {
+          return proc.create(ArchiveVars.binary, [ ])
+        })
         .catch(error => {
           if(error && (!error.message || !error.message.match(/spawn EACCES/))) {
             utils.log.error(error)
           }
-          fs.chmodSync(ArchiveVars.binary, '0755')
-          return true
+          return fs.chmodAsync(ArchiveVars.binary, '0755')
         })
         .catch(err => {
           utils.log.error('error: ', err)

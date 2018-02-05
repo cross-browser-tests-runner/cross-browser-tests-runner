@@ -1,0 +1,91 @@
+{
+  "parallel": 4,
+  "browser_start_timeout" : 90,
+  "framework": "jasmine",
+  "on_start": {
+    "command": "node ./bin/hooks/testem/crossbrowsertesting/open.js --local",
+    "wait_for_text": "opened testem/crossbrowsertesting",
+    "wait_for_text_timeout": 60000
+  },
+  "on_exit": "node ./bin/hooks/testem/crossbrowsertesting/close.js",
+  "launchers": {
+    "chrome": {
+      "exe": "node",
+      "args": [
+        "./bin/hooks/testem/crossbrowsertesting/browser.js",
+        "--os", "Windows",
+        "--osVersion", "10",
+        "--browser", "Chrome",
+        "--browserVersion", "55.0",
+        "--timeout", "90",
+        "--build", "testem-build",
+        "--project", "cross-browser-tests-runner/cross-browser-tests-runner",
+        "--test", "testem-test-id",
+        "--screenshots", "--video",
+        "--local"
+      ],
+      "protocol": "browser"
+    },
+    "firefox": {
+      "exe": "node",
+      "args": [
+        "./bin/hooks/testem/crossbrowsertesting/browser.js",
+        "--os", "Windows",
+        "--osVersion", "8.1",
+        "--browser", "Firefox",
+        "--browserVersion", "43.0",
+        "--timeout", "90",
+        "--build", "testem-build",
+        "--project", "cross-browser-tests-runner/cross-browser-tests-runner",
+        "--test", "testem-test-id",
+        "--screenshots", "--video",
+        "--local"
+      ],
+      "protocol": "browser"
+    },
+    "safari": {
+      "exe": "node",
+      "args": [
+        "./bin/hooks/testem/crossbrowsertesting/browser.js",
+        "--os", "OS X",
+        "--osVersion", "High Sierra",
+        "--browser", "Safari",
+        "--browserVersion", "11.0",
+        "--timeout", "90",
+        "--build", "testem-build",
+        "--project", "cross-browser-tests-runner/cross-browser-tests-runner",
+        "--test", "testem-test-id",
+        "--screenshots", "--video",
+        "--local"
+      ],
+      "protocol": "browser"
+    },
+    "ie": {
+      "exe": "node",
+      "args": [
+        "./bin/hooks/testem/crossbrowsertesting/browser.js",
+        "--os", "Windows",
+        "--osVersion", "8.1",
+        "--browser", "Internet Explorer",
+        "--browserVersion", "11.0",
+        "--timeout", "90",
+        "--build", "testem-build",
+        "--project", "cross-browser-tests-runner/cross-browser-tests-runner",
+        "--test", "testem-test-id",
+        "--screenshots", "--video",
+        "--local"
+      ],
+      "protocol": "browser"
+    }
+  },
+  "launch_in_ci": [
+    "chrome",
+    "firefox",
+    "safari",
+    "ie"
+  ],
+  "src_files": [
+    "./tests/functional/code/src/app.js",
+    "./tests/functional/code/tests/jasmine/js/test-ok.js"
+  ]
+}
