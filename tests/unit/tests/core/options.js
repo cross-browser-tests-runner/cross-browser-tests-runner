@@ -49,7 +49,7 @@ describe('Options', function() {
 
     it('should convert Object type input parameter to hyphen-separated-lowercase hierarchially', function() {
       options = new Options(VARS.allowedOptions)
-      var args = options.process({ proxy : { host : '127.0.0.1', port : 2301 } })
+      var args = options.process({ proxy : { host : 'build.cross-browser-tests-runner.org', port : 2301 } })
       expect(args.indexOf('--proxy-host')).to.not.equal(-1)
       expect(args.indexOf('--proxy-port')).to.not.equal(-1)
       expect(args.indexOf('--proxy')).to.equal(-1)
@@ -59,7 +59,7 @@ describe('Options', function() {
 
     it('should convert non-String type values to String type values', function() {
       options = new Options(VARS.allowedOptions)
-      var args = options.process({ proxy : { host : '127.0.0.1', port : 2301 }, verbose: 3 })
+      var args = options.process({ proxy : { host : 'build.cross-browser-tests-runner.org', port : 2301 }, verbose: 3 })
       expect(args.indexOf('2301')).to.not.equal(-1)
       expect(args.indexOf('3')).to.not.equal(-1)
     })

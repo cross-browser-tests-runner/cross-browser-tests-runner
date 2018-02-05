@@ -9,29 +9,41 @@ node_js:
   - "4.8"
 
 env:
-  - CBTR_TEST="functional-tests" TEST_TYPE="functional"
-  - CBTR_TEST="integration-tests" TEST_TYPE="integration"
-  - CBTR_TEST="eslint-unit-tests-1" TEST_TYPE="unit"
-  - CBTR_TEST="unit-tests-2" TEST_TYPE="unit"
-  - CBTR_TEST="unit-tests-3a" TEST_TYPE="unit"
-  - CBTR_TEST="unit-tests-3b" TEST_TYPE="unit"
+  - TEST="eslint-non-3rd-party" TYPE="unit"
+  - TEST="browserstack-tunnel" TYPE="unit"
+  - TEST="saucelabs-tunnel" TYPE="unit"
+  - TEST="core-scriptjob" TYPE="unit"
+  - TEST="browserstack-scriptjob" TYPE="unit"
+  - TEST="saucelabs-scriptjob" TYPE="unit"
+  - TEST="browserstack-job" TYPE="unit"
+  - TEST="saucelabs-job" TYPE="unit"
+  - TEST="browserstack-platform" TYPE="unit"
+  - TEST="saucelabs-platform" TYPE="unit"
+  - TEST="integration-tests" TYPE="integration"
+  - TEST="utils-tests" TYPE="functional"
+  - TEST="testem" TYPE="functional"
+  - TEST="native-runner" TYPE="functional"
 
 branches:
   only:
   - master
 
 before_script:
-  - if [ "unit" == "$TEST_TYPE" ]; then ./tests/unit/utils/static-srv.js & fi
-  - if [ "unit" == "$TEST_TYPE" ]; then ./tests/unit/utils/wait.js & fi
-  - if [ "functional" == "$TEST_TYPE" ]; then ./node_modules/.bin/istanbul instrument tests/functional/code/src/app.js > tests/functional/code/src/app.inst.js; fi
-  - if [ "unit" != "$TEST_TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js & fi
-  - if [ "unit" != "$TEST_TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js -- --native-runner --config tests/integration/conf/native/cbtr.json & fi
+  - if [ "unit" == "$TYPE" ]; then ./tests/unit/utils/static-srv.js & fi
+  - if [ "unit" == "$TYPE" ]; then ./tests/unit/utils/wait.js & fi
+  - if [ "functional" == "$TYPE" ]; then ./node_modules/.bin/istanbul instrument tests/functional/code/src/app.js > tests/functional/code/src/app.inst.js; fi
+  - if [ "unit" != "$TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js & fi
+  - if [ "unit" != "$TYPE" ]; then ./node_modules/.bin/istanbul cover --handle-sigint --include-pid ./bin/server/server.js -- --native-runner --config tests/integration/conf/native/cbtr.json & fi
 
 script:
-  - npm run $CBTR_TEST
+  - npm run $TEST
 
 after_script:
-  - if [ "unit" != "$TEST_TYPE" ]; then for server in `ps auxwww | grep "bin/server/server.js" | grep -v grep | awk '{print $2}'`; do kill -INT $server; sleep 2; done; fi
+  - if [ "unit" != "$TYPE" ]; then for server in `ps auxwww | grep "bin/server/server.js" | grep -v grep | awk '{print $2}'`; do kill -INT $server; sleep 2; done; fi
   - ./node_modules/.bin/istanbul report
   - npm run codecov-upload
   - npm run coveralls-upload
+
+addons:
+  hosts:
+    - build.cross-browser-tests-runner.org

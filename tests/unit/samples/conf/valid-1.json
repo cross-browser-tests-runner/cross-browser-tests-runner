@@ -1,0 +1,955 @@
+{
+  "conversions": {
+    "os": {
+      "Android": "android",
+      "Windows Phone": "winphone",
+      "iOS": "ios"
+    },
+    "browser": {
+      "Android Browser": {
+        "@key": "TestType",
+        "Selenium": "android"
+      },
+      "Chrome": "chrome",
+      "Edge": "edge",
+      "Firefox": "firefox",
+      "Internet Explorer": "ie",
+      "Mobile Safari": {
+        "@key": "TestType",
+        "Selenium": {
+          "@key": "device",
+          "iPad 2 (5.0)": "ipad",
+          "iPad 3rd": "ipad",
+          "iPhone 4S": "iphone",
+          "iPad 3rd (6.0)": "ipad",
+          "iPhone 4S (6.0)": "iphone",
+          "iPhone 5": "iphone",
+          "iPad Mini": "ipad",
+          "iPad 4th": "ipad",
+          "iPhone 5S": "iphone",
+          "iPad Mini 2": "ipad",
+          "iPad Air": "ipad",
+          "iPhone 6": "iphone",
+          "iPhone 6 Plus": "iphone",
+          "iPad Air 2": "ipad",
+          "iPad Mini 4": "ipad",
+          "iPad Pro": "ipad",
+          "iPhone 6S": "iphone",
+          "iPhone 6S Plus": "iphone",
+          "iPhone 7": "iphone",
+          "iPhone 7 Plus": "iphone"
+        }
+      },
+      "Opera": "opera",
+      "Safari": "safari",
+      "Yandex": "yandex",
+      "Dummy": 123,
+      "NullKeyRule": {
+        "@key": null
+      }
+    }
+  },
+  "parameters": {
+    "resolution": {
+      "@if": {
+        "os": [
+          "Windows",
+          "OS X"
+        ]
+      },
+      "@key": "os",
+      "Windows": {
+        "7": "#set1",
+        "8": "#set2",
+        "10": "#set2",
+        "@key": "osVersion",
+        "XP": "#set1",
+        "#set1": [
+          "800x600",
+          "1024x768",
+          "1280x800",
+          "1280x1024",
+          "1366x768",
+          "1440x900",
+          "1680x1050",
+          "1600x1200",
+          "1920x1200",
+          "1920x1080",
+          "2048x1536"
+        ],
+        "8.1": "#set2",
+        "#set2": [
+          "1024x768",
+          "1280x800",
+          "1280x1024",
+          "1366x768",
+          "1440x900",
+          "1680x1050",
+          "1600x1200",
+          "1920x1200",
+          "1920x1080",
+          "2048x1536"
+        ]
+      },
+      "OS X": [
+        "1024x768",
+        "1280x960",
+        "1280x1024",
+        "1600x1200",
+        "1920x1080"
+      ]
+    },
+    "seleniumVersion": {
+      "@values": [
+        "2.37.0",
+        "2.40.0",
+        "2.41.0",
+        "2.42.2",
+        "2.43.1",
+        "2.44.0",
+        "2.45.0",
+        "2.46.0",
+        "2.47.1",
+        "2.48.2",
+        "2.49.0",
+        "2.50.0",
+        "2.51.0",
+        "2.52.0",
+        "2.53.0",
+        "2.53.1",
+        "3.0.0-beta1",
+        "3.0.0-beta2",
+        "3.0.0",
+        "3.0.1",
+        "3.1.0",
+        "3.2.0",
+        "3.3.0",
+        "3.3.1",
+        "3.4.0",
+        "3.5.2"
+      ],
+      "@restrict": {
+        "@key": "os",
+        "OS X": {
+          "@key": "osVersion",
+          "Snow Leopard": "< '2.47.1'"
+        }
+      }
+    },
+    "appiumVersion": {
+      "@values": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.5",
+        "1.7.0"
+      ],
+      "@restrict": {
+        "@key": "os",
+        "iOS": "1.7.0"
+      }
+    },
+    "orientation": {
+      "@if": {
+        "device": "!== null"
+      },
+      "@values": [
+        "portrait",
+        "landscape"
+      ],
+      "@restrict": {
+        "@key": "os",
+        "iOS": {
+          "@values": [ "portrait" ]
+        }
+      }
+    },
+    "local": "!== false",
+    "localIdentifier": "<string>",
+    "screenshots": "<boolean>",
+    "captureNetwork": {
+      "@if": {
+        "browser": "<string>"
+      },
+      "@values": "<boolean>"
+    },
+    "captureConsole": {
+      "@if": {
+        "browser": "Chrome"
+      },
+      "@values": [
+        "disable",
+        "errors",
+        "warnings",
+        "info",
+        "verbose"
+      ],
+      "@restrict": [ 1 ]
+    },
+    "video": true,
+    "isPhysicalDevice": {
+      "@if": {
+        "device": "!== null"
+      },
+      "@key": "device",
+      "iPhone 7": "<boolean>",
+      "iPhone 7 Plus": "<boolean>",
+      "Samsung Galaxy Tab 4": "<boolean>",
+      "Google Nexus 5": "<boolean>",
+      "Samsung Galaxy Note 4": "<boolean>",
+      "Samsung Galaxy S7": "<boolean>",
+      "Motorola Moto X 2nd Gen": "<boolean>",
+      "Google Nexus 6": "<boolean>",
+      "Google Nexus": "<boolean>",
+      "Google Nexus 9": "<boolean>",
+      "Samsung Galaxy S8": "<boolean>",
+      "Samsung Galaxy S8 Plus": "<boolean>",
+      "Samsung Galaxy S6": "<boolean>",
+      "Google Pixel": "<boolean>",
+      "Samsung Galaxy Note": "<boolean>",
+      "Samsung Galaxy S": "<boolean>"
+    },
+    "ieNoFlash": "#iebool",
+    "iePopups": "#iebool",
+    "#iebool": {
+      "@if": {
+        "browser": "#value1"
+      },
+      "@values": "<boolean>"
+    },
+    "ieCompat": {
+      "@if": {
+        "browser": "Internet Explorer"
+      },
+      "@values": [
+        11001,
+        11000,
+        10001,
+        10000,
+        9999,
+        9000,
+        8888,
+        8000,
+        7000,
+        false
+      ],
+      "@restrict": {
+        "@key": "browserVersion",
+        "10": "<boolean>"
+      }
+    },
+    "ieDriver": {
+      "@if": {
+        "browser": "Internet Explorer"
+      },
+      "@key": "osVersion",
+      "6.0": [
+        "2.21",
+        "2.22",
+        "2.23",
+        "2.24",
+        "2.25",
+        "2.26",
+        "2.27",
+        "2.28",
+        "2.29",
+        "2.30",
+        "2.31",
+        "2.32",
+        "2.34",
+        "2.37",
+        "2.38",
+        "2.39",
+        "2.40",
+        "2.41",
+        "2.44",
+        "2.45",
+        "2.46"
+      ],
+      "7.0": "#set1",
+      "8.0": "#set1",
+      "9.0": "#set1",
+      "#set1": [
+        "2.21",
+        "2.22",
+        "2.23",
+        "2.24",
+        "2.25",
+        "2.26",
+        "2.27",
+        "2.28",
+        "2.29",
+        "2.30",
+        "2.31",
+        "2.32",
+        "2.34",
+        "2.37",
+        "2.38",
+        "2.39",
+        "2.40",
+        "2.41",
+        "2.44",
+        "2.45",
+        "2.46",
+        "2.47",
+        "2.48",
+        "2.49",
+        "2.50",
+        "2.51",
+        "2.52",
+        "2.52.2",
+        "2.53",
+        "2.53.1"
+      ],
+      "10.0": "#set2",
+      "11.0": "#set2",
+      "#set2": [
+        "2.37",
+        "2.39",
+        "2.40",
+        "2.41",
+        "2.44",
+        "2.45",
+        "2.46",
+        "2.47",
+        "2.48",
+        "2.49",
+        "2.50",
+        "2.51",
+        "2.52",
+        "2.52.2",
+        "2.53",
+        "2.53.1"
+      ]
+    },
+    "edgePopups": {
+      "@if": {
+        "browser": {
+          "@values": "Edge"
+        }
+      },
+      "@values": "<boolean>"
+    },
+    "safariPopups": "#safaribool",
+    "safariAllCookies": "#safaribool",
+    "#safaribool": {
+      "@if": {
+        "||" : [{
+          "browser": "Safari"
+        },{
+          "device": "abc"
+        }]
+      },
+      "@values": "<boolean>"
+    },
+    "safariDriver": {
+      "@if": {
+        "&&": { "browser": "Safari" }
+      },
+      "@values": [
+        "2.45",
+        "2.48"
+      ]
+    },
+    "geckoDriver": {
+      "@if": {
+        "&&": [{
+          "browser": "Firefox"
+        },{
+          "seleniumVersion": "> '3.0'"
+        }]
+      },
+      "@values": [
+        "0.10.0",
+        "0.15.0",
+        "0.16.0",
+        "0.18.0"
+      ],
+      "@restrict": {
+        "@key": "seleniumVersion",
+        "3.3.1": "0.15.0",
+        "3.0.0": "0.10.0",
+        "3.0.1": "0.10.0",
+        "3.1.0": "0.10.0",
+        "3.2.0": "0.10.0",
+        "3.3.0": "0.10.0"
+      }
+    },
+    "resolution_1": {
+      "@if": {
+        "||": [
+          {
+            "os": "OS X"
+          },
+          {
+            "os": "Windows"
+          }
+        ]
+      },
+      "@key": "os",
+      "Windows": {
+        "7": [
+          "800x600",
+          "1024x768",
+          "1152x864",
+          "1280x768",
+          "1280x800",
+          "1280x960",
+          "1280x1024",
+          "1440x900",
+          "1600x1200",
+          "1680x1050",
+          "1920x1080",
+          "1920x1200",
+          "2560x1600"
+        ],
+        "8": "#set1",
+        "10": "#set1",
+        "@key": "osVersion",
+        "8.1": "#set1",
+        "#set1": [
+          "800x600",
+          "1024x768",
+          "1152x864",
+          "1280x768",
+          "1280x800",
+          "1280x960",
+          "1280x1024",
+          "1400x1050",
+          "1440x900",
+          "1600x1200",
+          "1680x1050",
+          "1920x1080",
+          "1920x1200",
+          "2560x1600"
+        ]
+      },
+      "OS X": {
+        "@key": "osVersion",
+        "Sierra": [
+          "1024x768",
+          "1152x864",
+          "1280x960",
+          "1376x1032",
+          "1400x1050",
+          "1600x1200",
+          "1920x1440",
+          "2048x1536",
+          "2360x1770"
+        ],
+        "El Capitan": [
+          "1024x768",
+          "1152x864",
+          "1280x960",
+          "1376x1032",
+          "1600x1200",
+          "1920x1440",
+          "2048x1536"
+        ],
+        "Yosemite": [
+          "800x600",
+          "1024x768",
+          "1152x720",
+          "1152x864",
+          "1152x900",
+          "1280x720",
+          "1280x768",
+          "1280x800",
+          "1280x960",
+          "1280x1024",
+          "1376x1032",
+          "1440x900",
+          "1600x900",
+          "1600x1200",
+          "1680x1050",
+          "1920x1080",
+          "1920x1200",
+          "1920x1440",
+          "2048x1152",
+          "2048x1536"
+        ],
+        "Mavericks": [
+          "800x600",
+          "1024x768",
+          "1152x720",
+          "1152x864",
+          "1152x900",
+          "1280x720",
+          "1280x768",
+          "1280x800",
+          "1280x960",
+          "1280x1024",
+          "1376x1032",
+          "1440x900",
+          "1600x900",
+          "1600x1200",
+          "1680x1050",
+          "1920x1080",
+          "1920x1200",
+          "2048x1152",
+          "2048x1536"
+        ]
+      }
+    },
+    "seleniumVersion_1": {
+      "@values": "<string>",
+      "@restrict": {
+        "@if": {
+          "&&": [
+            {
+              "||": [
+                {
+                  "&&": [
+                    {
+                      "browser": "!== 'Chrome'"
+                    },
+                    {
+                      "browser": "!== 'Firefox'"
+                    }
+                  ]
+                },
+                {
+                  "&&": [
+                    {
+                      "os": "!== 'Windows'"
+                    },
+                    {
+                      "os": "!== 'OS X'"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "||": [
+                {
+                  "browser": "!== 'Safari'"
+                },
+                {
+                  "browserVersion": "!== '10.0'"
+                },
+                {
+                  "os": "!== 'OS X'"
+                },
+                {
+                  "osVersion": "!== 'Sierra'"
+                }
+              ]
+            },
+            {
+              "||": [
+                {
+                  "&&": [
+                    {
+                      "browser": "!== 'Internet Explorer'"
+                    },
+                    {
+                      "browser": "!== 'Edge'"
+                    }
+                  ]
+                },
+                {
+                  "browserVersion": "< '10.0'"
+                }
+              ]
+            }
+          ]
+        },
+        "@values": "< '3.0.0'"
+      }
+    },
+    "appiumVersion_1": {
+      "@key": "device",
+      "iPhone 5s Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone X Simulator": [
+        "1.7.1"
+      ],
+      "iPhone SE Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPad Air Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 6s Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPad Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPad Pro (12.9 inch) Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPad Air 2 Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 6s Plus Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 7 Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 6 Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 5 Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 7 Plus Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 8 Plus Simulator": [
+        "1.7.1"
+      ],
+      "iPhone Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 6 Plus Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 8 Simulator": [
+        "1.7.1"
+      ],
+      "iPad Pro (9.7 inch) Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "iPhone 4s Simulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5"
+      ],
+      "iPad Pro Simulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5"
+      ],
+      "iPad 2 Simulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5"
+      ],
+      "iPad Retina Simulator": [
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Google Nexus 7 HD Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "LG Nexus 4 GoogleAPI Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Samsung Galaxy Nexus GoogleAPI Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Samsung Galaxy S3 Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Android GoogleAPI Emulator": [
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Samsung Galaxy S4 Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Samsung Galaxy S4 GoogleAPI Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Amazon Kindle Fire HD 8.9 Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Google Nexus 7C Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "LG Nexus 4 Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Samsung Galaxy S3 GoogleAPI Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Android Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Amazon Kindle Fire HD 8.9 GoogleAPI Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Google Nexus 7C GoogleAPI Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Samsung Galaxy Nexus Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ],
+      "Google Nexus 7 HD GoogleAPI Emulator": [
+        "1.4.16",
+        "1.5.3",
+        "1.6.3",
+        "1.6.4",
+        "1.6.5",
+        "1.7.1"
+      ]
+    },
+    "chromeDriver": {
+      "@if": {
+        "browser": "Chrome"
+      },
+      "@values": [
+        "21.0.1180.0",
+        "23.0.1240.0",
+        "26.0.1383.0",
+        "0.6",
+        "0.7",
+        "0.8",
+        "0.9",
+        "2.0",
+        "2.1",
+        "2.2",
+        "2.3",
+        "2.4",
+        "2.5",
+        "2.6",
+        "2.7",
+        "2.8",
+        "2.9",
+        "2.10",
+        "2.11",
+        "2.12",
+        "2.13",
+        "2.14",
+        "2.15",
+        "2.20",
+        "2.21",
+        "2.22",
+        "2.23",
+        "2.24",
+        "2.26",
+        "2.27",
+        "2.28",
+        "2.29",
+        "2.30",
+        "2.31",
+        "2.32"
+      ]
+    },
+    "ieDriver_1": {
+      "@if": {
+        "browser": "Internet Explorer"
+      },
+      "@values": [
+        "2.21.1",
+        "2.21.2",
+        "2.24.0",
+        "2.25.3",
+        "2.26.0",
+        "2.28.0",
+        "2.29.0",
+        "2.30.1",
+        "2.31.0",
+        "2.32.2",
+        "2.33.0",
+        "2.34.0",
+        "2.35.0",
+        "2.35.1",
+        "2.35.2",
+        "2.35.3",
+        "2.36.0",
+        "2.37.0",
+        "2.38.0",
+        "2.39.0",
+        "2.40.0",
+        "2.41.0",
+        "2.42.0",
+        "2.43.0",
+        "2.44.0",
+        "2.45.0",
+        "2.46.0",
+        "2.48.0",
+        "2.49.0",
+        "2.50.0",
+        "2.51.0",
+        "2.52.0",
+        "2.52.1",
+        "2.52.2",
+        "2.53.0",
+        "2.53.1",
+        "3.0.0",
+        "3.1.0",
+        "3.2.0",
+        "3.3.0",
+        "3.4.0",
+        "x64_2.29.0",
+        "x64_2.39.0",
+        "x64_2.40.0",
+        "x64_2.41.0",
+        "x64_2.42.0",
+        "x64_2.43.0",
+        "x64_2.44.0",
+        "x64_2.45.0",
+        "x64_2.46.0",
+        "x64_2.48.0"
+      ]
+    },
+    "deviceType": {
+      "@values": [
+        "tablet",
+        "phone"
+      ]
+    },
+    "orientation_1": {
+      "@if": {
+        "device": "!== null"
+      },
+      "@values": [
+        "portrait",
+        "landscape"
+      ]
+    },
+    "parentTunnel": "<string>",
+    "videoUploadOnPass": "<boolean>",
+    "automationEngine": {
+      "@if": {
+        "device": "!== null"
+      },
+      "@values": [
+        "Appium",
+        "Selendroid"
+      ]
+    },
+    "autoAcceptAlerts": {
+      "@if": {
+        "&&": [{
+          "os": "iOS"
+        }, 
+          "xyz"
+        ]
+      },
+      "@values": "<boolean>"
+    },
+    "priority": "<number>",
+    "captureLogs": "<boolean>",
+    "captureHtml": "<boolean>",
+    "noServerFailureScreenshots": "<boolean>"
+  }
+}

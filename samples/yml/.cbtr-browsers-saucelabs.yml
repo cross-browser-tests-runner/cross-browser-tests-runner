@@ -1,0 +1,28 @@
+SauceLabs:
+  JS:
+    Windows:
+      "7":
+        Chrome:
+          "32.0-36.0, 26.0":
+            resolution: 1440x900
+    OS X:
+      Sierra:
+        Safari:
+          11.0:
+            resolution: 2048x1536
+    iOS:
+      "10.3":
+        iPad Air 2 Simulator, iPhone 5 Simulator:
+          orientation: portrait
+  Selenium:
+    OS X:
+      Mavericks:
+        Firefox:
+          "23.0-31.0, 36.0":
+            resolution: 1600x1200
+    Android:
+      "5.0":
+        Android Browser:
+          Android Emulator:
+            deviceType: tablet
+            orientation: landscape

@@ -1,5 +1,5 @@
 BrowserStack:
   JS:
     Windows:
-      7:
+      "7":
         Mobile Safari:

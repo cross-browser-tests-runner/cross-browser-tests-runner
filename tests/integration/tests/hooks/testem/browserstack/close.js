@@ -80,7 +80,7 @@ describe('close.js', function() {
     var proc = new Process(), tried = false, build = utils.buildDetails(), out = ''
     return proc.create('node',
       utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/browser.js', [
-        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://www.piaxis.tech"
+        "--os", "Windows", "--osVersion", "XP", "--browser", "Chrome", "--browserVersion", "31.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://www.piaxis.tech"
       ]), {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {

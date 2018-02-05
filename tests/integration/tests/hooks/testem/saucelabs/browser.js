@@ -67,7 +67,7 @@ describe('browser.js', function() {
     })
     .then(() => {
       expect(out).to.contain('failed to create test - StatusCodeError: 400')
-      expect(out).to.contain('required option os missing')
+      expect(out).to.contain('required option browser missing')
       return true
     })
     .catch(err => {
@@ -81,20 +81,10 @@ describe('browser.js', function() {
     var proc = new Process(), out = '', tried = false
     return proc.create('node',
       utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
-        "--os", "Windows", "--osVersion", "None", "--browser", "firefox", "--browserVersion", "43.0", "http://www.piaxis.tech"
+        "--os", "Windows", "--osVersion", "None", "--browser", "Firefox", "--browserVersion", "43.0", "http://www.piaxis.tech"
       ]), {
       onstdout: function(stdout) {
-        if(!tried && stdout.match(/created test/)) {
-          // this happens in the cases where job creation does not actually fail
-          // as the first JS test status call does not get the 'test error' response
-          // in which case we create the Job and all later APIs - status, stop etc.
-          // take care of such construction. here not expecting the job creation
-          // blocks this test and errors the builds (not seen locally because of
-          // timing differences between our network and travis' network, and also
-          // started seeing this locally with a higher internet speed)
-          tried = true
-          proc.stop()
-        }
+        // do nothing
       },
       onstderr: function(stderr) {
         if(!stderr.match(/=======================================/) &&
@@ -109,7 +99,7 @@ describe('browser.js', function() {
     .then(() => {
       if(out) {
         expect(out).to.contain('failed to create test - StatusCodeError: 400')
-        expect(out).to.contain('failed to create test - StatusCodeError: 400 - {"error":"Platforms.SauceLabs.Job: job could not be created due to bad input, response is {\\"completed\\":false,\\"js tests\\":[{\\"status\\":\\"test error\\",\\"platform\\":[\\"Windows None\\",\\"firefox\\",\\"43.0\\"]')
+        expect(out).to.contain('invalid osVersion \\"None\\" for os \\"Windows\\"')
       }
       return true
     })
@@ -120,43 +110,48 @@ describe('browser.js', function() {
     .should.be.fulfilled
   })
 
-  it('should create a test and then stop run and cleanly exit when killed', function() {
-    var proc = new Process(), tried = false, build = utils.buildDetails()
-    return proc.create('node',
-      utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
-        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "--framework", "custom", "http://127.0.0.1:3000/tests/pages/tests.html"
-      ]), {
-      onstdout: function(stdout) {
-        if(!tried && stdout.match(/created test/)) {
-          tried = true
-          proc.stop()
-        }
-      }
-    })
-    .catch(err => {
-      utils.log.error('error: ', err)
-      throw err
-    })
-    .should.be.fulfilled
-  })
+  if(process.version > 'v6') {
 
-  it('should create a test and then stop run after taking screenshots, if required, and cleanly exit when killed', function() {
-    var proc = new Process(), tried = false, build = utils.buildDetails()
-    return proc.create('node',
-      utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
-        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "--screenshots", "--video", "--framework", "custom", "http://127.0.0.1:3000/tests/pages/tests.html"
-      ]), {
-      onstdout: function(stdout) {
-        if(!tried && stdout.match(/created test/)) {
-          tried = true
-          proc.stop()
+    it('should create a test and then stop run and cleanly exit when killed', function() {
+      var proc = new Process(), tried = false, build = utils.buildDetails()
+      return proc.create('node',
+        utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
+          "--os", "OS X", "--osVersion", "Sierra", "--browser", "Chrome", "--browserVersion", "52.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html"
+        ]), {
+        onstdout: function(stdout) {
+          if(!tried && stdout.match(/created test/)) {
+            tried = true
+            proc.stop()
+          }
         }
-      }
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .catch(err => {
-      utils.log.error('error: ', err)
-      throw err
+
+    it('should create a test and then stop run after taking screenshots, if required, and cleanly exit when killed', function() {
+      var proc = new Process(), tried = false, build = utils.buildDetails()
+      return proc.create('node',
+        utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
+          "--os", "Windows", "--osVersion", "7", "--browser", "Firefox", "--browserVersion", "37.0", "--build", build.build, "--test", build.test, "--project", build.project, "--screenshots", "--video", "http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html"
+        ]), {
+        onstdout: function(stdout) {
+          if(!tried && stdout.match(/created test/)) {
+            tried = true
+            proc.stop()
+          }
+        }
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .should.be.fulfilled
-  })
+
+  }
+
 })

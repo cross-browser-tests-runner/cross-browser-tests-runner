@@ -1,0 +1,6 @@
+SauceLabs:
+  JS:
+    iOS:
+      "10.3":
+        iPhone 7 Simulator:
+          isPhysicalDevice: true

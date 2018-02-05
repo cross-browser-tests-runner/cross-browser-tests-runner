@@ -1,8 +1,9 @@
 BrowserStack:
   JS:
     Windows:
-      7:
+      "7":
         Chrome:
-          - 32.0-36.0
-          - "23.0"
-        Firefox: "41.0"
+          "32.0-36.0, 23.0":
+            resolution: 1280x800
+        Firefox:
+          "41.0":

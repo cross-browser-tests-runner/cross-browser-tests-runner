@@ -13,8 +13,7 @@ const
       },
       SauceLabs: {
         local: true,
-        timeout: 120,
-        framework: 'custom'
+        timeout: 120
       }
     },
     parallel: {

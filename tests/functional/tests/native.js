@@ -59,7 +59,7 @@ describe('Native Runner', function() {
   }
 
   it('should ignore bad POST requests to /cbtr/run endpoint', function() {
-    var proc = new Process(), out = '', host = 'http://127.0.0.1:8000'
+    var proc = new Process(), out = '', host = 'http://build.cross-browser-tests-runner.org:8000'
     return proc.create(
       'node',
       utils.nodeProcCoverageArgs('bin/server/server.js', [
@@ -247,7 +247,7 @@ describe('Native Runner', function() {
       if(!out.match(/✓.*should return the product of two numbers/)) {
         utils.log.warn('no product tests were run')
       }
-      if(!out.match(/browser Android Browser Amazon Kindle Fire HD 8.9 android 4.0 for url http:\/\/127.0.0.1:8000\/tests\/functional\/code\/tests\/jasmine\/html\/tests.html did not respond with results/)) {
+      if(!out.match(/browser Android Browser Amazon Kindle Fire HD 8.9 Android 4.0 for url http:\/\/build\.cross\-browser\-tests\-runner\.org:8000\/tests\/functional\/code\/tests\/jasmine\/html\/tests.html did not respond with results/)) {
         utils.log.warn('expected Android device to not respond and time out')
       }
       return true
@@ -285,7 +285,7 @@ describe('Native Runner', function() {
       if(!out.match(/✓.*should return the product of two numbers/)) {
         utils.log.warn('no product tests were run')
       }
-      if(!out.match(/browser Android Browser Amazon Kindle Fire HD 8.9 android 4.0 for url http:\/\/127.0.0.1:8000\/tests\/functional\/code\/tests\/jasmine\/html\/tests-ok.html did not respond with results/)) {
+      if(!out.match(/browser Android Browser Amazon Kindle Fire HD 8.9 Android 4.0 for url http:\/\/build\.cross\-browser\-tests\-runner\.org:8000\/tests\/functional\/code\/tests\/jasmine\/html\/tests-ok.html did not respond with results/)) {
         utils.log.warn('expected Android device to not respond and time out')
       }
       return true

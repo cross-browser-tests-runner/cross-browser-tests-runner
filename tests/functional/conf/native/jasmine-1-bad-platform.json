@@ -19,8 +19,8 @@
         {
           "os": "Linux",
           "osVersion": null,
-          "browser": "Android Browser",
-          "browserVersion": "4.4"
+          "browser": "Chrome",
+          "browserVersion": "34.0"
         }
       ]
     }
@@ -38,12 +38,11 @@
       "localIdentifier": "native-functional-tests",
       "build": "native-runner-build",
       "test": "native-runner-functional-test",
-      "framework": "custom",
       "timeout": 90
     }
   },
   "server": {
     "port": 8000,
-    "host": "127.0.0.1"
+    "host": "build.cross-browser-tests-runner.org"
   }
 }

@@ -24,7 +24,7 @@ describe('get', function() {
   })
 
   it('should be able to use a config file', function() {
-    var configFile = 'tests/unit/samples/cbtr-server-1.json'
+    var configFile = 'tests/unit/samples/cbtr/cbtr-server-1.json'
     var ret = settings(configFile)
     expect(ret.server).to.have.all.keys('port', 'host')
     expect(ret.server.port).to.equal(8999)
@@ -46,7 +46,7 @@ describe('get', function() {
   })
 
   it('should be able to use environment variable', function() {
-    process.env.CBTR_SETTINGS = path.resolve(process.cwd(), 'tests/unit/samples/cbtr-server-1.json')
+    process.env.CBTR_SETTINGS = path.resolve(process.cwd(), 'tests/unit/samples/cbtr/cbtr-server-1.json')
     var ret = settings()
     delete process.env.CBTR_SETTINGS
     expect(ret.server).to.have.all.keys('port', 'host')
@@ -54,7 +54,7 @@ describe('get', function() {
   })
 
   it('should be able to ignore bad file', function() {
-    var configFile = 'tests/unit/samples/bad-cbtr-1.json'
+    var configFile = 'tests/unit/samples/cbtr/bad-cbtr-1.json'
     var ret = settings(configFile)
     expect(ret.server).to.have.all.keys('port', 'host')
   })

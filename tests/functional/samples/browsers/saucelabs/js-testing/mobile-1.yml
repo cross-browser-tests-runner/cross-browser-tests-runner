@@ -1,0 +1,7 @@
+SauceLabs:
+  JS:
+    Android:
+      "4.4":
+        Android GoogleAPI Emulator, LG Nexus 4 Emulator:
+          deviceType: tablet
+          orientation: landscape

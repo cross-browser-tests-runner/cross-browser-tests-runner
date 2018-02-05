@@ -24,7 +24,7 @@ describe('settings', function() {
     })
 
     it('should be able to use a given input config file to read settings from', function() {
-      var configFile = 'tests/unit/samples/cbtr-1.json'
+      var configFile = 'tests/unit/samples/cbtr/cbtr-1.json'
       var ret = settings(configFile)
       expect(ret).to.have.all.keys('mykey', 'mykey2')
       expect(ret.mykey).to.equal(1)
@@ -48,7 +48,7 @@ describe('settings', function() {
     })
 
     it('should be able to use value of CBTR_SETTINGS env variable as the path of config file to read', function() {
-      process.env.CBTR_SETTINGS = path.resolve(process.cwd(), 'tests/unit/samples/cbtr-1.json')
+      process.env.CBTR_SETTINGS = path.resolve(process.cwd(), 'tests/unit/samples/cbtr/cbtr-1.json')
       var ret = settings()
       delete process.env.CBTR_SETTINGS
       expect(ret).to.have.all.keys('mykey', 'mykey2')
@@ -57,7 +57,7 @@ describe('settings', function() {
     })
 
     it('should be able to tolerate a config file with bad syntax and return empty settings', function() {
-      var configFile = 'tests/unit/samples/bad-cbtr-1.json'
+      var configFile = 'tests/unit/samples/cbtr/bad-cbtr-1.json'
       var ret = settings(configFile)
       expect(ret).to.deep.equal({ })
     })

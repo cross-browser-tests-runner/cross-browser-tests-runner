@@ -1,0 +1,7 @@
+BrowserStack:
+  JS:
+    Windows:
+      XP:
+        Firefox:
+          "34.0-36.0":
+            orientation: portrait

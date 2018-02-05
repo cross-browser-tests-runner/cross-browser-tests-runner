@@ -67,7 +67,7 @@ describe('browser.js', function() {
     })
     .then(() => {
       expect(out).to.contain('failed to create test - StatusCodeError: 400')
-      expect(out).to.contain('required option os missing')
+      expect(out).to.contain('required option browser missing')
       return true
     })
     .catch(err => {
@@ -81,7 +81,7 @@ describe('browser.js', function() {
     var proc = new Process(), out = ''
     return proc.create('node',
       utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/browser.js', [
-        "--os", "Windows", "--osVersion", "None", "--browser", "firefox", "--browserVersion", "43.0"
+        "--os", "Windows", "--osVersion", "None", "--browser", "Firefox", "--browserVersion", "43.0"
       ]), {
       onstderr: function(stderr) {
         out += stderr
@@ -89,7 +89,7 @@ describe('browser.js', function() {
     })
     .then(() => {
       expect(out).to.contain('failed to create test - StatusCodeError: 400')
-      expect(out).to.contain('{"error":"422 - {\\\"message\\\":\\\"Validation Failed\\\",\\\"errors\\\":[{\\\"field\\\":\\\"url\\\",\\\"code\\\":\\\"can\'t be blank\\\"},{\\\"field\\\":\\\"os_version\\\",\\\"code\\\":\\\"invalid\\\"}]}"}')
+      expect(out).to.contain('invalid osVersion \\"None\\" for os \\"Windows\\"')
       return true
     })
     .catch(err => {
@@ -103,7 +103,7 @@ describe('browser.js', function() {
     var proc = new Process(), tried = false, build = utils.buildDetails()
     return proc.create('node',
       utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/browser.js', [
-        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://127.0.0.1:3000/tests/pages/tests.html"
+        "--os", "Windows", "--osVersion", "7", "--browser", "Chrome", "--browserVersion", "33.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html"
       ]), {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {
@@ -123,7 +123,7 @@ describe('browser.js', function() {
     var proc = new Process(), tried = false, build = utils.buildDetails()
     return proc.create('node',
       utils.nodeProcCoverageArgs('bin/hooks/testem/browserstack/browser.js', [
-        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "--screenshots", "--video", "http://127.0.0.1:3000/tests/pages/tests.html"
+        "--os", "OS X", "--osVersion", "Yosemite", "--browser", "Firefox", "--browserVersion", "35.0", "--build", build.build, "--test", build.test, "--project", build.project, "--screenshots", "--video", "http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html"
       ]), {
       onstdout: function(stdout) {
         if(!tried && stdout.match(/created test/)) {

@@ -4,4 +4,5 @@ describe('Platforms', function() {
   require('./platforms/core')
   require('./platforms/browserstack-1')
   require('./platforms/saucelabs-1')
+  require('./platforms/crossbrowsertesting-1')
 })

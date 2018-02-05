@@ -1,0 +1,5310 @@
+{
+  "conversions": {
+    "browser": {
+      "Chrome Mobile": {
+        "@key": "browserVersion",
+        "59.0": "MblChrome59",
+        "61.0": "MblChrome61",
+        "58.0": "MblChrome58",
+        "33.0": "MblChrome33",
+        "60.0": "MblChrome60",
+        "57.0": "MblChrome57",
+        "51.0": "MblChrome51",
+        "43.0": "MblChrome43",
+        "47.0": "MblChrome47",
+        "41.0": "MblChrome41"
+      },
+      "Mobile Safari": {
+        "@key": "browserVersion",
+        "9.0": "MblSafari9.0",
+        "8.0": "MblSafari8.0",
+        "7.0": "MblSafari7.0",
+        "6.0": "MblSafari6.0",
+        "10.0": "MblSafari10.0",
+        "5.1": "MblSafari5.1",
+        "5.0.2": "MblSafari5.02",
+        "4.0.4": "MblSafari4.0.4",
+        "4.0.5": "MblSafari4.0.5"
+      },
+      "Chrome x64": {
+        "@key": "browserVersion",
+        "52.0": "Chrome52x64",
+        "53.0": "Chrome53x64",
+        "54.0": "Chrome54x64",
+        "55.0": "Chrome55x64",
+        "56.0": "Chrome56x64",
+        "57.0": "Chrome57x64",
+        "58.0": "Chrome58x64",
+        "59.0": "Chrome59x64",
+        "45.0": "Chrome45x64",
+        "46.0": "Chrome46x64",
+        "47.0": "Chrome47x64",
+        "48.0": "Chrome48x64",
+        "49.0": "Chrome49x64",
+        "50.0": "Chrome50x64",
+        "51.0": "Chrome51x64",
+        "60.0": "Chrome60x64",
+        "39.0": "Chrome39x64",
+        "40.0": "Chrome40x64",
+        "41.0": "Chrome41x64",
+        "42.0": "Chrome42x64",
+        "43.0": "Chrome43x64",
+        "44.0": "Chrome44x64",
+        "61.0": "Chrome61x64",
+        "38.0": "Chrome38x64",
+        "37.0": "Chrome37x64",
+        "62.0": "Chrome62x64"
+      },
+      "Firefox": {
+        "@key": "browserVersion",
+        "47.0": "FF47",
+        "48.0": "FF48",
+        "49.0": "FF49",
+        "50.0": "FF50",
+        "51.0": "FF51",
+        "52.0": "FF52",
+        "53.0": "FF53",
+        "54.0": "FF54",
+        "40.0": "FF40",
+        "41.0": "FF41",
+        "42.0": "FF42",
+        "43.0": "FF43",
+        "44.0": "FF44",
+        "45.0": "FF45",
+        "46.0": "FF46",
+        "37.0": "FF37",
+        "38.0": "FF38",
+        "10.0": "FF10",
+        "11.0": "FF11",
+        "12.0": "FF12",
+        "13.0": "FF13",
+        "14.0": "FF14",
+        "15.0": "FF15",
+        "16.0": "FF16",
+        "17.0": "FF17",
+        "18.0": "FF18",
+        "19.0": "FF19",
+        "20.0": "FF20",
+        "21.0": "FF21",
+        "22.0": "FF22",
+        "23.0": "FF23",
+        "24.0": "FF24",
+        "25.0": "FF25",
+        "26.0": "FF26",
+        "27.0": "FF27",
+        "28.0": "FF28",
+        "29.0": "FF29",
+        "3.6": "FF3.6",
+        "30.0": "FF30",
+        "31.0": "FF31",
+        "32.0": "FF32",
+        "33.0": "FF33",
+        "34.0": "FF34",
+        "35.0": "FF35",
+        "36.0": "FF36",
+        "4.0": "FF4",
+        "5.0": "FF5",
+        "6.0": "FF6",
+        "7.0": "FF7",
+        "8.0": "FF8",
+        "9.0": "FF9",
+        "39.0": "FF39",
+        "55.0": "FF55",
+        "56.0": "FF56",
+        "3.5": "FF3.5",
+        "2.0.0.12": "FF2",
+        "3.0.11": "FF3.0.11"
+      },
+      "Safari": {
+        "@key": "browserVersion",
+        "10.0": "Safari10",
+        "9.0": "Safari9",
+        "8.0": "Safari8",
+        "7.0": "Safari7",
+        "6.2": "Safari6.2",
+        "11.0": "Safari11",
+        "6.0": "Safari6",
+        "5.1": "Safari5.1",
+        "5.0": "Safari5",
+        "3.1.2": "Safari3.1.2",
+        "4.0": "Safari4"
+      },
+      "Chrome": {
+        "@key": "browserVersion",
+        "19.0": "Chrome19",
+        "20.0": "Chrome20",
+        "22.0": "Chrome22",
+        "23.0": "Chrome23",
+        "26.0": "Chrome26",
+        "27.0": "Chrome27",
+        "28.0": "Chrome28",
+        "29.0": "Chrome29",
+        "30.0": "Chrome30",
+        "31.0": "Chrome31",
+        "32.0": "Chrome32",
+        "33.0": "Chrome33",
+        "34.0": "Chrome34",
+        "35.0": "Chrome35",
+        "36.0": "Chrome36",
+        "37.0": "Chrome37",
+        "38.0": "Chrome38",
+        "43.0": "Chrome43",
+        "44.0": "Chrome44",
+        "45.0": "Chrome45",
+        "46.0": "Chrome46",
+        "47.0": "Chrome47",
+        "48.0": "Chrome48",
+        "49.0": "Chrome49",
+        "50.0": "Chrome50",
+        "51.0": "Chrome51",
+        "52.0": "Chrome52",
+        "53.0": "Chrome53",
+        "54.0": "Chrome54",
+        "55.0": "Chrome55",
+        "56.0": "Chrome56",
+        "57.0": "Chrome57",
+        "58.0": "Chrome58",
+        "59.0": "Chrome59",
+        "60.0": "Chrome60",
+        "61.0": "Chrome61",
+        "39.0": "Chrome39",
+        "40.0": "Chrome40",
+        "41.0": "Chrome41",
+        "42.0": "Chrome42",
+        "18.0": "Chrome18",
+        "21.0": "Chrome21",
+        "24.0": "Chrome24",
+        "25.0": "Chrome25",
+        "17.0": "Chrome17",
+        "16.0": "Chrome16",
+        "62.0": "Chrome62",
+        "12.0": "Chrome12",
+        "6.0": "Chrome6"
+      },
+      "Firefox x64": {
+        "@key": "browserVersion",
+        "46.0": "FF46x64",
+        "47.0": "FF47x64",
+        "48.0": "FF48x64",
+        "49.0": "FF49x64",
+        "50.0": "FF50x64",
+        "51.0": "FF51x64",
+        "52.0": "FF52x64",
+        "53.0": "FF53x64",
+        "54.0": "FF54x64",
+        "55.0": "FF55x64",
+        "45.0": "FF45x64",
+        "42.0": "FF42x64",
+        "43.0": "FF43x64",
+        "44.0": "FF44x64",
+        "56.0": "FF56x64"
+      },
+      "Internet Explorer": {
+        "@key": "browserVersion",
+        "11.0": "IE11",
+        "10.0": "IE10",
+        "9.0": "IE9",
+        "8.0": "IE8",
+        "7.0": "IE7",
+        "6.0": "IE6"
+      },
+      "Edge": {
+        "@key": "browserVersion",
+        "14.0": "Edge14",
+        "15.0": "Edge15",
+        "16.0": "Edge16"
+      },
+      "Dolphin Mobile": {
+        "@key": "browserVersion",
+        "11.5": "MblDolphin11.5",
+        "12.0": "MblDolphin12.0",
+        "9.4": "MblDolphin9.4",
+        "6.5": "MblDolphin6.5",
+        "7.5": "MblDolphin7.5",
+        "8.0": "MblDolphin8"
+      },
+      "Firefox Mobile": {
+        "@key": "browserVersion",
+        "54.0": "MblFF54",
+        "53.0": "MblFF53",
+        "55.0": "MblFF55",
+        "52.0": "MblFF52",
+        "56.0": "MblFF56",
+        "28.0": "MblFF28",
+        "47.0": "MblFF47"
+      },
+      "Maxthon Mobile": {
+        "@key": "browserVersion",
+        "4.3": "MblMaxthon4.3",
+        "4.2": "MblMaxthon4.2",
+        "5.0": "MblMaxthon5.0",
+        "4.5": "MblMaxthon4.5",
+        "4.4": "MblMaxthon4.4",
+        "4.0": "MblMaxthon4"
+      },
+      "Opera Mini": {
+        "@key": "browserVersion",
+        "27.0": "OperaMini27",
+        "24.0": "OperaMini24",
+        "30.0": "OperaMini30",
+        "26.0": "OperaMini26",
+        "28.0": "OperaMini28",
+        "5.1": "OperaMini5.1"
+      },
+      "Opera Mobile": {
+        "@key": "browserVersion",
+        "42.0": "MblOpera42",
+        "43.0": "MblOpera43",
+        "12.1": "MblOperaClassic12.1",
+        "16.0": "MblOpera16",
+        "37.0": "MblOpera37",
+        "11.50": "MblOpera11.50"
+      },
+      "UC Browser": {
+        "@key": "browserVersion",
+        "11.3": "MblUC11.3",
+        "11.4": "MblUC11.4"
+      },
+      "Sleipnir Mobile": {
+        "@key": "browserVersion",
+        "3.5": "MblSleipnir3.5",
+        "3.4": "MblSleipnir3.4",
+        "2.10": "MblSleipnir2.10"
+      },
+      "Android Browser": {
+        "@key": "browserVersion",
+        "4.4": "Android4.4",
+        "5.0": "Android5.0",
+        "4.2": "Android4.2",
+        "4.1": "Android4.1",
+        "4.0": "Android4.0",
+        "2.3": "Android2.3",
+        "2.2": "Android2.2"
+      },
+      "Maxthon Mobile HD": {
+        "@key": "browserVersion",
+        "4.3": "MblMaxthonHD4.3"
+      },
+      "Chrome for iOS": {
+        "@key": "browserVersion",
+        "57.0": "ChromeiOS57"
+      },
+      "Dolphin for iOS": {
+        "@key": "browserVersion",
+        "9.0": "DolphiniOS9"
+      },
+      "Opera Mini for iOS": {
+        "@key": "browserVersion",
+        "14.0": "OperaiOS14"
+      },
+      "Blackberry Browser": {
+        "9900": "BB9900",
+        "@key": "browserVersion"
+      },
+      "Opera": {
+        "@key": "browserVersion",
+        "48.0": "Opera48",
+        "38.0": "Opera38",
+        "39.0": "Opera39",
+        "40.0": "Opera40",
+        "41.0": "Opera41",
+        "42.0": "Opera42",
+        "43.0": "Opera43",
+        "44.0": "Opera44",
+        "45.0": "Opera45",
+        "46.0": "Opera46",
+        "47.0": "Opera47",
+        "11.11": "Opera11.11",
+        "11.50": "Opera11.50",
+        "11.60": "Opera11.60",
+        "12.00": "Opera12.00",
+        "12.12": "Opera12.12",
+        "12.14": "Opera12.14",
+        "20.0": "Opera20",
+        "21.0": "Opera21",
+        "22.0": "Opera22",
+        "23.0": "Opera23",
+        "24.0": "Opera24",
+        "25.0": "Opera25",
+        "26.0": "Opera26",
+        "27.0": "Opera27",
+        "28.0": "Opera28",
+        "29.0": "Opera29",
+        "30.0": "Opera30",
+        "31.0": "Opera31",
+        "32.0": "Opera32",
+        "33.0": "Opera33",
+        "34.0": "Opera34",
+        "35.0": "Opera35",
+        "36.0": "Opera36",
+        "37.0": "Opera37",
+        "19.0": "Opera19",
+        "17.0": "Opera17",
+        "11.52": "Opera11.52",
+        "15.0": "Opera15",
+        "16.0": "Opera16",
+        "18.0": "Opera18",
+        "12.02": "Opera12.02",
+        "10.60": "Opera10.60",
+        "10.10": "Opera10.10",
+        "10.50": "Opera10.50",
+        "9.25": "Opera9.25",
+        "9.50": "Opera9.50",
+        "9.64": "Opera9.64",
+        "8.02": "Opera8"
+      },
+      "Camino": {
+        "@key": "browserVersion",
+        "2.1": "Camino2.1"
+      },
+      "Chromium": {
+        "@key": "browserVersion",
+        "43.0": "Chromium43",
+        "47.0": "Chromium47",
+        "48.0": "Chromium48",
+        "14.0": "Chromium14"
+      },
+      "Internet Explorer x64": {
+        "@key": "browserVersion",
+        "9.0": "IE9x64"
+      },
+      "Netscape": {
+        "@key": "browserVersion",
+        "9.0.0.5": "Netscape9",
+        "7.2": "Netscape7",
+        "8.1.2": "Netscape8"
+      },
+      "AOL Explorer": {
+        "@key": "browserVersion",
+        "1.5": "AOL1.5"
+      },
+      "Mozilla": {
+        "@key": "browserVersion",
+        "1.7.13": "Mozilla1.7"
+      }
+    },
+    "os": {
+      "Android": {
+        "@key": "osVersion",
+        "6.0": {
+          "@key": "device",
+          "Android Nexus 9": "Nexus9-And60",
+          "Android Nexus 6P": "Nexus6P-And60"
+        },
+        "7.0": {
+          "@key": "device",
+          "Android Nexus 6P": "Nexus6P-And70"
+        },
+        "5.0": {
+          "@key": "device",
+          "Android Nexus 6": "Nexus6-And50",
+          "Android Galaxy S6": "GalaxyS6-And50",
+          "Android Nexus 9": "Nexus9-And50"
+        },
+        "4.4": {
+          "@key": "device",
+          "Android Galaxy Tab S": "GalaxyTabS-And44",
+          "Android Galaxy Note 3": "GalaxyNote3-And44",
+          "Android Nexus 5": "Nexus5-And44",
+          "Android Galaxy S5": "GalaxyS5-And44"
+        },
+        "4.2": {
+          "@key": "device",
+          "Android Galaxy S4": "GalaxyS4-And42",
+          "Android Nexus 7": "Nexus7-And42",
+          "Android Nexus 4": "Nexus4-And42"
+        },
+        "4.1": {
+          "@key": "device",
+          "Android Galaxy Tab 2": "GalaxyTab2-And41",
+          "Android Galaxy S3": "GalaxyS3-And41"
+        },
+        "4.0": {
+          "@key": "device",
+          "Android 4.0 Simulator": "Android4.0"
+        },
+        "2.3": {
+          "@key": "device",
+          "Android 2.3 Simulator": "Android2.3"
+        },
+        "2.2": {
+          "@key": "device",
+          "Android 2.2 Simulator": "Android2.2"
+        }
+      },
+      "iOS": {
+        "@key": "osVersion",
+        "9.3": {
+          "@key": "device",
+          "iPad Pro": "iPadPro-iOS9Sim",
+          "iPad Air 2": "iPadAir2-iOS9Sim",
+          "iPhone 6s Plus": "iPhone6sPlus-iOS9sim",
+          "iPhone 6s": "iPhone6s-iOS9sim"
+        },
+        "8.1": {
+          "@key": "device",
+          "iPad Air": "iPadAir-iOS8Sim",
+          "iPhone 6 Plus": "iPhone6Plus-iOS8sim",
+          "iPhone 6": "iPhone6-iOS8",
+          "iPad Air 2": "iPadAir2-iOS8"
+        },
+        "7.1": {
+          "@key": "device",
+          "iPad Mini Retina": "iPadMiniRetina-iOS7Sim",
+          "iPad 4": "iPad4-iOS7Sim",
+          "iPhone 5s": "iPhone5s-iOS7sim"
+        },
+        "6.1": {
+          "@key": "device",
+          "iPad 3": "iPad3-iOS6sim"
+        },
+        "10.0": {
+          "@key": "device",
+          "iPhone 7 Plus": "iPhone7Plus-iOS10sim",
+          "iPhone 7": "iPhone7-iOS10sim"
+        },
+        "10.2": {
+          "@key": "device",
+          "iPad Pro": "iPadPro-iOS102Sim",
+          "iPhone 7": "iPhone7-iOS102Sim"
+        },
+        "10.1": {
+          "@key": "device",
+          "iPhone 7": "iPhone7-iOS10"
+        },
+        "9.0": {
+          "@key": "device",
+          "iPad Air 2": "iPadAir2-iOS9",
+          "iPhone 6s Plus": "iPhone6sPlus-iOS9",
+          "iPhone 6s": "iPhone6s-iOS9"
+        },
+        "7.0": {
+          "@key": "device",
+          "iPad Mini Retina": "iPadMiniRetina-iOS7",
+          "iPhone 5s": "iPhone5s-iOS7"
+        },
+        "6.0": {
+          "@key": "device",
+          "iPad 4": "iPad4-iOS6",
+          "iPhone 5": "iPhone5-iOS6"
+        },
+        "5.1": {
+          "@key": "device",
+          "iPad 3": "iPad3-iOS5"
+        },
+        "5.0": {
+          "@key": "device",
+          "iPad 2": "iPad2-iOS5",
+          "iPhone 4s": "iPhone4S-iOS5"
+        },
+        "4.3": {
+          "@key": "device",
+          "iPad 2": "iPad2-iOS4"
+        },
+        "4.1": {
+          "@key": "device",
+          "iPad 1": "iPad1-iOS3",
+          "iPhone 4": "iPhone4-iOS4",
+          "iPhone 3GS": "iPhone3GS-iOS4"
+        },
+        "8.3": {
+          "@key": "device",
+          "iPhone 6 Plus": "iPhone6Plus-iOS8"
+        }
+      },
+      "OS X": {
+        "@key": "osVersion",
+        "Sierra": "Mac10.12",
+        "El Capitan": "Mac10.11",
+        "Yosemite": "Mac10.10",
+        "Mavericks": "Mac10.9",
+        "Mountain Lion": "Mac10.8",
+        "High Sierra": "Mac10.13",
+        "Lion": "Mac10.7"
+      },
+      "Windows": {
+        "10": "Win10",
+        "@key": "osVersion",
+        "8.1": "Win8.1",
+        "8 Preview": "Win8",
+        "7 64-bit": "Win7x64",
+        "7 Beta": "Win7",
+        "Vista Home": "WinVista",
+        "XP Service Pack 3": "WinXPSP3",
+        "XP Service Pack 2": "WinXPSP2"
+      },
+      "Blackberry": {
+        "@key": "osVersion",
+        "Blackberry Bold 9900": {
+          "@key": "device",
+          "BB Bold 9900 Simulator": "BBBold9900"
+        }
+      },
+      "Windows Phone": {
+        "8": {
+          "@key": "device",
+          "Win Phone 8 Simulator": "WinPhone8"
+        },
+        "@key": "osVersion",
+        "8.1": {
+          "@key": "device",
+          "Win Phone 8.1 Simulator": "WinPhone8.1"
+        }
+      },
+      "Ubuntu": {
+        "@key": "osVersion",
+        "Vivid": "Ubuntu15.04",
+        "Trusty": "Ubuntu14.04",
+        "Oneiric": "Ubuntu11.10"
+      }
+    }
+  },
+  "parameters": {
+    "video": "<boolean>",
+    "screenshots": "<boolean>",
+    "captureNetwork": "<boolean",
+    "resolution": {
+      "@key": "os",
+      "Android": {
+        "@key": "osVersion",
+        "6.0": {
+          "@key": "device",
+          "Android Nexus 9": [
+            "1536x2048"
+          ],
+          "Android Nexus 6P": [
+            "1440x2560"
+          ]
+        },
+        "7.0": {
+          "@key": "device",
+          "Android Nexus 6P": [
+            "1440x2560"
+          ]
+        },
+        "5.0": {
+          "@key": "device",
+          "Android Nexus 6": [
+            "1440x2560",
+            "2560x1440"
+          ],
+          "Android Galaxy S6": [
+            "1440x2560",
+            "2560x1440"
+          ],
+          "Android Nexus 9": [
+            "1536x2048",
+            "2048x1536"
+          ]
+        },
+        "4.4": {
+          "@key": "device",
+          "Android Galaxy Tab S": [
+            "1600x2560",
+            "2560x1600"
+          ],
+          "Android Galaxy Note 3": [
+            "1080x1920",
+            "1920x1080"
+          ],
+          "Android Nexus 5": [
+            "1080x1920",
+            "1920x1080"
+          ],
+          "Android Galaxy S5": [
+            "1080x1920",
+            "1920x1080"
+          ]
+        },
+        "4.2": {
+          "@key": "device",
+          "Android Galaxy S4": [
+            "1080x1920",
+            "1920x1080"
+          ],
+          "Android Nexus 7": [
+            "1280x800",
+            "800x1280"
+          ],
+          "Android Nexus 4": [
+            "1280x768",
+            "768x1280"
+          ]
+        },
+        "4.1": {
+          "@key": "device",
+          "Android Galaxy Tab 2": [
+            "1280x800"
+          ],
+          "Android Galaxy S3": [
+            "1280x720",
+            "720x1280"
+          ]
+        },
+        "4.0": {
+          "@key": "device",
+          "Android 4.0 Simulator": [
+            "480x800"
+          ]
+        },
+        "2.3": {
+          "@key": "device",
+          "Android 2.3 Simulator": [
+            "480x800"
+          ]
+        },
+        "2.2": {
+          "@key": "device",
+          "Android 2.2 Simulator": [
+            "320x480"
+          ]
+        }
+      },
+      "iOS": {
+        "@key": "osVersion",
+        "9.3": {
+          "@key": "device",
+          "iPad Pro": [
+            "2048x2732",
+            "2732x2048"
+          ],
+          "iPad Air 2": [
+            "1536x2048",
+            "2048x1536"
+          ],
+          "iPhone 6s Plus": [
+            "1242x2208",
+            "2208x1242"
+          ],
+          "iPhone 6s": [
+            "1334x750",
+            "750x1334"
+          ]
+        },
+        "8.1": {
+          "@key": "device",
+          "iPad Air": [
+            "1536x2048",
+            "2048x1536"
+          ],
+          "iPhone 6 Plus": [
+            "1242x2208",
+            "2208x1242"
+          ],
+          "iPhone 6": [
+            "1334x750",
+            "750x1334"
+          ],
+          "iPad Air 2": [
+            "1536x2048",
+            "2048x1536"
+          ]
+        },
+        "7.1": {
+          "@key": "device",
+          "iPad Mini Retina": [
+            "1536x2048",
+            "2048x1536"
+          ],
+          "iPad 4": [
+            "1536x2048",
+            "2048x1536"
+          ],
+          "iPhone 5s": [
+            "1136x640",
+            "640x1136"
+          ]
+        },
+        "6.1": {
+          "@key": "device",
+          "iPad 3": [
+            "1536x2048",
+            "2048x1536"
+          ]
+        },
+        "10.0": {
+          "@key": "device",
+          "iPhone 7 Plus": [
+            "1080x1920",
+            "1920x1080"
+          ],
+          "iPhone 7": [
+            "1334x750",
+            "750x1334"
+          ]
+        },
+        "10.2": {
+          "@key": "device",
+          "iPad Pro": [
+            "2048x2732",
+            "2732x2048"
+          ],
+          "iPhone 7": [
+            "1334x750",
+            "750x1334"
+          ]
+        },
+        "10.1": {
+          "@key": "device",
+          "iPhone 7": [
+            "1334x750",
+            "750x1334"
+          ]
+        },
+        "9.0": {
+          "@key": "device",
+          "iPad Air 2": [
+            "1536x2048",
+            "2048x1536"
+          ],
+          "iPhone 6s Plus": [
+            "1080x1920",
+            "1920x1080"
+          ],
+          "iPhone 6s": [
+            "1334x750",
+            "750x1334"
+          ]
+        },
+        "7.0": {
+          "@key": "device",
+          "iPad Mini Retina": [
+            "1536x2048",
+            "2048x1536"
+          ],
+          "iPhone 5s": [
+            "1136x640",
+            "640x1136"
+          ]
+        },
+        "6.0": {
+          "@key": "device",
+          "iPad 4": [
+            "1536x2048",
+            "2048x1536"
+          ],
+          "iPhone 5": [
+            "1136x640",
+            "640x1136"
+          ]
+        },
+        "5.1": {
+          "@key": "device",
+          "iPad 3": [
+            "1536x2048",
+            "2048x1536"
+          ]
+        },
+        "5.0": {
+          "@key": "device",
+          "iPad 2": [
+            "1024x768",
+            "768x1024"
+          ],
+          "iPhone 4s": [
+            "640x960",
+            "960x640"
+          ]
+        },
+        "4.3": {
+          "@key": "device",
+          "iPad 2": [
+            "1024x768"
+          ]
+        },
+        "4.1": {
+          "@key": "device",
+          "iPad 1": [
+            "1024x768"
+          ],
+          "iPhone 4": [
+            "640x960"
+          ],
+          "iPhone 3GS": [
+            "320x480"
+          ]
+        },
+        "8.3": {
+          "@key": "device",
+          "iPhone 6 Plus": [
+            "1080x1920",
+            "1920x1080"
+          ]
+        }
+      },
+      "OS X": {
+        "@key": "osVersion",
+        "Sierra": [
+          "1024x768",
+          "1152x864",
+          "1152x900",
+          "1280x1024",
+          "1280x800",
+          "1366x768",
+          "1400x900",
+          "1920x1200",
+          "2560x1600"
+        ],
+        "El Capitan": [
+          "1024x768",
+          "1152x864",
+          "1152x900",
+          "1280x1024",
+          "1280x800",
+          "1366x768",
+          "1400x1050",
+          "1400x900",
+          "1600x1200",
+          "1920x1200",
+          "2560x1440",
+          "2560x1600"
+        ],
+        "Yosemite": [
+          "1024x768",
+          "1152x864",
+          "1152x900",
+          "1280x1024",
+          "1280x800",
+          "1366x768",
+          "1400x1050",
+          "1400x900",
+          "1600x1200",
+          "1920x1200",
+          "2560x1440",
+          "2560x1600"
+        ],
+        "Mavericks": [
+          "1024x768",
+          "1152x864",
+          "1152x900",
+          "1280x1024",
+          "1280x800",
+          "1366x768",
+          "1400x1050",
+          "1400x900",
+          "1600x1200",
+          "1920x1200",
+          "2560x1440",
+          "2560x1600"
+        ],
+        "Mountain Lion": [
+          "1024x768",
+          "1152x864",
+          "1152x900",
+          "1280x1024",
+          "1280x800",
+          "1400x1050",
+          "1400x900",
+          "1600x1200",
+          "1920x1200",
+          "2560x1600"
+        ],
+        "High Sierra": [
+          "1024x768",
+          "1152x864",
+          "1152x900",
+          "1280x1024",
+          "1280x800",
+          "1366x768",
+          "1400x900",
+          "1920x1200",
+          "2560x1600"
+        ],
+        "Lion": [
+          "1024x768",
+          "1152x864",
+          "1152x900",
+          "1280x1024",
+          "1280x800",
+          "1400x1050",
+          "1400x900",
+          "1600x1200"
+        ]
+      },
+      "Windows": {
+        "10": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x720",
+          "1280x768",
+          "1280x800",
+          "1280x960",
+          "1366x768",
+          "1400x1050",
+          "1440x900",
+          "1600x1200",
+          "1680x1050",
+          "1920x1080",
+          "1920x1200",
+          "1920x1440",
+          "2560x1600",
+          "2560x1920",
+          "800x480",
+          "800x600",
+          "854x480"
+        ],
+        "@key": "osVersion",
+        "8.1": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x768",
+          "1280x960",
+          "1366x768",
+          "1400x1050",
+          "1600x1200",
+          "1920x1080",
+          "2560x1600",
+          "2560x1920",
+          "800x600"
+        ],
+        "8 Preview": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x768",
+          "1280x960",
+          "1366x768",
+          "1400x1050",
+          "1600x1200",
+          "1920x1080",
+          "2560x1600",
+          "2560x1920",
+          "800x600"
+        ],
+        "7 64-bit": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x768",
+          "1280x960",
+          "1366x768",
+          "1400x1050",
+          "1600x1200",
+          "1920x1080",
+          "2560x1600",
+          "800x600"
+        ],
+        "7 Beta": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x768",
+          "1280x960",
+          "1366x768",
+          "1400x1050",
+          "1600x1200",
+          "1920x1080",
+          "800x600"
+        ],
+        "Vista Home": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x768",
+          "1280x960",
+          "1366x768",
+          "1400x1050",
+          "1600x1200",
+          "1920x1080",
+          "2048x1536",
+          "800x600"
+        ],
+        "XP Service Pack 3": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x768",
+          "1280x960",
+          "1366x768",
+          "1400x1050",
+          "1440x900",
+          "1600x1200",
+          "1920x1080",
+          "2048x1536",
+          "800x600"
+        ],
+        "XP Service Pack 2": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x768",
+          "1280x960",
+          "1366x768",
+          "1400x1050",
+          "1600x1200",
+          "1920x1080",
+          "2048x1536",
+          "800x600"
+        ]
+      },
+      "Blackberry": {
+        "@key": "osVersion",
+        "Blackberry Bold 9900": {
+          "@key": "device",
+          "BB Bold 9900 Simulator": [
+            "314x182"
+          ]
+        }
+      },
+      "Windows Phone": {
+        "8": {
+          "@key": "device",
+          "Win Phone 8 Simulator": [
+            "480x800"
+          ]
+        },
+        "@key": "osVersion",
+        "8.1": {
+          "@key": "device",
+          "Win Phone 8.1 Simulator": [
+            "480x800"
+          ]
+        }
+      },
+      "Ubuntu": {
+        "@key": "osVersion",
+        "Vivid": [
+          "1024x768",
+          "1280x1024",
+          "1280x960",
+          "1360x768",
+          "1400x1050",
+          "1600x1200",
+          "2560x1600",
+          "2560x1920"
+        ],
+        "Trusty": [
+          "1024x768",
+          "1152x864",
+          "1280x1024",
+          "1280x960",
+          "1360x768",
+          "1400x1050",
+          "1600x1200",
+          "2560x1600"
+        ],
+        "Oneiric": [
+          "1024x768",
+          "1280x960",
+          "1366x768",
+          "640x480",
+          "800x600"
+        ]
+      }
+    },
+    "orientation": {
+      "@if": {
+        "device": "!== null"
+      },
+      "@key": "os",
+      "Android": {
+        "@key": "osVersion",
+        "6.0": {
+          "@key": "device",
+          "Android Nexus 9": {
+            "@key": "resolution",
+            "1536x2048": "portrait"
+          },
+          "Android Nexus 6P": {
+            "@key": "resolution",
+            "1440x2560": "portrait"
+          }
+        },
+        "7.0": {
+          "@key": "device",
+          "Android Nexus 6P": {
+            "@key": "resolution",
+            "1440x2560": "portrait"
+          }
+        },
+        "5.0": {
+          "@key": "device",
+          "Android Nexus 6": {
+            "@key": "resolution",
+            "1440x2560": "portrait",
+            "2560x1440": "landscape"
+          },
+          "Android Galaxy S6": {
+            "@key": "resolution",
+            "1440x2560": "portrait",
+            "2560x1440": "landscape"
+          },
+          "Android Nexus 9": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          }
+        },
+        "4.4": {
+          "@key": "device",
+          "Android Galaxy Tab S": {
+            "@key": "resolution",
+            "1600x2560": "portrait",
+            "2560x1600": "landscape"
+          },
+          "Android Galaxy Note 3": {
+            "@key": "resolution",
+            "1080x1920": "portrait",
+            "1920x1080": "landscape"
+          },
+          "Android Nexus 5": {
+            "@key": "resolution",
+            "1080x1920": "portrait",
+            "1920x1080": "landscape"
+          },
+          "Android Galaxy S5": {
+            "@key": "resolution",
+            "1080x1920": "portrait",
+            "1920x1080": "landscape"
+          }
+        },
+        "4.2": {
+          "@key": "device",
+          "Android Galaxy S4": {
+            "@key": "resolution",
+            "1080x1920": "portrait",
+            "1920x1080": "landscape"
+          },
+          "Android Nexus 7": {
+            "@key": "resolution",
+            "800x1280": "portrait",
+            "1280x800": "landscape"
+          },
+          "Android Nexus 4": {
+            "@key": "resolution",
+            "768x1280": "portrait",
+            "1280x768": "landscape"
+          }
+        },
+        "4.1": {
+          "@key": "device",
+          "Android Galaxy Tab 2": {
+            "@key": "resolution",
+            "1280x800": "landscape"
+          },
+          "Android Galaxy S3": {
+            "@key": "resolution",
+            "720x1280": "portrait",
+            "1280x720": "landscape"
+          }
+        },
+        "4.0": {
+          "@key": "device",
+          "Android 4.0 Simulator": {
+            "@key": "resolution",
+            "480x800": "portrait"
+          }
+        },
+        "2.3": {
+          "@key": "device",
+          "Android 2.3 Simulator": {
+            "@key": "resolution",
+            "480x800": "portrait"
+          }
+        },
+        "2.2": {
+          "@key": "device",
+          "Android 2.2 Simulator": {
+            "@key": "resolution",
+            "320x480": "portrait"
+          }
+        }
+      },
+      "iOS": {
+        "@key": "osVersion",
+        "9.3": {
+          "@key": "device",
+          "iPad Pro": {
+            "@key": "resolution",
+            "2048x2732": "portrait",
+            "2732x2048": "landscape"
+          },
+          "iPad Air 2": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          },
+          "iPhone 6s Plus": {
+            "@key": "resolution",
+            "1242x2208": "portrait",
+            "2208x1242": "landscape"
+          },
+          "iPhone 6s": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
+          }
+        },
+        "8.1": {
+          "@key": "device",
+          "iPad Air": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          },
+          "iPhone 6 Plus": {
+            "@key": "resolution",
+            "1242x2208": "portrait",
+            "2208x1242": "landscape"
+          },
+          "iPhone 6": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
+          },
+          "iPad Air 2": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          }
+        },
+        "7.1": {
+          "@key": "device",
+          "iPad Mini Retina": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          },
+          "iPad 4": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          },
+          "iPhone 5s": {
+            "@key": "resolution",
+            "640x1136": "portrait",
+            "1136x640": "landscape"
+          }
+        },
+        "6.1": {
+          "@key": "device",
+          "iPad 3": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          }
+        },
+        "10.0": {
+          "@key": "device",
+          "iPhone 7 Plus": {
+            "@key": "resolution",
+            "1080x1920": "portrait",
+            "1920x1080": "landscape"
+          },
+          "iPhone 7": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
+          }
+        },
+        "10.2": {
+          "@key": "device",
+          "iPad Pro": {
+            "@key": "resolution",
+            "2048x2732": "portrait",
+            "2732x2048": "landscape"
+          },
+          "iPhone 7": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
+          }
+        },
+        "10.1": {
+          "@key": "device",
+          "iPhone 7": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
+          }
+        },
+        "9.0": {
+          "@key": "device",
+          "iPad Air 2": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          },
+          "iPhone 6s Plus": {
+            "@key": "resolution",
+            "1080x1920": "portrait",
+            "1920x1080": "landscape"
+          },
+          "iPhone 6s": {
+            "@key": "resolution",
+            "750x1334": "portrait",
+            "1334x750": "landscape"
+          }
+        },
+        "7.0": {
+          "@key": "device",
+          "iPad Mini Retina": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          },
+          "iPhone 5s": {
+            "@key": "resolution",
+            "640x1136": "portrait",
+            "1136x640": "landscape"
+          }
+        },
+        "6.0": {
+          "@key": "device",
+          "iPad 4": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          },
+          "iPhone 5": {
+            "@key": "resolution",
+            "640x1136": "portrait",
+            "1136x640": "landscape"
+          }
+        },
+        "5.1": {
+          "@key": "device",
+          "iPad 3": {
+            "@key": "resolution",
+            "1536x2048": "portrait",
+            "2048x1536": "landscape"
+          }
+        },
+        "5.0": {
+          "@key": "device",
+          "iPad 2": {
+            "@key": "resolution",
+            "768x1024": "portrait",
+            "1024x768": "landscape"
+          },
+          "iPhone 4s": {
+            "@key": "resolution",
+            "640x960": "portrait",
+            "960x640": "landscape"
+          }
+        },
+        "4.3": {
+          "@key": "device",
+          "iPad 2": {
+            "@key": "resolution",
+            "1024x768": "landscape"
+          }
+        },
+        "4.1": {
+          "@key": "device",
+          "iPad 1": {
+            "@key": "resolution",
+            "1024x768": "landscape"
+          },
+          "iPhone 4": {
+            "@key": "resolution",
+            "640x960": "portrait"
+          },
+          "iPhone 3GS": {
+            "@key": "resolution",
+            "320x480": "portrait"
+          }
+        },
+        "8.3": {
+          "@key": "device",
+          "iPhone 6 Plus": {
+            "@key": "resolution",
+            "1080x1920": "portrait",
+            "1920x1080": "landscape"
+          }
+        }
+      },
+      "Blackberry": {
+        "@key": "osVersion",
+        "Blackberry Bold 9900": {
+          "@key": "device",
+          "BB Bold 9900 Simulator": {
+            "@key": "resolution",
+            "314x182": "landscape"
+          }
+        }
+      },
+      "Windows Phone": {
+        "8": {
+          "@key": "device",
+          "Win Phone 8 Simulator": {
+            "@key": "resolution",
+            "480x800": "portrait"
+          }
+        },
+        "@key": "osVersion",
+        "8.1": {
+          "@key": "device",
+          "Win Phone 8.1 Simulator": {
+            "@key": "resolution",
+            "480x800": "portrait"
+          }
+        }
+      }
+    }
+  },
+  "JS": {
+    "Android": {
+      "6.0": {
+        "Chrome Mobile": {
+          "59.0": [
+            "Android Nexus 6P",
+            "Android Nexus 9"
+          ]
+        },
+        "Dolphin Mobile": {
+          "11.5": [
+            "Android Nexus 9"
+          ],
+          "12.0": [
+            "Android Nexus 6P"
+          ]
+        },
+        "Firefox Mobile": {
+          "54.0": [
+            "Android Nexus 6P",
+            "Android Nexus 9"
+          ]
+        },
+        "Maxthon Mobile": {
+          "4.3": [
+            "Android Nexus 9"
+          ],
+          "4.5": [
+            "Android Nexus 6P"
+          ]
+        },
+        "Opera Mini": {
+          "27.0": [
+            "Android Nexus 6P",
+            "Android Nexus 9"
+          ]
+        },
+        "Opera Mobile": {
+          "42.0": [
+            "Android Nexus 6P",
+            "Android Nexus 9"
+          ]
+        },
+        "UC Browser": {
+          "11.3": [
+            "Android Nexus 6P",
+            "Android Nexus 9"
+          ]
+        }
+      },
+      "5.0": {
+        "Chrome Mobile": {
+          "58.0": [
+            "Android Nexus 9"
+          ],
+          "61.0": [
+            "Android Nexus 6"
+          ],
+          "59.0": [
+            "Android Galaxy S6"
+          ]
+        },
+        "Dolphin Mobile": {
+          "11.5": [
+            "Android Nexus 9"
+          ],
+          "12.0": [
+            "Android Galaxy S6",
+            "Android Nexus 6"
+          ]
+        },
+        "Firefox Mobile": {
+          "53.0": [
+            "Android Nexus 9"
+          ],
+          "55.0": [
+            "Android Nexus 6"
+          ],
+          "54.0": [
+            "Android Galaxy S6"
+          ]
+        },
+        "Maxthon Mobile": {
+          "4.3": [
+            "Android Nexus 9"
+          ],
+          "5.0": [
+            "Android Nexus 6"
+          ],
+          "4.5": [
+            "Android Galaxy S6"
+          ]
+        },
+        "Opera Mini": {
+          "24.0": [
+            "Android Nexus 9"
+          ],
+          "30.0": [
+            "Android Nexus 6"
+          ],
+          "28.0": [
+            "Android Galaxy S6"
+          ]
+        },
+        "Opera Mobile": {
+          "42.0": [
+            "Android Galaxy S6",
+            "Android Nexus 9"
+          ],
+          "43.0": [
+            "Android Nexus 6"
+          ]
+        },
+        "UC Browser": {
+          "11.3": [
+            "Android Galaxy S6",
+            "Android Nexus 6",
+            "Android Nexus 9"
+          ]
+        },
+        "Android Browser": {
+          "5.0": [
+            "Android Galaxy S6"
+          ]
+        }
+      },
+      "4.2": {
+        "Chrome Mobile": {
+          "57.0": [
+            "Android Nexus 7"
+          ],
+          "58.0": [
+            "Android Nexus 4"
+          ],
+          "33.0": [
+            "Android Galaxy S4"
+          ]
+        },
+        "Dolphin Mobile": {
+          "11.5": [
+            "Android Nexus 7"
+          ],
+          "12.0": [
+            "Android Nexus 4"
+          ],
+          "9.4": [
+            "Android Galaxy S4"
+          ]
+        },
+        "Firefox Mobile": {
+          "53.0": [
+            "Android Nexus 7"
+          ],
+          "54.0": [
+            "Android Nexus 4"
+          ],
+          "28.0": [
+            "Android Galaxy S4"
+          ]
+        },
+        "Maxthon Mobile": {
+          "4.2": [
+            "Android Nexus 7"
+          ],
+          "4.4": [
+            "Android Nexus 4"
+          ],
+          "4.0": [
+            "Android Galaxy S4"
+          ]
+        },
+        "Opera Mini": {
+          "24.0": [
+            "Android Nexus 7"
+          ],
+          "26.0": [
+            "Android Nexus 4"
+          ]
+        },
+        "Opera Mobile": {
+          "42.0": [
+            "Android Nexus 4",
+            "Android Nexus 7"
+          ],
+          "12.1": [
+            "Android Galaxy S4"
+          ],
+          "16.0": [
+            "Android Galaxy S4"
+          ]
+        },
+        "Sleipnir Mobile": {
+          "3.5": [
+            "Android Nexus 7"
+          ],
+          "3.4": [
+            "Android Nexus 4"
+          ],
+          "2.10": [
+            "Android Galaxy S4"
+          ]
+        },
+        "UC Browser": {
+          "11.3": [
+            "Android Nexus 4"
+          ]
+        },
+        "Android Browser": {
+          "4.2": [
+            "Android Galaxy S4"
+          ]
+        }
+      },
+      "7.0": {
+        "Chrome Mobile": {
+          "61.0": [
+            "Android Nexus 6P"
+          ]
+        },
+        "Dolphin Mobile": {
+          "12.0": [
+            "Android Nexus 6P"
+          ]
+        },
+        "Firefox Mobile": {
+          "55.0": [
+            "Android Nexus 6P"
+          ]
+        },
+        "Maxthon Mobile": {
+          "5.0": [
+            "Android Nexus 6P"
+          ]
+        },
+        "Opera Mini": {
+          "30.0": [
+            "Android Nexus 6P"
+          ]
+        },
+        "Opera Mobile": {
+          "43.0": [
+            "Android Nexus 6P"
+          ]
+        }
+      },
+      "4.4": {
+        "Chrome Mobile": {
+          "57.0": [
+            "Android Nexus 5"
+          ],
+          "61.0": [
+            "Android Galaxy Tab S"
+          ],
+          "58.0": [
+            "Android Galaxy Note 3"
+          ],
+          "60.0": [
+            "Android Galaxy S5"
+          ]
+        },
+        "Dolphin Mobile": {
+          "11.5": [
+            "Android Galaxy Note 3",
+            "Android Nexus 5"
+          ],
+          "12.0": [
+            "Android Galaxy S5",
+            "Android Galaxy Tab S"
+          ]
+        },
+        "Firefox Mobile": {
+          "52.0": [
+            "Android Nexus 5"
+          ],
+          "56.0": [
+            "Android Galaxy Tab S"
+          ],
+          "53.0": [
+            "Android Galaxy Note 3"
+          ],
+          "55.0": [
+            "Android Galaxy S5"
+          ]
+        },
+        "Maxthon Mobile": {
+          "4.3": [
+            "Android Galaxy Tab S",
+            "Android Nexus 5"
+          ],
+          "4.5": [
+            "Android Galaxy Note 3",
+            "Android Galaxy S5"
+          ]
+        },
+        "Opera Mini": {
+          "24.0": [
+            "Android Galaxy Note 3",
+            "Android Nexus 5"
+          ],
+          "30.0": [
+            "Android Galaxy Tab S"
+          ],
+          "28.0": [
+            "Android Galaxy S5"
+          ]
+        },
+        "Opera Mobile": {
+          "12.1": [
+            "Android Nexus 5"
+          ],
+          "42.0": [
+            "Android Galaxy Note 3",
+            "Android Galaxy S5",
+            "Android Nexus 5"
+          ],
+          "43.0": [
+            "Android Galaxy Tab S"
+          ]
+        },
+        "Sleipnir Mobile": {
+          "3.5": [
+            "Android Galaxy Note 3",
+            "Android Galaxy S5",
+            "Android Nexus 5"
+          ]
+        },
+        "Android Browser": {
+          "4.4": [
+            "Android Galaxy Note 3",
+            "Android Galaxy S5",
+            "Android Galaxy Tab S"
+          ]
+        },
+        "UC Browser": {
+          "11.4": [
+            "Android Galaxy Tab S"
+          ]
+        }
+      },
+      "4.1": {
+        "Android Browser": {
+          "4.1": [
+            "Android Galaxy S3",
+            "Android Galaxy Tab 2"
+          ]
+        },
+        "Chrome Mobile": {
+          "51.0": [
+            "Android Galaxy S3"
+          ],
+          "60.0": [
+            "Android Galaxy Tab 2"
+          ]
+        },
+        "Dolphin Mobile": {
+          "11.5": [
+            "Android Galaxy S3"
+          ],
+          "12.0": [
+            "Android Galaxy Tab 2"
+          ]
+        },
+        "Firefox Mobile": {
+          "47.0": [
+            "Android Galaxy S3"
+          ],
+          "55.0": [
+            "Android Galaxy Tab 2"
+          ]
+        },
+        "Maxthon Mobile": {
+          "4.5": [
+            "Android Galaxy S3"
+          ]
+        },
+        "Opera Mobile": {
+          "37.0": [
+            "Android Galaxy S3"
+          ],
+          "12.1": [
+            "Android Galaxy Tab 2"
+          ],
+          "42.0": [
+            "Android Galaxy Tab 2"
+          ]
+        },
+        "Sleipnir Mobile": {
+          "3.5": [
+            "Android Galaxy S3",
+            "Android Galaxy Tab 2"
+          ]
+        },
+        "Maxthon Mobile HD": {
+          "4.3": [
+            "Android Galaxy Tab 2"
+          ]
+        },
+        "Opera Mini": {
+          "28.0": [
+            "Android Galaxy Tab 2"
+          ]
+        }
+      },
+      "4.0": {
+        "Android Browser": {
+          "4.0": [
+            "Android 4.0 Simulator"
+          ]
+        },
+        "Opera Mobile": {
+          "11.50": [
+            "Android 4.0 Simulator"
+          ]
+        }
+      },
+      "2.3": {
+        "Android Browser": {
+          "2.3": [
+            "Android 2.3 Simulator"
+          ]
+        },
+        "Opera Mobile": {
+          "11.50": [
+            "Android 2.3 Simulator"
+          ]
+        }
+      },
+      "2.2": {
+        "Android Browser": {
+          "2.2": [
+            "Android 2.2 Simulator"
+          ]
+        },
+        "Opera Mini": {
+          "5.1": [
+            "Android 2.2 Simulator"
+          ]
+        }
+      }
+    },
+    "iOS": {
+      "10.2": {
+        "Chrome for iOS": {
+          "57.0": [
+            "iPad Pro"
+          ]
+        },
+        "Dolphin for iOS": {
+          "9.0": [
+            "iPad Pro"
+          ]
+        },
+        "Mobile Safari": {
+          "10.0": [
+            "iPad Pro",
+            "iPhone 7"
+          ]
+        },
+        "Opera Mini for iOS": {
+          "14.0": [
+            "iPad Pro"
+          ]
+        }
+      },
+      "10.1": {
+        "Mobile Safari": {
+          "10.0": [
+            "iPhone 7"
+          ]
+        }
+      },
+      "9.3": {
+        "Mobile Safari": {
+          "9.0": [
+            "iPad Air 2",
+            "iPad Pro",
+            "iPhone 6s",
+            "iPhone 6s Plus"
+          ]
+        }
+      },
+      "8.1": {
+        "Mobile Safari": {
+          "8.0": [
+            "iPad Air",
+            "iPad Air 2",
+            "iPhone 6",
+            "iPhone 6 Plus"
+          ]
+        },
+        "Chrome Mobile": {
+          "43.0": [
+            "iPad Air 2"
+          ],
+          "41.0": [
+            "iPhone 6"
+          ]
+        },
+        "Dolphin Mobile": {
+          "6.5": [
+            "iPad Air 2"
+          ],
+          "8.0": [
+            "iPhone 6"
+          ]
+        }
+      },
+      "7.1": {
+        "Mobile Safari": {
+          "7.0": [
+            "iPad 4",
+            "iPad Mini Retina",
+            "iPhone 5s"
+          ]
+        }
+      },
+      "9.0": {
+        "Mobile Safari": {
+          "9.0": [
+            "iPad Air 2",
+            "iPhone 6s",
+            "iPhone 6s Plus"
+          ]
+        },
+        "Chrome Mobile": {
+          "47.0": [
+            "iPhone 6s",
+            "iPhone 6s Plus"
+          ]
+        }
+      },
+      "7.0": {
+        "Chrome Mobile": {
+          "33.0": [
+            "iPad Mini Retina"
+          ]
+        },
+        "Dolphin Mobile": {
+          "7.5": [
+            "iPad Mini Retina"
+          ]
+        },
+        "Mobile Safari": {
+          "7.0": [
+            "iPad Mini Retina",
+            "iPhone 5s"
+          ]
+        }
+      },
+      "6.0": {
+        "Chrome Mobile": {
+          "33.0": [
+            "iPad 4"
+          ]
+        },
+        "Dolphin Mobile": {
+          "7.5": [
+            "iPad 4"
+          ]
+        },
+        "Mobile Safari": {
+          "6.0": [
+            "iPad 4",
+            "iPhone 5"
+          ]
+        }
+      },
+      "6.1": {
+        "Mobile Safari": {
+          "6.0": [
+            "iPad 3"
+          ]
+        }
+      },
+      "5.1": {
+        "Mobile Safari": {
+          "5.1": [
+            "iPad 3"
+          ]
+        }
+      },
+      "5.0": {
+        "Mobile Safari": {
+          "5.1": [
+            "iPad 2",
+            "iPhone 4s"
+          ]
+        }
+      },
+      "4.3": {
+        "Mobile Safari": {
+          "5.0.2": [
+            "iPad 2"
+          ]
+        }
+      },
+      "4.1": {
+        "Mobile Safari": {
+          "4.0.4": [
+            "iPad 1"
+          ],
+          "4.0.5": [
+            "iPhone 3GS",
+            "iPhone 4"
+          ]
+        }
+      },
+      "10.0": {
+        "Mobile Safari": {
+          "10.0": [
+            "iPhone 7",
+            "iPhone 7 Plus"
+          ]
+        }
+      },
+      "8.3": {
+        "Dolphin Mobile": {
+          "8.0": [
+            "iPhone 6 Plus"
+          ]
+        },
+        "Mobile Safari": {
+          "8.0": [
+            "iPhone 6 Plus"
+          ]
+        }
+      }
+    },
+    "Blackberry": {
+      "Blackberry Bold 9900": {
+        "Blackberry Browser": {
+          "9900": [
+            "BB Bold 9900 Simulator"
+          ]
+        }
+      }
+    },
+    "Windows Phone": {
+      "8": {
+        "Internet Explorer": {
+          "10.0": [
+            "Win Phone 8 Simulator"
+          ]
+        }
+      },
+      "8.1": {
+        "Internet Explorer": {
+          "11.0": [
+            "Win Phone 8.1 Simulator"
+          ]
+        }
+      }
+    },
+    "OS X": {
+      "High Sierra": {
+        "Chrome x64": {
+          "62.0": []
+        },
+        "Firefox": {
+          "56.0": []
+        },
+        "Opera": {
+          "48.0": []
+        },
+        "Safari": {
+          "11.0": []
+        }
+      },
+      "Sierra": {
+        "Chrome x64": {
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Firefox": {
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": []
+        },
+        "Opera": {
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Safari": {
+          "10.0": []
+        }
+      },
+      "El Capitan": {
+        "Camino": {
+          "2.1": []
+        },
+        "Chrome": {
+          "17.0": [],
+          "19.0": [],
+          "20.0": [],
+          "22.0": [],
+          "23.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": []
+        },
+        "Chrome x64": {
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "5.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Opera": {
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.00": [],
+          "12.12": [],
+          "12.14": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Safari": {
+          "9.0": []
+        }
+      },
+      "Yosemite": {
+        "Camino": {
+          "2.1": []
+        },
+        "Chrome": {
+          "17.0": [],
+          "19.0": [],
+          "20.0": [],
+          "22.0": [],
+          "23.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": []
+        },
+        "Chrome x64": {
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "5.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Opera": {
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.00": [],
+          "12.12": [],
+          "12.14": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Safari": {
+          "8.0": []
+        }
+      },
+      "Mavericks": {
+        "Camino": {
+          "2.1": []
+        },
+        "Chrome": {
+          "17.0": [],
+          "19.0": [],
+          "20.0": [],
+          "22.0": [],
+          "23.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": []
+        },
+        "Chrome x64": {
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "5.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Opera": {
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.00": [],
+          "12.12": [],
+          "12.14": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Safari": {
+          "7.0": []
+        }
+      },
+      "Mountain Lion": {
+        "Camino": {
+          "2.1": []
+        },
+        "Chrome": {
+          "17.0": [],
+          "19.0": [],
+          "20.0": [],
+          "22.0": [],
+          "23.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": []
+        },
+        "Chrome x64": {
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Opera": {
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.00": [],
+          "12.12": [],
+          "12.14": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": []
+        },
+        "Safari": {
+          "6.2": []
+        }
+      },
+      "Lion": {
+        "Camino": {
+          "2.1": []
+        },
+        "Chrome": {
+          "17.0": [],
+          "19.0": [],
+          "20.0": [],
+          "22.0": [],
+          "23.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": []
+        },
+        "Chrome x64": {
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Opera": {
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.00": [],
+          "12.12": [],
+          "12.14": [],
+          "17.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "30.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": []
+        },
+        "Safari": {
+          "6.0": []
+        }
+      }
+    },
+    "Ubuntu": {
+      "Vivid": {
+        "Chrome x64": {
+          "43.0": [],
+          "44.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Chromium": {
+          "43.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Firefox": {
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": []
+        }
+      },
+      "Trusty": {
+        "Chrome x64": {
+          "43.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Chromium": {
+          "43.0": [],
+          "47.0": []
+        },
+        "Firefox": {
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": []
+        }
+      },
+      "Oneiric": {
+        "Chrome": {
+          "16.0": []
+        },
+        "Chromium": {
+          "14.0": []
+        },
+        "Firefox": {
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "20.0": [],
+          "33.0": [],
+          "7.0": [],
+          "9.0": []
+        },
+        "Opera": {
+          "11.52": []
+        }
+      }
+    },
+    "Windows": {
+      "10": {
+        "Chrome": {
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Chrome x64": {
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Firefox": {
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": []
+        },
+        "Firefox x64": {
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": []
+        },
+        "Internet Explorer": {
+          "11.0": []
+        },
+        "Edge": {
+          "14.0": [],
+          "15.0": [],
+          "16.0": []
+        },
+        "Opera": {
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        }
+      },
+      "8.1": {
+        "Chrome": {
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Chrome x64": {
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Firefox": {
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": []
+        },
+        "Firefox x64": {
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": []
+        },
+        "Internet Explorer": {
+          "11.0": []
+        },
+        "Opera": {
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        }
+      },
+      "8 Preview": {
+        "Chrome": {
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Chrome x64": {
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "5.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Firefox x64": {
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": []
+        },
+        "Internet Explorer": {
+          "10.0": []
+        },
+        "Opera": {
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.02": [],
+          "12.12": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Safari": {
+          "5.1": []
+        }
+      },
+      "7 64-bit": {
+        "Chrome": {
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Chrome x64": {
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "5.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Firefox x64": {
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": []
+        },
+        "Internet Explorer": {
+          "10.0": [],
+          "11.0": [],
+          "9.0": []
+        },
+        "Internet Explorer x64": {
+          "9.0": []
+        },
+        "Opera": {
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.00": [],
+          "12.12": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        }
+      },
+      "7 Beta": {
+        "Chrome": {
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": [],
+          "62.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "5.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Internet Explorer": {
+          "8.0": [],
+          "9.0": []
+        },
+        "Opera": {
+          "10.60": [],
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.12": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Safari": {
+          "5.0": [],
+          "5.1": []
+        }
+      },
+      "Vista Home": {
+        "Chrome": {
+          "12.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "6.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "2.0.0.12": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.0.11": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Internet Explorer": {
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Netscape": {
+          "9.0.0.5": []
+        },
+        "Opera": {
+          "10.10": [],
+          "10.50": [],
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.12": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "9.25": [],
+          "9.50": [],
+          "9.64": []
+        },
+        "Safari": {
+          "3.1.2": [],
+          "4.0": [],
+          "5.0": []
+        }
+      },
+      "XP Service Pack 3": {
+        "Chrome": {
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Internet Explorer": {
+          "8.0": []
+        },
+        "Opera": {
+          "10.60": [],
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.12": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": []
+        },
+        "Safari": {
+          "5.0": []
+        }
+      },
+      "XP Service Pack 2": {
+        "AOL Explorer": {
+          "1.5": []
+        },
+        "Chrome": {
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "2.0.0.12": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.0.11": [],
+          "3.5": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Internet Explorer": {
+          "6.0": [],
+          "7.0": []
+        },
+        "Mozilla": {
+          "1.7.13": []
+        },
+        "Netscape": {
+          "7.2": [],
+          "8.1.2": [],
+          "9.0.0.5": []
+        },
+        "Opera": {
+          "10.10": [],
+          "11.11": [],
+          "11.50": [],
+          "11.60": [],
+          "12.12": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "8.02": [],
+          "9.25": [],
+          "9.50": [],
+          "9.64": []
+        },
+        "Safari": {
+          "3.1.2": []
+        }
+      }
+    }
+  },
+  "Selenium": {
+    "Android": {
+      "6.0": {
+        "Chrome Mobile": {
+          "59.0": [
+            "Android Nexus 9"
+          ]
+        }
+      },
+      "7.0": {
+        "Chrome Mobile": {
+          "61.0": [
+            "Android Nexus 6P"
+          ]
+        }
+      },
+      "5.0": {
+        "Chrome Mobile": {
+          "61.0": [
+            "Android Nexus 6"
+          ],
+          "59.0": [
+            "Android Galaxy S6"
+          ]
+        }
+      },
+      "4.4": {
+        "Chrome Mobile": {
+          "61.0": [
+            "Android Galaxy Tab S"
+          ],
+          "58.0": [
+            "Android Galaxy Note 3"
+          ]
+        }
+      },
+      "4.2": {
+        "Chrome Mobile": {
+          "33.0": [
+            "Android Galaxy S4"
+          ]
+        }
+      },
+      "4.1": {
+        "Chrome Mobile": {
+          "60.0": [
+            "Android Galaxy Tab 2"
+          ]
+        }
+      }
+    },
+    "iOS": {
+      "9.3": {
+        "Mobile Safari": {
+          "9.0": [
+            "iPad Air 2",
+            "iPad Pro",
+            "iPhone 6s",
+            "iPhone 6s Plus"
+          ]
+        }
+      },
+      "8.1": {
+        "Mobile Safari": {
+          "8.0": [
+            "iPad Air",
+            "iPhone 6",
+            "iPhone 6 Plus"
+          ]
+        }
+      },
+      "7.1": {
+        "Mobile Safari": {
+          "7.0": [
+            "iPad 4",
+            "iPad Mini Retina",
+            "iPhone 5s"
+          ]
+        }
+      },
+      "6.1": {
+        "Mobile Safari": {
+          "6.0": [
+            "iPad 3"
+          ]
+        }
+      },
+      "10.0": {
+        "Mobile Safari": {
+          "10.0": [
+            "iPhone 7",
+            "iPhone 7 Plus"
+          ]
+        }
+      }
+    },
+    "OS X": {
+      "Sierra": {
+        "Chrome x64": {
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": []
+        },
+        "Firefox": {
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": []
+        },
+        "Safari": {
+          "10.0": []
+        }
+      },
+      "El Capitan": {
+        "Chrome x64": {
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": []
+        },
+        "Firefox": {
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": []
+        },
+        "Safari": {
+          "9.0": []
+        }
+      },
+      "Yosemite": {
+        "Chrome x64": {
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": []
+        },
+        "Firefox": {
+          "37.0": [],
+          "38.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": []
+        },
+        "Safari": {
+          "8.0": []
+        }
+      },
+      "Mavericks": {
+        "Chrome": {
+          "19.0": [],
+          "20.0": [],
+          "22.0": [],
+          "23.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": []
+        },
+        "Chrome x64": {
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "45.0": [],
+          "46.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Safari": {
+          "7.0": []
+        }
+      },
+      "Mountain Lion": {
+        "Chrome": {
+          "19.0": [],
+          "20.0": [],
+          "22.0": [],
+          "23.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": []
+        },
+        "Chrome x64": {
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "45.0": [],
+          "46.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Safari": {
+          "6.2": []
+        }
+      }
+    },
+    "Windows": {
+      "10": {
+        "Chrome": {
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Chrome x64": {
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Firefox": {
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": []
+        },
+        "Firefox x64": {
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": []
+        },
+        "Internet Explorer": {
+          "11.0": []
+        },
+        "Edge": {
+          "14.0": [],
+          "15.0": []
+        }
+      },
+      "8.1": {
+        "Chrome": {
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Chrome x64": {
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Firefox": {
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": []
+        },
+        "Firefox x64": {
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": []
+        },
+        "Internet Explorer": {
+          "11.0": []
+        }
+      },
+      "8 Preview": {
+        "Chrome": {
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Chrome x64": {
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "5.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Firefox x64": {
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": []
+        },
+        "Internet Explorer": {
+          "10.0": []
+        }
+      },
+      "7 64-bit": {
+        "Chrome": {
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Chrome x64": {
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": [],
+          "61.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "5.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Firefox x64": {
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": []
+        },
+        "Internet Explorer": {
+          "10.0": [],
+          "11.0": [],
+          "9.0": []
+        }
+      },
+      "7 Beta": {
+        "Chrome": {
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": [],
+          "51.0": [],
+          "52.0": [],
+          "53.0": [],
+          "54.0": [],
+          "55.0": [],
+          "56.0": [],
+          "57.0": [],
+          "58.0": [],
+          "59.0": [],
+          "60.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Internet Explorer": {
+          "8.0": [],
+          "9.0": []
+        }
+      },
+      "Vista Home": {
+        "Chrome": {
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": [],
+          "50.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "45.0": [],
+          "46.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Internet Explorer": {
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        }
+      },
+      "XP Service Pack 3": {
+        "Chrome": {
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "43.0": [],
+          "45.0": [],
+          "46.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Internet Explorer": {
+          "8.0": []
+        }
+      },
+      "XP Service Pack 2": {
+        "Chrome": {
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "40.0": [],
+          "44.0": [],
+          "45.0": [],
+          "46.0": [],
+          "47.0": [],
+          "48.0": [],
+          "49.0": []
+        },
+        "Firefox": {
+          "10.0": [],
+          "11.0": [],
+          "12.0": [],
+          "13.0": [],
+          "14.0": [],
+          "15.0": [],
+          "16.0": [],
+          "17.0": [],
+          "18.0": [],
+          "19.0": [],
+          "20.0": [],
+          "21.0": [],
+          "22.0": [],
+          "23.0": [],
+          "24.0": [],
+          "25.0": [],
+          "26.0": [],
+          "27.0": [],
+          "28.0": [],
+          "29.0": [],
+          "3.6": [],
+          "30.0": [],
+          "31.0": [],
+          "32.0": [],
+          "33.0": [],
+          "34.0": [],
+          "35.0": [],
+          "36.0": [],
+          "37.0": [],
+          "38.0": [],
+          "39.0": [],
+          "4.0": [],
+          "40.0": [],
+          "41.0": [],
+          "42.0": [],
+          "5.0": [],
+          "6.0": [],
+          "7.0": [],
+          "8.0": [],
+          "9.0": []
+        },
+        "Internet Explorer": {
+          "6.0": [],
+          "7.0": []
+        }
+      }
+    }
+  }
+}

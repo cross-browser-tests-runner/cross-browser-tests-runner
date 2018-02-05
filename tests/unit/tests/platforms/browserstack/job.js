@@ -21,89 +21,72 @@ describe('Job', function() {
     var job
     this.timeout(0)
 
-    it('should fail to create a job in case of invalid authorization', function() {
-      return Job.create('http://google.com', undefined, {
-        username: 'abc',
-        password: 'abc'
-      })
-      .should.be.rejectedWith('Basic: Access denied')
-    })
-
-    it('should fail to create a job if no capabilities are provided', function() {
-      return Job.create('http://google.com')
-      .should.be.rejectedWith('422 - {"message":"Validation Failed"')
-    })
-
-    it('should fail to create a job if unsupported os capability is provided', function() {
-      return Job.create('', {
-        os : 'Linux'
-      })
-      .should.be.rejectedWith('422 - {"message":"Validation Failed","errors":[{"field":"os_version","code":"can\'t be blank"},{"field":"url","code":"can\'t be blank"},{"field":"os","code":"invalid"}]}')
-    })
-
-    it('should fail to create a job if unsupported os version capability is provided', function() {
-      return Job.create('', {
-        os : 'Windows',
-        os_version : '6.0'
-      })
-      .should.be.rejectedWith('422 - {"message":"Validation Failed","errors":[{"field":"url","code":"can\'t be blank"},{"field":"os_version","code":"invalid"}]}')
+    it('should throw an error if required input is not provided', function() {
+      expect(()=>{Job.create('')}).to.throw('required option browser missing')
     })
 
     it('should fail to create a job if the url to open is empty', function() {
       return Job.create('', {
-        os : 'Windows',
-        os_version : '10'
+        os: 'Windows',
+        osVersion : '10',
+        browser: 'Firefox',
+        browserVersion: '44.0'
       })
-      .should.be.rejectedWith('422 - {"message":"Validation Failed","errors":[{"field":"url","code":"can\'t be blank"},{"field":"browser","code":"required"}]}')
+      .should.be.rejectedWith('422 - {"message":"Validation Failed","errors":[{"field":"url","code":"can\'t be blank"}]}')
     })
 
-    it('should fail to create a job if browser capability is not provided', function() {
-      return Job.create('http://piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-      })
-      .should.be.rejectedWith('422 - {"message":"Validation Failed","errors":[{"field":"browser","code":"required"}]}')
+    it('should fail to create a job if unsupported os is provided', function() {
+      expect(()=>{Job.create('http://google.com', {
+        os: 'Linux',
+        osVersion : '10',
+        browser: 'Firefox',
+        browserVersion: '44.0'
+      })})
+      .to.throw('invalid os "Linux"')
     })
 
-    it('should fail to create a job if unsupported browser capability is provided', function() {
-      return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'Ubuntu'
-      })
-      .should.be.rejectedWith('422 - {"message":"Validation Failed","errors":[{"field":"browser","code":"invalid"},{"field":"browser_version","code":"invalid"}]}')
+    it('should fail to create a job if unsupported os version is provided', function() {
+      expect(()=>{Job.create('http://google.com', {
+        os: 'Windows',
+        osVersion : '6',
+        browser: 'Firefox',
+        browserVersion: '44.0'
+      })})
+      .to.throw('invalid osVersion "6" for os "Windows"')
     })
 
-    it('should fail to create a job if browser version capability is not provided', function() {
-      return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome'
-      })
-      .should.be.rejectedWith('422 - {"message":"Validation Failed","errors":[{"field":"browser_version","code":"invalid"}]}')
+    it('should fail to create a job if unsupported browser is provided', function() {
+      expect(()=>{Job.create('http://google.com', {
+        os: 'Windows',
+        osVersion : '10',
+        browser: 'ABC',
+        browserVersion: '45.0'
+      })})
+      .to.throw('invalid browser "ABC" for osVersion "10" for os "Windows"')
     })
 
-    it('should fail to create a job if unsupported browser version capability is provided', function() {
-      return Job.create('http://www.piaxis.tech',{
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '10.0'
-      })
-      .should.be.rejectedWith('422 - {"message":"Validation Failed","errors":[{"field":"browser_version","code":"invalid"}]}')
+    it('should fail to create a job if unsupported browser version is provided', function() {
+      expect(()=>{Job.create('http://www.piaxis.tech',{
+        os: 'Windows',
+        osVersion : '10',
+        browser : 'Chrome',
+        browserVersion : '10.0'
+      })})
+      .to.throw('invalid version "10.0" for browser "Chrome" for osVersion "10" for os "Windows"')
     })
 
     it('should create a remote url test job if valid values are provided for all mandatory capabilities', function() {
       var build = utils.buildDetails()
       return Job.create('http://www.piaxis.tech',{
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'Windows',
+        osVersion : '10',
+        browser : 'Chrome',
+        browserVersion : '45.0'
       }, {
+        timeout: 60,
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(job => {
         expect(job.id).to.not.be.undefined
@@ -118,16 +101,16 @@ describe('Job', function() {
 
     it('should create a local url test job if valid values are provided for all mandatory capabilities', function() {
       var build = utils.buildDetails()
-      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+      return Job.create('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+        os: 'OS X',
+        osVersion : 'Sierra',
+        browser : 'Chrome',
+        browserVersion : '51.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name,
-        'browserstack.local' : true
+        test: build.test,
+        local: true
       })
       .then(job => {
         expect(job.id).to.not.be.undefined
@@ -142,18 +125,18 @@ describe('Job', function() {
 
     it('should create a local url test job when optional capabilities are provided along with valid values for all mandatory capabilities', function() {
       var build = utils.buildDetails()
-      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+      return Job.create('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+        os: 'Windows',
+        osVersion : 'XP',
+        browser : 'Firefox',
+        browserVersion : '30.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name,
-        'browserstack.local' : true,
-        'browserstack.debug' : true,
-        'browserstack.video' : true
+        test: build.test,
+        local: true,
+        screenshots: true,
+        video: true
       })
       .then(job => {
         expect(job.id).to.not.be.undefined
@@ -168,18 +151,18 @@ describe('Job', function() {
 
     it('should create a local url test job for native runner case with valid values for all mandatory capabilities and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+      return Job.create('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+        os: 'OS X',
+        osVersion : 'Snow Leopard',
+        browser : 'Chrome',
+        browserVersion : '28.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name,
-        'browserstack.local' : true,
-        'browserstack.debug' : true,
-        'browserstack.video' : true
+        test: build.test,
+        local: true,
+        screenshots: true,
+        video: true
       },
       'some-run-id',
       true)
@@ -196,16 +179,16 @@ describe('Job', function() {
 
     it('should create a local url test job for native runner case with the url ending in ? when valid values for all mandatory capabilities are provided', function() {
       var build = utils.buildDetails()
-      return Job.create('http://127.0.0.1:3000/tests/pages/tests.html?', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+      return Job.create('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html?', {
+        os: 'Windows',
+        osVersion : '8.1',
+        browser : 'Firefox',
+        browserVersion : '42.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name,
-        'browserstack.local' : true
+        test: build.test,
+        local: true
       },
       'some-other-run-id',
       true)
@@ -226,33 +209,33 @@ describe('Job', function() {
 
     this.timeout(0)
 
-    it('should fail to create jobs if no browsers are input', function() {
+    it('should throw error if no browsers are input', function() {
       expect(()=>{Job.createMultiple('http://google.com', [ ])}).to.throw('no browsers specified for createMultiple')
     })
 
-    it('should fail to create jobs if no capabilities are input', function() {
-      return Job.createMultiple('http://google.com', [
-        { }
-      ])
-      .should.be.rejectedWith('422 - {"message":"Validation Failed"')
+    it('should throw an error if required keys are not provided', function() {
+      expect(()=>{return Job.createMultiple('http://google.com', [
+        undefined
+      ])})
+      .to.throw('required option browser missing')
     })
 
     it('should create multiple test jobs for a valid remote url with valid values for all mandatory capabilities provided', function() {
       var build = utils.buildDetails()
       return Job.createMultiple('http://www.piaxis.tech', [{
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'Windows',
+        osVersion : '10',
+        browser : 'Chrome',
+        browserVersion : '49.0'
       }, {
-        os : 'Windows',
-        os_version : '8.1',
-        browser : 'firefox',
-        browser_version : '39.0'
+        os: 'Windows',
+        osVersion : '8.1',
+        browser : 'Firefox',
+        browserVersion : '39.0'
       }], {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(jobs => {
         expect(jobs.length).to.equal(2)
@@ -270,20 +253,20 @@ describe('Job', function() {
 
     it('should create multiple test jobs for a valid local url with valid values for all mandatory capabilities provided', function() {
       var build = utils.buildDetails()
-      return Job.createMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+      return Job.createMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
+        os: 'OS X',
+        osVersion : 'Yosemite',
+        browser : 'Chrome',
+        browserVersion : '39.0'
       }, {
-        os : 'Windows',
-        os_version : '8.1',
-        browser : 'firefox',
-        browser_version : '39.0'
+        os: 'Windows',
+        osVersion : '7',
+        browser : 'Firefox',
+        browserVersion : '33.0'
       }], {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(jobs => {
         expect(jobs.length).to.equal(2)
@@ -301,20 +284,20 @@ describe('Job', function() {
 
     it('should create multiple test jobs for native runner case with a local url including query params and valid values for all mandatory capabilities provided', function() {
       var build = utils.buildDetails()
-      return Job.createMultiple('http://127.0.0.1:3000/tests/pages/tests.html?_=89141414', [{
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+      return Job.createMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html?_=89141414', [{
+        os: 'Windows',
+        osVersion : 'XP',
+        browser : 'Firefox',
+        browserVersion : '29.0'
       }, {
-        os : 'Windows',
-        os_version : '8.1',
-        browser : 'firefox',
-        browser_version : '39.0'
+        os: 'OS X',
+        osVersion : 'El Capitan',
+        browser : 'Chrome',
+        browserVersion : '47.0'
       }], {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       },
       'some-mult-run-id',
       true)
@@ -342,14 +325,14 @@ describe('Job', function() {
     it('should say "running" for a running test job', function() {
       var build = utils.buildDetails()
       return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'Windows',
+        osVersion : '10',
+        browser : 'Chrome',
+        browserVersion : '52.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(j => {
         job = j
@@ -369,14 +352,14 @@ describe('Job', function() {
     it('should say "stopped" for an invalid job (chracterized by an invalid job id)', function() {
       var build = utils.buildDetails(), saveId
       return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'Windows',
+        osVersion : '8',
+        browser : 'Firefox',
+        browserVersion : '43.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(j => {
         job = j
@@ -408,14 +391,14 @@ describe('Job', function() {
     it('should successfully stop a running test job', function() {
       var build = utils.buildDetails()
       return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'OS X',
+        osVersion : 'Lion',
+        browser : 'Firefox',
+        browserVersion : '37.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(job => {
         return job.stop()
@@ -430,14 +413,14 @@ describe('Job', function() {
     it('should tolerate when called for a job that is stopped already, and return silently', function() {
       var build = utils.buildDetails()
       return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'OS X',
+        osVersion : 'Mountain Lion',
+        browser : 'Chrome',
+        browserVersion : '39.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(j => {
         job = j
@@ -463,14 +446,14 @@ describe('Job', function() {
       var job
       var build = utils.buildDetails()
       return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'OS X',
+        osVersion : 'Snow Leopard',
+        browser : 'Chrome',
+        browserVersion : '28.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(j => {
         job = j
@@ -498,14 +481,14 @@ describe('Job', function() {
       var job, saveId
       var build = utils.buildDetails()
       return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'Windows',
+        osVersion : 'XP',
+        browser : 'Firefox',
+        browserVersion : '27.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(j => {
         job = j
@@ -537,14 +520,14 @@ describe('Job', function() {
       var job
       var build = utils.buildDetails()
       return Job.create('http://www.piaxis.tech', {
-        os : 'Windows',
-        os_version : '10',
-        browser : 'chrome',
-        browser_version : '45.0'
+        os: 'Windows',
+        osVersion : '10',
+        browser : 'Firefox',
+        browserVersion : '44.0'
       }, {
         build: build.build,
         project: build.project,
-        name: build.name
+        test: build.test
       })
       .then(j => {
         job = j

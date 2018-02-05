@@ -29,99 +29,57 @@ if(process.version > 'v6') {
 
       this.timeout(0)
 
-      it('should fail to create the session if no capabilities are input', function() {
-        var scriptJob = new ScriptJob('http://google.com')
-        expect(function(){
-          return scriptJob.create()
-        }).to.throw('Target browser must be a string, but is \<undefined\>; did you forget to call forBrowser\(\)\?')
-      })
-
       it('should fail to create the session if an unsupported browser name is provided', function() {
-        var scriptJob = new ScriptJob('http://google.com', {
-          browser: 'SomeBrowser'
-        })
-        return scriptJob.create()
-        .should.be.rejectedWith('OS/Browser combination invalid')
+        expect(()=>{new ScriptJob('http://google.com', {
+          os: 'Windows',
+          osVersion: '10',
+          browser: 'SomeBrowser',
+          browserVersion: '15.0'
+        })})
+        .to.throw('invalid browser "SomeBrowser" for osVersion "10" for os "Windows"')
       })
 
       it('should fail to create the session if an unsupported browser version is provided', function() {
-        var scriptJob = new ScriptJob('http://google.com', {
+        expect(()=>{new ScriptJob('http://google.com', {
+          os: 'OS X',
+          osVersion: 'El Capitan',
           browser: 'Chrome',
-          browser_version: '1.0'
-        })
-        return scriptJob.create()
-        .should.be.rejectedWith('OS/Browser combination invalid')
+          browserVersion: '1.0'
+        })})
+        .to.throw('invalid version "1.0" for browser "Chrome" for osVersion "El Capitan" for os "OS X"')
       })
 
       it('should fail to create the session if unsupported OS details are provided', function() {
-        var scriptJob = new ScriptJob('http://google.com', {
+        expect(()=>{new ScriptJob('http://google.com', {
           browser: 'Chrome',
+          browserVersion: '41.0',
           os: 'Linux',
-          os_version: '10.0'
-        })
-        return scriptJob.create()
-        .should.be.rejectedWith('OS and OS Version not supported')
+          osVersion: '10.0'
+        })})
+        .to.throw('invalid os "Linux"')
       })
 
       it('should fail to create the session if unsupported OS version is provided', function() {
-        var scriptJob = new ScriptJob('http://google.com', {
+        expect(()=>{new ScriptJob('http://google.com', {
           browser: 'Chrome',
+          browserVersion: '43.0',
           os: 'Windows',
-          os_version: 'NT'
-        })
-        return scriptJob.create()
-        .should.be.rejectedWith('OS and OS Version not supported')
+          osVersion: 'NT'
+        })})
+        .to.throw('invalid osVersion "NT" for os "Windows"')
       })
 
-      it('should create a session if a supported browser name is provided (only mandatory capability)', function() {
+      it('should create a session if supported browser and os details are provided', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://google.com', {
-          build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
-        })
-        return scriptJob.create()
-        .then(() => {
-          return scriptJob.driver.quit()
-        })
-        .catch(err => {
-          utils.log.error('error: ', err)
-          throw err
-        })
-        .should.be.fulfilled
-      })
-
-      it('should create a session if valid values for browser name and browser version are provided', function() {
-        var build = utils.buildDetails()
-        var scriptJob = new ScriptJob('http://google.com', {
-          build: build.build,
-          name: build.name,
-          project: build.project,
           browser: 'Chrome',
-          browser_version: '41.0'
-        })
-        return scriptJob.create()
-        .then(() => {
-          return scriptJob.driver.quit()
-        })
-        .catch(err => {
-          utils.log.error('error: ', err)
-          throw err
-        })
-        .should.be.fulfilled
-      })
-
-      it('should create a session if valid values for browser name, browser version, os, and os version are provided', function() {
-        var build = utils.buildDetails()
-        var scriptJob = new ScriptJob('http://google.com', {
+          browserVersion: '41.0',
+          os: 'OS X',
+          osVersion: 'Yosemite'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome',
-          browser_version: '41.0',
-          os: 'Windows',
-          os_version: '8'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -141,41 +99,27 @@ if(process.version > 'v6') {
       this.timeout(0)
 
       it('should fail if the session is not created yet', function() {
-        var scriptJob = new ScriptJob()
-        expect(() => { return scriptJob.run() }).to.throw('Platforms.Core.ScriptJob: Driver not created yet')
-      })
-
-      it('should fail if an empty url and valid values of all mandatory capabilities are provided while creating the session', function() {
-        var build = utils.buildDetails()
         var scriptJob = new ScriptJob('', {
-          build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          browser: 'Chrome',
+          browserVersion: '46.0',
+          os: 'OS X',
+          osVersion: 'Yosemite'
         })
-        var error
-        return scriptJob.create()
-        .then(() => {
-          return scriptJob.run(script)
-        })
-        .catch(err => {
-          error = err
-          return scriptJob.driver.quit()
-        }).
-        then(() => {
-          throw error
-        })
-        .should.be.rejectedWith('Cannot navigate to invalid URL')
+        expect(() => { return scriptJob.run() }).to.throw('Platforms.Core.ScriptJob: Driver not created yet')
       })
 
       it('should run the script if a valid remote url, valid values of all mandatory capabilities, and optional screenshot capability are provided', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '31.0',
+          os: 'OS X',
+          osVersion: 'Mavericks'
+        }, {
           build: build.build,
-          name: build.name,
+          test: build.test,
           project: build.project,
-          browser: 'Chrome',
-          'browserstack.debug': true
+          screenshots: true
         })
         return scriptJob.create()
         .then(() => {
@@ -193,11 +137,15 @@ if(process.version > 'v6') {
 
       it('should run the script and get connection failures in the page opened if a valid local url, valid values for all mandatory capabilities, and no "local" capability were provided while creating the session', function() {
         var build = utils.buildDetails()
-        var scriptJob = new ScriptJob('http://127.0.0.1:3000/tests/pages/tests.html', {
+        var scriptJob = new ScriptJob('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          browser: 'Chrome',
+          browserVersion: '40.0',
+          os: 'Windows',
+          osVersion: '10'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         var match
         return scriptJob.create()
@@ -208,7 +156,7 @@ if(process.version > 'v6') {
           return scriptJob.driver.getPageSource()
         })
         .then(source => {
-          match = source.match(/127.0.0.1<\/strong> refused to connect./)
+          match = source.match(/http:\/\/build\.cross\-browser\-tests\-runner\.org:3000\/tests\/pages\/tests.html is not available/)
           return scriptJob.driver.quit()
         })
         .then(() => {
@@ -216,7 +164,7 @@ if(process.version > 'v6') {
             return true
           }
           else {
-            throw new Error('Did not get expected page source of failure to connect with 127.0.0.1')
+            throw new Error('Did not get expected page source of failure to connect with build.cross-browser-tests-runner.org')
           }
         })
         .catch(err => {
@@ -228,13 +176,17 @@ if(process.version > 'v6') {
 
       it('should run the script and get expected content in the page opened if a valid local url, valid values for all mandatory capabilities, and "local" capability were provided while creating the session, and a tunnel has been started before running the script', function() {
         var build = utils.buildDetails()
-        var scriptJob = new ScriptJob('http://127.0.0.1:3000/tests/pages/tests.html', {
+        var scriptJob = new ScriptJob('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          browser: 'Firefox',
+          browserVersion: '38.0',
+          os: 'Windows',
+          osVersion: '7'
+        }, {
           build: build.build,
-          name: build.name,
+          test: build.test,
           project: build.project,
-          browser: 'Chrome',
-          'browserstack.local': true,
-          'browserstack.localIdentifier': 'ut-bs-scriptjob'
+          local: true,
+          localIdentifier: 'ut-bs-scriptjob'
         })
         var tunnel = new Tunnel({localIdentifier: 'ut-bs-scriptjob'})
         var match, savedSource
@@ -254,7 +206,6 @@ if(process.version > 'v6') {
         })
         .then(source => {
           savedSource = source
-          utils.log.debug(source)
           match = source.match(/<h1>Hi, this is a page for testing cross\-browser\-tests\-runner<\/h1>/)
           return scriptJob.driver.quit()
         })
@@ -262,7 +213,7 @@ if(process.version > 'v6') {
           return utils.ensureZeroTunnels()
         })
         .then(() => {
-          if(!match && !savedSource.match(/127.0.0.1<\/strong> refused to connect./)) {
+          if(!match && !savedSource.match(/build.cross-browser-tests-runner.org<\/strong> refused to connect./)) {
             throw new Error('Did not get expected page source or the source hinting at tunnel failure')
           }
           return true
@@ -281,17 +232,26 @@ if(process.version > 'v6') {
       this.timeout(0)
 
       it('should fail if the session is not created yet', function() {
-        var scriptJob = new ScriptJob()
+        var scriptJob = new ScriptJob('', {
+          browser: 'Chrome',
+          browserVersion: '42.0',
+          os: 'OS X',
+          osVersion: 'Yosemite'
+        })
         expect(()=>{scriptJob.markStatus()}).to.throw('Platforms.Core.ScriptJob: session not created yet to mark')
       })
 
       it('should mark the test status as passed in case no decider function was provided', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '42.0',
+          os: 'OS X',
+          osVersion: 'Yosemite'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -310,10 +270,14 @@ if(process.version > 'v6') {
       it('should mark the test status as passed after running the script in case no decider function is provided', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '39.0',
+          os: 'OS X',
+          osVersion: 'Sierra'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -335,10 +299,14 @@ if(process.version > 'v6') {
       it('should successfully mark the test status even if the session is over', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '45.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -360,10 +328,14 @@ if(process.version > 'v6') {
       it('should mark test status as failed in case the decider function throws an error', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '37.0',
+          os: 'OS X',
+          osVersion: 'Snow Leopard'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -384,10 +356,14 @@ if(process.version > 'v6') {
       it('should mark test status as failed in case the decider promise leads to a reject', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '32.0',
+          os: 'OS X',
+          osVersion: 'Lion'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -408,10 +384,14 @@ if(process.version > 'v6') {
       it('should mark test status as failed in case the decider promise is resolved with a falsy result', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '39.0',
+          os: 'OS X',
+          osVersion: 'Yosemite'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -432,10 +412,14 @@ if(process.version > 'v6') {
       it('should mark test status as passed in case the decider promise is resolved with a truthy result', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '39.0',
+          os: 'OS X',
+          osVersion: 'El Capitan'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -477,10 +461,14 @@ if(process.version > 'v6') {
       it('should fail if the session is not created yet', function(){
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '39.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         expect(() => { return scriptJob.screenshot() }).to.throw('Platforms.Core.ScriptJob: session not created yet to take screenshot')
       })
@@ -488,10 +476,14 @@ if(process.version > 'v6') {
       it('should work just after having created the session', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '45.0',
+          os: 'Windows',
+          osVersion: '8.1'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         var pngStr
         return scriptJob.create()
@@ -515,10 +507,14 @@ if(process.version > 'v6') {
       it('should work after running test script', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '40.0',
+          os: 'OS X',
+          osVersion: 'Mavericks'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         var pngStr
         return scriptJob.create()
@@ -545,10 +541,14 @@ if(process.version > 'v6') {
       it('should fail after the session is over', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '36.0',
+          os: 'OS X',
+          osVersion: 'Mountain Lion'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         return scriptJob.create()
         .then(() => {
@@ -572,10 +572,14 @@ if(process.version > 'v6') {
       it('should fail if the session is not created yet', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '38.0',
+          os: 'OS X',
+          osVersion: 'Yosemite'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         expect(() => { return scriptJob.status() }).to.throw('Platforms.Core.ScriptJob: session not created yet to get status')
       })
@@ -583,10 +587,14 @@ if(process.version > 'v6') {
       it('should say "running" just after creating the session', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '48.0',
+          os: 'Windows',
+          osVersion: '8'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         var status
         return scriptJob.create()
@@ -611,10 +619,14 @@ if(process.version > 'v6') {
       it('should say "running" after running the script', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '45.0',
+          os: 'Windows',
+          osVersion: '10'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         var status
         return scriptJob.create()
@@ -642,10 +654,14 @@ if(process.version > 'v6') {
       it('should say "stopped" for an unknown session (characterized by an invalid mocked up session id)', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '51.0',
+          os: 'Windows',
+          osVersion: '10'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         var status
         return scriptJob.create()
@@ -674,10 +690,14 @@ if(process.version > 'v6') {
       it('should say "stopped" for a session that is over', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '35.0',
+          os: 'Windows',
+          osVersion: '7'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         var status
         return scriptJob.create()
@@ -702,10 +722,14 @@ if(process.version > 'v6') {
       it('should say "stopped" for a session that is over and was marked as passed', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Firefox',
+          browserVersion: '27.0',
+          os: 'Windows',
+          osVersion: 'XP'
+        }, {
           build: build.build,
-          name: build.name,
+          test: build.test,
           project: build.project,
-          browser: 'Chrome'
         })
         var status
         return scriptJob.create()
@@ -733,10 +757,14 @@ if(process.version > 'v6') {
       it('should say "stopped" for a session that is over and was marked as failed', function() {
         var build = utils.buildDetails()
         var scriptJob = new ScriptJob('http://www.google.com', {
+          browser: 'Chrome',
+          browserVersion: '49.0',
+          os: 'OS X',
+          osVersion: 'El Capitan'
+        }, {
           build: build.build,
-          name: build.name,
-          project: build.project,
-          browser: 'Chrome'
+          test: build.test,
+          project: build.project
         })
         var status
         return scriptJob.create()

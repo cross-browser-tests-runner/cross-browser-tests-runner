@@ -29,10 +29,11 @@
           "browserVersion": "43.0"
         },
         {
-          "os": "Linux",
-          "osVersion": null,
+          "os": "Android",
+          "osVersion": "4.4",
           "browser": "Android Browser",
-          "browserVersion": "4.4"
+          "browserVersion": null,
+          "device": "LG Nexus 4 Emulator"
         }
       ]
     }
@@ -51,13 +52,12 @@
       "localIdentifier": "native-functional-tests",
       "build": "native-runner-build",
       "test": "native-runner-functional-test",
-      "framework": "custom",
       "timeout": 90,
       "screenshots": true
     }
   },
   "server": {
     "port": 8000,
-    "host": "127.0.0.1"
+    "host": "build.cross-browser-tests-runner.org"
   }
 }

@@ -39,6 +39,7 @@ jspm_packages
 # Downloaded at runtime
 BrowserStackLocal*
 sc-4.*
+cbt-tunnels-*
 landing-1.jpg
 dist/
 dist-*/

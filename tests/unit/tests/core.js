@@ -5,6 +5,7 @@ describe('Core', function() {
   require('./core/sleep')
   require('./core/settings')
   require('./core/options')
+  require('./core/config')
   require('./core/request')
   require('./core/process')
   require('./core/remotefile')

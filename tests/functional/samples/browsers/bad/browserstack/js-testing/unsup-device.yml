@@ -1,7 +1,5 @@
 BrowserStack:
   JS:
-    Windows Mobile:
-      8.1:
-        IE Mobile:
-          - "Nokia Lumia"
-          - "iPhone 4"
+    Windows Phone:
+      "8.1":
+        Nokia Lumia, iPhone 4:

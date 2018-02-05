@@ -62,25 +62,4 @@ describe('Platform', function() {
     })
   })
 
-  describe('browserKeys', function() {
-    it('should throw an error', function() {
-      var tester = function() { Platform.browserKeys() }
-      expect(tester).to.throw(Error)
-    })
-  })
-
-  describe('capabilitiesKeys', function() {
-    it('should throw an error', function() {
-      var tester = function() { Platform.capabilitiesKeys() }
-      expect(tester).to.throw(Error)
-    })
-  })
-
-  describe('required', function() {
-    it('should throw an error', function() {
-      var tester = function() { return Platform.required }
-      expect(tester).to.throw(Error)
-    })
-  })
-
 })

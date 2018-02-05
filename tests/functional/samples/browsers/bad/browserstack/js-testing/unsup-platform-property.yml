@@ -1,0 +1,7 @@
+BrowserStack:
+  JS:
+    Windows:
+      XP:
+        Chrome:
+          "43.0-44.0":
+            deviceType: abc

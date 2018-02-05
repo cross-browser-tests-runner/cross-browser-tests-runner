@@ -2,5 +2,6 @@ BrowserStack:
   Selenium:
     iOS:
       "6.0":
-        Mobile Safari iPad:
-          - "iPad 3rd (6.0)"
+        Mobile Safari:
+          iPad 3rd (6.0):
+            orientation: landscape

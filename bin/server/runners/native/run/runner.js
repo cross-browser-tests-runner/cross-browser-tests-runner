@@ -2,20 +2,7 @@
 
 let
   path = require('path'),
-  Bluebird = require('bluebird'),
-  coreUtils = require('./../../../../../lib/core/utils'),
-  platformNames = ['BrowserStack', 'SauceLabs'],
-  aliases = {
-    /* eslint-disable global-require */
-    BrowserStack: require('./../../../../../conf/browserstack-conf.json').Aliases,
-    SauceLabs: require('./../../../../../conf/saucelabs-conf.json').Aliases
-    /* eslint-enable global-require */
-  }
-
-platformNames.forEach(platform => {
-  aliases[platform].Browsers = coreUtils.swapKV(aliases[platform].Browsers)
-  aliases[platform]['Operating Systems'] = coreUtils.swapKV(aliases[platform]['Operating Systems'])
-})
+  Bluebird = require('bluebird')
 
 class Runner {
 
@@ -51,7 +38,7 @@ class Runner {
         config = this.tests[name].JS[0],
         runConfig = {url: config.url, browsers: [ ]}
       while(capacity && browsers.length > config.browserIndex) {
-        runConfig.browsers.push(alias(name, browsers[config.browserIndex++]))
+        runConfig.browsers.push(browsers[config.browserIndex++])
         --capacity
       }
       if(browsers.length === config.browserIndex) {
@@ -69,7 +56,7 @@ class Runner {
         config = this.tests[name].Selenium[0],
         runConfig = {url: config.url, scriptFile: config.scriptFile, browsers: [ ]}
       while(capacity && browsers.length > config.browserIndex) {
-        runConfig.browsers.push(alias(name, browsers[config.browserIndex++]))
+        runConfig.browsers.push(browsers[config.browserIndex++])
         --capacity
       }
       if(browsers.length === config.browserIndex) {
@@ -119,11 +106,11 @@ class Runner {
             let script = require(path.resolve(process.cwd(), runConfig.scriptFile))
             /* eslint-enable global-require */
             promises.push(this.platforms[name].runScriptMultiple(
-                runConfig.url, runConfig.browsers, capabilities, script.script, script.decider))
+                runConfig.url, clone(runConfig.browsers), clone(capabilities), script.script, script.decider))
           }
           else {
             promises.push(this.platforms[name].runMultiple(
-                runConfig.url, runConfig.browsers, capabilities, true))
+                runConfig.url, clone(runConfig.browsers), clone(capabilities), true))
           }
           runConfig.type = type
           runConfig.name = name
@@ -180,14 +167,8 @@ class Runner {
 
 }
 
-function alias(name, browser) {
-  if(aliases[name].Browsers[browser.browser]) {
-    browser.browser = aliases[name].Browsers[browser.browser]
-  }
-  if(aliases[name]['Operating Systems'][browser.os]) {
-    browser.os = aliases[name]['Operating Systems'][browser.os]
-  }
-  return browser
+function clone(params) {
+  return JSON.parse(JSON.stringify(params))
 }
 
 exports.Runner = Runner

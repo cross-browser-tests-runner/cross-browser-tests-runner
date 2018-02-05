@@ -5,7 +5,7 @@
     "BrowserStack": {
       "Selenium": [
         {
-          "os": "Mac OSX",
+          "os": "OS X",
           "osVersion": "Mavericks",
           "browser": "Firefox",
           "browserVersion": "37.0"
@@ -19,7 +19,7 @@
         {
           "os": "iOS",
           "osVersion": "8.3",
-          "browser": "Mobile Safari iPad",
+          "browser": "Mobile Safari",
           "browserVersion": null,
           "device": "iPad Air"
         }
@@ -28,8 +28,8 @@
     "SauceLabs": {
       "Selenium": [
         {
-          "os": "Mac OSX",
-          "osVersion": "10.9",
+          "os": "OS X",
+          "osVersion": "Mavericks",
           "browser": "Chrome",
           "browserVersion": "33.0"
         },
@@ -65,6 +65,6 @@
   },
   "server": {
     "port": 7883,
-    "host": "127.0.0.1"
+    "host": "build.cross-browser-tests-runner.org"
   }
 }

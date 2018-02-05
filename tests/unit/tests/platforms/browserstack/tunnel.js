@@ -41,7 +41,7 @@ describe('Tunnel', function() {
 
     it('should convert Object type input parameters to hyphen-separated-lowercase parameters hierarchially', function() {
       tunnel = new Tunnel()
-      var args = tunnel.check({ proxy : { host : '127.0.0.1', port : 2301 } })
+      var args = tunnel.check({ proxy : { host : 'build.cross-browser-tests-runner.org', port : 2301 } })
       expect(args.indexOf('--proxy-host')).to.not.equal(-1)
       expect(args.indexOf('--proxy-port')).to.not.equal(-1)
       expect(args.indexOf('--proxy')).to.equal(-1)
@@ -51,7 +51,7 @@ describe('Tunnel', function() {
 
     it('should convert non-String type parameter values to String type values', function() {
       tunnel = new Tunnel()
-      var args = tunnel.check({ proxy : { host : '127.0.0.1', port : 2301 }, verbose: 3 })
+      var args = tunnel.check({ proxy : { host : 'build.cross-browser-tests-runner.org', port : 2301 }, verbose: 3 })
       expect(args.indexOf('2301')).to.not.equal(-1)
       expect(args.indexOf('3')).to.not.equal(-1)
     })

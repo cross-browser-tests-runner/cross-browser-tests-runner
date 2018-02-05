@@ -1,8 +1,9 @@
 SauceLabs:
   JS:
     Windows:
-      7:
+      "7":
         Chrome:
-          - 32.0-36.0
-          - "40.0"
-        Firefox: "41.0"
+          "32.0-36.0, 40.0":
+            resolution: 1152x864
+        Firefox:
+          "41.0":

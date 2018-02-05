@@ -1,0 +1,6 @@
+BrowserStack:
+  Selenium:
+    iOS:
+      "5.1":
+        iPhone 4S:
+          osVersion: abc

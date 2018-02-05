@@ -76,37 +76,41 @@ describe('close.js', function() {
     .should.be.fulfilled
   })
 
-  it('should close the runs and platforms once called after a test getting created successfully', function() {
-    var proc = new Process(), tried = false, build = utils.buildDetails(), out = ''
-    return proc.create('node',
-      utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
-        "--os", "Windows", "--osVersion", "10", "--browser", "firefox", "--browserVersion", "43.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://www.piaxis.tech"
-      ]), {
-      onstdout: function(stdout) {
-        if(!tried && stdout.match(/created test/)) {
-          tried = true
-          proc.stop()
-        }
-      }
-    })
-    .then(() => {
-      proc = new Process()
+  if(process.version > 'v6') {
+
+    it('should close the runs and platforms once called after a test getting created successfully', function() {
+      var proc = new Process(), tried = false, build = utils.buildDetails(), out = ''
       return proc.create('node',
-        utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/close.js'), {
+        utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/browser.js', [
+          "--os", "Windows", "--osVersion", "8", "--browser", "Chrome", "--browserVersion", "48.0", "--build", build.build, "--test", build.test, "--project", build.project, "http://www.piaxis.tech"
+        ]), {
         onstdout: function(stdout) {
-          out += stdout
+          if(!tried && stdout.match(/created test/)) {
+            tried = true
+            proc.stop()
+          }
         }
       })
+      .then(() => {
+        proc = new Process()
+        return proc.create('node',
+          utils.nodeProcCoverageArgs('bin/hooks/testem/saucelabs/close.js'), {
+          onstdout: function(stdout) {
+            out += stdout
+          }
+        })
+      })
+      .then(() => {
+        expect(out).to.contain('closed saucelabs-testem runs')
+        return true
+      })
+      .catch(err => {
+        utils.log.error('error: ', err)
+        throw err
+      })
+      .should.be.fulfilled
     })
-    .then(() => {
-      expect(out).to.contain('closed saucelabs-testem runs')
-      return true
-    })
-    .catch(err => {
-      utils.log.error('error: ', err)
-      throw err
-    })
-    .should.be.fulfilled
-  })
+
+  }
 
 })

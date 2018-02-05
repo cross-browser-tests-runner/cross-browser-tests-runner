@@ -10,8 +10,6 @@ var
   Env = require('./../../../../../lib/core/env').Env,
   platform = require('./../../../../../lib/platforms/browserstack/platform'),
   Platform = platform.Platform,
-  PlatformVars = platform.PlatformVars,
-  PlatformKeys = require('./../../../../../lib/platforms/interfaces/platform').PlatformKeys,
   Tunnel = require('./../../../../../lib/platforms/browserstack/tunnel').Tunnel,
   Manager = require('./../../../../../lib/platforms/browserstack/manager').Manager,
   BinaryVars = require('./../../../../../lib/platforms/browserstack/tunnel/binary').BinaryVars,
@@ -44,39 +42,6 @@ const
 
 describe('Platform', function() {
 
-  describe('browserKeys', function() {
-    it('should return all standard browser keys', function() {
-      var keys = Platform.browserKeys(PlatformKeys.browser)
-      PlatformKeys.browser.forEach(function(key) {
-        expect(keys[key]).to.not.be.undefined
-      })
-    })
-
-  })
-
-  describe('capabilitiesKeys', function() {
-
-    it('should return all standard capabilities keys', function() {
-      var keys = Platform.capabilitiesKeys(PlatformKeys.capabilities)
-      PlatformKeys.capabilities.forEach(function(key) {
-        expect(keys[key]).to.not.be.undefined
-      })
-    })
-
-  })
-
-  describe('required', function() {
-
-    it('should return well-formed set of the required keys', function() {
-      var required = Platform.required
-      expect(required.browser).to.not.be.undefined
-      expect(required.browser).to.be.an('Array')
-      expect(required.capabilities).to.not.be.undefined
-      expect(required.capabilities).to.be.an('Array')
-    })
-
-  })
-
   describe('open', function() {
 
     var platform = new Platform()
@@ -91,7 +56,7 @@ describe('Platform', function() {
       function tester() {
         platform.open({ local: true })
       }
-      expect(tester).to.throw(Error)
+      expect(tester).to.throw('capabilitiesArr.forEach is not a function')
     })
 
     it('should fail if an invalid/unsupported capability key is provided', function() {
@@ -100,7 +65,7 @@ describe('Platform', function() {
           abc: 123
         }])
       }
-      expect(tester).to.throw(Error)
+      expect(tester).to.throw('option abc is not allowed')
     })
 
     it('should open the platform by creating a tunnel without an identifier if "local" capability is provided', function() {
@@ -215,44 +180,36 @@ describe('Platform', function() {
     this.timeout(0)
 
     it('should fail if no input is provided', function() {
-      function tester() {
-        platform.run(undefined, undefined, undefined)
-      }
-      expect(tester).to.throw(Error)
+      return platform.run(undefined, undefined, undefined)
+      .should.be.rejectedWith('required option browser missing')
     })
 
     it('should fail to create a run of a test job if required browser keys are not provided', function() {
-      function tester() {
-        platform.run('http://www.piaxis.tech', { }, { })
-      }
-      expect(tester).to.throw(Error)
+      return platform.run('http://www.piaxis.tech', { }, { })
+      .should.be.rejectedWith('required option browser missing')
     })
 
     it('should fail to create a run of a test job if an unsupported browser key is provided', function() {
-      function tester() {
-        platform.run('http://www.piaxis.tech', {
-          abc: 123,
-          os: 'Windows',
-          osVersion: 'Vista',
-          browser: 'Chrome',
-          browserVersion: '11.0'
-        }, { })
-      }
-      expect(tester).to.throw(Error)
+      return platform.run('http://www.piaxis.tech', {
+        abc: 123,
+        os: 'Windows',
+        osVersion: 'XP',
+        browser: 'Chrome',
+        browserVersion: '21.0'
+      }, { })
+      .should.be.rejectedWith('option abc is not allowed')
     })
 
     it('should fail to create a run of a test job if an unsupported capabilities key is provided', function() {
-      function tester() {
-        platform.run('http://www.piaxis.tech', {
-          os: 'Windows',
-          osVersion: 'Vista',
-          browser: 'Chrome',
-          browserVersion: '11.0'
-        }, {
-          abc: 123
-        })
-      }
-      expect(tester).to.throw(Error)
+      return  platform.run('http://www.piaxis.tech', {
+        os: 'Windows',
+        osVersion: 'XP',
+        browser: 'Chrome',
+        browserVersion: '21.0'
+      }, {
+        abc: 123
+      })
+      .should.be.rejectedWith('option abc is not allowed')
     })
 
     it('should create a run of a test job if a valid remote url and valid values for all mandatory parameters are provided', function() {
@@ -264,7 +221,7 @@ describe('Platform', function() {
         browserVersion: '45.0'
       }, {
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -280,11 +237,11 @@ describe('Platform', function() {
 
     it('should create a run of a test job if a valid local url, valid values for all mandatory parameters, and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
-        os: 'Windows',
-        osVersion: '10',
+      return platform.run('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+        os: 'OS X',
+        osVersion: 'Sierra',
         browser: 'Chrome',
-        browserVersion: '45.0'
+        browserVersion: '52.0'
       }, {
         timeout: 60,
         local: true,
@@ -292,7 +249,7 @@ describe('Platform', function() {
         screenshots: false,
         video: true,
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -311,11 +268,11 @@ describe('Platform', function() {
 
     it('should create a run of a test job for native runner case if a valid local url, valid values for all mandatory parameters, and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
+      return platform.run('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
         os: 'Windows',
         osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0'
+        browser: 'Firefox',
+        browserVersion: '41.0'
       }, {
         timeout: 60,
         local: true,
@@ -323,7 +280,7 @@ describe('Platform', function() {
         screenshots: false,
         video: true,
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       },
       true)
@@ -343,11 +300,11 @@ describe('Platform', function() {
 
     it('should create a run of a test job for native runner case if a valid local url ending in ?, valid values for all mandatory parameters, and few optional capabilities are provided', function() {
       var build = utils.buildDetails()
-      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html?', {
-        os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0'
+      return platform.run('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html?', {
+        os: 'OS X',
+        osVersion: 'Mavericks',
+        browser: 'Firefox',
+        browserVersion: '33.0'
       }, {
         timeout: 60,
         local: true,
@@ -355,7 +312,7 @@ describe('Platform', function() {
         screenshots: false,
         video: true,
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       },
       true)
@@ -382,56 +339,48 @@ describe('Platform', function() {
     this.timeout(0)
 
     it('should fail if no input is provided', function() {
-      function tester() {
-        platform.runMultiple(undefined, undefined, undefined)
-      }
-      expect(tester).to.throw(Error)
+      return platform.runMultiple(undefined, undefined, undefined)
+      .should.be.rejectedWith('no browsers specified for createMultiple')
     })
 
     it('should fail to create a run of test jobs if required keys are not provided in even one of the input browsers', function() {
-      function tester() {
-        platform.runMultiple('http://www.piaxis.tech', [{
-          os: 'Windows',
-          osVersion: '10',
-          browser: 'Chrome',
-          browserVersion: '45.0'
-        }, {
-          os: 'Windows'
-        }], { })
-      }
-      expect(tester).to.throw(Error)
+      return platform.runMultiple('http://www.piaxis.tech', [{
+        os: 'Windows',
+        osVersion: '10',
+        browser: 'Chrome',
+        browserVersion: '45.0'
+      }, {
+        os: 'Windows'
+      }], { })
+      .should.be.rejectedWith('required option browser missing')
     })
 
     it('should fail to create a run of test jobs if an unsupported key is provided in even one of the input browsers', function() {
-      function tester() {
-        platform.runMultiple('http://www.piaxis.tech', [{
-          os: 'Windows',
-          osVersion: 'Vista',
-          browser: 'Chrome',
-          browserVersion: '11.0'
-        }, {
-          os: 'Windows',
-          osVersion: 'Vista',
-          browser: 'Chrome',
-          browserVersion: '11.0',
-          abc: 123
-        }], { })
-      }
-      expect(tester).to.throw(Error)
+      return platform.runMultiple('http://www.piaxis.tech', [{
+        os: 'Windows',
+        osVersion: 'XP',
+        browser: 'Chrome',
+        browserVersion: '31.0'
+      }, {
+        os: 'Windows',
+        osVersion: 'XP',
+        browser: 'Chrome',
+        browserVersion: '31.0'
+        abc: 123
+      }], { })
+      .should.be.rejectedWith('option abc is not allowed')
     })
 
     it('should fail to create a run of tests jobs if an unsupported capabilities key is provided', function() {
-      function tester() {
-        platform.runMultiple('http://www.piaxis.tech', [{
-          os: 'Windows',
-          osVersion: 'Vista',
-          browser: 'Chrome',
-          browserVersion: '11.0'
-        }], {
-          abc: 123
-        })
-      }
-      expect(tester).to.throw(Error)
+      return platform.runMultiple('http://www.piaxis.tech', [{
+        os: 'Windows',
+        osVersion: 'XP',
+        browser: 'Chrome',
+        browserVersion: '31.0'
+      }], {
+        abc: 123
+      })
+      .should.be.rejectedWith('option abc is not allowed')
     })
 
     it('should create a run of test jobs if a valid remote url and valid values for all mandatory parameters are provided', function() {
@@ -439,17 +388,17 @@ describe('Platform', function() {
       var build = utils.buildDetails()
       return platform.runMultiple('http://www.piaxis.tech', [{
         os: 'Windows',
-        osVersion: '10',
+        osVersion: '7',
+        browser: 'Firefox',
+        browserVersion: '31.0'
+      }, {
+        os: 'OS X',
+        osVersion: 'Yosemite',
         browser: 'Chrome',
         browserVersion: '45.0'
-      }, {
-        os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '42.0'
       }], {
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -470,21 +419,21 @@ describe('Platform', function() {
     it('should create a run of test jobs if a valid local url and valid values for all mandatory parameters are provided', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
         os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+        osVersion: '8.1',
+        browser: 'Firefox',
+        browserVersion: '41.0'
       }, {
-        os: 'Windows',
-        osVersion: '10',
+        os: 'OS X',
+        osVersion: 'Sierra',
         browser: 'Chrome',
-        browserVersion: '42.0'
+        browserVersion: '52.0'
       }], {
         local: true,
         localIdentifier: 'platform-run-mult-1',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -508,21 +457,21 @@ describe('Platform', function() {
     it('should create a run of test jobs for native runner case if a valid local url containing query parameters, and valid values for all mandatory parameters are provided', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html?_=1414190941', [{
-        os: 'Windows',
-        osVersion: '10',
+      return platform.runMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html?_=1414190941', [{
+        os: 'OS X',
+        osVersion: 'El Capitan',
         browser: 'Chrome',
-        browserVersion: '45.0',
+        browserVersion: '50.0'
       }, {
         os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '42.0'
+        osVersion: '8',
+        browser: 'Firefox',
+        browserVersion: '37.0'
       }], {
         local: true,
         localIdentifier: 'platform-run-mult-1',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       },
       true)
@@ -555,57 +504,47 @@ describe('Platform', function() {
       this.timeout(0)
 
       it('should fail if no input is provided', function() {
-        function tester() {
-          platform.runScript(undefined)
-        }
-        expect(tester).to.throw(Error)
+        return platform.runScript(undefined, undefined, undefined, script)
+        .should.be.rejectedWith('required option browser missing')
       })
 
       it('should fail to create a run of a script session if required browser keys are not provided', function() {
-        function tester() {
-          platform.runScript('http://www.piaxis.tech', { }, { })
-        }
-        expect(tester).to.throw(Error)
+        return platform.runScript('http://www.piaxis.tech', { }, { }, script)
+        .should.be.rejectedWith('required option browser missing')
       })
 
       it('should fail to create a run of a script session if unsupported browser key is provided', function() {
-        function tester() {
-          platform.runScript('http://www.piaxis.tech', {
-            abc: 123,
-            os: 'Windows',
-            osVersion: 'Vista',
-            browser: 'Chrome',
-            browserVersion: '11.0'
-          }, { })
-        }
-        expect(tester).to.throw(Error)
+        return platform.runScript('http://www.piaxis.tech', {
+          abc: 123,
+          os: 'Windows',
+          osVersion: 'XP',
+          browser: 'Chrome',
+          browserVersion: '31.0'
+        }, { }, script)
+        .should.be.rejectedWith('option abc is not allowed')
       })
 
       it('should fail to create a run of a script session if unsupported capabilities key is provided', function() {
-        function tester() {
-          platform.runScript('http://www.piaxis.tech', {
-            os: 'Windows',
-            osVersion: 'Vista',
-            browser: 'Chrome',
-            browserVersion: '11.0'
-          }, {
-            abc: 123
-          })
-        }
-        expect(tester).to.throw(Error)
+        return platform.runScript('http://www.piaxis.tech', {
+          os: 'Windows',
+          osVersion: 'XP',
+          browser: 'Chrome',
+          browserVersion: '31.0'
+        }, {
+          abc: 123
+        }, script)
+        .should.be.rejectedWith('option abc is not allowed')
       })
 
       it('should fail to create a run of a script session if script parameter is not a function', function() {
-        function tester() {
-          platform.runScript('http://www.piaxis.tech', {
-            os: 'Windows',
-            osVersion: '10',
-            browser: 'Chrome',
-            browserVersion: '45.0'
-          }, {
-          })
-        }
-        expect(tester).to.throw(': invalid script')
+        expect(()=>{platform.runScript('http://www.piaxis.tech', {
+          os: 'Windows',
+          osVersion: '10',
+          browser: 'Chrome',
+          browserVersion: '45.0'
+        }, {
+        })})
+        .to.throw('invalid script')
       })
 
       it('should create a run of a script session if a valid remote url and valid values for all mandatary parameters are provided', function() {
@@ -614,11 +553,11 @@ describe('Platform', function() {
         return platform.runScript('http://www.piaxis.tech', {
           os: 'Windows',
           osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '35.0'
+          browser: 'Firefox',
+          browserVersion: '31.0'
         }, {
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -644,13 +583,13 @@ describe('Platform', function() {
         var build = utils.buildDetails()
         return platform.runScript('http://www.piaxis.tech', {
           os: 'Windows',
-          osVersion: '8',
+          osVersion: '8.1',
           browser: 'Chrome',
-          browserVersion: '35.0'
+          browserVersion: '48.0'
         }, {
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         badScript
@@ -674,15 +613,15 @@ describe('Platform', function() {
 
       it('should create a run of a script session if a valid local url and valid values for all mandatory parameters are provided', function() {
         var build = utils.buildDetails()
-        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
-          os: 'Windows',
-          osVersion: '8',
-          browser: 'Chrome',
+        return platform.runScript('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          os: 'OS X',
+          osVersion: 'Mavericks',
+          browser: 'Firefox',
           browserVersion: '35.0'
         }, {
           timeout: 60,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project,
           local: true,
           localIdentifier: 'platform-run-scr-1',
@@ -717,48 +656,42 @@ describe('Platform', function() {
       this.timeout(0)
 
       it('should fail if no input is provided', function() {
-        function tester() {
-          platform.runScriptMultiple(undefined)
-        }
-        expect(tester).to.throw(Error)
+        expect(()=>{platform.runScriptMultiple(undefined, undefined, undefined, script)})
+        .to.throw('no browsers specified for runScriptMultiple')
       })
 
       it('should fail to create a run of script sessions if required browser keys are not provided', function() {
-        function tester() {
-          platform.runScriptMultiple('http://www.piaxis.tech', [{ }], { })
-        }
-        expect(tester).to.throw(Error)
+        return platform.runScriptMultiple('http://www.piaxis.tech', [{ }], { }, script)
+        .should.be.rejectedWith('required option browser missing')
       })
 
       it('should fail to create a run of script sessions if script parameter provided is not of function type', function() {
-        function tester() {
-          platform.runScriptMultiple('http://www.piaxis.tech', [{
-            os: 'Windows',
-            osVersion: '10',
-            browser: 'Chrome',
-            browserVersion: '45.0'
-          }], {
-          })
-        }
-        expect(tester).to.throw(': invalid script')
+        expect(()=>{platform.runScriptMultiple('http://www.piaxis.tech', [{
+          os: 'Windows',
+          osVersion: '10',
+          browser: 'Chrome',
+          browserVersion: '45.0'
+        }], {
+        })})
+        .to.throw('invalid script')
       })
 
       it('should create a run of script sessions if a valid remote url and valid values for all mandatory parameters are provided', function() {
         var saveRun
         var build = utils.buildDetails()
         return platform.runScriptMultiple('http://www.piaxis.tech', [{
-          os: 'Windows',
-          osVersion: '8',
+          os: 'OS X',
+          osVersion: 'El Capitan',
           browser: 'Chrome',
-          browserVersion: '35.0'
+          browserVersion: '50.0'
         }, {
           os: 'Windows',
           osVersion: '10',
-          browser: 'Chrome',
-          browserVersion: '40.0'
+          browser: 'Firefox',
+          browserVersion: '41.0'
         }], {
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -786,19 +719,19 @@ describe('Platform', function() {
       it('should create a run of script sessions and tolerate errors thrown by scripts run if a valid local url tests and valid values for all mandatory parameters are provided', function() {
         var saveRun
         var build = utils.buildDetails()
-        return platform.runScriptMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
+        return platform.runScriptMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
           os: 'Windows',
-          osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '35.0'
+          osVersion: 'XP',
+          browser: 'Firefox',
+          browserVersion: '30.0'
         }, {
-          os: 'Windows',
-          osVersion: '10',
+          os: 'OS X',
+          osVersion: 'Snow Leopard',
           browser: 'Chrome',
-          browserVersion: '40.0'
+          browserVersion: '32.0'
         }], {
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         badScript
@@ -837,24 +770,24 @@ describe('Platform', function() {
       function tester() {
         platform.stop('1909aoopopo=oioid')
       }
-      expect(tester).to.throw(Error)
+      expect(tester).to.throw('no such run 1909aoopopo=oioid found')
     })
 
     it('should successfully stop an ongoing run of test jobs that access a remote url', function() {
       var build = utils.buildDetails()
       return platform.runMultiple('http://www.piaxis.tech', [{
         os: 'Windows',
-        osVersion: '10',
+        osVersion: 'XP',
         browser: 'Chrome',
-        browserVersion: '45.0',
+        browserVersion: '32.0'
       }, {
         os: 'Windows',
         osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '42.0'
+        browser: 'Edge',
+        browserVersion: '14.0'
       }], {
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -872,14 +805,14 @@ describe('Platform', function() {
       it('should successfully stop an ongoing run of script jobs that access a remote url', function() {
         var build = utils.buildDetails()
         return platform.runScript('http://www.piaxis.tech', {
-          os: 'Windows',
-          osVersion: '10',
-          browser: 'Chrome',
-          browserVersion: '45.0',
+          os: 'OS X',
+          osVersion: 'Snow Leopard',
+          browser: 'Firefox',
+          browserVersion: '31.0'
         }, {
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -900,16 +833,16 @@ describe('Platform', function() {
       return platform.runMultiple('http://www.piaxis.tech', [{
         os: 'Windows',
         osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+        browser: 'Firefox',
+        browserVersion: '45.0'
       }, {
-        os: 'Windows',
-        osVersion: '10',
+        os: 'OS X',
+        osVersion: 'Mavericks',
         browser: 'Chrome',
-        browserVersion: '42.0'
+        browserVersion: '39.0'
       }], {
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -929,12 +862,12 @@ describe('Platform', function() {
         return platform.runScript('http://www.piaxis.tech', {
           os: 'Windows',
           osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '35.0',
+          browser: 'Firefox',
+          browserVersion: '35.0'
         }, {
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -952,21 +885,21 @@ describe('Platform', function() {
 
     it('should successfully stop an ongoing run of test jobs that access a local url', function() {
       var build = utils.buildDetails()
-      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
-        os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+      return platform.runMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
+        os: 'OS X',
+        osVersion: 'Sierra',
+        browser: 'Firefox',
+        browserVersion: '45.0'
       }, {
         os: 'Windows',
-        osVersion: '10',
+        osVersion: '8.1',
         browser: 'Chrome',
-        browserVersion: '42.0'
+        browserVersion: '39.0'
       }], {
         local: true,
         localIdentifier: 'platform-run-mult-1',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -986,17 +919,17 @@ describe('Platform', function() {
     if(process.version > 'v6') {
       it('should successfully stop an ongoing run of script jobs that access a local url', function() {
         var build = utils.buildDetails()
-        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
+        return platform.runScript('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
-          browserVersion: '35.0',
+          browserVersion: '35.0'
         }, {
           local: true,
           localIdentifier: 'tunnel-x',
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1022,21 +955,21 @@ describe('Platform', function() {
     it('should successfully stop remaining running test jobs of a run that access a local url after one test job from the run is stopped manually', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
-        os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+      return platform.runMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
+        os: 'OS X',
+        osVersion: 'El Capitan',
+        browser: 'Firefox',
+        browserVersion: '45.0'
       }, {
-        os: 'Windows',
-        osVersion: '10',
+        os: 'OS X',
+        osVersion: 'Mavericks',
         browser: 'Chrome',
-        browserVersion: '42.0'
+        browserVersion: '38.0'
       }], {
         local: true,
         localIdentifier: 'my-test-id',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1069,7 +1002,7 @@ describe('Platform', function() {
       function tester() {
         platform.status('1909aoopopo=oioid')
       }
-      expect(tester).to.throw(Error)
+      expect(tester).to.throw('no such run 1909aoopopo=oioid found')
     })
 
     it('should say "running" for an ongoing run of a test job that accesses a remote url', function() {
@@ -1078,11 +1011,11 @@ describe('Platform', function() {
       return platform.run('http://www.piaxis.tech', {
         os: 'Windows',
         osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+        browser: 'Firefox',
+        browserVersion: '39.0'
       }, {
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1112,14 +1045,14 @@ describe('Platform', function() {
         var runId
         var build = utils.buildDetails()
         return platform.runScript('http://www.piaxis.tech', {
-          os: 'Windows',
-          osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '35.0',
+          os: 'OS X',
+          osVersion: 'Lion',
+          browser: 'Firefox',
+          browserVersion: '31.0'
         }, {
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1151,12 +1084,12 @@ describe('Platform', function() {
       var build = utils.buildDetails()
       return platform.run('http://www.piaxis.tech', {
         os: 'Windows',
-        osVersion: '10',
+        osVersion: 'XP',
         browser: 'Chrome',
-        browserVersion: '45.0',
+        browserVersion: '31.0'
       }, {
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1191,13 +1124,13 @@ describe('Platform', function() {
         var build = utils.buildDetails()
         return platform.runScript('http://www.piaxis.tech', {
           os: 'Windows',
-          osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '35.0',
+          osVersion: '10',
+          browser: 'Firefox',
+          browserVersion: '45.0'
         }, {
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script,
@@ -1232,16 +1165,16 @@ describe('Platform', function() {
     it('should say "running" for an ongoing run of a test job that accesses a local url', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
-        os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+      return platform.run('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+        os: 'OS X',
+        osVersion: 'Mavericks',
+        browser: 'Firefox',
+        browserVersion: '41.0'
       }, {
         local: true,
         localIdentifier: 'platform-run-1',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1284,17 +1217,17 @@ describe('Platform', function() {
       it('should say "running" for an ongoing run of a script job that accesses a local url', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
-          os: 'Windows',
-          osVersion: '10',
+        return platform.runScript('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          os: 'OS X',
+          osVersion: 'Snow Leopard',
           browser: 'Chrome',
-          browserVersion: '45.0',
+          browserVersion: '36.0'
         }, {
           local: true,
           localIdentifier: 'platform-run-scr-1',
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1338,16 +1271,16 @@ describe('Platform', function() {
     it('should say "stopped" for a completed run of a test job that accessed a local url', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
+      return platform.run('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
         os: 'Windows',
         osVersion: '10',
         browser: 'Chrome',
-        browserVersion: '45.0',
+        browserVersion: '52.0'
       }, {
         local: true,
         localIdentifier: 'platform-run-1',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1386,17 +1319,17 @@ describe('Platform', function() {
       it('should say "stopped" for a completed run of a script job that accessed a local url', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
+        return platform.runScript('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
           os: 'Windows',
-          osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '35.0',
+          osVersion: '8.1',
+          browser: 'Firefox',
+          browserVersion: '43.0'
         }, {
           local: true,
           localIdentifier: 'platform-run-scr-1',
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1432,16 +1365,16 @@ describe('Platform', function() {
     it('should say "messy" for an ongoing run of a test job that accesses a local url after the tunnel is stopped manually', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.run('http://127.0.0.1:3000/tests/pages/tests.html', {
-        os: 'Windows',
-        osVersion: '10',
+      return platform.run('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+        os: 'OS X',
+        osVersion: 'Mountain Lion',
         browser: 'Chrome',
-        browserVersion: '45.0',
+        browserVersion: '42.0'
       }, {
         local: true,
         localIdentifier: 'platform-run-1',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1485,17 +1418,17 @@ describe('Platform', function() {
       it('should say "messy" for an ongoing run of a script job that access a local url after the tunnel is stopped manually', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
-          os: 'Windows',
-          osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '35.0',
+        return platform.runScript('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          os: 'OS X',
+          osVersion: 'Yosemite',
+          browser: 'Firefox',
+          browserVersion: '38.0'
         }, {
           local: true,
           localIdentifier: 'platform-run-scr-1',
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1559,17 +1492,17 @@ describe('Platform', function() {
       var build = utils.buildDetails()
       return platform.runMultiple('http://www.piaxis.tech', [{
         os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+        osVersion: 'XP',
+        browser: 'Opera',
+        browserVersion: '30.0'
       }, {
-        os: 'Windows',
-        osVersion: '10',
+        os: 'OS X',
+        osVersion: 'Mountain Lion',
         browser: 'Chrome',
-        browserVersion: '42.0'
+        browserVersion: '41.0'
       }], {
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1587,14 +1520,14 @@ describe('Platform', function() {
       it('should successfully stop an ongoing run of script jobs that access a remote url and close the platform', function() {
         var build = utils.buildDetails()
         return platform.runScript('http://www.piaxis.tech', {
-          os: 'Windows',
-          osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '36.0',
+          os: 'OS X',
+          osVersion: 'Lion',
+          browser: 'Firefox',
+          browserVersion: '36.0'
         }, {
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1614,17 +1547,17 @@ describe('Platform', function() {
       var build = utils.buildDetails()
       return platform.runMultiple('http://www.piaxis.tech', [{
         os: 'Windows',
-        osVersion: '10',
+        osVersion: '8',
         browser: 'Chrome',
-        browserVersion: '45.0',
+        browserVersion: '45.0'
       }, {
-        os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '42.0'
+        os: 'OS X',
+        osVersion: 'Yosemite',
+        browser: 'Firefox',
+        browserVersion: '46.0'
       }], {
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1646,13 +1579,13 @@ describe('Platform', function() {
         var build = utils.buildDetails()
         return platform.runScript('http://www.piaxis.tech', {
           os: 'Windows',
-          osVersion: '8',
+          osVersion: '10',
           browser: 'Chrome',
-          browserVersion: '35.0',
+          browserVersion: '51.0'
         }, {
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1673,21 +1606,21 @@ describe('Platform', function() {
 
     it('should shutdown the tunnels and complete closing the platform if an ongoing run of test jobs that access a local url was stopped by calling "stop" method manually', function() {
       var build = utils.buildDetails()
-      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
         os: 'Windows',
         osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+        browser: 'Edge',
+        browserVersion: '15.0'
       }, {
-        os: 'Windows',
-        osVersion: '10',
+        os: 'OS X',
+        osVersion: 'Sierra',
         browser: 'Chrome',
-        browserVersion: '42.0'
+        browserVersion: '53.0'
       }], {
         local: true,
         localIdentifier: 'platform-run-mult-1',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1723,17 +1656,17 @@ describe('Platform', function() {
     if(process.version > 'v6') {
       it('should shutdown the tunnels and complete closing the platform if an ongoing run of script jobs that access a local url was stopped by calling "stop" method manually', function() {
         var build = utils.buildDetails()
-        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
+        return platform.runScript('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
           os: 'Windows',
-          osVersion: '8',
-          browser: 'Chrome',
-          browserVersion: '35.0',
+          osVersion: '7',
+          browser: 'Firefox',
+          browserVersion: '36.0'
         }, {
           local: true,
           localIdentifier: 'platform-run-scr-1',
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1771,21 +1704,21 @@ describe('Platform', function() {
     it('should stop remaining test jobs of an ongoing run, shutdown the tunnels, and complete closing the platform if one test from the run of test jobs that access a local url was manually stopped', function() {
       var runId
       var build = utils.buildDetails()
-      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
         os: 'Windows',
-        osVersion: '10',
+        osVersion: '7',
         browser: 'Chrome',
-        browserVersion: '45.0',
+        browserVersion: '45.0'
       }, {
-        os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '42.0'
+        os: 'OS X',
+        osVersion: 'Snow Leopard',
+        browser: 'Firefox',
+        browserVersion: '32.0'
       }], {
         local: true,
         localIdentifier: 'my-test-id',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1819,17 +1752,17 @@ describe('Platform', function() {
       it('should stop remaining script jobs of an ongoing run, shutdown the tunnels, and complete closing the platform if one of the script jobs from the run of script jobs that access a local url was manually stopped', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
+        return platform.runScript('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
           os: 'Windows',
           osVersion: '8',
           browser: 'Chrome',
-          browserVersion: '35.0'
+          browserVersion: '45.0'
         }, {
           local: true,
           localIdentifier: 'my-test-id',
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1863,21 +1796,21 @@ describe('Platform', function() {
 
     it('should stop test jobs of an ongoing run of test jobs that access a local url and complete closing the platform even if tunnels involved in the run were stopped manually in between', function() {
       var build = utils.buildDetails()
-      return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
+      return platform.runMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
         os: 'Windows',
         osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '45.0',
+        browser: 'Edge',
+        browserVersion: '14.0'
       }, {
         os: 'Windows',
-        osVersion: '10',
-        browser: 'Chrome',
-        browserVersion: '42.0'
+        osVersion: 'XP',
+        browser: 'Firefox',
+        browserVersion: '34.0'
       }], {
         local: true,
         localIdentifier: 'platform-run-mult-1',
         build: build.build,
-        test: build.name,
+        test: build.test,
         project: build.project
       })
       .then(run => {
@@ -1913,17 +1846,17 @@ describe('Platform', function() {
       it('should stop scripts jobs of an ongoing run of script jobs that access a local url and complete closing the platform even if tunnels involved in the run were stopped manually in between', function() {
         var runId
         var build = utils.buildDetails()
-        return platform.runScript('http://127.0.0.1:3000/tests/pages/tests.html', {
-          os: 'Windows',
-          osVersion: '8',
+        return platform.runScript('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', {
+          os: 'OS X',
+          osVersion: 'Mountain Lion',
           browser: 'Chrome',
-          browserVersion: '35.0'
+          browserVersion: '41.0'
         }, {
           local: true,
           localIdentifier: 'my-test-id',
           screenshots: true,
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         },
         script)
@@ -1961,21 +1894,21 @@ describe('Platform', function() {
 
       it('should fail if there is a failure in stopping the tunnels associated with a run of test jobs that access a local url (simulated with removing execute permissions for the tunnel binary)', function() {
         var build = utils.buildDetails(), error
-        return platform.runMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
+        return platform.runMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
           os: 'Windows',
-          osVersion: '10',
-          browser: 'Chrome',
-          browserVersion: '45.0',
+          osVersion: '8.1',
+          browser: 'Firefox',
+          browserVersion: '41.0'
         }, {
-          os: 'Windows',
-          osVersion: '10',
-          browser: 'Chrome',
+          os: 'OS X',
+          osVersion: 'Yosemite',
+          browser: 'Firefox',
           browserVersion: '42.0'
         }], {
           local: true,
           localIdentifier: 'platform-run-mult-1',
           build: build.build,
-          test: build.name,
+          test: build.test,
           project: build.project
         })
         .then(run => {
@@ -1998,21 +1931,21 @@ describe('Platform', function() {
       if(process.version > 'v6') {
         it('should fail if there is a failure in stopping the tunnels associated with a run of script jobs that access a local url (simulated with removing execute permissions for the tunnel binary)', function() {
           var build = utils.buildDetails(), error
-          return platform.runScriptMultiple('http://127.0.0.1:3000/tests/pages/tests.html', [{
+          return platform.runScriptMultiple('http://build.cross-browser-tests-runner.org:3000/tests/pages/tests.html', [{
             os: 'Windows',
-            osVersion: '10',
+            osVersion: 'XP',
             browser: 'Chrome',
-            browserVersion: '45.0',
+            browserVersion: '30.0'
           }, {
-            os: 'Windows',
-            osVersion: '10',
-            browser: 'Chrome',
+            os: 'OS X',
+            osVersion: 'El Capitan',
+            browser: 'Firefox',
             browserVersion: '42.0'
           }], {
             local: true,
             localIdentifier: 'platform-run-mult-1',
             build: build.build,
-            test: build.name,
+            test: build.test,
             project: build.project
           },
           script)

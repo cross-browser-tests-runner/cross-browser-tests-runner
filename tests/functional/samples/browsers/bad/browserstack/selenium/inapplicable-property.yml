@@ -1,0 +1,7 @@
+BrowserStack:
+  Selenium:
+    iOS:
+      "5.1":
+        Mobile Safari:
+          iPhone 4S:
+            resolution: 400x300

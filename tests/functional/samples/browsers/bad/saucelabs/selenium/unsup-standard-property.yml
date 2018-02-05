@@ -1,0 +1,7 @@
+SauceLabs:
+  Selenium:
+    Windows:
+      "7":
+        Chrome:
+          "41.0-44.0":
+            os: abc

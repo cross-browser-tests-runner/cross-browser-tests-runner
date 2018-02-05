@@ -7,8 +7,8 @@
     "SauceLabs": {
       "Selenium": [
         {
-          "os": "Mac OSX",
-          "osVersion": "10.12",
+          "os": "OS X",
+          "osVersion": "Sierra",
           "browser": "Chrome",
           "browserVersion": "45.0"
         },
@@ -43,6 +43,6 @@
   },
   "server": {
     "port": 7883,
-    "host": "127.0.0.1"
+    "host": "build.cross-browser-tests-runner.org"
   }
 }

@@ -1,7 +1,10 @@
 'use strict'
 
 const
-  allowedOptions = [ 'input', 'output', 'help' ]
+  allowedOptions = [ 'input', 'output', 'help' ],
+  pathPfx = './node_modules/.bin/',
+  strCaps = ['browserVersion', 'device'],
+  boolCaps = ['screenshots', 'video']
 
 let
   path = require('path'),
@@ -41,26 +44,7 @@ let
     screenshots: false,
     video: false,
     timeout: 60
-  },
-  aliases
-
-const pathPfx = './node_modules/.bin/'
-
-const swap = obj => {
-  let ret = { }
-  Object.keys(obj).forEach(key => {
-    ret[obj[key]] = key
-  })
-  return ret
-}
-
-function getAliases(platform) {
-  let platformLc = platform.toLowerCase()
-  let confFile = path.resolve(__dirname, './../../../../conf/', platformLc + '-conf.json')
-  aliases = JSON.parse(fs.readFileSync(confFile, 'utf8')).Aliases
-  aliases['Operating Systems'] = swap(aliases['Operating Systems'])
-  aliases['Browsers'] = swap(aliases['Browsers'])
-}
+  }
 
 function readExistingOutput() {
   if(fs.existsSync(outputFile)) {
@@ -74,9 +58,6 @@ function verifyInput(platform) {
     throw new Error('No browsers defined for JS testing using ' + platform + ' in ' + inputFile)
   }
 }
-
-const strCaps = ['browserVersion', 'device']
-const boolCaps = ['screenshots', 'video']
 
 function genConfig(platform) {
   let platformLc = platform.toLowerCase()
@@ -123,9 +104,9 @@ function getLauncherCore(launcher, platform, platformLc) {
     args: [
       pathPfx + "cbtr-testem-" + platformLc + "-browser",
       "--local",
-      "--os", aliases['Operating Systems'][launcher.os] || launcher.os,
+      "--os", launcher.os,
       "--osVersion", launcher.osVersion,
-      "--browser", aliases['Browsers'][launcher.browser] || launcher.browser,
+      "--browser", launcher.browser,
       "--timeout", answers.timeout
     ],
     protocol: "browser"
@@ -170,7 +151,6 @@ function getAnswers(platform, callback) {
 }
 
 function main(platform) {
-  getAliases(platform)
   readExistingOutput()
   verifyInput(platform)
   getAnswers(platform, genConfig)

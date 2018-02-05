@@ -1,0 +1,36 @@
+{
+  "test_file": [
+    "samples/native/tests/html/selenium/tests.html"
+  ],
+  "test_script": "samples/native/scripts/script-1.js",
+  "browsers": {
+    "BrowserStack": {
+      "Selenium": [
+        {
+          "os": "Mac OSX",
+          "osVersion": "Mavericks",
+          "browser": "Firefox",
+          "browserVersion": "39.0"
+        },
+        {
+          "os": "Android",
+          "osVersion": "4.0",
+          "browser": "Android Browser Selenium",
+          "browserVersion": null,
+          "device": "Motorola Razr"
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "BrowserStack": {
+      "local": true,
+      "localIdentifier": "cbtr-sample",
+      "screenshots": true
+    }
+  },
+  "server": {
+    "port": 7982,
+    "host": "build.cross-browser-tests-runner.org"
+  }
+}
